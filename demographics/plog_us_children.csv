@@ -1,0 +1,118 @@
+subj_id,age,gender,ethnicity,live_here,from_here,from_where,sibling_number,sibling_order,language,language_home,language_school,school,church,religion,ethnicity_cat,religion_cat
+us_children_001_beetles,7,F,missing data,no,no,missing data,1 brother,1st child,"english, urdu",english,english,Yes,sometimes,islam,NA,muslim
+us_children_002_cellphones,NA,F,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+us_children_003_chickens,9,M,missing data,yes,no,India,1,2nd child,"english, kannada",english,english,yes,no,hinduism,NA,hindu
+us_children_004_children,9,M,missing data,yes,no,India,"1 brother, 1 sister","2nd, 3rd (twin)","english, telgu, tamil",english,english,yes,yes,hinduism,NA,hindu
+us_children_005_dogs,9,F,missing data,yes,no,India,2 brothers,2nd child (twin),"english, tamil, telugu",english,english,yes,yes,hinduism,NA,hindu
+us_children_006_flowers,8,M,missing data,no,yes,na,1 sister,2nd child,"spanish, english",english,english,yes,yes,presbyterian,NA,presbyterian
+us_children_007_ghosts,7,M,missing data,no,no,Fremont,0,1st child,"english, hindi",english,english,yes,sometimes,jain,NA,jain
+us_children_008_god,8,F,missing data,no,no,Morgan Hill,"2 brothers, 2 sisters",4th child,english,english,english,yes,yes,catholic,NA,christian
+us_children_009_mice,7,M,missing data,no,no,missing data,missing data,missing data,"hindi, english",hindi,english,yes,yes,hinduism,NA,hindu
+us_children_010_rocks,7,M,missing data,yes,no,India,1 brother,1st child,english,english,english,yes,yes,hinduism,NA,hindu
+us_children_011_cellphones,7,F,missing data,no,no,California,1 brother,2nd child,english,english,english,yes,no,muslim,NA,muslim
+us_children_012_chickens,10,M,missing data,yes,yes,na,4,1st child,english,english,english,yes,yes,catholic,NA,christian
+us_children_013_children,8,F,missing data,yes,yes,na,4,2nd child,english,english,english,yes,yes,catholic,NA,christian
+us_children_014_dogs,8,F,missing data,no,no,Kansas,0,1st child,"english, spanish, french",english,english,yes,no,christian,NA,christian
+us_children_015_flowers,9,M,hispanic / american,missing data,missing data,missing data,3 brothers,4th child,english,english,english,yes,yes,catholic,multiple,christian
+us_children_016_ghosts,7,F,white / latin,missing data,missing data,missing data,0,1st child,"english, tagalog, spanish",english,english,yes,yes,baptist,multiple,christian
+us_children_017_god,10,F,hispanic / white,missing data,missing data,missing data,"4 brothers, 1 sister",middle,"french, english, spanish",english,english,yes,missing data,missing data,multiple,NA
+us_children_018_mice,7,M,white,missing data,missing data,missing data,"2 brothers, 4 sisters",middle,"french, english",english,english,yes,missing data,missing data,white,NA
+us_children_019_rocks,9,F,asian,missing data,missing data,missing data,0,1st child,chinese,chinese,chinese,yes,no,none,east asian,none
+us_children_020_beetles,8,F,asian,missing data,missing data,missing data,1,1st child,english,chinese,english,yes,no,none,east asian,none
+us_children_021_chickens,12,F,chinese,missing data,missing data,missing data,0,1st child,"english, chinese",english,english,yes,no,atheist,east asian,atheist
+us_children_022_chickens,11,F,caucasian / asian,missing data,missing data,missing data,0,1st child,english,english,english,yes,no,none,multiple,none
+us_children_023_dogs,11,F,irish,missing data,missing data,missing data,"1 brother, 1 sister",3rd child,english,english,english,yes,yes,catholic,irish,christian
+us_children_024_flowers,11,F,hispanic,missing data,missing data,missing data,2,2nd child,english,spanish,english,yes,sometimes,catholic,hispanic/latino,christian
+us_children_025_ghosts,9,F,caucasian / white,missing data,missing data,missing data,1 brother,2nd child,"sweedish, english",sweedish,english,yes,no,atheist,multiple,atheist
+us_children_026_god,8,F,missing data,missing data,missing data,missing data,1 brother,1st child,"english, spanish",english,english,yes,no,none,NA,none
+us_children_027_mice,9,M,asian,missing data,missing data,missing data,"1 brother, 1 sister",3rd child,english,english,english,yes,no,agnostic,east asian,agnostic
+us_children_028_rocks,9,M,missing data,missing data,missing data,missing data,1 brother,2nd child,english,english,english,yes,missing data,missing data,NA,NA
+us_children_029_beetles,10,F,indian american,missing data,missing data,missing data,2,3rd child,"spanish, english",english,english,yes,rarely,hinduism,indian american,hindu
+us_children_030_cellphones,12,M,mexican / american,missing data,missing data,missing data,2,youngest,"english, spanish, french","english, spanish",english,yes,on holidays,healthy,multiple,healthy
+us_children_031_children,12,M,mexican / american,missing data,missing data,missing data,2,youngest,"english, spanish, french","english, spanish",english,yes,on holidays,healthy,multiple,healthy
+us_children_032_dogs,7,F,white,missing data,missing data,missing data,0,1st child,english,english,english,yes,no,australian,white,australian
+us_children_033_flowers,8,F,caucasian,missing data,missing data,missing data,2 younger sisters,1st child,english,english,english,yes,yes,catholic,white,christian
+us_children_034_ghosts,9,M,white,missing data,missing data,missing data,1,2nd child,english,english,english,yes,no,limited,white,limited
+us_children_035_god,8,F,white,missing data,missing data,missing data,2,3rd child,english,english,english,yes,no,none,white,none
+us_children_036_mice,8,M,white,missing data,missing data,missing data,2,2nd child,english,english,english,yes,no,none,white,none
+us_children_037_rocks,11,M,asian,missing data,missing data,missing data,0,1st child,chinese,chinese,english,yes,yes,"he joins awna of ccic, reads bible, sings songs",east asian,multiple
+us_children_038_beetles,9,M,white,missing data,missing data,missing data,0,1st child,"english, italian, spanish",english,english,yes,used to go,none,white,none
+us_children_039_cellphones,NA,F,white,missing data,missing data,missing data,1 twin sister,youngest,english,english,english,yes,I don't remember,christian,white,christian
+us_children_040_chickens,NA,F,white,missing data,missing data,missing data,1,1st child,english,english,english,yes,no,christian,white,christian
+us_children_041_dogs,10,F,caucasian,missing data,missing data,missing data,1,1st child,english,english,english,yes,no,atheist,white,atheist
+us_children_042_flowers,8,M,asian,missing data,missing data,missing data,0,1st child,"english, korean","english, korean",english,yes,yes,christian,east asian,christian
+us_children_043_ghosts,5,F,eurasian,missing data,missing data,missing data,1 brother,2nd child,"english, korean",english,english,yes,no,none,eurasian,none
+us_children_044_god,7,F,indian american,missing data,missing data,missing data,1 brother,1st child,"hindi, english","hindi, english",english,yes,yes,hinduism,indian american,hindu
+us_children_045_mice,10,M,asian,missing data,missing data,missing data,1,1st child,english,english,english,yes,no,atheist,east asian,atheist
+us_children_046_rocks,NA,F,white,missing data,missing data,missing data,0,1st child,"english, armenian, bulgarian",english,english,yes,no,orthodox,white,orthodox
+us_children_047_beetles,NA,F,white,missing data,missing data,missing data,1 brother,2nd child,"russian, english",russian,english,yes,missing data,missing data,white,NA
+us_children_048_cellphones,7,F,mixed caucasian / asian,missing data,missing data,missing data,0,1st child,english,english,english,yes,missing data,none,multiple,none
+us_children_049_chickens,9,F,african american,missing data,missing data,missing data,"1 brother, 2 sisters",4th child,english,english,english,yes,missing data,christian,black,christian
+us_children_050_children,8,F,african american,missing data,missing data,missing data,"11 brothers, 4 sisters",16th child,english,english,english,yes,no,existent but she was unable to tell me what religion,black,existent but she was unable to tell me what religion
+us_children_051_flowers,10,F,african american,missing data,missing data,missing data,"1 brother, 2 sisters",middle,english,english,english,yes,no,none,black,none
+us_children_052_ghosts,10,F,white,missing data,missing data,missing data,0,1st child,english,english,english,yes,no,christian,white,christian
+us_children_053_god,10,F,missing data,missing data,missing data,missing data,1,1st child,"spanish, english",spanish,english,yes,yes,christian,NA,christian
+us_children_054_mice,9,F,hispanic,missing data,missing data,missing data,3,middle,"english, spanish",english,"english, spanish",yes,yes,christian,hispanic/latino,christian
+us_children_055_rocks,8,M,korean,missing data,missing data,missing data,2,1st child,"english, korean",english,english,yes,yes,christian,east asian,christian
+us_children_056_beetles,11,M,white / asian,missing data,missing data,missing data,2,1st child,english,english,english,yes,yes,catholic,multiple,christian
+us_children_057_cellphones,11,M,white???,missing data,missing data,missing data,1,1st child,"english, learning german",english,english,yes,yes,complicated lutheran & agnostic,white???,complicated lutheran & agnostic
+us_children_058_chickens,9,F,asian,missing data,missing data,missing data,1 sister,1st child,english,english,english,yes,missing data,missing data,east asian,NA
+us_children_059_children,9,F,w / c,missing data,missing data,missing data,1,2nd child,"e, pa",e,e,yes,yes,catholic,multiple,christian
+us_children_060_dogs,8,F,missing data,yes,missing data,missing data,1 brother,2nd child,"english, spanish","english, spanish",missing data,yes,missing data,i don't know,NA,i don't know
+us_children_061_ghosts,9,F,missing data,missing data,missing data,missing data,4 brothers,1st child,missing data,missing data,missing data,missing data,missing data,missing data,NA,NA
+us_children_062_god,8,F,missing data,yes,missing data,missing data,2,2nd child,"spanish, english",english,missing data,yes,sometimes,christian,NA,christian
+us_children_063_mice,9,F,missing data,yes,missing data,missing data,1 brother,1st child,"spanish, english",spanish,missing data,yes,yes,christian,NA,christian
+us_children_064_flowers,8,M,missing data,missing data,missing data,missing data,1,1st child,english,english,english,yes,yes,christian,NA,christian
+us_children_065_god,7,M,caucasian,missing data,missing data,missing data,2 sisters,3rd child,english,english,english,yes,missing data,christian,white,christian
+us_children_066_mice,11,M,asian,missing data,missing data,missing data,0,1st child,"korean, english",korean,english,yes,yes,catholic,east asian,christian
+us_children_067_rocks,9,M,indian,missing data,missing data,missing data,1 sister,1st child,english,english,english,yes,yes,hinduism,south asian,hindu
+us_children_068_beetles,7,F,indian / asian,missing data,missing data,missing data,1 younger sister,1st child,"english, marati, kannada",english,english,yes,yes,hinduism,multiple,hindu
+us_children_069_cellphones,7,F,asian / hispanic,missing data,missing data,missing data,2,1st child,"english, spanish, tagalog, italian",english,"english, spanish",yes,yes,catholic,multiple,christian
+us_children_070_children,12,M,asian,missing data,missing data,missing data,1 sister,1st child,"english, hindi",english,english,yes,missing data,missing data,east asian,NA
+us_children_071_chickens,NA,F,asian,missing data,missing data,missing data,1,2nd child,"hindi, english",english,english,yes,missing data,missing data,east asian,NA
+us_children_072_dogs,12,F,caucasian,missing data,missing data,missing data,2 brothers,2nd child,"english, french",english,english,yes,yes,christian,white,christian
+us_children_073_flowers,7,M,caucasian,missing data,missing data,missing data,3,4th child,english,english,english,yes,yes,christian,white,christian
+us_children_074_ghosts,10,F,asian / black,missing data,missing data,missing data,2,3rd child,"english, tagalog, hawaiian spanish",english,english,yes,no,catholic,multiple,christian
+us_children_075_mice,7,M,chinese,missing data,missing data,missing data,1,2nd child,chinese,english,chinese,yes,no,na,east asian,na
+us_children_076_rocks,9,F,chinese,missing data,missing data,missing data,1,1st child,english,english,english,yes,no,na,east asian,na
+us_children_077_beetles,7,F,asian chinese,missing data,missing data,missing data,1,1st child,"english, mandarin",english,english,yes,yes,catholic,asian chinese,christian
+us_children_078_cellphones,10,F,asian indian,missing data,missing data,missing data,1,2nd child,"english, hindi",english,english,yes,yes,hinduism,asian indian,hindu
+us_children_079_chickens,10,F,asian,missing data,missing data,missing data,1,1st child,english,english,english,yes,missing data,missing data,east asian,NA
+us_children_080_children,10,M,black / hispanic,missing data,missing data,missing data,2 brothers,1st child,english,english,english,yes,yes,christian,multiple,christian
+us_children_081_dogs,8,F,caucasian,missing data,missing data,missing data,1,2nd child,english,english,english,yes,yes,protestant,white,protestant
+us_children_082_flowers,10,M,hispanic,missing data,missing data,missing data,missing data,missing data,missing data,missing data,missing data,missing data,missing data,missing data,hispanic/latino,NA
+us_children_083_ghosts,10,F,american/ new zealander,missing data,missing data,missing data,"3 brothers, 3 sisters",7th child,english,english,english,yes,no,na,multiple,na
+us_children_084_god,9,F,tawian america,missing data,missing data,missing data,2,3rd child,"chinese, english",english,"chinese, english",yes,no,none,tawian america,none
+us_children_085_rocks,6,M,caucasian,missing data,missing data,missing data,0,1st child,english,english,english,yes,no,christian,white,christian
+us_children_086_beetles,7,F,"black, asian",missing data,missing data,missing data,1 sister,2nd child,english,english,english,yes,no,none,multiple,none
+us_children_087_beetles,11,F,mexican american,missing data,missing data,missing data,"1 brother, 1 sister",1st child,"english, spanish","english, spanish","english, spanish",yes,yes,catholic,hispanic/latino,christian
+us_children_088_cellphones,10,M,white,missing data,missing data,missing data,1 brother,1st child,english,english,english,yes,yes,christian,white,christian
+us_children_089_chickens,8,M,white,missing data,missing data,missing data,1,2nd child,english,english,english,yes,no,not religious,white,not religious
+us_children_090_children,11,F,white,missing data,missing data,missing data,1,1st child,english,english,english,yes,no,not religious-but we blieve in god,white,not religious-but we blieve in god
+us_children_091_dogs,9,M,hispanic,missing data,missing data,missing data,1 brother,twins,english,english,english,yes,yes,catholic,hispanic/latino,christian
+us_children_092_flowers,9,M,hispanic,missing data,missing data,missing data,7 brothers,twins,english,english,english,yes,yes,catholic,hispanic/latino,christian
+us_children_093_ghosts,11,F,white,missing data,missing data,missing data,1 sister,2nd child,english,english,english,yes,yes,catholic,white,christian
+us_children_094_god,9,M,white american,missing data,missing data,missing data,1,1st child,english,english,english,yes,no,secular,white american,secular
+us_children_095_mice,9,M,asian,missing data,missing data,missing data,0,1st child,english,english,english,yes,yes,christian,east asian,christian
+us_children_096_beetles,11,F,white,missing data,missing data,missing data,1,1st child,english,english,english,yes,no,none,white,none
+us_children_097_cellphones,9,M,asian,missing data,missing data,missing data,2 sisters,3rd child,english,english,english,yes,missing data,missing data,east asian,NA
+us_children_098_chickens,10,M,asian,missing data,missing data,missing data,2,2nd child,"english, taiwanese mandarin",mandarin,english,yes,yes,christian,east asian,christian
+us_children_099_children,9,M,asian indian,missing data,missing data,missing data,1,1st child,"english, telugu",telugu,english,yes,yes,hinduism,asian indian,hindu
+us_children_100_dogs,10,M,caucasian,missing data,missing data,missing data,0,1st child,"english, spanish",english,english,yes,missing data,christian,white,christian
+us_children_101_flowers,9,M,asian,missing data,missing data,missing data,1 brother,1st child,english,english,english,yes,no,christian,east asian,christian
+us_children_102_ghosts,11,M,asian,missing data,missing data,missing data,0,1st child,english,english,english,yes,yes,occassionally attend christian church,east asian,occassionally attend christian church
+us_children_103_god,8,M,caucasian,missing data,missing data,missing data,2,3rd child,"english, spanish","english, spanish",english,yes,missing data,missing data,white,NA
+us_children_104_mice,10,F,asian,missing data,missing data,missing data,0,1st child,"english, mandarin",mandarin,english,yes,no,na,east asian,na
+us_children_105_rocks,9,M,asian,missing data,missing data,missing data,2,1st child,english,english,english,yes,yes,christian,east asian,christian
+us_children_106_cellphones,8,F,asian,missing data,missing data,missing data,2 brothers,3rd child,english,english,english,yes,yes,christian,east asian,christian
+us_children_107_chickens,10,F,indian,missing data,missing data,missing data,1,1st child,"english, gujarati",english,english,yes,yes,religious -non violence,south asian,religious -non violence
+us_children_108_children,9,M,asian,missing data,missing data,missing data,0,1st child,"english, hindi","english, hindi",english,yes,yes,hinduism,east asian,hindu
+us_children_109_dogs,6,F,asian,missing data,missing data,missing data,2,1st child,"english, korean",korean,english,yes,yes,christian,east asian,christian
+us_children_110_flowers,9,F,hispanic,missing data,missing data,missing data,"1 brother, 2 sisters",middle,"spanish, english",spanish,english,yes,yes,christian,hispanic/latino,christian
+us_children_111_ghosts,9,M,white,missing data,missing data,missing data,1,twins,english,english,english,yes,missing data,missing data,white,NA
+us_children_112_god,9,F,middle eastern,missing data,missing data,missing data,4,middle,"arabic, english",english,english,yes,no,na,middle eastern,na
+us_children_113_mice,9,M,white,missing data,missing data,missing data,1,twins,english,english,english,yes,missing data,missing data,white,NA
+us_children_114_beetles,8,F,mexican,missing data,missing data,missing data,3,2nd child,"english, spanish",english,english,yes,no,na,hispanic/latino,na
+us_children_115_mice,10,F,missing data,Scotts Valley,no,Iran,1 little sister,1st child,"english, farsi, spanish","farsi, english",english,yes,no,none,NA,none
+us_children_116_rocks,11,F,missing data,Capitola,no,"East Coast-Batan Rojuc, Santa Barbara","2 older brothers (13, 26)",3rd child,"english, a little spanish",english,english,yes,no,none,NA,none
+us_children_117_beetles,11,M,missing data,Santa Cruz,no,"Czech Republic, East Coast",8 brothers,1st child,english,english,english,yes,I admire them but don't pray,none,NA,none

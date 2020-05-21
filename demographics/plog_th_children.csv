@@ -1,0 +1,193 @@
+subj_id,age,gender,live_here,from_here,from_where,sibling_number,sibling_order,language,language_home,language_school,school,church,religion,religion_cat
+th_children_001_beetles,8,F,Chiang Mai,No,Bangkok,3 pp,Oldest child,"Thai, English",Thai,"Thai, Not trans",Varee CM,Yes,buddhist,buddhist
+th_children_002_cellphones,8,M,Chiang Mai,No,Bangkok,1 younger brother,Oldest child,Thai,Thai,"Thai, English",Varee Chiangmai School,Missing Data,buddhist,buddhist
+th_children_003_chickens,8,F,Chiang Mai,Yes,CM,1 younger sister,Oldest child,Thai,Thai,Thai,Varee Chiangmai School,Yes,buddhist,buddhist
+th_children_004_children,10,M,Chiang Mai,No,Samut Sakhorn,None,Only child,"Thai, English",Thai,"Thai, English",Varee Chiangmai School,Yes,buddhist,buddhist
+th_children_005_dogs,9,M,Chiang Mai,No,Chiangrai,None,Only child,"Thai, Chinese","Thai, Chinese",Thai,Varee Chiangmai School,Every Sunday,christian,christian
+th_children_006_flowers,9,M,Chiang Mai,No,Korea,1 younger sister,Oldest child,"Thai, English, Korean",Korean,"Thai, English",Varee Chiangmai School,Missing Data,maybe,maybe
+th_children_007_ghosts,8,F,CM,No,Live Hong kong until 1 y/o & move to Thailand for 7 years,None,Only child,"Thai, English, Chinese (HK)","English, Phu Ket, Chinese (HK)","Thai, English","Phuket school, Oonrak school in Samui & Varee School in CM",Go to temple once a year,don't know what religion is,don't know what religion is
+th_children_008_god,8,M,CM,No,Bangkok,2 siblings 1 older and 1 younger,Second child,"Thai, English","Thai, English","Thai, English",Varee Chiangmai School,Yes,buddhist,buddhist
+th_children_009_mice,8,M,Chiang Mai,Yes,Chiang Mai,1 older sister,Youngest child,"Thai, English",English,Thai,Varee Chiangmai School,Yes,buddhist,buddhist
+th_children_010_rocks,8,M,CM,No,"Mom: Thailand, Dad: Holland",None,Only child,"Thai, English, Chinese","Thai, English","Thai, English",Varee School,Not trans,buddhist,buddhist
+th_children_011_cellphones,10,F,CM,Yes,NA,1 older sister,Second child,"Thai, English",Thai,Thai,Varee School,Go to temple not often,buddhist,buddhist
+th_children_012_chickens,9,F,CM,Yes,CM,None,Only child,"Thai, English","Thai, English","Thai, English",Varee School,Missing Data,no religion,no religion
+th_children_013_children,9,F,Chiang Mai,No,Koh Samui,2 younger sisters,Oldest child,"Thai, English, Korean","Thai, English, Korean","Thai, English",Varee Chiangmai School,Missing Data,no religion,no religion
+th_children_014_dogs,9,F,Chiang Mai,No,"Mom: Uttaradit, Dad: San Patong-Chiangmai",Missing Data,Missing Data,"Thai, English",Thai,"Thai, English",Varee Chiangmai School,Missing Data,buddhist,buddhist
+th_children_015_flowers,9,F,Chiang Mai,Yes,"Mom: Chiangmai, Dad: England",1 brother,Oldest child,Thai,Thai,Thai,Varee Chiangmai School,Yes,buddhist,buddhist
+th_children_016_ghosts,8,F,Chiang Mai,Yes,Chiang Mai,Missing Data,Missing Data,Thai,Thai,Thai,Varee Chiangmai School,Go to temple,islam,muslim
+th_children_017_god,8,F,Chiang Mai,Yes,Chiang Mai,None,Only child,"Thai, English",Thai,Thai,Varee Chiangmai School,Temple,buddhist,buddhist
+th_children_018_mice,10,F,Chiang Mai,Yes,Chiang Mai,Brother (16 y/o),Second child,"Thai, English",Thai,"Thai, English",Varee Chiangmai School,Yes,buddhist,buddhist
+th_children_019_rocks,8,M,Chiang Mai,No,China,1 older sister,Second child,"Thai, English, Chinese",Chinese,"Thai, English, Chinese",Varee School,Don't go,don't know,don't know
+th_children_020_beetles,8,F,CM,No,Bangkok,1 younger brother,Oldest child,"Thai, English",Thai,Thai,Varee School,Don't go often,buddhist,buddhist
+th_children_021_chickens,7,M,Chiang Mai,No,Bangkok,1 older brother & 2 younger siblings,Second child,"Thai, English",Thai,"Thai, English",Varee School,Go to temple,buddhist,buddhist
+th_children_022_children,8,M,CM,Yes,Chiang Mai,1 older brother,Youngest child,"Thai, can speak a bit of English",Thai,Thai,Varee School,Don't go often,buddhist,buddhist
+th_children_023_dogs,10,F,CM,Yes,NA,1 older sister,Youngest child,"Thai, English, Chinese",Thai,Thai,Varee Chiangmai School,Often go to temple,buddhist,buddhist
+th_children_024_flowers,10,F,Chiang Mai,Missing Data,Missing Data,None,Only child,"Thai, English, Chinese",English,"Thai, English",Varee School,Yes,buddhist,buddhist
+th_children_025_ghosts,11,M,Chiang Mai,No,"Mom: Chiangmai, Dad: Chiangrai",None,Only child,"Thai, English","Thai, English","Thai, English",Varee Chiangmai School,Missing Data,buddhist,buddhist
+th_children_026_god,10,M,Chiang Mai,Yes,Chiang Mai,None,Only child,"Thai, English",Thai,"Thai, English",Varee Chiangmai School,Yes,missing data,NA
+th_children_027_mice,10,M,Chiang Mai,No,UK/ Australia,1 older brother (18 y/o),Youngest child,"Thai, English, Chinese",English,Thai,Varee Chiangmai School,Missing Data,buddhist,buddhist
+th_children_028_rocks,9,F,Chiang Mai,No,Sampran district of Nakhon Pathom,None,Only child,"Thai, English",English,English,Varee Chiangmai School,Missing Data,buddhist,buddhist
+th_children_029_beetles,10,M,Chiang Mai,No,Lopburi province,None,Only child,"Thai, English","Thai, English",English,Varee Chiangmai School,Missing Data,christian,christian
+th_children_030_cellphones,10,F,Chiang Mai,No,"Mom: Thailand, Dad: UK (passed away)",1 older brother (11 y/o),Second child,"Thai, English","Thai, English","Thai, English",Varee Chiangmai School,Yes,buddhist,buddhist
+th_children_031_children,9,F,CM,No,Phrae,1 younger brother,Oldest child,"Thai, English",Thai,Thai,Varee School,Not really go bc. not free,buddhist,buddhist
+th_children_032_dogs,10,M,CM,No,Bangkok,1 older brother,Youngest child,"Thai, English",Thai,Thai,Varee School,Yes,buddhist,buddhist
+th_children_033_flowers,9,F,CM,No,Italy,2 older brothers & 1 young brother,Third Child,"Thai, italian, English, listen Isaan","Thai, English","Thai, English",Varee School,Not really go to temple,buddhist,buddhist
+th_children_034_ghosts,10,F,CM,Yes,NA,None,Only child,"Thai, English",Thai,Thai,Varee School,Yes,buddhist,buddhist
+th_children_035_god,9,M,CM,No,"Mom: Southern Thailand, Dad: Isaan",1 older sister,Youngest child,"Thai, English","Thai, English","Thai, English",Varee School,Yes,buddhist,buddhist
+th_children_036_mice,8,F,CM,Yes,"Mom: Half Chinese, Dad: Chinese",2 older brothers & 2 younger sisters,Middle child,"Thai, English, Chinese",Thai,Thai,Varee School,Yes,buddhist,buddhist
+th_children_037_rocks,10,F,Chiang Mai,No,"Mom: Ubonratchathaini, Dad: Bangkok, born in Khonkaen",Sister (4 y/o),Oldest child,Thai,Thai,"Thai, English",Varee Chiangmai School,No,buddhist,buddhist
+th_children_038_beetles,9,F,CM,No,"Mom: Bangkok, Dad: Songkla",None,Only child,Thai,Thai,Thai,Varee Chiangmai School,No,buddhist,buddhist
+th_children_039_cellphones,8,F,Chiang Mai,No,"Mom: CM, Dad: Lamphun",1 brother (11 month),Oldest child,Thai,Thai,Thai,Varee Chiangmai School,Yes,buddhist,buddhist
+th_children_040_chickens,9,F,Chiang Mai,Yes,CM,None,Only child,"Thai, English",Thai,"Thai, English, Chinese",Varee Chiangmai School,Missing Data,buddhist,buddhist
+th_children_041_dogs,8,F,Chiang Mai,Yes,CM,2 older sister & 2 younger sister-twin,Third Child,"Thai, English",Thai,Thai,Varee Chiangmai School,Yes,christian,christian
+th_children_042_flowers,9,F,Chiang Mai,No,"Mom: Thailand, Dad: US","2 older sisters (30, 18 y/o)",Third Child,"Thai, English",English,English,Varee Chiangmai School,Go to temple,buddhist,buddhist
+th_children_043_ghosts,9,F,Chiang Mai,Yes,NA,None,Only child,"Thai, English",Thai,Thai,Varee School,Yes,buddhist,buddhist
+th_children_044_god,9,F,CM,No,"Mom: CM, Dad: Bangkok",None,Only child,"Thai, English, Chinese","Thai, English","Thai, English",Varee School,Sometimes,buddhist,buddhist
+th_children_045_mice,8,F,CM,No,"Mom: Bangkok, Dad: Chinese",1 older brother,Youngest child,"Chinese, Northern dialect, Thai, English, Spanish",Northern dialect (Thai),English,Varee School,Twice a year,buddhist,buddhist
+th_children_046_rocks,9,F,CM,No,"Phayao, Mom: Chiang Rai, Dad: Chiang Mai",None,Only child,"Thai, English, Chinese",Thai,"Thai, English",Varee School,Go on family member's bday,buddhist,buddhist
+th_children_047_beetles,9,F,CM,Yes,CM,2 older sisters & 2 younger sisters,Middle child,"Thai, English",Thai,"Thai, English",Varee School,Not really often,buddhist,buddhist
+th_children_048_cellphones,9,M,CM,Yes,CM,1 older brother,Second child,"Thai, English, Chinese",Thai,"Thai, English",Varee School,Sometimes,buddhist,buddhist
+th_children_049_chickens,10,F,Chiang Mai,Yes,NA,None,Only child,"Thai, English","Thai, English","Thai, English",Varee Chiangmai School,Yes,buddhist,buddhist
+th_children_050_children,10,F,Chiang Mai,No,USA,Brother (1 y/o),Oldest child,"Thai, English",Thai,"Thai, English",Varee Chiangmai School,Yes,buddhist,buddhist
+th_children_051_flowers,10,F,Chiang Mai,No,Phamnga,Sister (3 y/o),Oldest child,"Thai, English","Thai, English","Thai, English",Varee Chiangmai School,Missing Data,buddhist,buddhist
+th_children_052_ghosts,10,F,Chiang Mai,No,Nakorn Srithammarat,Missing Data,Missing Data,"Thai, English",Thai,Thai,Varee Chiangmai School,Yes,buddhist,buddhist
+th_children_053_god,10,M,Chiang Mai,No,Tak,Sister (17 y/o),Second child,Thai,Thai,Thai,Varee Chiangmai School,Yes,buddhist,buddhist
+th_children_054_mice,11,F,Chiang Mai,Missing Data,Missing Data,Missing Data,Only child,"Thai, English",Thai,Thai,Varee Chiangmai School,Yes,buddhist,buddhist
+th_children_055_rocks,9,F,Chiang Mai,Missing Data,Missing Data,1 younger sister,Oldest child,"English, thai, Chinese, Japanese",Thai,Thai,Varee School,Every Bday,buddhist,buddhist
+th_children_056_beetles,10,F,CM,Yes,"Mom: Nong Khai, Dad: CM",1 older sister,Youngest child,Thai,Thai,Thai,Varee School,Go when have rite/ceremony @ temple,buddhist,buddhist
+th_children_057_cellphones,10,F,CM,No,"Mom: Bangkok, Dad: Nakhornsawan",1 younger brother,Oldest child,"Thai, English",Thai,"Thai, English",Varee School,Yes,buddhist,buddhist
+th_children_058_chickens,10,F,CM,No,"Mom: Nakhornpathom, Dad: probably Laos descent",None,Only child,"Thai, English, Chinese, Japanese",Thai,"Thai, English",Varee School,Yes,"buddhist, christian, became hindu",multiple
+th_children_059_children,10,M,CM,No,"Mom: Isaan, Dad: CM",1 older brother,Youngest child,Thai,Thai,Thai,Varee School,Go to temple often,buddhist,buddhist
+th_children_060_dogs,10,F,CM,Yes,"CM, live in San Pa Kha",1 younger sister,Oldest child,"Thai, English, Chinese",Thai,"Thai, English",Varee School,"Often go to temple, usually go on holidays, important days",buddhist,buddhist
+th_children_061_ghosts,11,M,Chiang Mai,No,Chiangrai,1 brother & 1 sister,Oldest child,Thai,Thai,Thai,Varee Chiangmai School,Make merit at temple on bday,buddhist,buddhist
+th_children_062_god,11,F,Chiang Mai,Yes,NA,Brother (8 y/o),Oldest child,"Thai, English",Thai,"Thai, English",Varee Chiangmai School,Yes,buddhist,buddhist
+th_children_063_mice,10,F,Chiang Mai,Yes,NA,1 younger sister (7 y/o),Oldest child,"Thai, English",Thai,"Thai, English",Varee Chiangmai School,Yes,buddhist,buddhist
+th_children_064_rocks,9,F,Chiang Mai,Yes,NA,None,Only child,Thai,Thai,"Thai, English",Varee Chiangmai School,Yes,buddhist,buddhist
+th_children_065_beetles,10,F,Chiang Mai,Yes,NA,1 older sister (13 y/o),Second child,"Thai, English",Thai,"Thai, English",Varee Chiangmai School,Yes,buddhist,buddhist
+th_children_066_cellphones,10,M,Chiang Mai,No,Chiangrai,1 Brother (18 y/o) & 1 sister (11 y/o),Third Child,"Thai, English",Thai,"Thai, English",Varee Chiangmai School,Yes,buddhist,buddhist
+th_children_067_chickens,11,M,Chiang Mai,No,"Mom: Chiangmai, Dad: Bangkok, Grandma: Chinese descent",1 older sister & 1 younger sister,Middle child,Thai,Thai,"Thai, English",Varee School,Yes,buddhist,buddhist
+th_children_068_children,10,F,CM,Yes,CM,1 older sister & 1 younger brother,Middle child,"Thai, English",Thai,"Thai, English",Varee School,Go to temple sometimes,buddhist,buddhist
+th_children_069_dogs,9,M,CM,No,Bangkok,"1 older brother, 1 older sister & 1 younger sister",Third Child,Thai,Thai,"Thai, English",Varee School,Go to temple not often,buddhist,buddhist
+th_children_070_flowers,10,M,CM,No,"Mom: Korat (Nakornratchasima), Dad: Belgium",None,Only child,Thai,Thai,"Thai, English",Varee School,Go to temple sometimes,buddhist,buddhist
+th_children_071_god,10,M,CM,No,"Mom: Nan, Dad: CM",None,Only child,"Thai, English",Thai,"Thai, English",Varee School,Go to temple not often,buddhist,buddhist
+th_children_072_mice,10,M,CM,Yes,NA,None,Only child,"Thai, English",Thai,"Thai, English",Varee School,Often go to temple,buddhist,buddhist
+th_children_073_rocks,9,M,Chiang Mai,No,Nakorn Salwan,Nak (Brother),Second child,Thai,Thai,"Thai, English",Varee Chiangmai School,Yes,buddhist,buddhist
+th_children_074_beetles,7,M,Chiang Mai,No,Bangkok,None,Only child,"Thai, English",English,Thai,Varee Chiangmai School,Not trans,buddhist,buddhist
+th_children_075_cellphones,9,F,Chiang Mai,Yes,NA,MIssing Data,Missing Data,"Thai, English",Thai,"Thai, English",Varee Chiangmai School,Yes,buddhist,buddhist
+th_children_076_chickens,8,F,Chiang Mai,No,Ubon Ratchathani,None,Only child,"Thai, English",Thai,"Thai, English",Varee Chiangmai School,MIssing Data,christian,christian
+th_children_077_children,8,M,CM,Yes,CM,1 younger sister,Oldest child,Thai,Thai,Thai,Varee School,Often go to temple,buddhist,buddhist
+th_children_078_dogs,8,F,CM,No,"Mom: Thailand, Dad: Belgium","1 older sister, 1 younger brother & 1 younger sister",Second child,"Thai, English, Dutch","Thai, English","Thai, English",Varee School,Not really go to church,christian,christian
+th_children_079_flowers,9,M,CM,Yes,CM,1 older brother & 1 older sister,Third Child,Thai,Thai,Thai,Varee School,"Often go to temple, live in Saraphi",buddhist,buddhist
+th_children_080_ghosts,8,M,CM,Yes,CM,1 younger brother,Oldest child,"Thai, English","Thai, English","Thai, English",Varee School,"Not really often, live in Pa Daet Villa",buddhist,buddhist
+th_children_081_mice,7,F,Chiang Mai,Yes,"Mom: Pattanee, Dad: Samoeng (CM)",1 younger brother,Oldest child,"Thai, English, Chinese","Thai, English","Thai, English, Chinese",P.R.C,"Often go to temple, like to offer food to monks bc. get merit",buddhist,buddhist
+th_children_082_rocks,8,M,CM,Yes,"Mom: CM,  Dad: Bangkok",1 younger sister,Oldest child,"Thai, English",Thai,"Thai, English",P.R.C,Like to donate bc. Parents tell to donate to help temple,buddhist,buddhist
+th_children_083_beetles,8,F,Chiang Mai,Yes,Chiang Mai,None,Only child,"Thai, English",Thai,"Thai, English",P.R.C,Sometimes go to temple on weekends,buddhist,buddhist
+th_children_084_cellphones,8,F,Chiang Mai,Yes,"Mom: SongKhl, Dad: Bangkok",None,Only child,"Thai, English","Thai, English","Thai, English",P.R.C,Not trans,buddhist,buddhist
+th_children_085_chickens,7,F,Chiang Mai,No,Uttaradit,None,Only child,"Thai, English, Local dialect (Muang)","Thai, Local dialect","Thai, English",P.R.C,Not often go,buddhist,buddhist
+th_children_086_children,8,F,CM,Yes,"Dad: passed away, half chinese and lived with chinese grandpa",1 younger brother,Oldest child,"Thai, Local dialect (Lanna), Chinese",Thai,"Thai, Engloish, Chinese, Local dialect",P.R.C,Not often go,buddhist,buddhist
+th_children_087_dogs,8,F,Chiang Mai,Yes,But parents live in Bangkok,None,Only child,"Thai, English","Thai, English",Thai,P.R.C,Go on Asalha Puja day and Magha Puja day,buddhist,buddhist
+th_children_088_flowers,9,M,Chiang Mai,Yes,Chiang Mai,None,Only child,Thai,Thai,Thai,P.R.C,Yes,christian,christian
+th_children_089_ghosts,8,M,Chiang Mai,Yes,NA,1 brother (6 y/o),First Child,"Thai, English",Thai,"Thai, English",P.R.C,Yes,christian,christian
+th_children_090_god,8,M,Chiang Mai,Yes,NA,None,Only child,"Thai, English","Thai, English","Thai, English",P.R.C,Yes,buddhist,buddhist
+th_children_091_rocks,8,F,Chiang Mai,Yes,NA,None,Only child,Thai,Thai,Thai,P.R.C,Yes,buddhist,buddhist
+th_children_092_beetles,8,M,Chiang Mai,Yes,NA,1 older brother (9 y/o),Second child,"Thai, English",Thai,Thai,P.R.C,Yes,buddhist,buddhist
+th_children_093_cellphones,9,M,Chiang Mai,Yes,NA,1 sister (6 y/o),Oldest child,"Thai, English",Thai,"Thai, English",P.R.C,Yes,buddhist,buddhist
+th_children_094_chickens,9,M,Chiang Mai,Yes,NA,1 brother (14 y/o) & 1 sister (10 y/o),Third Child,"Thai, English",Thai,Thai,P.R.C,Go to temple,buddhist,buddhist
+th_children_095_children,9,F,Chiang Mai,No,Bangkok,Brother (6 y/o),Oldest child,"Thai, English, Chinese","Thai, English",Thai,P.R.C,Go to temple,buddhist,buddhist
+th_children_096_dogs,9,M,Chiang Mai,Yes,NA,None,Only child,"Thai, English",Thai,"Thai, English",P.R.C,Go to temple,buddhist,buddhist
+th_children_097_flowers,8,M,Chiang Mai,Yes,NA,None,Only child,"Thai, English","Thai, English","Thai, English",P.R.C,Go every Saturday to make merit and offer alms to monks,buddhist,buddhist
+th_children_098_ghosts,9,M,CM,Yes,CM,None,Only child,"Thai, English",Local dialect,"Thai, English",P.R.C,"Sometimes go to temple, go on Buddhist holiday",buddhist,buddhist
+th_children_099_god,8,M,Chiang Mai,No,"Mom: Lampang, Dad: Bangkok",1 younger brother,Oldest child,"Thai, English",Thai,"Thai, English",P.R.C,Go on important days,buddhist,buddhist
+th_children_100_mice,9,M,Chiang Mai,No,"Mom: BKK, Dad: CM",None,Only child,"Thai, English, Chinese",Thai,"Thai, English",P.R.C,Not really go but still go,buddhist,buddhist
+th_children_101_beetles,9,F,"CM, in Mae Rim",Yes,NA,None,Only child,"Thai, English",Thai,"Thai, English",P.R.C,Often go to temple,buddhist,buddhist
+th_children_102_cellphones,9,M,"CM, near Ryam Choke",Yes,NA,None,Only child,"Thai, English",English,"Thai, English",P.R.C,Go to temple not often,buddhist,buddhist
+th_children_103_chickens,9,F,Chiang Mai,No,Philippines,"Sister (13 y/o), Sister (1 y/o)",Second child,"Thai, English","Thai, English","Thai, English",P.R.C,Every Sunday,christian,christian
+th_children_104_children,9,M,Chiang Mai,Yes,NA,Brother (3 y/o),Oldest child,"Thai, English","Thai, English",Thai,P.R.C,Go to temple,buddhist,buddhist
+th_children_105_dogs,9,F,Chiang Mai,Yes,"Mom: Chiangmai, Dad: Suraburi",None,Only child,"Thai, Essan","Thai, Essan",Thai,P.R.C,"Like to go to temple, can relax, have fun, take pictures w/monk",buddhist,buddhist
+th_children_106_flowers,9,F,Chiang Mai,Yes,"Mom: Lampang, Dad: Chiangrai",Brothers (13 & 14 y/o),Third Child,Thai,Thai,Thai,P.R.C,Missing Data,buddhist,buddhist
+th_children_107_ghosts,9,F,Chiang Mai,Yes,NA,Sister (3 y/o),Oldest child,"Thai, English","Thai, English",Thai,P.R.C,Yes,buddhist,buddhist
+th_children_108_god,8,F,Chiang Mai,Yes,NA,Sister (4 y/o),Oldest child,"Thai, English",Thai,"Thai, English",P.R.C,Yes,buddhist,buddhist
+th_children_109_mice,9,F,CM,Yes,NA,1 older brother,Youngest child,"Thai, English",Lannas Northern dialect,"Thai, English",P.R.C,Go on important day e.g. bday to offer alms to monks,buddhist,buddhist
+th_children_110_rocks,8,F,"Chiang Mai, in Tha Sala",Missing Data,"Mom: Rayong, Dad: CM",None,Only child,"Thai, English",Thai,"Thai, English",P.R.C,Don't go often,buddhist,buddhist
+th_children_111_cellphones,9,M,Chiang Mai,Missing Data,"Mom: CM, Dad: Chanthajburi",1 older brother & 1 older sister,Youngest child,"Thai, English","Thai, English","Thai, English",P.R.C,Every Bday,buddhist,buddhist
+th_children_112_chickens,9,M,Chiang Mai,Yes,"Mom: Chiangmai, Dad: Uttaradit",1 older sister & 1 younger sister,Middle child,"Thai, English",Thai,"Thai, English",P.R.C,Go to temple not often,buddhist,buddhist
+th_children_113_children,10,M,"CM, San  Sai",Yes,CM,1 older sister,Second child,"Thai, English","Thai, English","Thai, English",P.R.C,Usually go to temple w/dad when going on trip,buddhist,buddhist
+th_children_114_dogs,10,F,CM,Yes,"Mom: Chiangmai, Dad: Lampang",1 older sister,Second child,"Thai, English",Thai,"Thai, English",P.R.C,Often go to temple,buddhist,buddhist
+th_children_115_flowers,10,M,"CM, San  Sai",Yes,CM,1 younger brother,Oldest child,"Thai, English",Thai,"Thai, English",P.R.C,Go to temple on important day,buddhist,buddhist
+th_children_116_ghosts,9,F,CM,Yes,NA,1 twin brother,Second child,"Thai, English, Chinese","Thai, English","Thai, English",P.R.C,Can't go to temple often bc. Have to help mom's work,buddhist,buddhist
+th_children_117_god,9,M,CM,Yes,CM,1 younger brother,Oldest child,"Thai, English, Chinese, Japanese",Thai,"Thai, English",P.R.C,"Depends, go if have chance",buddhist,buddhist
+th_children_118_mice,10,F,CM,Yes,"Mom: Mae Hong Son, Father: CM",1 younger brother,Oldest child,"Thai, English","Thai, English","Thai, English",P.R.C,Every Sunday,christian,christian
+th_children_119_rocks,9,F,Not trans,Yes,"Mom: Uttaradit, Dad: Sangkhla",None,Only child,"Thai, English, Chinese","Thai, English","Thai, English, Chinese",P.R.C,Often go to temple,buddhist,buddhist
+th_children_120_beetles,10,F,CM,Yes,Hang Dong CM,None,Only child,"Thai, English","Thai, English","Thai, English",P.R.C,Go to temple on bday,buddhist,buddhist
+th_children_121_chickens,10,M,Chiang Mai,No,Phayao,1 older brother & 1 younger brother,Middle child,"Thai, English",Thai,"Thai, English",P.R.C,Often go to temple,buddhist,buddhist
+th_children_122_children,10,F,CM,Yes,"Mom: Uthaithani, Dad: France",1 younger brother & 1 younger sister,Oldest child,"Thai, English, Chinese, French",Thai,"Thai, English, French",P.R.C,Often go to temple,buddhist,buddhist
+th_children_123_dogs,11,F,Chiang Mai,Yes,Dad: Nan,Brother (18 y/o),Second child,"Thai, English, Chinese",Thai,Thai,P.R.C,"Like to go to temple, make merit for grandma",buddhist,buddhist
+th_children_124_flowers,9,M,Lamphun,No,Chonburi,Sister (5 y/o),Oldest child,"Thai, English",Thai,Thai,P.R.C,Go to temple,buddhist,buddhist
+th_children_125_ghosts,10,M,Chiang Mai,Yes,NA,Brother (12 y/o),Second child,"Thai, English","Thai, English",Thai,P.R.C,Yes,buddhist,buddhist
+th_children_126_god,10,F,Chiang Mai,No,Uttaradit,None,Only child,"Thai, English",Thai,Thai,P.R.C,Yes,christian,christian
+th_children_127_mice,10,M,Chiang Mai,Yes,NA,Sister (15 y/o),Second child,"Thai, English, Chinese",Thai,Thai,P.R.C,Yes,buddhist,buddhist
+th_children_128_rocks,9,M,Chiang Mai,Yes,"Mom: Khonkhen, Dad: Chiangrai",Sister (9 y/o),First Child,"Thai, English",Thai,Thai,P.R.C,Go to temple,buddhist,buddhist
+th_children_129_beetles,10,F,Chiang Mai,Yes,NA,None,Only child,"Thai, English","Thai, English",Thai,P.R.C,Yes,buddhist,buddhist
+th_children_130_cellphones,9,F,Chiang Mai,Yes,NA,1 brother ( 13 y/o) & 1 sister ( 9 y/o),Third Child,"Thai, English, Chinese",Thai,Thai,P.R.C,Yes,buddhist,buddhist
+th_children_131_children,11,M,Chiang Mai,No,Lamphun,None,Only child,"Thai, English",Thai,Thai,P.R.C,Go to temple on Birthday,buddhist,buddhist
+th_children_132_dogs,10,M,Chiang Mai,Yes,NA,Sister ( 10 y/o),First Child,"Thai, English",Thai,Thai,P.R.C,Yes,buddhist,buddhist
+th_children_133_flowers,10,F,Chiang Mai,Yes,"Mom: Chiangmai, Dad: Nekhonsuwan",Sister (5 y/o),Oldest child,"Thai, English","Thai, English",Thai,P.R.C,Every weekend,buddhist,buddhist
+th_children_134_ghosts,11,M,Chiang Mai,Yes,But moved from Bangkok,None,Only child,"Thai, English",Thai,Thai,P.R.C,Yes,buddhist,buddhist
+th_children_135_god,12,M,Chiang Mai,Yes,NA,Sister (14 y/o),Second child,"Thai, English",Thai,Thai,P.R.C,Every Sunday,christian,christian
+th_children_136_mice,11,F,Chiang Mai,No,Sukon to CM to Korat to CM,Sisters (15 y/o & 12 y/o),Third Child,"Thai, English",Thai,"Thai, English",P.R.C,Yes,buddhist,buddhist
+th_children_137_rocks,11,F,Chiang Mai,Yes,NA,Brother (12 y/o),Second child,"Thai, English",Thai,Thai,P.R.C,Go to temple,buddhist,buddhist
+th_children_138_beetles,12,M,Chiang Mai,Yes,NA,Brother (6 y/o),Oldest child,"Thai, English, Chinese",Thai,Thai,P.R.C,Yes,buddhist,buddhist
+th_children_139_cellphones,11,F,Chiang Mai,No,Phrae,Sister (7 y/o),Oldest child,"Thai, English, Chinese","Thai, English",Thai,P.R.C,Yes,buddhist,buddhist
+th_children_140_chickens,11,F,Chiang Mai,Yes,NA,"Brother (24 y/o), Brother (9 y/o) & Sister (15 y/o)",Third Child,"Thai, English",Thai,Thai,P.R.C,Yes,buddhist,buddhist
+th_children_141_dogs,10,F,Chiang Mai,Yes,NA,Twin brother,Second child,"Thai, English",Thai,Thai,P.R.C,Yes,buddhist,buddhist
+th_children_142_flowers,11,M,Chiang Mai,No,Bangkok,Sister (9 y/o),Oldest child,"Thai, English","Thai, English",Thai,P.R.C,Yes,buddhist,buddhist
+th_children_143_ghosts,10,M,CM,Yes,"Mom: CM, Dad: Nakhorn Nayok",1 older sister,Second child,"Thai, English",Thai,"Thai, English",P.R.C,Not really go to temple,buddhist,buddhist
+th_children_144_god,10,F,CM,Yes,CM,1 older brother,Second child,"Thai, English","Thai, English","Thai, English",P.R.C,Often go to temple,buddhist,buddhist
+th_children_145_mice,11,M,CM,Yes,CM,1 older sister,Second child,"Thai, English, Japanese",Thai,"Thai, English",P.R.C,Go to temple not often,buddhist,buddhist
+th_children_146_rocks,11,M,CM,Yes,NA,1 younger sister,Oldest child,"Thai, English, Chinese",Thai,"Thai, English",P.R.C,Often go to temple,buddhist,buddhist
+th_children_147_beetles,11,M,CM,Yes,CM,1 younger brother,First Child,"Thai, English","Thai, English","Thai, English",P.R.C,Go to temple sometimes,buddhist,buddhist
+th_children_148_cellphones,11,F,CM,Yes,NA,1 younger brother,First Child,"Thai, English",Thai,"Thai, English",P.R.C,Go to temple once a month,buddhist,buddhist
+th_children_149_chickens,11,M,CM,Yes,NA,2 older sisters,Third Child,"Thai, English, Local dialect",Local dialect,"Thai, English, Local dialect",P.R.C,"Often go to temple, to worship on bday",buddhist,buddhist
+th_children_150_children,11,F,CM,Yes,NA,1 younger sister,Oldest child,"Thai, English",Thai,"Thai, English",P.R.C,Go to temple on important day,buddhist,buddhist
+th_children_151_flowers,10,M,CM,Yes,NA,1 younger brother,First Child,"Thai, English",Thai,"Thai, English",P.R.C,"Usually go on important day e.g. Magha Puja, end of Buddhist lent",buddhist,buddhist
+th_children_152_ghosts,11,M,CM,No,"Mom: Narathiwat, Dad: Chiang Rai",None,Only child,"Thai, English","Thai, English","Thai, English",P.R.C,Sometimes go to temple,buddhist,buddhist
+th_children_153_aliens,7,M,Lamphun,No,Missing Data,1 older brother & 2 older sisters,Fourth child,"Thai, Chinese",Thai,Thai,P.R.C,Not go to temple,buddhist,buddhist
+th_children_154_robots,7,M,Chiang Mai,Yes,"Mom: Chiang Mai, dad: Fang district",none,Only child,Thai,Thai,Thai,P.R.C,Yes,buddhist,buddhist
+th_children_155_aliens,7,M,Chiang Mai,No,Famili moved to Lampang,1 older brother,Second child,Thai,Thai,Thai,P.R.C,"Worship, make merit",buddhist,buddhist
+th_children_156_robots,7,M,Chiang Mai,Yes,NA,3 [not translated],Second child,Thai,Thai,Thai,P.R.C,Go to church,christian,christian
+th_children_157_robots,7,M,Chiang Mai,Yes,NA,1 younger brother & 1 younger sister,Oldest child,"Thai, English",Thai,"Thai, English",P.R.C,Not like going to temple because there's nothing to play but like to go Songkran,buddhist,buddhist
+th_children_158_aliens,7,F,Chiang Mai,Yes,NA,1 siblings (+ me),Second child,Thai,Thai,Thai,P.R.C,Have been to church before,christian,christian
+th_children_159_robots,7,M,Lamphun,No,"Family live in Lamphun, come to school with mother",None,Only child,"Thai, English",Thai,"Thai, English",P.R.C,Make merit,buddhist,buddhist
+th_children_160_aliens,8,M,Chiang Mai,Yes,NA,None,Only child,Thai,Thai,Thai,P.R.C,Go to temple,buddhist,buddhist
+th_children_161_robots,8,M,Chiang Mai,Yes,NA,None,Only child,Thai,Thai,"Thai, English",P.R.C,Yes,buddhist,buddhist
+th_children_162_aliens,7,M,Missing Data,No,Move from Lamphun 2 years ago,1 older brother & 1 younger brother,Middle child,"Thai, English",Thai,"Thai, English",P.R.C,Yes,buddhist,buddhist
+th_children_163_aliens,8,F,Chiang Mai,Yes,"Dad: Sing Buri, Mom: Chiangmai",1 sibling + me,Second child,Thai,Thai,Thai,P.R.C,Yes,buddhist,buddhist
+th_children_164_robots,7,F,Chiang Mai,Yes,NA,1 older sister,Second child,"Thai, English",Thai,"Thai, English",P.R.C,"Give flower offerings, worship",buddhist,buddhist
+th_children_165_aliens,7,F,Chiang Mai,Yes,NA,1 sibling + me,Oldest child,"Thai, English","Thai, Northern dialect",Thai,P.R.C,Yes,buddhist,buddhist
+th_children_166_robots,7,F,Yes,Yes,NA,1 younger sister,Oldest child,Thai,Thai,Thai,P.R.C,Worship,buddhist,buddhist
+th_children_167_aliens,7,F,Chiang Mai,Yes,NA,1 sibling + me,Oldest child,"English, Thai",Thai,"Thai, English",P.R.C,Go to temple,buddhist,buddhist
+th_children_168_robots,7,M,Yes,Yes,NA,1 older sister,Second child,Thai,Thai,Thai,P.R.C,Like to go see fish,buddhist,buddhist
+th_children_169_robots,7,F,Chiang Mai,No,Move from Bangkok,None,Only child,"Thai, English",Thai,Thai,P.R.C,Go to temple,buddhist,buddhist
+th_children_170_aliens,7,F,Yes,Yes,NA,1 younger brother,Oldest child,"Thai, English",Thai,"Thai, English",P.R.C,At school,christian,christian
+th_children_171_robots,7,M,Chiang Mai,Yes,NA,1 sibling,Oldest child,"Thai, English",Thai,"Thai, English",P.R.C,Go to temple,buddhist,buddhist
+th_children_172_aliens,8,F,Yes,Yes,NA,1 younger brother,First Child,Thai,Thai,Thai,P.R.C,Worship,buddhist,buddhist
+th_children_173_robots,7,M,Chiang Mai,No,Dad: from Trang,1 younger sister,Oldest child,Thai,Thai,Thai,Yes,"Like going to temple, go to see Luang Pu (monk) and give things",buddhist,buddhist
+th_children_174_aliens,8,F,Chiang Mai,No,"Mom: Lamphun, Dad: Missing Data",3 siblings + me,Fourth child,"Thai, Northern dialect","Thai, Northern dialect",Thai,P.R.C,Yes,buddhist,buddhist
+th_children_175_aliens,8,F,Chiang Mai,Yes,NA,1 younger brother,Oldest child,"Thai, English",Thai,"Thai, English",P.R.C,Yes,buddhist,buddhist
+th_children_176_robots,8,F,Chiang Mai,No,Moved from bangkok,None,Only child,Thai,"Thai, Northern dialect",Thai,P.R.C,"Make merit, Worship",buddhist,buddhist
+th_children_177_aliens,8,M,Yes,Yes,NA,1 older sister & 1 younger brother,Middle child,"English, Thai",Thai,Thai,P.R.C,Worship,buddhist,buddhist
+th_children_178_robots,7,M,Chiang Mai,No,Moved from Lampang,None,Only child,Thai,Thai,Thai,P.R.C,Yes,buddhist,buddhist
+th_children_179_aliens,7,F,Yes,No,"Mom: Bangkok, Dad: Bangkok",2 siblings + me,Third child,"Thai, English",Thai,Thai,P.R.C,Yes,buddhist,buddhist
+th_children_180_robots,7,F,Yes,Yes,NA,None,Only child,"Thai, English",Thai,"Thai, English",P.R.C,Make merit,buddhist,buddhist
+th_children_181_robots,8,F,Yes,Yes,NA,None,Only child,"Thai, Northern dialect, English","Thai, Northern dialect","Northern dialect, Thai",P.R.C,"Make merit, offer food to monks",buddhist,buddhist
+th_children_182_aliens,7,M,Chiang Mai,Yes,NA,None,Only child,"Thai, English",Thai,Thai,P.R.C,Salah prayer at 1 - 2pm (5),islamic,islamic
+th_children_183_robots,7,M,Yes,Yes,NA,4 older brothers & 1 younger sister,Sixth child,Thai,Thai,Thai,P.R.C,"Make merit on birthday, like to go to temple",buddhist,buddhist
+th_children_184_aliens,7,F,Chiang Mai,Yes,NA,1 older sister,Second child,Thai,Northern dialect,Thai,P.R.C,Go to temple,buddhist,buddhist
+th_children_185_robots,7,M,Yes,Yes,NA,1 older sister,Second child,"Thai, English",Thai,"Thai, English",P.R.C,Yes,buddhist,buddhist
+th_children_186_aliens,6,M,Chiang Mai,Yes,NA,1 sibling + me,Oldest child,"Thai, English",Thai,Thai,P.R.C,Missing Data,i don't know,i don't know
+th_children_187_robots,7,F,Yes,Yes,NA,None,Only child,"Thai, English",Thai,"Thai, English",P.R.C,"Worship, make merit for grandparents",buddhist,buddhist
+th_children_188_aliens,7,M,Chiang Mai,Yes,NA,1 older brother,Second child,"Thai, Northern dialect",Thai,Thai,P.R.C,Go to temple,buddhist,buddhist
+th_children_189_robots,7,F,Yes,Yes,NA,None,Only child,"Thai, English",Thai,"Thai, English",P.R.C,Help grandmother sell rings,buddhist,buddhist
+th_children_190_aliens,8,F,Chiang Mai,Yes,"Mom: Ratchuburi, Dad: Chiangmai",None,Only child,"Thai, Chinese",Thai,Thai,P.R.C,Yes,buddhist,buddhist
+th_children_191_robots,7,F,Yes,Yes,NA,1 older brother,Second child,"Thai, English",Thai,"Thai, English",P.R.C,"Go to temple not quite often, Do homework at home",buddhist,buddhist
+th_children_192_aliens,8,M,Chiang Mai,No,Moved from Chai Prakan district,1 older brother,Second child,Thai,Thai,Thai,P.R.C,Yes,buddhist,buddhist

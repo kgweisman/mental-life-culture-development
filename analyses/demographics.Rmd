@@ -1,0 +1,598 @@
+---
+title: "Concepts of mental life across cultures: Demographics"
+authors: "Weisman, Legare, & Luhrmann"
+output: 
+  html_notebook:
+    toc: true
+    toc_float: true
+---
+
+```{r setup}
+knitr::opts_chunk$set(echo = F, message = F)
+```
+
+In this notebook we present demographics for the 10 samples in our studies of concepts of mental life, in which each participants judged the various mental capacities of a particular target entity. We describe samples of adults and children from each of our five field sites: the US, Ghana, Thailand, China, and Vanuatu. 
+
+
+```{r, echo = F, message = F}
+source("./scripts/dependencies.R")
+source("./scripts/custom_funs.R")
+source("./scripts/var_recode_contrast.R")
+```
+
+```{r data}
+# read in data, shorten "feel sick," and limit to universal targets and questions: adults
+d_us_adults <- read_csv("../data/d_us_adults.csv") %>%
+  filter(target %in% levels_target_univ, question_cat == "universal") %>%
+  mutate(question = gsub("\\, .*$", " \\[...\\]", question))
+d_gh_adults <- read_csv("../data/d_gh_adults.csv") %>%
+  filter(target %in% levels_target_univ, question_cat == "universal") %>%
+  mutate(question = gsub("\\, .*$", " \\[...\\]", question))
+d_th_adults <- read_csv("../data/d_th_adults.csv") %>%
+  filter(target %in% levels_target_univ, question_cat == "universal") %>%
+  mutate(question = gsub("\\, .*$", " \\[...\\]", question))
+d_ch_adults <- read_csv("../data/d_ch_adults.csv") %>%
+  filter(target %in% levels_target_univ, question_cat == "universal") %>%
+  mutate(question = gsub("\\, .*$", " \\[...\\]", question))
+d_vt_adults <- read_csv("../data/d_vt_adults.csv") %>%
+  filter(target %in% levels_target_univ, question_cat == "universal") %>%
+  mutate(question = gsub("\\, .*$", " \\[...\\]", question))
+
+# read in data, shorten "feel sick," and limit to universal targets and questions: children
+d_us_children <- read_csv("../data/d_us_children.csv") %>%
+  filter(target %in% levels_target_univ, question_cat == "universal") %>%
+  mutate(question = gsub("\\, .*$", " \\[...\\]", question))
+d_gh_children <- read_csv("../data/d_gh_children.csv") %>%
+  filter(target %in% levels_target_univ, question_cat == "universal") %>%
+  mutate(question = gsub("\\, .*$", " \\[...\\]", question))
+# d_gh_eng_children <- read_csv("../data/d_gh_eng_children.csv") %>%
+#   filter(target %in% levels_target_univ, question_cat == "universal") %>%
+#   mutate(question = gsub("\\, .*$", " \\[...\\]", question))
+d_th_children <- read_csv("../data/d_th_children.csv") %>%
+  filter(target %in% levels_target_univ, question_cat == "universal") %>%
+  mutate(question = gsub("\\, .*$", " \\[...\\]", question))
+d_ch_children <- read_csv("../data/d_ch_children.csv") %>%
+  filter(target %in% levels_target_univ, question_cat == "universal") %>%
+  mutate(question = gsub("\\, .*$", " \\[...\\]", question))
+d_vt_children <- read_csv("../data/d_vt_children.csv") %>%
+  filter(target %in% levels_target_univ, question_cat == "universal") %>%
+  mutate(question = gsub("\\, .*$", " \\[...\\]", question)) %>%
+  # filter out participants outside of the age range
+  filter((age >= 6 & age <= 12) | is.na(age))
+```
+
+# Adults
+
+```{r demo us adults}
+# read in demographics files: adults
+demo_us_adults <- read_csv("../demographics/plog_us_adults.csv") %>%
+  # limit to sample used in analyses
+  filter(subj_id %in% d_us_adults$subj_id) %>%
+  rename("afford_cat" = "afford") %>%
+  select(subj_id, age, gender, ethnicity_cat, language,
+         urban_rural_cat, education_cat, 
+         afford_cat, class_cat, class_cat2,
+         spirit_relig_num, religion)
+```
+
+```{r demo gh adults}
+demo_gh_adults <- read_csv("../demographics/plog_gh_adults.csv") %>%
+  # limit to sample used in analyses
+  filter(subj_id %in% d_gh_adults$subj_id) %>%
+  select(subj_id, age, gender, ethnicity_cat, language,
+         urban_rural_cat, education_cat, 
+         afford_cat, class_cat, class_cat2,
+         spirit_relig_num, religion) 
+```
+
+```{r demo th adults}
+demo_th_adults <- read_csv("../demographics/plog_th_adults.csv") %>%
+  rename("afford_cat" = "afford") %>%
+  # limit to sample used in analyses
+  filter(subj_id %in% d_th_adults$subj_id) %>%
+  select(subj_id, age, gender, ethnicity_cat, language,
+         urban_rural_cat, education_cat, 
+         afford_cat, class_cat, class_cat2,
+         spirit_relig_num, religion) 
+```
+
+```{r demo ch adults}
+demo_ch_adults <- read_csv("../demographics/plog_ch_adults.csv") %>%
+  rename("afford_cat" = "afford") %>%
+  # limit to sample used in analyses
+  filter(subj_id %in% d_ch_adults$subj_id) %>%
+  select(subj_id, age, gender, ethnicity_cat, language,
+         urban_rural_cat, education_cat, 
+         afford_cat, class_cat, class_cat2,
+         spirit_relig_num, religion)
+```
+
+```{r demo vt adults}
+demo_vt_adults <- read_csv("../demographics/plog_vt_adults.csv") %>%
+  # limit to sample used in analyses
+  filter(subj_id %in% d_vt_adults$subj_id) %>%
+  select(subj_id, age, gender, language, religion) %>%
+  mutate(gender = factor(tolower(gender),
+                         levels = c("f", "m", "o"),
+                         labels = c("female", "male", "other")))
+```
+
+```{r demo all adults}
+demo_adults <- demo_us_adults %>%
+  full_join(demo_gh_adults) %>%
+  full_join(demo_th_adults) %>%
+  full_join(demo_ch_adults) %>%
+  full_join(demo_vt_adults) %>%
+  mutate(country = gsub("_.*$", "", subj_id),
+         country = recode_factor(country,
+                                 "us" = "US",
+                                 "gh" = "Ghana", 
+                                 "th" = "Thailand",
+                                 "ch" = "China",
+                                 "vt" = "Vanuatu")) %>%
+  mutate(gender = recode(tolower(gender),
+                         "f" = "f",
+                         "female" = "f",
+                         "m" = "m",
+                         "male" = "m",
+                         "o" = "o",
+                         "other" = "o"),
+         gender = factor(gender, 
+                         levels = c("f", "m", "o"),
+                         labels = c("female", "male", "other")),
+         urban_rural_cat = factor(urban_rural_cat,
+                                  levels = c("urban", "suburban", "both", "rural")),
+         education_cat = factor(education_cat,
+                                 levels = c("some high school", 
+                                            "ged", 
+                                            "high school", 
+                                            "trade/certificate",
+                                            "some college",
+                                            "associates",
+                                            "other college degree",
+                                            "bachelors", 
+                                            "some graduate school",
+                                            "masters", 
+                                            "phd",
+                                            "professional degree")),
+         afford_cat = factor(afford_cat, levels = c("no", "somewhat", "yes")),
+         class_cat = factor(class_cat,
+                            levels = c("lower/working class",
+                                       "lower middle",
+                                       "middle",
+                                       "upper middle",
+                                       "upper")),
+         class_cat2 = factor(class_cat2,
+                             levels = c("lower", "middle", "upper")),
+         religion_cat = case_when(
+           religion %in% c("buddhist, christian (cathedral school)") ~ "multiple",
+           grepl("do not", religion) |
+             grepl("don't", religion) |
+             grepl("none", religion) |
+             religion %in% c("like buddhist / no religion", "na", "no",
+                             "no religion") ~ "none",
+           grepl("buddh", religion) ~ "buddhist",
+           grepl("anglican", religion) |
+             grepl("aog", religion) |
+             grepl("assembl", religion) |
+             grepl("bapt", religion) |
+             grepl("church", religion) |
+             grepl("cathol", religion) |
+             grepl("christ", religion) |
+             grepl("sda", religion) |
+             grepl("coc", religion) |
+             grepl("episcop", religion) |
+             grepl("jehov", religion) |
+             grepl("luther", religion) |
+             grepl("morm", religion) |
+             grepl("ministry", religion) |
+             grepl("covenant", religion) |
+             grepl("pentecos", religion) |
+             grepl("praise", religion) |
+             grepl("presby", religion) |
+             grepl("protest", religion) |
+             grepl("sunday", religion) |
+             religion %in% c("ntm") ~ "christian",
+           grepl("hind", religion) ~ "hindu",
+           grepl("jain", religion) ~ "jain",
+           grepl("jew", religion) |
+             grepl("judais", religion) ~ "jewish",
+           grepl("islam", religion) |
+             grepl("musl", religion) ~ "muslim",
+           grepl("ancestor", religion) |
+             grepl("animis", religion) |
+             grepl("burning incense", religion) |
+             grepl("tradition", religion) ~ "traditional",
+           religion %in% c("all religions",
+                           "any religion",
+                           "believe in jesus from inside, but doesn't like christians",
+                           "honor all traditions",
+                           "i have some views about supernatural things. but i'm not sure whether there exists real god. i follow reason and keep a reserved opinion.",
+                           "not an atheist but don't have a certain belief be affected by chinese traditional non-institutional religion") ~ "other",
+           religion %in% c("as above") ~ NA_character_,
+           TRUE ~ NA_character_,
+         )) %>%
+  select(country, subj_id, everything())
+```
+
+```{r sample adults}
+demo_adults %>% 
+  count(country)
+```
+
+```{r age adults}
+demo_adults %>%
+  filter(!is.na(age)) %>%
+  group_by(country) %>%
+  summarise(min_age = min(age),
+            max_age = max(age),
+            median_age = median(age),
+            mean_age = mean(age),
+            sd_age = sd(age)) %>%
+  mutate_at(vars(-country),
+            ~ round(., 2)) %>%
+  mutate(range_age = paste(min_age, max_age, sep = "-"),
+         mean_sd_age = paste0(mean_age, " (", sd_age, ")")) %>%
+  select(country, range_age, median_age, mean_sd_age) %>%
+  column_to_rownames("country")
+```
+
+```{r gender adults}
+demo_adults %>% 
+  count(country, gender) %>%
+  complete(country, nesting(gender), fill = list(n = 0)) %>%
+  group_by(country) %>%
+  mutate(percent = 100 * (round(n/sum(n), 2))) %>%
+  ungroup() %>%
+  select(-n) %>%
+  spread(gender, percent)
+```
+
+```{r ethnicity adults}
+demo_adults %>% 
+  count(country, ethnicity_cat) %>%
+  group_by(country) %>%
+  mutate(percent = 100*round(n/sum(n), 2)) %>%
+  ungroup() %>%
+  filter(percent >= 5) %>%
+  select(-n) %>%
+  arrange(country, desc(percent))
+```
+
+```{r language adults}
+demo_adults %>% 
+  mutate(language = tolower(language)) %>%
+  mutate(lang_english = grepl("engl", language),
+         lang_fante = grepl("fant", language),
+         lang_thai = grepl("thai", language),
+         lang_mandarin = grepl("mand", language),
+         lang_bislama = grepl("bisl", language),
+         lang_task = case_when(country == "US" ~ lang_english,
+                               country == "Ghana" ~ lang_fante,
+                               country == "Thailand" ~ lang_thai,
+                               country == "China" ~ lang_mandarin,
+                               country == "Bislama" ~ lang_bislama)) %>%
+  count(country, lang_task) %>%
+  group_by(country) %>%
+  mutate(percent = 100*round(n/sum(n), 2)) %>%
+  ungroup() %>%
+  select(-n) %>%
+  spread(lang_task, percent)
+```
+
+```{r urban rural adults}
+demo_adults %>% 
+  count(country, urban_rural_cat) %>%
+  complete(country, nesting(urban_rural_cat), fill = list(n = 0)) %>%
+  group_by(country) %>%
+  mutate(percent = 100 * (round(n/sum(n), 2))) %>%
+  ungroup() %>%
+  select(-n) %>%
+  mutate(urban_rural_cat = factor(urban_rural_cat,
+                                  levels = levels(demo_adults$urban_rural_cat))) %>%
+  spread(urban_rural_cat, percent)
+```
+
+```{r education adults}
+demo_adults %>% 
+  # mutate(education_cat = case_when(as.numeric(education_cat) < 4 ~ "high school or less",
+  #                                   as.numeric(education_cat) < 8 ~ "some higher education",
+  #                                   as.numeric(education_cat) >= 8 ~ "bachelors or more",
+  #                                   TRUE ~ NA_character_),
+  #        education_cat = factor(education_cat,
+  #                                levels = c("high school or less",
+  #                                           "some higher education",
+  #                                           "bachelors or more"))) %>%
+  count(country, education_cat) %>%
+  complete(country, nesting(education_cat), fill = list(n = 0)) %>%
+  group_by(country) %>%
+  mutate(percent = 100 * (round(n/sum(n), 2))) %>%
+  ungroup() %>%
+  select(-n) %>%
+  spread(education_cat, percent)
+```
+
+```{r afford adults}
+demo_adults %>% 
+  count(country, afford_cat) %>%
+  complete(country, nesting(afford_cat), fill = list(n = 0)) %>%
+  group_by(country) %>%
+  mutate(percent = 100 * (round(n/sum(n), 2))) %>%
+  ungroup() %>%
+  select(-n) %>%
+  mutate(afford_cat = factor(afford_cat,
+                                  levels = levels(demo_adults$afford_cat))) %>%
+  spread(afford_cat, percent)
+```
+
+```{r class adults}
+demo_adults %>% 
+  count(country, class_cat2) %>%
+  complete(country, nesting(class_cat2), fill = list(n = 0)) %>%
+  group_by(country) %>%
+  mutate(percent = 100 * (round(n/sum(n), 2))) %>%
+  ungroup() %>%
+  select(-n) %>%
+  mutate(class_cat2 = factor(class_cat2,
+                                  levels = levels(demo_adults$class_cat2))) %>%
+  spread(class_cat2, percent)
+```
+
+```{r religiosity adults}
+demo_adults %>%
+  filter(!is.na(spirit_relig_num)) %>%
+  group_by(country) %>%
+  summarise(median = median(spirit_relig_num),
+            mean = mean(spirit_relig_num),
+            sd = sd(spirit_relig_num)) %>%
+  mutate_at(vars(-country),
+            ~ round(., 2)) %>%
+  mutate(mean_sd = paste0(mean, " (", sd, ")")) %>%
+  select(country, median, mean_sd) %>%
+  column_to_rownames("country")
+```
+
+```{r religion adults}
+demo_adults %>% 
+  count(country, religion_cat) %>%
+  group_by(country) %>%
+  mutate(percent = 100*round(n/sum(n), 2)) %>%
+  ungroup() %>%
+  filter(percent >= 5) %>%
+  select(-n) %>%
+  arrange(country, desc(percent))
+```
+
+
+
+# Children
+
+```{r demo us children}
+# read in demographics files: children
+demo_us_children <- read_csv("../demographics/plog_us_children.csv") %>%
+  # limit to sample used in analyses
+  filter(subj_id %in% d_us_children$subj_id) %>%
+  select(subj_id, age, gender, 
+         ethnicity, ethnicity_cat, live_here, from_where, 
+         language, language_home, language_school, 
+         church, religion, religion_cat)
+```
+
+```{r demo gh children}
+demo_gh_children <- read_csv("../demographics/plog_gh_children.csv") %>%
+  # limit to sample used in analyses
+  filter(subj_id %in% d_gh_children$subj_id) %>%
+    select(subj_id, age, gender, 
+           live_here, from_where, 
+           language, language_home, language_school, 
+           church, church_cat, religion, religion_cat)
+```
+
+```{r demo th children}
+demo_th_children <- read_csv("../demographics/plog_th_children.csv") %>%
+  # limit to sample used in analyses
+  filter(subj_id %in% d_th_children$subj_id) %>%
+  select(subj_id, age, gender, 
+         live_here, from_here, from_where, 
+         language, language_home, language_school, 
+         church, religion, religion_cat)
+```
+
+```{r demo ch children}
+demo_ch_children <- read_csv("../demographics/plog_ch_children.csv") %>%
+  # limit to sample used in analyses
+  filter(subj_id %in% d_ch_children$subj_id) %>%
+  select(subj_id, age, gender, 
+         live_here, from_here, from_where, 
+         language, language_home, language_school, 
+         church, religion, religion_cat)
+```
+
+```{r demo vt children}
+demo_vt_children <- read_csv("../demographics/plog_vt_children.csv") %>%
+  # limit to sample used in analyses
+  filter(subj_id %in% d_vt_children$subj_id) %>%
+  select(subj_id, age, gender, 
+         live_here, from_here, from_where, 
+         language, language_home, language_school, 
+         church, religion, religion_cat)
+```
+
+```{r demo all children}
+demo_children <- demo_us_children %>%
+  full_join(demo_gh_children) %>%
+  full_join(demo_th_children) %>%
+  full_join(demo_ch_children) %>%
+  full_join(demo_vt_children) %>%
+  mutate(country = gsub("_.*$", "", subj_id),
+         country = recode_factor(country,
+                                 "us" = "US",
+                                 "gh" = "Ghana", 
+                                 "th" = "Thailand",
+                                 "ch" = "China",
+                                 "vt" = "Vanuatu")) %>%
+  mutate(gender = recode(tolower(gender),
+                         "f" = "f",
+                         "female" = "f",
+                         "m" = "m",
+                         "male" = "m",
+                         "o" = "o",
+                         "other" = "o"),
+         gender = factor(gender, 
+                         levels = c("f", "m", "o"),
+                         labels = c("female", "male", "other"))) %>%
+  select(country, subj_id, everything())
+```
+
+```{r sample children}
+demo_children %>% 
+  count(country)
+```
+
+```{r age children}
+demo_children %>%
+  filter(!is.na(age)) %>%
+  group_by(country) %>%
+  summarise(min_age = min(age),
+            max_age = max(age),
+            median_age = median(age),
+            mean_age = mean(age),
+            sd_age = sd(age)) %>%
+  mutate_at(vars(-country),
+            ~ round(., 2)) %>%
+  mutate(range_age = paste(min_age, max_age, sep = "-"),
+         mean_sd_age = paste0(mean_age, " (", sd_age, ")")) %>%
+  select(country, range_age, median_age, mean_sd_age) %>%
+  column_to_rownames("country")
+```
+
+```{r gender children}
+demo_children %>% 
+  count(country, gender) %>%
+  complete(country, nesting(gender), fill = list(n = 0)) %>%
+  group_by(country) %>%
+  mutate(percent = 100 * (round(n/sum(n), 2))) %>%
+  ungroup() %>%
+  select(-n) %>%
+  spread(gender, percent)
+```
+
+```{r ethnicity children}
+demo_children %>% 
+  count(country, ethnicity_cat) %>%
+  group_by(country) %>%
+  mutate(percent = 100*round(n/sum(n), 2)) %>%
+  ungroup() %>%
+  filter(percent >= 5) %>%
+  select(-n) %>%
+  arrange(country, desc(percent))
+```
+
+```{r language children}
+demo_children %>% 
+  mutate(language = tolower(language)) %>%
+  mutate(lang_english = grepl("engl", language),
+         lang_fante = grepl("fant", language),
+         lang_thai = grepl("thai", language),
+         lang_mandarin = grepl("mand", language),
+         lang_bislama = grepl("bisl", language),
+         lang_task = case_when(country == "US" ~ lang_english,
+                               country == "Ghana" ~ lang_fante,
+                               country == "Thailand" ~ lang_thai,
+                               country == "China" ~ lang_mandarin,
+                               country == "Bislama" ~ lang_bislama)) %>%
+  count(country, lang_task) %>%
+  group_by(country) %>%
+  mutate(percent = 100*round(n/sum(n), 2)) %>%
+  ungroup() %>%
+  select(-n) %>%
+  spread(lang_task, percent)
+```
+
+```{r urban rural children}
+demo_children %>% 
+  count(country, urban_rural_cat) %>%
+  complete(country, nesting(urban_rural_cat), fill = list(n = 0)) %>%
+  group_by(country) %>%
+  mutate(percent = 100 * (round(n/sum(n), 2))) %>%
+  ungroup() %>%
+  select(-n) %>%
+  mutate(urban_rural_cat = factor(urban_rural_cat,
+                                  levels = levels(demo_children$urban_rural_cat))) %>%
+  spread(urban_rural_cat, percent)
+```
+
+```{r education children}
+demo_children %>% 
+  # mutate(education_cat = case_when(as.numeric(education_cat) < 4 ~ "high school or less",
+  #                                   as.numeric(education_cat) < 8 ~ "some higher education",
+  #                                   as.numeric(education_cat) >= 8 ~ "bachelors or more",
+  #                                   TRUE ~ NA_character_),
+  #        education_cat = factor(education_cat,
+  #                                levels = c("high school or less",
+  #                                           "some higher education",
+  #                                           "bachelors or more"))) %>%
+  count(country, education_cat) %>%
+  complete(country, nesting(education_cat), fill = list(n = 0)) %>%
+  group_by(country) %>%
+  mutate(percent = 100 * (round(n/sum(n), 2))) %>%
+  ungroup() %>%
+  select(-n) %>%
+  spread(education_cat, percent)
+```
+
+```{r afford children}
+demo_children %>% 
+  count(country, afford_cat) %>%
+  complete(country, nesting(afford_cat), fill = list(n = 0)) %>%
+  group_by(country) %>%
+  mutate(percent = 100 * (round(n/sum(n), 2))) %>%
+  ungroup() %>%
+  select(-n) %>%
+  mutate(afford_cat = factor(afford_cat,
+                                  levels = levels(demo_children$afford_cat))) %>%
+  spread(afford_cat, percent)
+```
+
+```{r class children}
+demo_children %>% 
+  count(country, class_cat2) %>%
+  complete(country, nesting(class_cat2), fill = list(n = 0)) %>%
+  group_by(country) %>%
+  mutate(percent = 100 * (round(n/sum(n), 2))) %>%
+  ungroup() %>%
+  select(-n) %>%
+  mutate(class_cat2 = factor(class_cat2,
+                                  levels = levels(demo_children$class_cat2))) %>%
+  spread(class_cat2, percent)
+```
+
+```{r religiosity children}
+demo_children %>%
+  filter(!is.na(spirit_relig_num)) %>%
+  group_by(country) %>%
+  summarise(median = median(spirit_relig_num),
+            mean = mean(spirit_relig_num),
+            sd = sd(spirit_relig_num)) %>%
+  mutate_at(vars(-country),
+            ~ round(., 2)) %>%
+  mutate(mean_sd = paste0(mean, " (", sd, ")")) %>%
+  select(country, median, mean_sd) %>%
+  column_to_rownames("country")
+```
+
+```{r religion children}
+demo_children %>% 
+  count(country, religion_cat) %>%
+  group_by(country) %>%
+  mutate(percent = 100*round(n/sum(n), 2)) %>%
+  ungroup() %>%
+  filter(percent >= 5) %>%
+  select(-n) %>%
+  arrange(country, desc(percent))
+```
+
+
+
+
+

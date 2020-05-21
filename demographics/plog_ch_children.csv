@@ -1,0 +1,132 @@
+subj_id,age,gender,live_here,from_here,from_where,sibling_number,sibling_order,language,language_home,language_school,school,church,religion,religion_cat
+ch_children_001_crickets,8,Female,No,No,inner mongolia autonomous region,0,Only Child,"Chinese, Mandarin","Chinese, Mandarin","Chinese, Mandarin",Yes,no,no,none
+ch_children_002_cellphones,8,Female,No,No,"Inner Mongolia, autonomous region",Missing data,Missing Data,"Chinese, Mandarin","Chinese, Mandarin","Chinese, mandarin",Yes,None,none,none
+ch_children_003_chickens,10,Male,Yes,No,"Mom: yes, Father: Shandong",0,Only child,"Shanghai dialect, Mandarin, English",Mandarin,Mandarin,Yes,no,none,none
+ch_children_004_children,9,Female,Yes,No,"Father: Northeast part of China, Mother: Anhui",0,Only Child,"Shanghai dialect, Mandarin",Mandarin,Mandarin,Yes,None,none,none
+ch_children_005_dogs,10,Male,Yes,Yes,NA,0,Only child,"Mandarin, Shanghai dialect",Shanghai dialect,Mandarin,Yes,No,none,none
+ch_children_006_flowers,9,Male,Yes,Yes,NA,0,Only child,MandarinÔºåEnglishÔºåWenzhou dialectÔºåShaoxing dialectÔºåShanghai dialect,Mandarin,Mandarin,Yes,No,none,none
+ch_children_007_ghosts,8,Female,Yes,Yes,NA,0,Only Child,Mandarin. A little Shanghanese,Mandarin,Mandarin,Yes,no,no,none
+ch_children_008_god,9,Female,Yes,Yes,NA,0,Only child,"Mandarin, English",Mandarin,Mandarin,Yes,No,none,none
+ch_children_009_mice,10,Female,Yes,Yes,NA,0,Only Child,"English, Mandarin",Mandarin,Mandarin,Yes,no,no,none
+ch_children_010_rocks,10,Female,Yes,Yes,NA,0,Only child,"English, Mandarin",Mandarin,Mandarin,Yes,No,none,none
+ch_children_011_cellphones,8,Male,Yes,Yes,NA,0,Only Child,"English, Chinese (a little) Shanghainese",Mandarin Chinese,Mandarin Chinese,Yes,no,no,none
+ch_children_012_chickens,8,Female,Yes,Yes,NA,0,Only Child,"English, Mandarin Chinese, a little bit of Shanghainese",Mandarin Chinese,Mandarin Chinese,Yes,No,no,none
+ch_children_013_children,9,Male,Yes,No,Family from Anhui,1 sister,1st,Mandarin and Fuyang dialect,Mandarin,Mandarin,Yes,I don't go to church,i don't practice any religion,i don't practice any religion
+ch_children_014_dogs,8,Female,Yes,Yes,NA,0,Only Child,Mandarin and Shanghai dialect,Shanghai dialect,Mandarin,Yes,I don't go to Church,i don't practice a religion,i don't practice a religion
+ch_children_015_flowers,8,Female,Yes,Yes,NA,0,Only Child,"English, Chinese",Chinese,Putong dialect,Yes,no,buddhism,buddhist
+ch_children_016_ghosts,10,Male,Yes,Yes,NA,Missing data,Missing Data,Chinese English,Putong Dialect,Putong Dialect,Yes,no,no,none
+ch_children_017_god,9,Male,No,No,"Only brother, but parent not",1 brother,1st,"Chinese, English",Chinese,Chinese,Yes,No,none,none
+ch_children_018_mice,10,Male,Yes,Yes,NA,0,Only Child,"Chinese, English",Chinese,Chinese,Yes,not often,sometimes believe,sometimes believe
+ch_children_019_rocks,8,Male,No,No,"Inner Mongolia, Autonomous region",0,Only Child,Chinese Mandarin,Chinese Mandarin,Chinese Mandarin,Yes,No,none,none
+ch_children_020_crickets,8,Male,No,No,Inner Mongolia Autonomous Region,0,Only child,"Chinese, mandarin","Chinese, mandarin","Chinese, mandarin",Yes,No,none,none
+ch_children_021_chickens,10,Male,Yes,No,His mother is from Hunan Province,0,Only Child,"Mandarin, English, Japanese (a little bit)",Mandarin,Mandarin,Yes,Putuo Temple,no,none
+ch_children_022_children,10,Female,Yes,Yes,NA,Missing data,Missing Data,Mandarin. English. Shanghai dialect,Mandarin,Mandarin,Yes,no,no,none
+ch_children_023_dogs,8,Female,Yes,Yes,NA,0,Only Child,Mandarin and Shanghai Dialect,Shanghai Dialect,Mandarin,Yes,Putuo Mountain and Jingan Temple,"""she couldn't know what religion means and just told me 'yes'""",multiple
+ch_children_024_flowers,9,Female,Yes,Yes,NA,0,Only child,Mandarin,Mandarin,Mandarin,Yes,Jingan Temple and Chenghuang Temple,none,none
+ch_children_025_ghosts,9,Female,Yes,Yes,NA,0,Only Child,"English, Shanghainese, Mandarin",Mandarin,Mandarin,Yes,sometimes may go to Mu En Church with grandmother,no,none
+ch_children_026_god,8,Female,Yes,Yes,NA,0,Only Child,"Shanghainese, English, Mandarin, Dialect of Northeast Area in China",Mandarin,Mandarin,Yes,Long Hua Yemple,none,none
+ch_children_027_mice,10,Male,Yes,Yes,NA,0,Only Child,English and Mandarin,Mandarin,Mandarin,Yes,No,none,none
+ch_children_028_rocks,10,Male,Yes,Yes,NA,0,Only child,Mandarin and English,Mandarin,Mandarin,Yes,Only while travelling,none,none
+ch_children_029_crickets,9,Male,Yes,Yes,NA,0,Only child,Mandarin and English,Mandarin,Mandarin,Yes,no,none,none
+ch_children_030_cellphones,9,Male,Yes,No,"Father: WuXi, Mother: Qidong",0,Only Child,"Mandarin, English",Mandarin,Mandarin,Yes,"Seldom, Songnan Temple",none,none
+ch_children_031_children,10,Female,Yes,Yes,NA,1 sibling,1st,"Shanghai dialect, English, Mandarin",Mandarin,Mandarin,Yes,Scenic spots. The temple in Maexiang Ancient Town,none,none
+ch_children_032_dogs,9,Female,Yes,Yes,NA,0,Only Child,Mandarin and English,Mandarin,Mandarin,Missing data,No,none,none
+ch_children_033_flowers,10,Female,Yes,Yes,NA,0,Only Child,"Mandarin, Shanghai Dialect",Mandarin,Mandarin,Yes,no,none,none
+ch_children_034_ghosts,9,Female,Yes,No,"Father: Anhui, Mother: Yinchuan",0,Only Child,"Mandarin, English, Shanghai dialect, Anhui dialect, Yinchuan dialect",Mandarin,Mandarin,Yes,"Once, Town God's temple",none,none
+ch_children_035_god,10,Female,Yes,Yes,NA,0,Only Child,Mandarin,Mandarin,Mandarin,Missing data,None,none,none
+ch_children_036_mice,10,Female,Yes,Yes,NA,0,Only Child,"Mandarin, Shanghai Dialect (a bit), English (a bit)","Mandarin, Shanghai Dialect (a bit)",Mandarin,Yes,Annually. Lingyin Temple,none,none
+ch_children_037_rocks,9,Male,Yes,Yes,NA,0,Only Child,Mandarin,Mandarin,Mandarin,Yes,No,none,none
+ch_children_038_crickets,10,Female,Yes,Yes,NA,0,Only Child,"Mandarin, Shanghai dialect","Mandarin, Shanghai dialect",Mandarin,Yes,No,none,none
+ch_children_039_cellphones,10,Female,Yes,Yes,NA,0,Only Child,"Mandarin, Shanghai dialect",Shanghai Dialect,Mandarin,Yes,"Yes, have been to temples in Shanghai and other areas, her uncle is a Buddhist","no, she don't remember names, not go on a regular basis and just followed her relatives to worship buddha",multiple
+ch_children_040_chickens,9,Male,Yes,Yes,NA,0,Only Child,Chinese. English,Chinese,Chinese,Yes,No,none,none
+ch_children_041_dogs,10,Male,Yes,No,"Father: Shanghai, Mother: Fujian",0,Only Child,Mandarin,Mandarin,Mandarin,Yes,"Rarely, not remember","yes, not sure",multiple
+ch_children_042_flowers,10,Male,Yes,No,Zhejiang,2 siblings,3rd,"Mandarin, Shanghai dialect, Zhejiang dialect ( a bit)",Mandarin,Mandarin,Yes,Christian Church at Banyang Road Shipside,christian,christian
+ch_children_043_ghosts,9,Female,Yes,No,Fujian,yes,2nd,"Fujian dialect, Mandarin, English",Mandarin,Mandarin,Yes,Occasionally. The temple on Putuo Mountain,none,none
+ch_children_044_god,10,Male,Yes,Yes,NA,0,Only Child,"Shanghai Dialect, English, Mandarin",Mandarin,Mandarin,Yes,no,none,none
+ch_children_045_mice,10,Female,Yes,Yes,NA,0,Only Child,"Mandarin, Shanghai Dialect (a bit), Zhejiang Dialect (a bit), English (a bit)","Mandarin, Shanghai Dialect (sometimes)",Mandarin,Yes,no,none,none
+ch_children_046_rocks,9,Female,Yes,Yes,NA,0,Only Child,"Shanghai dialect, Mandarin, English",Mandarin and Shanghai dialect,Mandarin,Yes,No,none,none
+ch_children_047_crickets,9,Male,Yes,Yes,NA,1 sibling,1st,Mandarin and Shanghai dialect,Mandarin,Mandarin,Yes,"Temple, can't remember",don't know,don't know
+ch_children_048_cellphones,9,Male,Yes,Yes,NA,0,Only Child,Mandarin,Mandarin,Mandarin,Yes,I think so. I don't know.,sometimes. somewhere in jingan district.,sometimes. somewhere in jingan district.
+ch_children_049_chickens,9,Female,Yes,Yes,NA,0,Only Child,Chinese,Mandarin,Mandarin,Yes,No,none,none
+ch_children_050_children,9,Female,Yes,Yes,NA,1 sibling,2nd,"Chinese, Japanese",Mandarin,Mandarin,Yes,No,none,none
+ch_children_051_flowers,9,Male,Yes,No,"Mother: Chongming, Father: Fujian",0,Only Child,Chongqining Dialect and Mandarin,Mandarin and Chingming Dialect,Mandarin,Yes,Seldom (can't tell),no,none
+ch_children_052_ghosts,9,Male,Yes,No,mother is from Xian,0,Only Child,"English, French and Mandarin",Mandarin,Mandarin,Yes,Yes. But forgot the name,no,none
+ch_children_053_god,9,Male,Yes,No,Father is from Suqian,0,Only Child,"English, Mandarin and Shanghai Dialect",Mandarin and Shanghai Dialect,Mandarin,Yes,no,no,none
+ch_children_054_mice,9,Female,Yes,Yes,NA,1 brother,2nd,Mandarin and Shanghai Dialect,Shanghai Dialect,Mandarin,Yes,No,none,none
+ch_children_055_rocks,9,Female,Yes,Yes,NA,0,Only child,Mandarin (Shanghai Dialect),Shanghai Dialect / Mandarin,Mandarin,Yes,No,no,none
+ch_children_056_crickets,9,Female,Yes,No,Shangdong and Nantong,0,Only child,English and Mandarin,Mandarin,Mandarin,Yes,No,none,none
+ch_children_057_cellphones,12,Male,Yes,Yes,NA,0,Only Child,Mandarin and Shanghai Dialect,Mandarin,Mandarin,Yes,no,no,none
+ch_children_058_chickens,10,Male,Yes,Yes,NA,0,Only Child,Mandarin and a little Shanghai dialect,Mandarin,Mandarin,Yes,no,no,none
+ch_children_059_children,10,Male,Yes,Yes,NA,0,Only Child,Mandarin and Shanghai dialect,Mandarin and Shanghai dialect,Mandarin,Yes,No,none,none
+ch_children_060_dogs,10,Female,Yes,No,Father: Nantong,1 brother,1st,Mandarin,Mandarin,Mandarin,Yes,"Yes, Xinjing Temple",sometimes (can't understand what religion means),sometimes (can't understand what religion means)
+ch_children_061_ghosts,10,Female,Yes,Yes,NA,0,Only Child,Mandarin and a little Shanghai Dialect,Shanghai Dialect,Mandarin,Yes,No,none,none
+ch_children_062_god,10,Female,Yes,Yes,NA,0,Only Child,"Mandarin, Shanghai Dialect and English",Shanghai dialect and mandarin,mandarin,Yes,no,no,none
+ch_children_063_mice,8,Male,Yes,Yes,NA,0,Only Child,"Mandarin, English",Mandarin,Mandarin,Yes,no,buddhism,buddhist
+ch_children_064_rocks,8,Female,Yes,Yes,NA,0,Only Child,"Mandarin, English",Mandarin,Mandarin,Yes,Yes,none,none
+ch_children_065_crickets,9,Male,Yes,Yes,NA,0,Only Child,"Mandarin, English",Mandarin,Mandarin,Yes,No,none,none
+ch_children_066_cellphones,8,Male,Yes,Yes,NA,0,Only Child,"Mandarin, English",Mandarin,Mandarin,Yes,no,no,none
+ch_children_067_chickens,8,Male,Yes,Yes,NA,0,Only Child,"Mandarin, English",Mandarin,Mandarin,Yes,"Yes, Buddhist temple",no,none
+ch_children_068_children,8,Female,Yes,Yes,NA,twin sister,2nd,"Mandarin, English",Mandarin,Mandarin,Yes,"Yes, Buddhist temple",no,none
+ch_children_069_dogs,10,Male,Yes,Yes,NA,1 sibling,1st,"Chinese, English",Shanghai Dialect,Mandarin,Yes,No,none,none
+ch_children_070_flowers,10,Male,Yes,Yes,NA,0,Only Child,"English, Chinese, Japanese",Chinese,Chinese,Yes,Not sure. Once during childhood,no,none
+ch_children_071_god,10,Male,Yes,Yes,NA,0,Only Child,"Mandarin, English",Mandarin,Mandarin,Yes,no,no,none
+ch_children_072_mice,10,Male,Yes,No,"Father: Fujian, Mother: Jiangsu",1 sibling,2nd,"Mandarin, English, Shanghai Dialect",Mandarin,Mandarin,Yes,No,none,none
+ch_children_073_rocks,9,Male,Yes,Yes,NA,1 sister,2nd,Mandarin,Mandarin,Mandarin,Yes,no,no,none
+ch_children_074_mice,8,Female,Yes,Yes,NA,0,Only Child,Mandarin,Mandarin,Mandarin,Yes,no,no,none
+ch_children_075_cellphones,8,Female,Yes,No,Missing Data,0,Only Child,Mandarin,Mandarin,Mandarin,Yes,Town's Gods Temple,none,none
+ch_children_076_chickens,9,Male,No,No,Inner Mongolia Autonomous region,0,Only child,"Chinese, mandarin","Chinese, mandarin",Chinese,Yes,None,none,none
+ch_children_077_children,9,Male,No,No,Inner Mongolia autonomous region,0,Only Child,"Chinese, mandarin","Chinese, mandarin","Chinese, Mandarin",Yes,no,no,none
+ch_children_078_dogs,9,Female,No,No,mdata,0,Only Child,"chinese, Mandarin","chinese, Mandarin","chinese, Mandarin",Yes,no,no,none
+ch_children_079_flowers,10,Female,No,No,nner Mongolia autonomous region,0,Only Child,"Chinese, Mandarin","Chinese, Mandarin","Chinese, Mandarin",Yes,None,none,none
+ch_children_080_ghosts,8,Female,No,No,Inner Mongolia autonomous region,0,Only Child,"Chinese, mandarin","Chinese, mandarin","Chinese, Mandarin",Yes,None,none,none
+ch_children_081_mice,9,Female,Yes,Yes,NA,yes,2nd,"Chinese, English",Chinese,Chinese,Yes,No,no,none
+ch_children_082_rocks,9,Female,Yes,Yes,NA,0,Only Child,"Chinese, English",Chinese,Chinese,Yes,No,no,none
+ch_children_083_crickets,10,Female,Yes,Yes,NA,1 sibling,1st,Mandarin,Mandarin,Mandarin,Yes,No,none,none
+ch_children_084_cellphones,9,Male,Yes,Yes,NA,0,Only Child,Mandarin and Shanghai Dialect,Shanghai Dialect,Mandarin,Yes,No,none,none
+ch_children_085_chickens,9,Female,Yes,Yes,NA,0,Only Child,Mandarin and Shanghai dialect,Shanghai dialect,Mandarin,Yes,No,no,none
+ch_children_086_children,8,Male,Yes,Yes,NA,0,Only Child,Mandarin,Mandarin,Mandarin,Yes,No,no,none
+ch_children_087_dogs,10,Female,No,No,Missing Data,0,Only Child,"Chinese, Mandarin","Chinese, Mandarin","Chinese, Mandarin",Yes,No,none,none
+ch_children_088_flowers,10,Male,No,No,Missing Data,0,Only Child,"Chinese, Mandarin","Chinese, Mandarin","Chinese, Mandarin",Yes,No,none,none
+ch_children_089_ghosts,8,Female,No,No,Inner Mongolia autonomous region,0,Only Child,"Chinese, Mandarin","Chinese, Mandarin","Chinese, Mandarin",Yes,no,no,none
+ch_children_090_god,8,Male,Yes,Yes,NA,0,Only Child,"Chinese, English",Mandarin,Mandarin,Yes,Non,none,none
+ch_children_091_rocks,8,Male,Yes,Yes,NA,0,Only Child,Chinese,Mandarin,Mandarin,Yes,No,none,none
+ch_children_092_crickets,8,Male,Yes,Yes,NA,0,Only Child,Chinese,Mandarin,Mandarin,Yes,no,no,none
+ch_children_093_cellphones,8,Female,No,Yes,NA,0,Only child,Chinese Mandarin,Chinese Mandarin,Chinese Mandarin,Yes,No,none,none
+ch_children_094_chickens,8,Female,No,Yes,NA,0,Only Child,"Chinese, Mandarin","Chinese, Mandarin","Chinese, Mandarin",Yes,no,no,none
+ch_children_095_children,8,Female,No,Yes,NA,0,Only Child,"Chinese, Mandarin","Chinese, Mandarin","Chinese, Mandarin",Yes,no,no,none
+ch_children_096_dogs,8,Male,No,Yes,NA,0,Only Child,Chinese Mandarin,Chinese Mandarin,Chinese Mandarin,Yes,No,none,none
+ch_children_097_flowers,10,Male,Yes,Yes,NA,Missing data,Missing Data,Mandarin,Mandarin,Mandarin,Yes,No,none,none
+ch_children_098_ghosts,8,Male,Yes,Yes,NA,0,Only Child,"Chinese, English",Mandarin,Chinese,Yes,"Yes, sometimes",none,none
+ch_children_099_god,9,Male,Yes,Yes,NA,yes,2nd,"Mandarin, Shanghai dialect, English","Mandarin, English",Mandarin,Yes,No,none,none
+ch_children_100_mice,8,Male,Yes,Yes,NA,0,Only Child,Mandarin,Mandarin,Mandarin,Yes,no,no,none
+ch_children_101_crickets,8,Male,Yes,Yes,NA,0,Only Child,"Mandarin, Shianghai dialect",Shanghai dialect,Mandarin,Yes,no,no,none
+ch_children_102_cellphones,8,Female,Yes,Yes,NA,0,Only Child,"Mandarin, Shanghai dialect",Shanghai dialect,Mandarin,Yes,No,none,none
+ch_children_103_chickens,9,Female,Yes,Yes,NA,2 siblings,2nd,"Mandarin, Shanghai Dialect",Shanghai dialect,Mandarin,Yes,No,none,none
+ch_children_104_children,10,Male,Yes,No,Ningbo,0,Only Child,Mandarin,Mandarin,Mandarin,Yes,no,no,none
+ch_children_105_dogs,10,Male,Yes,Yes,NA,0,Only Child,"Mandarin, Shanghai Dialect",Shanghai Dialect,Mandarin,Yes,no,no,none
+ch_children_106_flowers,10,Female,Yes,Yes,NA,0,Only Child,"Mandarin, Shanghai Dialect",Shanghai Dialect,Mandarin,Yes,No,none,none
+ch_children_107_ghosts,9,Male,No,Yes,NA,0,Only Child,Chinese Mandarin,Chinese Mandarin,Chinese Mandarin,Yes,No,none,none
+ch_children_108_god,10,Female,No,Yes,NA,0,Only Child,"Chinese, Mandarin","Chinese, Mandarin","Chinese, Mandarin",Yes,no,no,none
+ch_children_109_mice,10,Male,No,Yes,NA,0,Only Child,"Chinese, Mandarin","Chinese, Mandarin","Chinese, Mandarin",Yes,no,no,none
+ch_children_110_rocks,10,Male,No,Yes,NA,0,Only Child,Chinese Mandarin,Chinese Mandarin,Chinese Mandarin,Yes,No,none,none
+ch_children_111_cellphones,10,Male,No,Yes,NA,0,Only Child,Chinese Mandarin,Chinese Mandarin,Chinese Mandarin,Yes,No,none,none
+ch_children_112_chickens,8,Male,No,Yes,NA,0,Only Child,"Chinese, Mandarin","Chinese, Mandarin","Chinese, Mandarin",Yes,no,no,none
+ch_children_113_chickens,10,Male,Yes,Yes,NA,0,Only Child,Mandarin,Mandarin,Mandarin,Yes,no,no,none
+ch_children_114_children,8,Female,No,Yes,NA,0,Only Child,"Chinese, Mandarin","Chinese, Mandarin","Chinese, Mandarin",Yes,no,no,none
+ch_children_115_flowers,10,Female,Yes,Yes,NA,yes,2nd,"Mandarin, English",Mandarin,"Mandarin, English",Yes,No,none,none
+ch_children_116_ghosts,10,Female,Yes,Yes,NA,0,Only Child,"Mandarin, English",Mandarin,Mandarin,Yes,No,none,none
+ch_children_117_god,9,Female,Yes,Yes,NA,0,Only Child,Mandarin,Mandarin,Mandarin,Yes,no,no,none
+ch_children_118_mice,9,Male,Yes,No,Henan,0,Only Child,Mandarin,Mandarin,Mandarin,Yes,no,no,none
+ch_children_119_rocks,9,Male,Yes,Yes,NA,0,Only Child,"Mandarin, English",Mandarin,Mandarin,Yes,No,none,none
+ch_children_120_crickets,9,Male,Yes,Yes,NA,0,Only Child,Mandarin,Mandarin,Mandarin,Yes,No,none,none
+ch_children_121_dogs,10,Female,Yes,Yes,NA,0,Only Child,Mandarin,Mandarin,Mandarin,Yes,No,none,none
+ch_children_122_rocks,8,Female,Yes,No,Taiwan,yes,1st,"Shanghai dialect, Mandarin, English",Mandarin,Mandarin,Yes,No,none,none
+ch_children_123_flowers,8,Female,Yes,No,Henan / Jiangsu,Yes,1st,"Mandarin, English",Mandarin,Mandarin,Yes,No,none,none
+ch_children_124_cellphones,9,Male,Yes,Yes,NA,0,Only Child,"Chinese, English",Mandarin,"Mandarin, English",Yes,No,none,none
+ch_children_125_cellphones,8,Female,Yes,Yes,NA,0,Only Child,Mandarin,Mandarin,Mandarin,Yes,No,none,none
+ch_children_126_chickens,9,Male,Yes,Yes,NA,2 siblings,2nd,"Mandarin, Shanghai dialect",Shanghai dialect,Mandarin,Yes,No,none,none
+ch_children_127_dogs,9,Female,Yes,No,Anhui,2 siblings,1st,Mandarin,Mandarin,Mandarin,Yes,No,none,none
+ch_children_128_flowers,10,Male,No,Yes,NA,Missing data,Missing Data,"Chinese, Mandarin","Chinese, Mandarin","Chinese, Mandarin",Yes,No,none,none
+ch_children_129_beetles,10,Female,No,Yes,NA,0,Only Child,"Chinese, Mandarin","Chinese, Mandarin","Chinese, Mandarin",Yes,No,none,none
+ch_children_130_ghosts,8,Female,Yes,Yes,NA,0,Only Child,Mandarin,Mandarin,Mandarin,Yes,No,none,none
+ch_children_131_children,10,Female,Yes,Yes,NA,0,Only Child,"Mandarin, English",Mandarin,Mandarin,Yes,No,none,none

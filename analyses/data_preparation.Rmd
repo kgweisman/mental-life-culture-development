@@ -1,0 +1,57 @@
+---
+title: "Concepts of mental life across cultures: Data preparation"
+authors: "Weisman, Legare, & Luhrmann"
+output: 
+  html_notebook:
+    toc: true
+    toc_float: true
+---
+
+```{r setup}
+knitr::opts_chunk$set(echo = F, message = F)
+```
+
+In this notebook we prepare anonymized datasets for our studies of concepts of mental life, in which each participants judged the various mental capacities of a particular target entity. We prepare anonymized datasets for adults and children from each of our five field sites: the US, Ghana, Thailand, China, and Vanuatu. 
+
+Note that these datasets include questions that were not analyzed in the main text of the paper, namely, (1) Extra site-specific target entities included in some but not all sites (e.g., pigs among adults and children in Vanuatu, robots and aliens among children in Thailand); and (2) Additional questions asked at the end of the task about blood, minds, souls, and (among adults and children in China) "feelings in the heart."
+
+```{r, echo = F, message = F}
+source("./scripts/dependencies.R")
+source("./scripts/custom_funs.R")
+source("./scripts/var_recode_contrast.R")
+```
+
+
+# Adults
+
+```{r}
+source("./scripts/data_prep_adults.R")
+```
+
+```{r}
+rm(d_us, d_us_dup, d_raw_us, subj_key_us,
+   d_gh, d_gh_dup, d_raw_gh, subj_key_gh,
+   d_th, d_th_dup, d_raw_th, subj_key_th,
+   d_ch, d_ch_dup, d_raw_ch, subj_key_ch,
+   d_vt, d_vt_dup, d_raw_vt, subj_key_vt,
+   subj_key)
+```
+
+
+# Children
+
+```{r}
+source("./scripts/data_prep_children.R")
+```
+
+
+```{r}
+rm(d_us, d_us_dup, d_raw_us, subj_key_us,
+   d_gh, d_gh_dup, d_raw_gh, subj_key_gh,
+   d_th, d_th_dup, d_raw_th, subj_key_th,
+   d_ch, d_ch_dup, d_raw_ch, subj_key_ch,
+   d_vt, d_vt_dup, d_raw_vt, subj_key_vt,
+   subj_key)
+```
+
+

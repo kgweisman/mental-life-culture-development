@@ -1,0 +1,165 @@
+subj_id,age,gender,language,religion,religion_cat
+vt_adults_001_mice,28,F,"Bislama, Banks  language",mormon,mormon
+vt_adults_002_missing data,56,F,"Bislama, Nese",sda,sda
+vt_adults_003_children,16,F,"Bislama, Clear River, Espigles Bay language",sda,sda
+vt_adults_004_chickens,25,F,"Bislama, Clear River, Espigles Bay language",sda,sda
+vt_adults_005_children,62,M,"Bislama, Espigles Bay language",sda,sda
+vt_adults_006_god,57,F,Bislama,mormon,mormon
+vt_adults_007_pigs,37,F,"Bislama, Ambae language",coc,coc
+vt_adults_008_cellphones,58,F,"Bislama, Eratap language",sda,sda
+vt_adults_009_god,31,M,"Bislama, Big Nabos, English",sda,sda
+vt_adults_010_children,42,M,Bislama,sda,sda
+vt_adults_011_dogs,37,M,"Bislama, Tanna language",sda,sda
+vt_adults_012_ghosts,25,M,Bislama,sda,sda
+vt_adults_013_god,54,F,"Bislama, Espigles Bay language",sda,sda
+vt_adults_014_flowers,28,F,Bislama,sda,sda
+vt_adults_015_chickens,37,M,"Bislama, North Ambae language",anglican,anglican
+vt_adults_016_rocks,45,M,"Bislama, Espigles Bay language",sda,sda
+vt_adults_017_children,26,F,Bislama,sda,sda
+vt_adults_018_flowers,70,F,"Bislama, Espigles Bay language",sda,sda
+vt_adults_019_dogs,23,F,"Bislama, Makira language, Emae",new government,new government
+vt_adults_020_rocks,75,M,Bislama,presbyterian,presbyterian
+vt_adults_021_flowers,33,M,Bislama,sda,sda
+vt_adults_022_beetles,23,F,Bislama,sda,sda
+vt_adults_023_chickens,65,F,Bislama,presbyterian,presbyterian
+vt_adults_024_mice,47,M,Bislama,sda,sda
+vt_adults_025_mice,44,F,"Bislama, Espigles Bay language",sda,sda
+vt_adults_026_cellphones,41,F,"Bislama, South East Ambryn language",presbyterian,presbyterian
+vt_adults_027_god,23,F,Santo language,presbyterian,presbyterian
+vt_adults_028_ghosts,39,F,Bislama,sda,sda
+vt_adults_029_ghosts,49,F,Bislama,mormon,mormon
+vt_adults_030_beetles,34,F,Eratap language,sda,sda
+vt_adults_031_god,15,F,Bislama,sda,sda
+vt_adults_032_god,30,M,Bislama,sda,sda
+vt_adults_033_god,48,F,"Bislama, Espigles Bay language",sda,sda
+vt_adults_034_pigs,41,F,"Bislama, Tanna language",ntm,ntm
+vt_adults_035_rocks,34,F,"Bislama, Clear River language",protestant,protestant
+vt_adults_036_rocks,37,F,"Bislama, Ambryn language",christian outreach center,christian outreach center
+vt_adults_037_mice,19,F,Santo language,ntm,ntm
+vt_adults_038_rocks,40,F,Bislama,anglican,anglican
+vt_adults_039_flowers,27,F,"Bislama, Paama language",sda,sda
+vt_adults_040_mice,20,F,Bislama,reformed sda,reformed sda
+vt_adults_041_chickens,46,F,"Bislama, Malekula language",sda,sda
+vt_adults_042_dogs,20,F,"Bislama, Tanna language",missing data,NA
+vt_adults_043_beetles,35,F,"Bislama, Atchin, Rao language",sda joj,sda joj
+vt_adults_044_god,NA,F,Bislama,sda,sda
+vt_adults_045_cellphones,40,M,"Bislama, North Ambae language",anglican,anglican
+vt_adults_046_beetles,64,M,Bislama,catholic,catholic
+vt_adults_047_dogs,19,M,Bislama,sda,sda
+vt_adults_048_chickens,18,M,Bislama,sda,sda
+vt_adults_049_ghosts,73,M,"Bislama, Espigles Bay language",sda,sda
+vt_adults_050_pigs,21,F,Bislama,sda,sda
+vt_adults_051_rocks,40,M,"Bislama, Espigles Bay language",sda self-support,sda self-support
+vt_adults_052_pigs,58,F,Bislama,sda,sda
+vt_adults_053_cellphones,18,M,Bislama,reformed sda,reformed sda
+vt_adults_054_mice,35,F,Bislama,sda,sda
+vt_adults_055_dogs,20,F,Maewo language,anglican,anglican
+vt_adults_056_children,33,M,Bislama,sda,sda
+vt_adults_057_mice,63,F,Bislama,reformed sda,reformed sda
+vt_adults_058_rocks,21,F,"Bislama, Pentecost language",sda,sda
+vt_adults_059_mice,34,M,Bislama,church of christ,church of christ
+vt_adults_060_crickets,71,F,Bislama,sda,sda
+vt_adults_061_children,NA,F,Tanna language,sda,sda
+vt_adults_062_ghosts,18,M,Bislama,sda,sda
+vt_adults_063_dogs,45,F,Bislama,ntm,ntm
+vt_adults_064_mice,NA,F,"Bislama, Tanna language",used to be catholic,used to be catholic
+vt_adults_065_chickens,40,M,Tanna language,sda,sda
+vt_adults_066_rocks,24,M,Beknabep language,sda,sda
+vt_adults_067_beetles,21,F,"English, Bislama",aog assemblies of god,aog assemblies of god
+vt_adults_068_chickens,17,F,Bislama,sda,sda
+vt_adults_069_chickens,22,F,"Bislama, Makira language",new covenant,new covenant
+vt_adults_070_pigs,27,F,Tanna language,beloved church,beloved church
+vt_adults_071_pigs,28,M,"Bislama, Espigles Bay language",sda breakaway,sda breakaway
+vt_adults_072_god,20,M,Bislama,sda,sda
+vt_adults_073_pigs,56,M,"Bislama, Clear River language",sda,sda
+vt_adults_074_mice,24,F,Bislama,presbyterian,presbyterian
+vt_adults_075_ghosts,26,M,"Bislama, North Ambae language",anglican,anglican
+vt_adults_076_mice,60,F,Ambryn language,sda,sda
+vt_adults_077_pigs,55,F,Bislama,sda,sda
+vt_adults_078_dogs,26,F,Bislama,sda,sda
+vt_adults_079_children,23,M,"Bislama, Makira language",pentecostal joj,pentecostal joj
+vt_adults_080_children,30,M,Bislama,sda,sda
+vt_adults_081_flowers,15,M,Bislama,sda,sda
+vt_adults_082_flowers,70,M,Bislama,catholic,catholic
+vt_adults_083_rocks,20,F,"Bislama, Mosso language",praise and worship,multiple
+vt_adults_084_mice,20,F,"Bislama, Mosso language",missing data,NA
+vt_adults_085_god,40,F,"Bislama, Pele language",beloved church,beloved church
+vt_adults_086_pigs,32,F,Bislama,catholic,catholic
+vt_adults_087_dogs,44,F,Bislama,"neil thomas ministry, sunday keeping","neil thomas ministry, sunday keeping"
+vt_adults_088_pigs,42,F,Bislama,sda,sda
+vt_adults_089_children,28,F,"Bislama, Hoghabour language",presbyterian,presbyterian
+vt_adults_090_cellphones,24,M,"Bislama, Tongoa language",new covenant,new covenant
+vt_adults_091_rocks,18,M,Bislama,catholic,catholic
+vt_adults_092_crickets,26,F,Bislama,sda,sda
+vt_adults_093_ghosts,57,M,Emau language,presbyterian,presbyterian
+vt_adults_094_cellphones,36,F,Bislama,sda,sda
+vt_adults_095_dogs,37,F,"Bislama, Espigles Bay language",sda,sda
+vt_adults_096_god,31,F,"Bislama, Pentecost language",sda,sda
+vt_adults_097_chickens,43,F,Bislama,sda,sda
+vt_adults_098_cellphones,42,F,Bislama,presbyterian,presbyterian
+vt_adults_099_ghosts,45,F,"Bislama, Espigles Bay language",sda,sda
+vt_adults_100_dogs,44,F,"Bislama, Clear River language",sda,sda
+vt_adults_101_chickens,24,F,Bislama,presbyterian,presbyterian
+vt_adults_102_cellphones,43,F,Bislama,pentecostal,pentecostal
+vt_adults_103_chickens,39,F,"Bislama, Big Nambas language",sda,sda
+vt_adults_104_mice,NA,F,Tanna language,sunday keeping religion,sunday keeping religion
+vt_adults_105_rocks,56,F,Ambae language,"church of christ, sda","church of christ, sda"
+vt_adults_106_beetles,23,F,Bislama,ntm,ntm
+vt_adults_107_beetles,26,F,Bislama,sda,sda
+vt_adults_108_flowers,NA,F,Bislama,sda,sda
+vt_adults_109_ghosts,NA,F,"Bislama, Espigles Bay language",sda,sda
+vt_adults_110_dogs,34,F,Bislama,sda,sda
+vt_adults_111_chickens,43,M,"Bislama, Tanna, Aniwa language",glorious church,glorious church
+vt_adults_112_cellphones,32,F,Bislama,sda,sda
+vt_adults_113_god,32,F,Bislama,sda,sda
+vt_adults_114_flowers,30,F,"Bislama, Paama language",sda,sda
+vt_adults_115_beetles,38,F,Bislama,reformed sda,reformed sda
+vt_adults_116_flowers,26,M,Bislama,mormon,mormon
+vt_adults_117_dogs,30,F,"Bislama, North Ambae language",anglican,anglican
+vt_adults_118_flowers,42,M,"Bislama, Paama language",presbyterian,presbyterian
+vt_adults_119_beetles,35,F,Bislama,sda,sda
+vt_adults_120_ghosts,60,F,Bislama,sda,sda
+vt_adults_121_pigs,27,F,Bislama,sda,sda
+vt_adults_122_flowers,48,M,Bislama,aog assemblies of god,aog assemblies of god
+vt_adults_123_beetles,24,F,"Bislama, Malekula language",presbyterian,presbyterian
+vt_adults_124_dogs,17,F,"Bislama, Espigles Bay language",sda,sda
+vt_adults_125_ghosts,24,M,Bislama,presbyterian,presbyterian
+vt_adults_126_children,16,F,Bislama,none,none
+vt_adults_127_cellphones,41,M,Bislama,sda,sda
+vt_adults_128_chickens,18,M,"Bislama, Espigles Bay language",sda,sda
+vt_adults_129_flowers,33,F,"Clear River, Espigles Bay language",sda,sda
+vt_adults_130_ghosts,19,M,Malo language,assemblies of god,assemblies of god
+vt_adults_131_mice,29,F,Bislama,missing data,NA
+vt_adults_132_cellphones,27,M,"Bislama, Clear River, Espigles Bay language",sda,sda
+vt_adults_133_pigs,42,F,Bislama,sda,sda
+vt_adults_134_dogs,33,F,Bislama,sda,sda
+vt_adults_135_children,26,F,"Bislama, Paama language",sda,sda
+vt_adults_136_dogs,64,F,Bislama,sda,sda
+vt_adults_137_rocks,19,M,Bislama,sda,sda
+vt_adults_138_rocks,19,F,Bislama,sda,sda
+vt_adults_139_children,56,F,Bislama,sda,sda
+vt_adults_140_children,26,F,Bislama,presbyterian,presbyterian
+vt_adults_141_beetles,32,F,Bislama,glorious church,glorious church
+vt_adults_142_ghosts,23,F,Tanna language,any religion,multiple
+vt_adults_143_ghosts,22,F,"Bislama, Pentecost language",sda,sda
+vt_adults_144_god,35,F,Bislama,sda,sda
+vt_adults_145_god,19,F,Tanna language,missing data,NA
+vt_adults_146_rocks,28,F,"Bislama, Aniwa language",glorious church,glorious church
+vt_adults_147_children,17,F,Bislama. Paama language,sda,sda
+vt_adults_148_cellphones,39,F,"Bislama, Tanna, Aniwa language",glorious church,glorious church
+vt_adults_149_flowers,22,F,Bislama,church of christ,church of christ
+vt_adults_150_cellphones,19,F,Bislama,sda,sda
+vt_adults_151_chickens,17,F,"Bislama, Pentecost language",anglican,anglican
+vt_adults_152_pigs,42,F,Tanna language,sda,sda
+vt_adults_153_flowers,16,F,Tanna language,catholic,catholic
+vt_adults_154_pigs,43,F,"Bislama, Espigles Bay language",sda,sda
+vt_adults_155_beetles,46,M,Tanna language,presbyterian,presbyterian
+vt_adults_156_mice,33,M,Bislama,sda,sda
+vt_adults_157_god,22,F,Bislama,sda,sda
+vt_adults_158_beetles,19,M,Tanna language,ntm,ntm
+vt_adults_159_ghosts,19,F,Bislama,sda,sda
+vt_adults_160_flowers,23,F,Bislama,sda,sda
+vt_adults_161_children,20,F,Espigles Bay language,sda,sda
+vt_adults_162_cellphones,31,F,Bislama,sda,sda
+vt_adults_163_rocks,40,M,"Bislama, Tongoa, Nguna language",bible church,bible church
+vt_adults_164_pigs,25,M,"Bislama, Mosso language",presbyterian,presbyterian

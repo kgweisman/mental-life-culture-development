@@ -1,0 +1,128 @@
+subj_id,age,gender,ethnicity,born_us,language,urban_rural,education,afford,class,rich_poor,spirit_relig,religion,ethnicity_cat,urban_rural_cat,education_cat,class_cat,class_cat2,spirit_relig_num,religion_cat
+us_adults_001_children,23,F,indian,no,"english, hindi, marathi",urban,bachelors,yes,middle,about the same,agree,hinduism,south asian,urban,bachelors,middle,middle,1,hindu
+us_adults_002_dogs,24,M,peruvian,yes,"spanish, english",urban,some college,yes,lower middle,a little poorer,disagree,no,hispanic/latino,urban,some college,lower middle,lower,-1,none
+us_adults_003_flowers,44,F,caucasian,no,english,urban,phd,NA,missing data,NA,NA,missing data,white,urban,phd,NA,NA,NA,NA
+us_adults_004_ghosts,43,F,missing data,no,"english, french",missing data,college,NA,middle,about the same,NA,missing data,NA,NA,some college,middle,middle,NA,NA
+us_adults_005_god,27,M,caucasian,yes,"english, spanish",urban,some college,yes,middle,a little richer,agree,no,white,urban,some college,middle,middle,1,none
+us_adults_006_mice,38,F,european,yes,english,suburban,masters,yes,middle,about the same,agree,missing data,white,suburban,masters,middle,middle,1,NA
+us_adults_007_rocks,19,F,mixed,yes,english,rural,some college,yes,middle,much poorer,strongly disagree,missing data,multiple,rural,some college,middle,middle,-2,NA
+us_adults_008_cellphones,42,M,african american,yes,english,rural,high school,yes,middle,about the same,agree,no,black,rural,high school,middle,middle,1,none
+us_adults_009_chickens,30,F,caucasian,yes,english,urban,masters,yes,upper,a little poorer,agree,no,white,urban,masters,upper,upper,1,none
+us_adults_010_children,26,F,mexican,yes,english,urban,associates,yes,middle,a little poorer,disagree,no,hispanic/latino,urban,associates,middle,middle,-1,none
+us_adults_011_dogs,28,F,jewish,yes,english,suburban,masters,yes,upper middle,about the same,agree,judaism,white,suburban,masters,upper middle,upper,1,jewish
+us_adults_012_flowers,25,M,caucasian,yes,english,suburban,associates,NA,middle,NA,NA,missing data,white,suburban,associates,middle,middle,NA,NA
+us_adults_013_ghosts,26,F,indo-guyanese / italian,yes,english,rural,associates,yes,lower income,a little richer,disagree,no,multiple,rural,associates,lower/working class,lower,-1,none
+us_adults_014_god,21,M,filipino,yes,"tagalog, english",urban,1 year college,yes,middle,a little richer,strongly disagree,no,pacific islander,urban,other college degree,middle,middle,-2,none
+us_adults_015_mice,20,M,caucasian,yes,english,suburban,high school,yes,upper middle,about the same,strongly agree,christian,white,suburban,high school,upper middle,upper,2,christian
+us_adults_016_rocks,25,M,hispanic,no,"spanish, english",rural,college,yes,middle,about the same,agree,catholic,hispanic/latino,rural,some college,middle,middle,1,christian
+us_adults_017_beetles,26,M,middle eastern,yes,"persian, english",urban,bachelors,yes,upper middle,about the same,disagree,no,middle eastern,urban,bachelors,upper middle,upper,-1,none
+us_adults_018_chickens,52,F,caucasian,no,"english, greek",urban,bachelors,yes,upper,about the same,agree,catholic,white,urban,bachelors,upper,upper,1,christian
+us_adults_019_children,48,M,caucasian,yes,english,urban,bachelors,yes,middle,about the same,neither agree nor disagree,no,white,urban,bachelors,middle,middle,0,none
+us_adults_020_dogs,27,F,caucasian,yes,english,urban,some college,yes,middle,a little poorer,agree,no,white,urban,some college,middle,middle,1,none
+us_adults_021_flowers,20,F,asian,no,"mandarin, english",urban,2 yr college,yes,middle,about the same,agree,no,east asian,urban,other college degree,middle,middle,1,none
+us_adults_022_ghosts,32,F,caucasian,yes,english,rural,masters,yes,middle,a little richer,agree,no,white,rural,masters,middle,middle,1,none
+us_adults_023_god,29,F,asian,yes,english,urban,bachelors,yes,middle,about the same,agree,christian,east asian,urban,bachelors,middle,middle,1,christian
+us_adults_024_mice,49,M,african american,yes,english,suburban,bachelors,yes,middle,about the same,strongly agree,christian,black,suburban,bachelors,middle,middle,2,christian
+us_adults_025_rocks,32,F,biracial,yes,english,urban,high school,yes,upper middle,a little poorer,neither agree nor disagree,no,multiple,urban,high school,upper middle,upper,0,none
+us_adults_026_beetles,35,M,caucasian,yes,english,urban,bachelors,yes,low middle class,a little poorer,strongly disagree,no,white,urban,bachelors,lower middle,lower,-2,none
+us_adults_027_cellphones,57,M,caucasian,yes,english,urban,high school,yes,lower middle,a little poorer,agree,no,white,urban,high school,lower middle,lower,1,none
+us_adults_028_children,24,M,middle eastern,no,"arabic, english",urban,college,yes,lower,about the same,agree,muslim,middle eastern,urban,some college,lower/working class,lower,1,muslim
+us_adults_029_dogs,27,M,caucasian,yes,english,urban,some college,yes,mixed,a little poorer,strongly agree,no,white,urban,some college,NA,NA,2,none
+us_adults_030_flowers,56,F,caucasian,yes,english,urban,bachelors,yes,upper middle,about the same,strongly agree,lutheran,white,urban,bachelors,upper middle,upper,2,christian
+us_adults_031_ghosts,61,F,caucasian,yes,english,urban,bachelors,yes,middle,about the same,neither agree nor disagree,no,white,urban,bachelors,middle,middle,0,none
+us_adults_032_god,28,F,"european, caucasian",yes,english,rural,bachelors,yes,upper middle,about the same,disagree,no,multiple,rural,bachelors,upper middle,upper,-1,none
+us_adults_033_mice,25,F,"spanish, mexican",no,"spanish, english",suburban,bachelors,yes,upper middle,about the same,agree,catholic,multiple,suburban,bachelors,upper middle,upper,1,christian
+us_adults_034_rocks,18,M,caucasian,yes,english,rural,high school,yes,upper middle,about the same,agree,no,white,rural,high school,upper middle,upper,1,none
+us_adults_035_beetles,31,M,african american,yes,english,rural,bachelors,yes,lower,a little richer,strongly agree,no,black,rural,bachelors,lower/working class,lower,2,none
+us_adults_036_cellphones,23,F,black and white,yes,"german, english",urban,some college,yes,middle,about the same,disagree,no,multiple,urban,some college,middle,middle,-1,none
+us_adults_037_chickens,70,F,anglo,yes,english,rural,missing data,yes,upper middle,a little poorer,agree,no,white,rural,NA,upper middle,upper,1,none
+us_adults_038_dogs,72,F,caucasian,yes,english,suburban,masters,yes,upper middle,about the same,neither agree nor disagree,christian,white,suburban,masters,upper middle,upper,0,christian
+us_adults_039_flowers,33,F,caucasian,yes,english,urban,some college,no,upper,much poorer,strongly agree,no,white,urban,some college,upper,upper,2,none
+us_adults_040_ghosts,27,F,missing data,yes,missing data,missing data,general ed,no,middle,a little poorer,NA,missing data,NA,NA,other college degree,middle,middle,NA,NA
+us_adults_041_god,60,F,caucasian,yes,"english, spanish",urban,trade school,no,upscale,a little poorer,neither agree nor disagree,all religions,white,urban,trade/certificate,upper,upper,0,multiple
+us_adults_042_mice,20,F,asian,no,"japanese, english",urban,high school,no,upper middle,a little poorer,disagree,no,east asian,urban,high school,upper middle,upper,-1,none
+us_adults_043_rocks,24,M,caucasian,yes,english,rural,bachelors,yes,upper,a little poorer,agree,no,white,rural,bachelors,upper,upper,1,none
+us_adults_044_beetles,50,M,"caucasian, middle eastern",yes,english,rural,2 masters,yes,upper middle,a little richer,agree,judaism,multiple,rural,masters,upper middle,upper,1,jewish
+us_adults_045_cellphones,32,M,caucasian,yes,"turkish, german, english",urban,masters,yes,upper,about the same,disagree,no,white,urban,masters,upper,upper,-1,none
+us_adults_046_chickens,40,F,caucasian,yes,english,rural,bachelors,no,upper middle,a little poorer,agree,no,white,rural,bachelors,upper middle,upper,1,none
+us_adults_047_children,35,M,middle eastern,yes,"farsi, english",urban,bachelors,yes,middle,about the same,strongly disagree,no,middle eastern,urban,bachelors,middle,middle,-2,none
+us_adults_048_flowers,21,F,"black, mexican",yes,english,rural,ged,yes,middle,about the same,agree,christianity,multiple,rural,ged,middle,middle,1,christian
+us_adults_049_ghosts,35,F,"hispanic, native american",yes,english,urban,bachelors,yes,middle,a little poorer,strongly agree,no,multiple,urban,bachelors,middle,middle,2,none
+us_adults_050_god,26,F,"filipino, caucasian",yes,english,urban,bachelors,yes,middle,about the same,strongly agree,roman catholic,multiple,urban,bachelors,middle,middle,2,christian
+us_adults_051_mice,43,M,hispanic,yes,english,urban,Tech school,yes,lower middle,about the same,agree,no,hispanic/latino,urban,trade/certificate,lower middle,lower,1,none
+us_adults_052_rocks,20,F,caucasian,yes,english,urban,some college,yes,middle,about the same,strongly agree,christian,white,urban,some college,middle,middle,2,christian
+us_adults_053_beetles,21,M,caucasian,yes,english,urban,high school,yes,middle,a little poorer,strongly disagree,no,white,urban,high school,middle,middle,-2,none
+us_adults_054_cellphones,41,F,"caucasian, filipino",yes,english,urban,11th grade,no,middle,a little poorer,agree,no,multiple,urban,some high school,middle,middle,1,none
+us_adults_055_chickens,59,M,caucasian,yes,english,urban,associates,somewhat,middle,a little poorer,strongly agree,christianity,white,urban,associates,middle,middle,2,christian
+us_adults_056_children,25,M,middle eastern,yes,english,urban,2nd year college,yes,middle,a little poorer,neither agree nor disagree,no,middle eastern,urban,some college,middle,middle,0,none
+us_adults_057_dogs,25,M,caucasian,yes,english,urban,high school,yes,middle,a little poorer,neither agree nor disagree,no,white,urban,high school,middle,middle,0,none
+us_adults_058_ghosts,26,M,east indian,yes,"english, hindi",urban,bachelors,yes,working class,about the same,agree,hinduism,south asian,urban,bachelors,lower/working class,lower,1,hindu
+us_adults_059_god,31,M,mixed,yes,"spanish, english",rural,college,yes,upper,about the same,agree,catholic,multiple,rural,some college,upper,upper,1,christian
+us_adults_060_mice,24,F,latin american,yes,english,urban,some college,yes,lower middle,about the same,neither agree nor disagree,no,hispanic/latino,urban,some college,lower middle,lower,0,none
+us_adults_061_rocks,25,M,caucasian,yes,english,urban,some college,yes,lower middle,about the same,disagree,no,white,urban,some college,lower middle,lower,-1,none
+us_adults_062_beetles,29,M,"mexican, filipino",yes,english,urban,some college,yes,middle,a little poorer,strongly agree,buddhism,multiple,urban,some college,middle,middle,2,buddhist
+us_adults_063_cellphones,30,F,caucasian,yes,english,urban,associates,yes,middle,a little poorer,strongly agree,honor all traditions,white,urban,associates,middle,middle,2,multiple
+us_adults_064_chickens,39,M,caucasian,yes,english,rural,bachelors,NA,missing data,NA,NA,missing data,white,rural,bachelors,NA,NA,NA,NA
+us_adults_070_rocks,51,M,caucasian,yes,english,urban,masters,yes,suburban,about the same,strongly disagree,no,white,urban,masters,upper middle,upper,-2,none
+us_adults_071_beetles,24,M,caucasian,yes,english,both moved around,bachelors,yes,suburban,about the same,strongly agree,christian,white,both,bachelors,upper middle,upper,2,christian
+us_adults_072_cellphones,23,M,caucasian,yes,english,rural,masters,yes,upper,about the same,strongly agree,christian,white,rural,masters,upper,upper,2,christian
+us_adults_073_chickens,24,M,hispanic,no,"spanish, english",urban,bachelors,yes,upper middle,about the same,disagree,no,hispanic/latino,urban,bachelors,upper middle,upper,-1,none
+us_adults_074_children,32,M,european,australia-5yr,english,rural,3 bachelors,yes,middle-upper,about the same,strongly agree,lutheran,white,rural,bachelors,upper middle,upper,2,christian
+us_adults_075_dogs,43,F,latin american,yes,"english, spanish",rural,bachelors,yes,middle,about the same,strongly agree,catholic,hispanic/latino,rural,bachelors,middle,middle,2,christian
+us_adults_077_ghosts,18,M,asian,yes,"english, mandarin",urban,high school,yes,upper middle,about the same,neither agree nor disagree,no,east asian,urban,high school,upper middle,upper,0,none
+us_adults_078_mice,22,F,caucasian,yes,english,urban,masters,yes,upper middle,a little richer,strongly agree,episcopalian,white,urban,masters,upper middle,upper,2,christian
+us_adults_079_rocks,18,F,caucasian,yes,english,urban,high school,yes,lower middle,a little poorer,strongly disagree,no,white,urban,high school,lower middle,lower,-2,none
+us_adults_080_beetles,49,M,"american indian, white",yes,"spanish, english",urban,bachelors,yes,lower middle,about the same,agree,no,multiple,urban,bachelors,lower middle,lower,1,none
+us_adults_081_cellphones,39,F,mix-caucasian,yes,english,urban,high school,no,lower,a little poorer,strongly agree,no,multiple,urban,high school,lower/working class,lower,2,none
+us_adults_083_children,33,F,asian,china -2 yr,"mandarin, english",urban,masters,yes,middle,a little poorer,neither agree nor disagree,no,east asian,urban,masters,middle,middle,0,none
+us_adults_084_dogs,50,F,"NA",yes,english,urban,graduate work,no,middle,about the same,strongly agree,christianity,NA,urban,some graduate school,middle,middle,2,christian
+us_adults_085_flowers,55,M,caucasian,yes,english,urban,some college,yes,middle,about the same,disagree,no,white,urban,some college,middle,middle,-1,none
+us_adults_086_ghosts,32,M,african american,yes,english,urban,ged,no,middle,a little poorer,neither agree nor disagree,no,black,urban,ged,middle,middle,0,none
+us_adults_088_rocks,75,M,caucasian,yes,english,rural,some college,yes,middle,about the same,agree,christian,white,rural,some college,middle,middle,1,christian
+us_adults_065_children,20,M,swiss,no,"french, german, english, japanese",both,emt certificate,no,upper middle,a little richer,agree,no,white,both,trade/certificate,upper middle,upper,1,none
+us_adults_066_dogs,30,M,"native american, caucasian",yes,english,urban,high school,no,lower,a little poorer,agree,no,multiple,urban,high school,lower/working class,lower,1,none
+us_adults_067_flowers,24,M,caucasian,no,english,suburban,college,yes,middle,about the same,agree,no,white,suburban,some college,middle,middle,1,none
+us_adults_068_god,50,M,"NA",yes,english,urban,specialized training,NA,"NA",NA,NA,na,NA,urban,trade/certificate,NA,NA,NA,na
+us_adults_069_mice,24,M,african american,no,"french, english",rural,bachelors,yes,middle,about the same,neither agree nor disagree,no,black,rural,bachelors,middle,middle,0,none
+us_adults_076_flowers,51,F,caucasian,yes,english,urban,MD,yes,middle,about the same,neither agree nor disagree,no,white,urban,professional degree,middle,middle,0,none
+us_adults_082_chickens,44,F,"asian, indian",no,"hindi, english",urban,bachelors,yes,middle,about the same,agree,hinduism,multiple,urban,bachelors,middle,middle,1,hindu
+us_adults_087_god,50,F,black,no,"amharic, english",urban,bachelors,yes,middle,about the same,agree,christian,black,urban,bachelors,middle,middle,1,christian
+us_adults_089_beetles,25,M,chinese,no,"chinese, english",urban,bachelors,yes,middle,a little poorer,neither agree nor disagree,no,east asian,urban,bachelors,middle,middle,0,none
+us_adults_090_cellphones,52,F,south asian,no,"hindi, english",urban,phd,yes,upper middle,a little richer,agree,no,south asian,urban,phd,upper middle,upper,1,none
+us_adults_091_chickens,24,F,"mexican, american",yes,"spanish, english",urban,some college,no,middle,a little poorer,neither agree nor disagree,no,multiple,urban,some college,middle,middle,0,none
+us_adults_092_children,26,M,"caucasian, filipino",yes,english,urban,[illegible],yes,middle,about the same,neither agree nor disagree,no,multiple,urban,NA,middle,middle,0,none
+us_adults_093_dogs,24,F,caucasian,yes,english,urban,some college,NA,upper middle,a little poorer,NA,missing data,white,urban,some college,upper middle,upper,NA,NA
+us_adults_094_flowers,25,M,"hispanic, caucasian",yes,english,urban,high school,yes,upper middle,a little poorer,strongly agree,no,multiple,urban,high school,upper middle,upper,2,none
+us_adults_095_ghosts,30,F,caucasian,yes,english,rural,missing data,yes,upper,a little poorer,NA,missing data,white,rural,NA,upper,upper,NA,NA
+us_adults_096_god,27,M,mexican american,yes,"spanish, english",urban,some college,yes,lower,about the same,agree,no,hispanic/latino,urban,some college,lower/working class,lower,1,none
+us_adults_097_mice,21,M,mixed,yes,english,suburban,some college,yes,middle,about the same,neither agree nor disagree,no,multiple,suburban,some college,middle,middle,0,none
+us_adults_098_beetles,27,M,caucasian,yes,english,urban,bachelors,yes,upper,about the same,agree,catholic,white,urban,bachelors,upper,upper,1,christian
+us_adults_099_cellphones,44,F,caucasian,yes,english,rural,bachelors,yes,upper middle,about the same,strongly agree,catholic,white,rural,bachelors,upper middle,upper,2,christian
+us_adults_100_chickens,53,M,italian,yes,english,urban,associates,yes,middle,a little richer,agree,christianity,white,urban,associates,middle,middle,1,christian
+us_adults_101_chickens,29,M,caucasian,yes,english,rural,associates,yes,middle,a little poorer,agree,no,white,rural,associates,middle,middle,1,none
+us_adults_102_dogs,24,M,french,no,"french, english",rural,bachelors,yes,middle,about the same,neither agree nor disagree,no,white,rural,bachelors,middle,middle,0,none
+us_adults_103_flowers,52,M,caucasian,yes,english,urban,high school,no,upper middle,a little poorer,agree,no,white,urban,high school,upper middle,upper,1,none
+us_adults_104_ghosts,47,F,caucasian,yes,english,urban,some college,no,upper,a little poorer,strongly agree,christianity,white,urban,some college,upper,upper,2,christian
+us_adults_105_god,36,M,caucasian,yes,english,rural,bachelors,yes,upper,a little poorer,strongly agree,catholic,white,rural,bachelors,upper,upper,2,christian
+us_adults_106_mice,36,F,mixed,no,"spanish, baik, english",urban,masters,yes,middle,about the same,agree,no,multiple,urban,masters,middle,middle,1,none
+us_adults_107_rocks,41,M,pacific islander,no,"english, tagalog",urban,high school,yes,upper middle,a little poorer,agree,jehova witness,pacific islander,urban,high school,upper middle,upper,1,christian
+us_adults_108_cellphones,NA,M,missing data,missing data,missing data,missing data,missing data,NA,missing data,NA,NA,missing data,NA,NA,NA,NA,NA,NA,NA
+us_adults_109_chickens,30,M,missing data,yes,english,rural,associates,yes,missing data,NA,NA,missing data,NA,rural,associates,NA,NA,NA,NA
+us_adults_110_children,NA,F,missing data,missing data,missing data,missing data,missing data,NA,missing data,NA,NA,missing data,NA,NA,NA,NA,NA,NA,NA
+us_adults_111_dogs,NA,F,missing data,no,"tagalog, english",missing data,missing data,NA,missing data,NA,NA,missing data,NA,NA,NA,NA,NA,NA,NA
+us_adults_112_flowers,33,M,persian,no,"farsi, english, turkish",urban,bachelors,yes,middle,about the same,disagree,missing data,middle eastern,urban,bachelors,middle,middle,-1,NA
+us_adults_113_ghosts,23,F,"NA",no,"swedish, english",rural,some college,yes,upper middle,about the same,neither agree nor disagree,missing data,NA,rural,some college,upper middle,upper,0,NA
+us_adults_114_god,48,M,caucasian,yes,english,urban,masters,yes,middle,a little richer,agree,buddhism,white,urban,masters,middle,middle,1,buddhist
+us_adults_115_mice,NA,M,"NA",yes,english,suburban,graduate school,yes,upper,about the same,NA,na,NA,suburban,some graduate school,upper,upper,NA,na
+us_adults_116_rocks,61,M,pakistan,no,"english, pakistan",rural,bachelors,yes,upper,about the same,agree,no,south asian,rural,bachelors,upper,upper,1,none
+us_adults_117_beetles,23,F,caucasian,yes,english,urban,bachelors,yes,upper,a little poorer,disagree,no,white,urban,bachelors,upper,upper,-1,none
+us_adults_118_chickens,62,M,caucasian,yes,english,Curtone base,some college,yes,middle,about the same,agree,baptist,white,NA,some college,middle,middle,1,christian
+us_adults_119_children,20,M,indian,yes,"english, hindi",urban,high school,yes,middle,a little poorer,neither agree nor disagree,no,south asian,urban,high school,middle,middle,0,none
+us_adults_120_dogs,29,M,south asian,no,"english, telequ",urban,bachelors,yes,middle,about the same,neither agree nor disagree,no,south asian,urban,bachelors,middle,middle,0,none
+us_adults_121_flowers,22,M,latino,yes,"english, spanish",urban,high school,yes,mixed,about the same,neither agree nor disagree,no,hispanic/latino,urban,high school,NA,NA,0,none
+us_adults_122_ghosts,32,M,indian,no,"english, hindi",urban,bachelors,yes,middle,about the same,strongly agree,jainism,south asian,urban,bachelors,middle,middle,2,jain
+us_adults_123_god,25,M,asian,no,"chinese, english",rural,masters,yes,upper,about the same,strongly agree,buddhism,east asian,rural,masters,upper,upper,2,buddhist
+us_adults_124_mice,18,F,hispanic,yes,"english, spanish",urban,high school,yes,middle,about the same,neither agree nor disagree,no,hispanic/latino,urban,high school,middle,middle,0,none
+us_adults_125_rocks,21,M,"half black, latino",yes,english,urban,high school,yes,middle,a little poorer,strongly agree,no,multiple,urban,high school,middle,middle,2,none
+us_adults_126_beetles,21,M,latino,yes,english,urban,high school,yes,middle,about the same,agree,buddhism,hispanic/latino,urban,high school,middle,middle,1,buddhist
+us_adults_127_cellphones,43,F,"black, white",yes,english,urban,bachelors,yes,upper middle,a little richer,disagree,no,multiple,urban,bachelors,upper middle,upper,-1,none

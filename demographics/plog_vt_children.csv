@@ -1,0 +1,170 @@
+subj_id,age,gender,live_here,from_here,from_where,sibling_number,sibling_order,language,language_home,language_school,school,church,religion,religion_cat
+vt_children_001_dogs,8,M,Lives at Teouma Bridge,yes,NA,1 brother and 1 sister,second born,Bislama,Bislama,Bislama,class 2,yes,sda,sda
+vt_children_002_pigs,13,F,Lives at Teouma Bridge,yes,NA,1 brother and 2 sisters,first born,"Bislama, Tanna and Pentecost languages",Bislama,English,"yes, year 7",NA,sda,sda
+vt_children_003_mice,8,F,Lives at Eratap village,yes,NA,2 sisters and 1 brother,last born,Eratap language,Eratap language,Bislama,class 1,NA,NA,NA
+vt_children_004_dogs,11,F,yes,yes,NA,1 brother,first born,"Bislama, and understands Ngunese",Ngunese and Bislama,English,class 5,NA,presbyterian,presbyterian
+vt_children_005_beetles,8,F,Eratap village,yes,NA,1 sister and 2 brothers,third born,"Bislama, English, Eratap language",Eratap language,English,class 3,NA,sda,sda
+vt_children_006_flowers,9,F,Eratap village,yes,NA,3 brothers and 1 sister,last born,Eratap language,Bislama,English,class 3,NA,sunday keeping,sunday keeping
+vt_children_007_ghosts,8,M,Lives at Eratap village,yes,NA,1 sister and no brothers,first born,Eratap language,Eratap language,"Eratap language, Bislama",class 3,NA,presbyterian,presbyterian
+vt_children_008_mice,9,M,"Lives at Matanvat, Malekula",yes,NA,1 brother and 2 sisters,second born,Bislama,Bislama,English,"yes, class 4",NA,sda,sda
+vt_children_009_rocks,9,M,"Lives at Womul, Malekula",yes,NA,3 sisters and no brothers,first born,Bislama,Bislama,English,"yes, class 3",NA,sunday keeping,sunday keeping
+vt_children_010_pigs,6,M,"Molin, Malekula",Yes,NA,2 brothers and 1 sister,second born,Bislama,Bislama,Bislama,class 1,NA,sda,sda
+vt_children_011_rocks,6,M,Lives at Espigles Bay,yes,NA,1 sister and no brothers,first born,Bislama,Bislama,Bislama,yes class 1,NA,sda,sda
+vt_children_012_ghosts,10,M,"Matanvat, Malekula",Yes,NA,1 brother and 2 sister,last born,NA,Espigles Bay language,English,"yes, class 4",NA,presbyterian,presbyterian
+vt_children_013_beetles,5,M,Lives at Teouma Bridge,yes,NA,"1 brother, 1 sister (cousin)",first born,"Bislama, English",Bislama,English,Kindy,NA,sda,sda
+vt_children_014_flowers,9,M,Lives at Matanvat,yes,NA,2 sisters and 1 brother,second born,Bislama,Bislama,English,"yes, class 3",NA,sda,sda
+vt_children_015_dogs,9,F,Lives at Rentabao,yes,NA,3 brothers and 3 sisters,second born,Tanna language,Tanna,Bislama,class 3,NA,healing touch ministry,healing touch ministry
+vt_children_016_ghosts,9,F,Lives at Malekula,Yes,NA,2 brothers and 1 sister,third born,Tautu (Malekula) language,Tautu (Malekula) language,Bislama,"yes, class 3",yes,presbyterian,presbyterian
+vt_children_017_crickets,9,F,"Lives at Tanmial, Malekula",yes,NA,3 sisters and no brothers,first born,Bislama,Bislama,English,"yes, class 3",NA,sda,sda
+vt_children_018_rocks,9,M,"Womal, Malekula",Yes,NA,1 brother and 1 sister,first born,Womal language,Bislama,Bislama,"Yes, class 2",NA,sunday,sunday
+vt_children_019_mice,8,M,"Womal, Malekula",Yes,NA,1 brother and no sister,first born,Womal language,Womal language,French,"Yes, class 3",NA,sunday,sunday
+vt_children_020_beetles,10,F,yes,yes,NA,3 brothers and 3 sisters,third born,Ambae language,Bislama,English,class 4,NA,apostolic,apostolic
+vt_children_021_pigs,7,M,Lives at Eratap village,NA,Lives at Eratap village,1 brother and 1 sister,first born,Bislama,Bislama,English,class 1,NA,presbyterian,presbyterian
+vt_children_022_pigs,9,M,Eratap village,Yes,NA,2 sisters and no brothers,second born,Aniwa language,Aniwa language,Eratap language,class 2,NA,sda,sda
+vt_children_023_pigs,10,F,Lives at Malekula,Yes,NA,2 brothers and 2 sisters,third born,Bislama,Bislama,English,"yes, class 4",yes,presbyterian,presbyterian
+vt_children_024_children,11,F,"Tanmial, Malekula",Yes,NA,1 sister and 3 brothers,second last,Bislama,Bislama,Bislama,"yes, class 4",NA,sda church,sda church
+vt_children_025_flowers,11,F,"Lives at Espigles Bay, Malekula",yes,NA,1 brother and 1 sister,second born,Bislama and English,Bislama,English,yes. class 5,NA,sda,sda
+vt_children_026_god,9,M,Lives at Eratap village,yes,NA,3 sisters and 1 brother,last born,"doesn't know any local language, knows Bislama",Bislama,Bislama,class 3,NA,jehovah's witness,jehovah's witness
+vt_children_027_god,9,M,"Womal, Malekula",Yes,NA,3 brothers and 1 sister,third born,Womal language,Womal language,French,"Yes, class 3",NA,presbyterian,presbyterian
+vt_children_028_flowers,7,M,"Tanmial, Malekula",Yes,NA,3 sisters and no brothers,second born,Bislama,Bislama,Bislama,"Yes, class 2",NA,sda,sda
+vt_children_029_children,10,F,Lives at Eratap village,yes,NA,1 brother and no sisters,first born,Bislama and Eratap language,Bislama,English and Bislama,class 5,yes,keeping one,keeping one
+vt_children_030_cellphones,8,F,Lives at Matanvat village,yes,NA,6 brothers and 2 sisters,second born,Bislama and English,Bislama,English,yes. class 3,NA,sda,sda
+vt_children_031_beetles,6,F,Lives at Teouma Bridge,yes,NA,2 brothers and no sisters,first born,Pentecost language,Pentecost language,English,yes. Kindy,NA,anglican,anglican
+vt_children_032_god,6,F,Lives at Teouma Bridge,yes,NA,3 brothers and 4 sisters,sixth born,Bislama,Bislama,Bislama,yes kindy,NA,sda,sda
+vt_children_033_crickets,10,F,"Molin, Malekula",Yes,NA,1 sister and 4 brothers,fourth born,Bislama,Bislama,English,class 2,NA,sda,sda
+vt_children_034_flowers,9,M,"Lerrongrong, Malekula",Yes,NA,1 sister and no brothers,first born,English,Bislama,English,"yes, class 4",NA,sda,sda
+vt_children_035_rocks,7,M,Lives at Eratap village,yes,NA,One brother and one sister,second born,Eratap language,Eratap language,English,class 1,NA,presbyterian and jehovah,multiple
+vt_children_036_mice,11,F,"Molin, Malekula",Yes,NA,2 sisters and 4 brothers,third born,Bislama,Bislama,English and Bislama,class 5,NA,sda,sda
+vt_children_037_beetles,6,F,Lives at Erakor village,NA,the family lives at Erakor village,2 brothers and no sisters,last born (3rd),Erakor language,Erakor language,Bislama,class 1,NA,NA,NA
+vt_children_038_chickens,6,F,Lives at Etas,NA,Lives with grand parents at Etas and parents live at Eratap,"2 brothers, 1 sister",last born,Language Eratap,Eratap language,English,class 1,NA,presbyterian,presbyterian
+vt_children_039_children,9,F,Lives at Teouma,yes,NA,1 sister and 2 brothers,first born,"Bislama, Tanna language",Tanna language,French,yes. class 4,yes,sda,sda
+vt_children_040_flowers,8,F,"Molin, Malekula",Yes,NA,"4 brothers, 2 sisters",last born,Bislama,English,Bislama,class 2,NA,sda,sda
+vt_children_041_children,8,F,Eratap village,yes,NA,1 brother and no sisters,first born,Eratap language,Eratap language,Bislama,class 3,NA,presbyterian,presbyterian
+vt_children_042_chickens,9,M,"Jericho, Malekula",Yes,NA,3 sisters and 9 brothers,last born,Bislama,French,Bislama,class 2,NA,protestant,protestant
+vt_children_043_chickens,12,F,Lives at Eratap village,yes,NA,3 brothers and no sisters,first born,English and Eratap language,Bislama,English,class 5,NA,jehovah's witness,jehovah's witness
+vt_children_044_chickens,11,M,"Molin, Malekula",Yes,NA,2 brothers and 2 sisters,third born,Bislama,Bislama,English,class 5,NA,sda,sda
+vt_children_045_chickens,7,F,Letung,No,"Latnani, Malekula",1 brother and 2 sister,second born,Bislama,Bislama,English,"yes, class 1",NA,catholic,christian
+vt_children_046_mice,7,F,Eratap village,yes,NA,2 brothers and 2 sisters,second born,language Eratap,Bislama,Bislama,class 1,NA,jehovah,jehovah
+vt_children_047_chickens,11,M,Lives at Teouma,yes,NA,1 sister and no brothers,last born,Bislama,Bislama,French,yes. class 5,NA,ntm,ntm
+vt_children_048_rocks,10,M,Eratap village,yes,NA,1 brother and 1 sister,second born,Eratap language,Eratap language,Bislama,class 3,NA,jehovah's witness,jehovah's witness
+vt_children_049_ghosts,6,M,yes,yes,NA,1 brother and 1 sister,second born,Bislama,Espigles Bay language and Bislama,Bislama,yes. kindy,NA,sda,sda
+vt_children_050_flowers,12,F,yes,yes,NA,2 sisters and no brothers,first born,knows a bit of siviri language,Bislama,English,class 6,NA,presbyterian,presbyterian
+vt_children_051_rocks,11,F,Lives at Eratap village,Eratap village,NA,4 brothers and 1 sister,fourth born,Tanna language,Tanna language,Bislama,class 3,NA,mormon,mormon
+vt_children_052_ghosts,6,M,Lives at Teouma Bridge,yes,NA,4 brothers and no sisters,second born,Tannese language,Tannese language,NA,no,yes,sda,sda
+vt_children_053_crickets,9,M,"Womal, Malekula",Yes,NA,1 brother and no sister,second born,French,French,French,"Yes, class 1",NA,sda,sda
+vt_children_054_pigs,8,M,"Womal, Malekula",Yes,NA,1 brother and no sister,first born,Womal language,Womal language,French,"Yes, class 3",NA,sunday,sunday
+vt_children_055_god,13,M,Etas,yes,NA,4 brothers and 1 sister and 1 half sister,last born,language Tanna,Tanna (whitesands) language,Bislama,class 5,NA,mormon,mormon
+vt_children_056_dogs,6,F,Eratap village,yes,NA,only child,NA,Bislama,Bislama,Eratap language,class 1,NA,nazarene church,nazarene church
+vt_children_057_flowers,10,M,Lives at Teouma Bridge,yes,NA,1 brother and 3 sisters,fourth born,Bislama and Tanna language,Bislama,English,class 4,NA,sda,sda
+vt_children_058_mice,9,F,Lives at Malekula,Yes,NA,4 brothers and no sisters,second last,Bislama,Tautu (Malekula) language,English,"yes, class 4",yes,presbyterian,presbyterian
+vt_children_059_god,6,F,Lives at Espigles Bay,yes,NA,1 brother and 2 sisters,third born,Bislama,Bislama,no save,molin kindy,NA,sda,sda
+vt_children_060_dogs,8,M,Lives at Malekula,Yes,NA,1 brother and 2 sisters,last born,French,English,Bislama,"Yes, class 2",yes,sda,sda
+vt_children_061_rocks,7,M,Lives at Malekula,Yes,NA,3 brothers and 1 sister,last born,Bislama,Bislama,Bislama,"yes, class 2",yes,presbyterian,presbyterian
+vt_children_062_pigs,11,F,Lives at Eratap village,yes,NA,2 brothers and 1 sister,second born,Bislama,Bislama,English,class 5,NA,jehovah's witness,jehovah's witness
+vt_children_063_beetles,10,M,Lives at Teouma bridge,yes,NA,1 brother and 1 sister,second born,"Eratap language, Bislama, English",Eratap language mostly and a bit of Bislama,English,class 5,NA,sda,sda
+vt_children_064_children,12,M,"Molin, Malekula",Yes,NA,"2 sisters, 2 brothers",second born,English,English,English,class 3,NA,sda,sda
+vt_children_065_cellphones,9,F,Lives at Malekula,No,Her family lives at Pentecost island,3 brothers and 4 sisters,last born,Bislama,Tautu (Malekula) language,English,"yes, class 3",yes,aog,aog
+vt_children_066_chickens,8,F,Lives at Malekula,No,Relatives live in Banks Island,1 sister and 5 brothers,second born,Bislama,Bislama,Bislama,"yes, class 2",yes,sda,sda
+vt_children_067_dogs,5,M,Lives at Teouma Bridge,yes,NA,1 brother and 3 sisters,last born,Bislama,Bislama,English,yes. Kindy,yes,sda,sda
+vt_children_068_cellphones,10,M,Lives at Teouma Bridge,yes,NA,2 brothers and no sister,last born,Bislama,Bislama,English,class 3,NA,sda,sda
+vt_children_069_chickens,8,M,Eratap village,yes,NA,1 brother and 1 sister,second born,Eratap language,Bislama,English,class 3,NA,sunday keeping church,sunday keeping church
+vt_children_070_flowers,6,M,Lives at Malekula,Yes,NA,1 brother and 2 sisters,second born,Pentecost language,Bislama,Bislama,"yes, class 2",yes,aog,aog
+vt_children_071_dogs,10,F,"Womal, Malekula",Yes,NA,1 brother and 1 sister,last born,Bislama,Bislama,French,class 3,NA,protestant,protestant
+vt_children_072_flowers,8,M,Eratap village,yes,NA,2 brothers and no sisters,first born,Eratap language,Eratap language,Bislama,class 2,NA,presbyterian,presbyterian
+vt_children_073_rocks,7,F,Lives at Teouma Bridge,yes,NA,2 brothers and 2 sisters,last born,Pentecost language,Pentecost language,English,yes. class 2,NA,anglican church,anglican church
+vt_children_074_cellphones,10,F,Lives at Freshwota,yes,NA,2 brothers and no sisters,first born,Bislama and knows a lot of Eratap language,Bislama,English,class 4,NA,sda church,sda church
+vt_children_075_dogs,10,F,yes,yes,NA,2 brothers and 1 sister,third born,Erakor language and a bit of erromanga language,"Erromanga language, Bislama language",French,yes. class 5,NA,christian,christian
+vt_children_076_dogs,10,M,Lives at Etas,yes,NA,3 sister and no brothers,last born,Tanna language,Tanna language,English,class 2,NA,sda,sda
+vt_children_077_god,8,F,"Lives at Tontar, Matanvat Village",yes,NA,2 brothers and 5 sisters,second last,Bislama,Bislama,English,"yes, class 4",NA,sda,sda
+vt_children_078_god,9,M,Eratap village,yes,NA,1 brother and 1 sister,first born,Eratap language,Eratap language,Bislama,class 3,NA,presbyterian,presbyterian
+vt_children_079_children,8,M,Lives at Eratap village,yes,NA,1 sister and 2 brothers,last born,Eratap language,Eratap language,NA,class 2,NA,presbyterian church,presbyterian church
+vt_children_080_pigs,9,M,"Lives at Senbokhas, Matanvat, Malekula",yes,NA,3 brothers and 1 sister,second born,English,English,English,"yes, class 3",yes,sunday keeping church,sunday keeping church
+vt_children_081_flowers,14,F,Eratap village,yes,NA,2 brothers and 1 sister,second last born,"Bislama, Eratap language",Eratap language,English,class 5,NA,sunday keeping church,sunday keeping church
+vt_children_082_chickens,8,F,Lives at Bur at Big Nambas area,Relatives live at Bur in Malekula,NA,1 brother and 1 sister,last born,Bur language,Bur language,Bislama,yes. class 3,NA,sda,sda
+vt_children_083_cellphones,9,F,"Molin, Malekula",Yes,NA,"2 brothers, 2 sisters",second born,Bislama,English,Bislama,class 2,NA,sda,sda
+vt_children_084_cellphones,5,M,Lives at Eratap village,NA,Family lives at Eratap village,1 sister and 1 brother,first born,Bislama,Bislama,Bislama,class 1,NA,jehovah,jehovah
+vt_children_085_children,9,M,"Womal, Malekula",Yes,NA,1 sister and 2 brothers,second born,Bislama,Bislama,Bislama,class 2,NA,protestant,protestant
+vt_children_086_rocks,6,F,Lives at Malekula,Yes,NA,2 brothers and 3 sisters,fourth born,"Bislama, English",Bislama,Bislama,"yes, class 1",yes,sda,sda
+vt_children_087_mice,7,F,Eratap village,yes,NA,1 brother and no sisters,second born,Eratap language,Bislama,Bislama,class 2,NA,sda,sda
+vt_children_088_god,6,F,Lives at Teouma Bridge,yes,NA,3 brothers and no sisters,last born,Bislama,Tanna language,Bislama,class 1,NA,sda,sda
+vt_children_089_flowers,7,F,Lives at Teouma Bridge,yes,NA,"3 sisters, 3 brothers",fifth born,Tannese language,Bislama,Bislama,class 1,NA,sda,sda
+vt_children_090_pigs,8,F,Lives at Eratap village at Aquana,yes,NA,4 sisters,third born,Tanna language,Tanna language,Bislama,class 3,NA,aog,aog
+vt_children_091_rocks,7,F,Eratap village,yes,NA,2 brothers and 4 sisters,last born,Bislama,Bislama,Bislama,class 1,NA,nazarene,nazarene
+vt_children_092_mice,7,F,Mbarmal Womal,"Mbarmal, Malekula",NA,3 brothers and 3 sisters,second born,French,Womal language,French,"Yes, class 1",NA,protestant,protestant
+vt_children_093_god,5,F,Lives at Teouma Bridge,yes,NA,2 sister and 1 brother,third born,Bislama,Bislama,Bislama,yes. Kindy,yes,sda,sda
+vt_children_094_dogs,8,F,Vila,yes,NA,2 brothers and 1 sister,first born,Ambrym language,Emae language,Bislama,class 2,NA,anglican,anglican
+vt_children_095_rocks,9,F,Eratap village,yes,NA,2 brothers and no sisters,first born,Eratap language,Eratap language,"English, Bislama",class 2,NA,sda,sda
+vt_children_096_dogs,7,F,"Tanmial, Malekula",Yes,NA,1 brother and no sister,second born,Bislama,Bislama,Bislama,"Yes, class 2",NA,sda,sda
+vt_children_097_cellphones,6,F,"Matanvat, Malekula",Yes,NA,2 sisters and 1 brother,second born,Bislama,Matanvat language,Bislama,"yes, class 1",NA,sunday keeping,sunday keeping
+vt_children_098_chickens,8,F,Lives at Eratap village,yes,NA,2 brothers and 2 sisters,second born,doesn't know any local languages,Tannese language,Bislama,class 2,NA,sunday keeping,sunday keeping
+vt_children_099_children,8,F,Eratap village,yes,NA,1 brother and no sister,first born,Eratap language,Eratap language,"Bislama, sometimes English",class 2,NA,sunday keeping,sunday keeping
+vt_children_100_cellphones,7,F,Eratap village,yes,NA,2 brothers and 1 sister,last born,Bislama,Bislama,Eratap language,class 1,NA,presbyterian,presbyterian
+vt_children_101_rocks,7,F,"Molin, Malekula",Yes,NA,2 sisters & 2 brothers,third born,Bislama,Bislama,Bislama,class 2,NA,sda,sda
+vt_children_102_beetles,8,M,Eratap village,yes,NA,2 brothers and 2 sisters,last born,Eratap language,Eratap language,Bislama,class 2,NA,presbyterian,presbyterian
+vt_children_103_chickens,11,M,Lives at Teouma Bridge,yes,NA,only child,NA,Bislama and English,Bislama,English,class 6,NA,sunday keeping,sunday keeping
+vt_children_104_cellphones,8,M,Eratap village,yes,NA,1 brother and 1 sister,first born,"understands Eratap language, knows Bislama and English",Bislama,Bislama,class 3,NA,sunday keeping,sunday keeping
+vt_children_105_crickets,9,F,"Tanmial, Malekula",Yes,NA,1 brother and 4 sisters,second born,Bislama,Bislama,Bislama,"yes, class 2",NA,sda,sda
+vt_children_106_ghosts,9,M,Ulam,Yes,NA,2 brothers,last born,Bislama,Bislama,French,class 2,NA,protestant,protestant
+vt_children_107_pigs,6,M,Lives at Teouma Bridge area,yes,NA,1 brother and no sisters,second born,Tanna language,Tanna language,English,class 1,NA,presbyterian,presbyterian
+vt_children_108_children,10,F,Lives at Teouma Bridge,yes,NA,3 brothers and 4 sisters,fourth born,language Tanna,Bislama,Bislama,class 2,yes,sda,sda
+vt_children_109_ghosts,12,M,"Womal, Malekula",Yes,NA,"1 brother, and 1 sister",second born,Womal language,Bislama,French,"Yes, class 4",NA,presbyterian,presbyterian
+vt_children_110_children,7,F,"Womal, Malekula",Yes,NA,1 sister and no brothers,second born,Womal language,Womal language,Bislama,"Yes, class 1",NA,protestant,protestant
+vt_children_111_dogs,11,F,"Espigles Bay, Malekula",Yes,NA,3 brothers and 3 sisters,first born,English,Bislama,English,class 3,NA,sda,sda
+vt_children_112_children,6,F,"Tanmial, Malekula",Yes,NA,1 sister and no brother,second born,Bislama,Bislama,Bislama,class 4,NA,sda,sda
+vt_children_113_ghosts,10,M,Eratap village,yes,NA,1 brother and 1 sister,last born,Aniwa language,Bislama,Bislama,class 2,NA,sunday keeping,sunday keeping
+vt_children_114_ghosts,12,F,yes,yes,NA,2 brothers and no sisters,first born,language malekula,Bislama and language malekula sometimes,English,class 6,NA,pentecostal,pentecostal
+vt_children_115_dogs,10,F,Lives at Eratap village,yes,NA,1 brother and 1 sister,second born,Eratap language,Eratap language,English,class 5,NA,presbyterian,presbyterian
+vt_children_116_children,9,F,"Lives at Khononi Espigles Bay, Malekula",Yes,NA,2 brothers and no sisters,first born,Bislama,Bislama,Sometimes Bislama and English,"yes, class 4",NA,sda,sda
+vt_children_117_cellphones,10,F,Eratap village,yes,NA,2 brothers and 2 sisters,second born,Eratap language,Eratap language,Bislama,class 3,NA,presbyterian,presbyterian
+vt_children_118_ghosts,9,F,Lives at Teouma Bridge,yes,NA,2 brothers and 2 sisters,third born,Bislama. Understands Tanna language but cannot speak it,Bislama,NA,yes. class 4,yes,sda,sda
+vt_children_119_flowers,8,M,Lives at Teouma,yes,NA,2 brothers and 2 sisters,last born,English. Doesn't know other language,Malekula language,English,class 1,NA,presbyterian,presbyterian
+vt_children_120_god,12,F,"Ulam, Malekula",Yes,NA,2 sisters and 6 brothers,second to last born,Bislama,Bislama,French,class 3,NA,protestant,protestant
+vt_children_121_pigs,9,F,Lives at Espigles Bay,yes,NA,2 brothers and 2 sisters,second born,Espigles Bay language,Bislama,Bislama,yes class 3,NA,sda,sda
+vt_children_122_pigs,7,F,"Womal, Malekula",Yes,NA,"5 brothers, 2 sisters",second born,French,Womal language,French,class 1,NA,protestant,protestant
+vt_children_123_god,10,F,"Matanvat, Malekula",Yes,NA,1 brother and 1 sister,first born,Bislama,Bislama,English,"yes, class 4",NA,sda,sda
+vt_children_124_beetles,10,M,Eratap village,yes,NA,2 sisters and 2 brothers,third born,Tanna language,Tanna language,Bislama,class 3,NA,sda,sda
+vt_children_125_mice,10,F,"Lerrongrong, Malekula",Yes,NA,1 brother and 2 sister,second born,Bislama,Bislama,Bislama,"yes, class 4",NA,sunday keeping,sunday keeping
+vt_children_126_mice,12,M,Lives at Teouma Bridge,yes,NA,2 sisters and no brothers,second born,Pentecost and Tanna languages and Bislama,Pentecost language and Bislama,English,class 6,yes,sda,sda
+vt_children_127_god,6,M,Eratap village,yes,NA,1 brother and no sisters,2nd born,"Eratap language, Bislama",Eratap language,Bislama,class 1,NA,presbyterian,presbyterian
+vt_children_128_dogs,8,M,Lives at Matanvat,yes,NA,2 brothers and no sisters,first born,English,English,Bislama,"yes, class 3",NA,mormon church,mormon church
+vt_children_129_pigs,9,M,Eratap village,yes,NA,2 sisters and no brothers,first born,doesn't know any local language,Eratap language,Bislama,class 3,NA,presbyterian,presbyterian
+vt_children_130_dogs,8,M,"Womal, Malekula",Yes,NA,1 sister and 3 brothers,last born,Bislama,Womal language,NA,"yes, class 1",NA,protestant,protestant
+vt_children_131_dogs,11,F,"Lerrongrong, Malekula",Yes,NA,1 brother and 4 sisters,second born,Bislama mo English,English,English,"yes, class 4",NA,sunday keeping,sunday keeping
+vt_children_132_cellphones,8,F,Eratap village,yes,NA,2 brothers and no sisters,last born,Eratap village language,Eratap language,Bislama,class 2,NA,sunday keeping church,sunday keeping church
+vt_children_133_beetles,9,F,Eratap village,yes,NA,1 brother and 1 sister,first born,Eratap language,Eratap language,Eratap language,class 1,NA,sunday keeping,sunday keeping
+vt_children_134_crickets,10,M,Lives at Malekula,Yes,NA,1 brother and no sisters,second born,Bislama and a bit of English,Bislama,English,"yes, class 3",yes,sda,sda
+vt_children_135_children,11,F,yes,yes,NA,2 brothers and 1 adopted sister,last born,Bislama knows Solomon Islands and Ambae language,Bislama,English,class 5,NA,church of christ,church of christ
+vt_children_136_pigs,6,M,Eratap village,yes,NA,2 brothers and 2 sisters,last born,Bislama,Bislama,"Eratap language, Bislama",class 1,NA,presbyterian,presbyterian
+vt_children_137_pigs,12,M,"Molin, Malekula",Yes,NA,"2 brothers, 1 sister",second born,Bislama,Bislama,"English, Bislama",class 5,NA,sda,sda
+vt_children_138_chickens,9,F,Eratap village,yes,NA,3 brothers and no sisters,last born,Eratap language,Bislama,English,class 2,NA,presbyterian,presbyterian
+vt_children_139_ghosts,6,F,Lives at Eratap village,yes,NA,1 brother and no sisters,last born,Knows Eratap language,Eratap language,"Eratap language, Bislama",class 1,NA,presbyterian,presbyterian
+vt_children_140_mice,10,M,Eratap village,yes,NA,1 sister and no brothers,first born,Eratap language,Eratap language,English,class 5,NA,presbyterian,presbyterian
+vt_children_141_children,7,F,Lives at Eratap village,NA,Lives with family at Eratap village,1 brother and 1 sister,first born,English,English,Bislama,class 1,NA,sunday keeping at zazarene church,sunday keeping at zazarene church
+vt_children_142_cellphones,10,F,Lives at Eratap village,"mum lives at Teouma, dad at Beverly Hills and she lives with her grandmother at Eratap village",NA,1 sister and 1 brother,first born,Eratap and Tongoa language,Eratap and Tongoa language,English,class 5,NA,presbyterian,presbyterian
+vt_children_143_cellphones,10,F,Lives at Teouma,yes,NA,2 brothers and no sisters,second born,"Understands Tanna language, Bislama",Bislama,English,yes. class 5,yes,sda,sda
+vt_children_144_god,8,M,Eratap village,yes,NA,2 brothers and 1 sister,last born,Aniwa language,Eratap language,Bislama,class 2,NA,sunday keeping,sunday keeping
+vt_children_145_children,13,M,Lives at Teouma Bridge,yes,NA,1 brother and 1 sister,first born,Eratap language and Bislama,Eratap language,English,class 6,NA,sda and presbyterian,multiple
+vt_children_146_cellphones,8,F,"Lives at Matanvat, Malekula",yes,NA,2 sisters and 1 brother,first born,Bislama,Bislama,Bislama,"yes, class 3",NA,presbyterian,presbyterian
+vt_children_147_ghosts,9,M,Lives at Lerongrong Matanvat,yes,NA,2 brothers and 1 sisters,first born,Bislama,Bislama,English,"yes, class 3",NA,sunday keeping church,sunday keeping church
+vt_children_148_flowers,8,M,"Ulam, Malekula",Yes,NA,3 sisters and 1 brother,second born,Bislama,Bislama,French,class 3,NA,protestant church,protestant church
+vt_children_149_rocks,8,M,Lives at Teouma bridge,yes,NA,1 brother and no sisters,first born,Tanna language,Bislama,French,class 3,NA,presbyterian,presbyterian
+vt_children_150_flowers,9,F,Eratap village,yes,NA,4 sister,third born,Bislama,Bislama,"Bislama, English",class 3,NA,presbyterian,presbyterian
+vt_children_151_ghosts,9,F,Lives at Teouma valley,yes,NA,2 sisters and 1 brother,third born,Tanna language,Bislama,Bislama,class 3,NA,ntm,ntm
+vt_children_152_ghosts,12,M,"Molin, Malekula",Yes,NA,"1 sister, 5 brothers",last born,Bislama,Bislama,Bislama,class 1,NA,sda,sda
+vt_children_153_mice,9,F,Teoma,yes,NA,3 brothers and no sisters,last born,Pentecost language,Bislama and Pentecost language,Bislama,class 3,NA,anglican,anglican
+vt_children_154_chickens,11,M,yes,yes,NA,1 sister and no brothers,first born,save smol malekula language,Bislama and Malekula language,English,class 4,NA,NA,NA
+vt_children_155_chickens,7,M,Lives at Freshwota,yes,NA,1 brother and 1 sister,second born,Bislama,Bislama,Bislama,class 1,NA,sda,sda
+vt_children_156_mice,6,M,Lives at Espigles Bay Malekula,yes,NA,2 brothers and 3 sisters,fourth born,Bislama,Bislama,Bislama,yes class 1,NA,sda,sda
+vt_children_157_crickets,7,M,Lives at Espigles Bay,yes,NA,1 brother and 1 sister,first born,Bislama,"Grandmother speaks Espigles Bay language, they speak Bislama",Bislama,yes class 1,NA,sda,sda
+vt_children_158_ghosts,12,M,Eratap village,yes,NA,1 brother and 3 sisters,third born,Bislama and Ambae language,Bislama,English,class 5,NA,sda,sda
+vt_children_159_pigs,10,F,"Wauro, Malekula",Yes,NA,no sisters and 2 brothers,last born,Bislama,Bislama,English,"yes, class 3",NA,presbyterian,presbyterian
+vt_children_160_god,10,M,"Khomi, Malekula",Yes,NA,"2 brothers, 4 sisters",last born,Bislama,Womal language,English,class 5,NA,sda,sda
+vt_children_161_children,7,M,Lives at Malekula,Yes,NA,2 sisters and 1 brother,first born,English,Bislama,Bislama,"yes, class 1",yes,sda,sda
+vt_children_162_cellphones,10,M,yes,yes,NA,1 brother and 2 sisters,first born,knows a bit of Tannese language,"Tanna, South Tanna",English,class 4,NA,sda,sda
+vt_children_163_god,11,F,yes,yes,NA,2 brothers and 2 sisters,second born,Ambrym language,"Ambrym language, Bislama",English,class 6,NA,sda,sda
+vt_children_164_rocks,10,F,"Matanvat, Malekula",Yes,NA,2 brothers and 2 sisters,first born,Galilee language,Galilee language,Matanvat language,"yes, class 4",NA,sda,sda
+vt_children_165_god,7,F,Yes,Yes,NA,only child,NA,Bislama,Bislama,Bislama,"yes, class 2",yes,presbyterian,presbyterian
+vt_children_166_chickens,11,F,Tanmial,Yes,NA,only child,NA,Bislama,Bislama,English,"yes, class 4",NA,sda,sda
+vt_children_167_dogs,NA,M,Yes,Yes,NA,1 sister and 3 brothers,second born,Bislama,Bislama,English,class 3,NA,sda,sda
+vt_children_168_mice,8,F,Eratap village,yes,NA,3 sisters and 2 brothers,last born,Eratap language,Bislama,English,class 3,NA,presbyterian,presbyterian
+vt_children_169_cellphones,8,M,"Womal, Malekula",Yes,NA,None,first born,French,Bislama,French,"yes, class 1",yes,sda,sda

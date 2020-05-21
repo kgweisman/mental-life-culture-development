@@ -1,0 +1,151 @@
+subj_id,age,gender,live_here,from_where,sibling_number,sibling_order,language,language_home,language_school,school,church,religion,religion_cat,church_cat
+gh_children_001_cellphones,7,F,Cape Coast,Cape Coast,2,2,"English, Fante",Fante,English,Calvary Hillcrest,Bethel Methodist Church,christian,christian,Bethel Methodist Church
+gh_children_002_cellphones,7,F,Cape Coast,Central Region,3,2,"English, Fante",Fante,English,Calvary Hillcrest,Seventh Day Adventist,christian,christian,Seventh Day Adventist
+gh_children_003_rocks,10,F,Cape Coast,Cape Coast,4,1,"English, Fante",Fante,English,Calvary Hillcrest,Life Cathedral,christian,christian,Life Cathedral
+gh_children_004_rocks,10,F,Cape Coast,Ashanti Region,1,1,"English, Twi","English, Twi",English,Calvary Hillcrest,Praise Baptist Church,christian,christian,Praise Baptist Church
+gh_children_005_chickens,8,F,Cape Coast,Volta Region,4,5,"English, Twi",Twi,English,Calvary Hillcrest,Seventh Day Adventist,christian,christian,Seventh Day Adventist
+gh_children_006_children,9,M,Cape Coast,Elmina,2,3,"English, Fante","English, Fante","English, Fante",Calvary Hillcrest,Maranatha Assemblies of God,christian,christian,Maranatha Assemblies of God
+gh_children_007_mice,8,M,Cape Coast,Shama,4,4,"English, Ga, Fante","Ga, Fante",English,Calvary Hillcrest,Grace House,christian,christian,Grace House
+gh_children_008_ghosts,8,M,Cape Coast,Obuasi,2,2,"English, Fante, Twi",Twi,English,Calvary Hillcrest,Donewell Methodist Church,christian,christian,Donewell Methodist Church
+gh_children_009_children,8,M,Elmina,Don't know,3,4,"English, Fante",Fante,English,Calvary Hillcrest,Holy Fire International Church,christian,christian,Holy Fire International Church
+gh_children_010_beetles,9,F,Cape Coast,Accra,3,2,"English, Fante",Fante,English,Calvary Hillcrest,Ebenezer Methodist Church,christian,christian,Ebenezer Methodist Church
+gh_children_011_ghosts,9,M,Cape Coast,Volta Region,3,2,"English, Fante, Ewe","Fante, Ewe",English,Calvary Hillcrest,Roman Catholic,christian,christian,Roman Catholic
+gh_children_012_flowers,9,M,Cape Coast,Kwahu,3,1,"English, Fante",Fante,English,Calvary Hillcrest,Worship at home,christian,christian,Worship at home
+gh_children_013_cellphones,10,F,Cape Coast,Cape Coast,3,2,"English, Fante","English, Fante",English,Calvary Hillcrest,House of Prayer for All Nations,christian,christian,House of Prayer for All Nations
+gh_children_014_mice,10,F,Cape Coast,Cape Coast,3,1,"English, Fante",Fante,English,Calvary Hillcrest,Saint Joseph Cathedral,christian,christian,Saint Joseph Cathedral
+gh_children_015_beetles,9,F,Cape Coast,Cape Coast,3,2,English,English,English,Calvary Hillcrest,Roman Catholic,christian,christian,Roman Catholic
+gh_children_016_beetles,7,F,Cape Coast,Volta Region,2,3,"English, Ewe",Ewe,English,Calvary Hillcrest,Calvary Charismatic Church,christian,christian,Calvary Charismatic Church
+gh_children_017_mice,10,F,Cape Coast,Missing Data,4,3,"English, Twi, Fante","English, Fante",English,Calvary Hillcrest,Anglican,christian,christian,Anglican
+gh_children_018_god,10,M,Cape Coast,Cape Coast,1,2,"English, Fante",Fante,English,Calvary Hillcrest,Anglican,christian,christian,Anglican
+gh_children_019_chickens,8,F,Cape Coast,Cape Coast,2,3,"English, Fante",Fante,English,Calvary Hillcrest,Donewell Methodist Church,christian,christian,Donewell Methodist Church
+gh_children_020_flowers,6,M,Cape Coast,Kumasi,6,4,"English, Fante",Fante,"English, Fante",Calvary Hillcrest,Kakundo Church,christian,christian,Kakundo Church
+gh_children_021_beetles,8,M,Elmina,Elmina,5,6,"English, Fante",Fante,English,Calvary Hillcrest,Saint Francis of Asissi,christian,christian,Saint Francis of Asissi
+gh_children_022_cellphones,8,M,Cape Coast,Kumasi,4,3,"English, Fante, Twi","Twi, Fante",English,Calvary Hillcrest,Assemblies of God,christian,christian,Assemblies of God
+gh_children_023_dogs,9,M,Cape Coast,Cape Coast,2,3,"English, Fante",Fante,English,Calvary Hillcrest,Methodist,christian,christian,Methodist
+gh_children_024_beetles,8,M,Cape Coast,Accra,1,2,"English, Ga",English,English,Calvary Hillcrest,Ebenezer Presbyterian Church,christian,christian,Ebenezer Presbyterian Church
+gh_children_025_dogs,7,M,Atabadze,Elmina,2,2,"English, Fante",Fante,English,Calvary Hillcrest,Methodist,christian,christian,Methodist
+gh_children_026_chickens,9,F,Cape Coast,Cape Coast,2,2,"English, Fante",English,"English, Fante",Calvary Hillcrest,Winners Chapel,christian,christian,Winners Chapel
+gh_children_027_ghosts,8,M,Cape Coast,Cape Coast,2,1,"English, Fante",Fante,English,Calvary Hillcrest,House of Prayer for All Nations,christian,christian,House of Prayer for All Nations
+gh_children_028_children,8,M,Cape Coast,Cape Coast,5,1,"English, Twi",Twi,English,Calvary Hillcrest,Praise Baptist Church,christian,christian,Praise Baptist Church
+gh_children_029_children,8,M,Cape Coast,Kumasi,3,3,"English, Fante, Twi","English, Fante",English,Calvary Hillcrest,Methodist,christian,christian,Methodist
+gh_children_030_flowers,9,F,Cape Coast,Eastern Region,4,1,"English, Twi, Krobo","Twi, Krobo",English,Calvary Hillcrest,Church of Christ,christian,christian,Church of Christ
+gh_children_031_rocks,6,M,Cape Coast,Cape Coast,2,1,"English, Twi",Twi,English,Calvary Hillcrest,Musama Disco Christo Church,christian,christian,Musama Disco Christo Church
+gh_children_032_beetles,8,M,Cape Coast,Cape Coast,2,2,"English, Fante",Fante,English,Calvary Hillcrest,Life Changing Gospel Ministry,christian,christian,Life Changing Gospel Ministry
+gh_children_033_chickens,8,M,Cape Coast,Accra,1,1,"English, Fante",Fante,English,Calvary Hillcrest,Consuming Fire Church,christian,christian,Consuming Fire Church
+gh_children_034_ghosts,8,M,Cape Coast,Volta Region,1,1,"English, Ewe","English, Ewe",English,Calvary Hillcrest,E.P. Church (Ewe Church),christian,christian,E.P. Church (Ewe Church)
+gh_children_035_ghosts,10,M,Cape Coast,Koforidua,7,4,"English, Fante",Fante,English,Calvary Hillcrest,Methodist,christian,christian,Methodist
+gh_children_036_children,10,F,Cape Coast,Tarkwa,2,3,"English, Fante",Fante,English,Calvary Hillcrest,Methodist,christian,christian,Methodist
+gh_children_037_god,9,M,Abura Aseibu Asamankise,Mankessim,2,1,"English, Fante","English, Fante",English,Calvary Hillcrest,Lighthouse Chapel,christian,christian,Lighthouse Chapel
+gh_children_038_beetles,9,F,Cape Coast,Nigeria,4,5,"English, Fante, Ibo",Ibo,English,Calvary Hillcrest,Winners Chapel,christian,christian,Winners Chapel
+gh_children_039_dogs,8,F,Cape Coast,Winneba,2,2,"English, Fante","English, Fante",English,Calvary Hillcrest,Saint John Catholic Church,christian,christian,Saint John Catholic Church
+gh_children_040_chickens,10,F,Cape Coast,Apam,2,2,"English, Fante",Fante,English,Calvary Hillcrest,Christ Church Cathedral (Anglican),christian,christian,Christ Church Cathedral (Anglican)
+gh_children_041_ghosts,10,F,Cape Coast,Abakwampa,5,4,"English, Fante",Fante,English,Calvary Hillcrest,Ebenezer Worship Center,christian,christian,Ebenezer Worship Center
+gh_children_042_rocks,9,F,Cape Coast,Cape Coast,2,2,"English, Fante",Fante,English,Calvary Hillcrest,Presbyterian,christian,christian,Presbyterian
+gh_children_043_children,10,F,Cape Coast,Accra,2,1,"English, Fante",Fante,English,Calvary Hillcrest,Assemblies of God,christian,christian,Assemblies of God
+gh_children_044_cellphones,8,F,Cape Coast,Volta Region,2,1,"English, Ewe","English, Ewe",English,Calvary Hillcrest,Presbyterian Evangelical Church,christian,christian,Presbyterian Evangelical Church
+gh_children_045_ghosts,8,M,Cape Coast,Kumasi,10,7,"English, Fante, Twi","Fante, Twi",English,Calvary Hillcrest,ICPC,christian,christian,ICPC
+gh_children_046_cellphones,9,F,Cape Coast,Cape Coast,3,2,"English, Fante, Ewe",Fante,English,Calvary Hillcrest,Seventh Day Adventist,christian,christian,Seventh Day Adventist
+gh_children_047_cellphones,8,F,Cape Coast,Cape Coast,1,1,"English, Fante, Twi",Fante,English,Calvary Hillcrest,Saint John the Baptist,christian,christian,Saint John the Baptist
+gh_children_048_dogs,9,M,Cape Coast,Cape Coast,5,3,"English, Fante",Fante,English,Calvary Hillcrest,Bridge of Life Christian Center,christian,christian,Bridge of Life Christian Center
+gh_children_049_ghosts,8,M,Cape Coast,Accra,2,2,"English, Fante",English,"English, Fante",Calvary Hillcrest,Maranatha Assemblies of God,christian,christian,Maranatha Assemblies of God
+gh_children_050_children,7,M,Cape Coast,Takoradi,3,1,"English, Fante",Fante,English,Calvary Hillcrest,Bethel Assemblies of God,christian,christian,Bethel Assemblies of God
+gh_children_051_cellphones,7,F,Elmina,Kumasi,7,5,"English, Ewe",Ewe,English,Calvary Hillcrest,Seventh Day Adventist,christian,christian,Seventh Day Adventist
+gh_children_052_children,8,F,Cape Coast,Cape Coast,1,1,"English, Fante","English, Fante",English,Calvary Hillcrest,Emmanuel Methodist Church,christian,christian,Emmanuel Methodist Church
+gh_children_053_ghosts,7,F,Cape Coast,Kumasi,1,2,"English, twi","English, Twi",English,Calvary Hillcrest,Jehovah Witness,christian,christian,Jehovah Witness
+gh_children_054_dogs,10,F,Cape Coast,Cape Coast,4,4,"English, Fante",Fante,English,Calvary Hillcrest,ICGC (International Central Gospel Church),christian,christian,ICGC
+gh_children_055_flowers,8,M,Cape Coast,Apam,2,3,"English, Fante",Fante,English,Calvary Hillcrest,Anglican,christian,christian,Anglican
+gh_children_056_ghosts,10,M,Cape Coast,Cape Coast,3,3,"English, Fante",Fante,English,Calvary Hillcrest,"NA",christian,christian,"NA"
+gh_children_057_mice,8,M,Cape Coast,Elmina,2,1,"English, Fante","English, Fante",English,Calvary Hillcrest,Shalom Assemblies of God,christian,christian,Shalom Assemblies of God
+gh_children_058_dogs,8,M,Elmina,Don't know,3,3,"English, Fante",Fante,English,Calvary Hillcrest,Assemblies of God,christian,christian,Assemblies of God
+gh_children_059_flowers,10,M,Cape Coast,Cape Coast,5,2,"English, Fante",Fante,English,Calvary Hillcrest,Saint Monica's Presbyterian Church,christian,christian,Saint Monica's Presbyterian Church
+gh_children_060_mice,10,M,Cape Coast,Ashanti Region,2,3,"English, Fante",Fante,English,Calvary Hillcrest,Methodist,christian,christian,Methodist
+gh_children_061_beetles,10,F,Cape Coast,Cape Coast,2,1,"English, Twi",English,"English, Twi",Calvary Hillcrest,ICGC (International Central Gospel Church),christian,christian,ICGC
+gh_children_062_flowers,8,M,Cape Coast,Eastern Region,2,3,"English, Fante, Twi",Fante,English,Calvary Hillcrest,Roman Catholic,christian,christian,Roman Catholic
+gh_children_063_dogs,8,F,Elmina,Takoradi,4,2,"English, Fante",English,English,Calvary Hillcrest,Methodist,christian,christian,Methodist
+gh_children_064_dogs,8,F,Cape Coast,Elmina,2,1,"English, Fante",Fante,English,Calvary Hillcrest,Seventh Day Adventist,christian,christian,Seventh Day Adventist
+gh_children_065_flowers,10,F,Cape Coast,Nigeria,7,5,"English, Fante",Fante,English,Calvary Hillcrest,UTC Mosque,muslim,muslim,UTC Mosque
+gh_children_066_cellphones,11,F,Cape Coast,Twifo Agona,5,2,"English, Ewe",Ewe,English,Calvary Hillcrest,University Interdenominational Church (U.I.C),christian,christian,University Interdenominational Church (U.I.C)
+gh_children_067_flowers,8,F,Cape Coast,Pra Ewusi,5,4,"English, Fante, Ga",Fante,English,Calvary Hillcrest,PIWC,christian,christian,PIWC
+gh_children_068_god,7,M,Elmina,Accra,5,2,"English, Fante",Fante,English,Calvary Hillcrest,Methodist,christian,christian,Methodist
+gh_children_069_ghosts,10,M,Cape Coast,Kumasi,1,1,"English, Fante",Fante,English,Calvary Hillcrest,Anglican,christian,christian,Anglican
+gh_children_070_flowers,9,F,Cape Coast,Takoradi,3,2,"English, Fante",Fante,English,Calvary Hillcrest,Anglican,christian,christian,Anglican
+gh_children_071_ghosts,8,M,Cape Coast,Cape Coast,2,2,"English, Sebele",Sebele,English,Calvary Hillcrest,University Interdenominational Church (U.I.C),christian,christian,University Interdenominational Church (U.I.C)
+gh_children_072_ghosts,7,M,Cape Coast,Cape Coast,2,1,"English, Fante",Fante,English,Calvary Hillcrest,Jehovah Witness,christian,christian,Jehovah Witness
+gh_children_073_mice,8,M,Cape Coast,Cape Coast,0,1,"English, Fante",Fante,English,Calvary Hillcrest,Victory Bible Church International,christian,christian,Victory Bible Church International
+gh_children_074_god,9,M,Cape Coast,Cape Coast,2,2,"English, Fante",Fante,English,Calvary Hillcrest,Methodist,christian,christian,Methodist
+gh_children_075_chickens,8,F,Cape Coast,Volta Region,1,2,"English, Ewe","English, Ewe",English,Calvary Hillcrest,Global Evangelical Church,christian,christian,Global Evangelical Church
+gh_children_076_rocks,9,F,Cape Coast,Cape Coast,3,1,"English, Fante","English, Fante",English,Calvary Hillcrest,Seventh Day Adventist,christian,christian,Seventh Day Adventist
+gh_children_077_mice,8,F,Cape Coast,Cape Coast,5,4,"English, Fante",Fante,English,Calvary Hillcrest,Seventh Day Congregation of Theocracy,christian,christian,Seventh Day Congregation of Theocracy
+gh_children_078_children,8,M,Cape Coast,Saboba,2,1,"English, Kokumba",English,English,Calvary Hillcrest,Assemblies of God,christian,christian,Assemblies of God
+gh_children_079_children,8,M,Cape Coast,Cape Coast,2,2,English,English,English,Calvary Hillcrest,Assemblies of God,christian,christian,Assemblies of God
+gh_children_080_rocks,8,M,Cape Coast,Kumasi,6,1,"English, Fante, Twi","English, Fante, Twi",English,Calvary Hillcrest,Methodist,christian,christian,Methodist
+gh_children_081_cellphones,10,M,Cape Coast,Cape Coast,0,1,"English, Fante",Fante,English,Calvary Hillcrest,Spoken Word,christian,christian,Spoken Word
+gh_children_082_beetles,9,M,Cape Coast,Cape Coast,5,1,"English, Fante",Fante,English,Calvary Hillcrest,Saint John the Baptist,christian,christian,Saint John the Baptist
+gh_children_083_rocks,8,M,Cape Coast,Kwahu,0,1,"English, Twi","English, Twi",English,Calvary Hillcrest,Pentecost,christian,christian,Pentecost
+gh_children_084_children,9,F,Amamoma,Kwahu Obomen,1,2,"English, Twi",Twi,English,Calvary Hillcrest,Pentecost,christian,christian,Pentecost
+gh_children_085_dogs,10,F,Cape Coast,Cote D'ivoire,7,4,"English, French",French,English,Calvary Hillcrest,Philip Quaqoe,christian,christian,Philip Quaqoe
+gh_children_086_rocks,7,F,Cape Coast,Kumasi,4,1,"English, Fante",Fante,English,Calvary Hillcrest,Latter Day Saint,christian,christian,Latter Day Saint
+gh_children_087_flowers,8,M,Cape Coast,Kumasi,3,1,"English, Twi","English, Twi",English,Calvary Hillcrest,Lighthouse Chapel,christian,christian,Lighthouse Chapel
+gh_children_088_chickens,9,M,Cape Coast,Cape Coast,2,1,"English, Fante",Fante,English,Calvary Hillcrest,Saint John the Baptist,christian,christian,Saint John the Baptist
+gh_children_089_mice,8,M,Cape Coast,Kumasi,1,2,"English, Twi a little","English, Twi when grandma is around",English,Calvary Hillcrest,Praise Baptist Church,christian,christian,Praise Baptist Church
+gh_children_090_chickens,9,M,Cape Coast,Cape Coast,2,1,"English, Fante",Fante,English,Calvary Hillcrest,Grace Evangelical Church,christian,christian,Grace Evangelical Church
+gh_children_091_rocks,8,M,Elmina,Akyem Oda,7,6,"English, Twi","English, Twi",English,Calvary Hillcrest,Donewell Methodist Church,christian,christian,Donewell Methodist Church
+gh_children_092_rocks,7,M,Cape Coast,Cape Coast,2,2,"English, Fante",Fante,English,Calvary Hillcrest,Methodist,christian,christian,Methodist
+gh_children_093_children,8,M,Cape Coast,Kissi,1,1,"English, Fante",English,"English, Fante",Calvary Hillcrest,Ebenezer Methodist Church,christian,christian,Ebenezer Methodist Church
+gh_children_094_god,8,M,Cape Coast,Agona,2,3,"English, Twi",Twi,English,Calvary Hillcrest,Seventh Day Adventist,christian,christian,Seventh Day Adventist
+gh_children_095_dogs,9,M,Cape Coast,Kumasi,1,1,"English, Fante, Twi",English,English,Calvary Hillcrest,Jehovah Witness,christian,christian,Jehovah Witness
+gh_children_096_flowers,8,M,Elmina,Kumasi,4,5,"English, Fante",Fante,English,Calvary Hillcrest,Glorious Gospel Ministry,christian,christian,Glorious Gospel Ministry
+gh_children_097_god,7,M,Cape Coast,Kumasi,2,2,"English, Fante",Fante,English,Calvary Hillcrest,Anglican,christian,christian,Anglican
+gh_children_098_rocks,9,F,Cape Coast,Germany,0,1,"English, Fante",Fante,English,Calvary Hillcrest,University Interdenominational Church (U.I.C),christian,christian,University Interdenominational Church (U.I.C)
+gh_children_099_god,9,F,Cape Coast,Cape Coast,2,2,English,English,English,Calvary Hillcrest,Methodist,christian,christian,Methodist
+gh_children_100_beetles,9,F,Elmina,Upper West Region,0,1,"English, Dagati",Dagati,English,Calvary Hillcrest,Saint Francis of Asissi,christian,christian,Saint Francis of Asissi
+gh_children_101_beetles,10,F,Elmina,Central Region,2,1,"English, Fante, Twi",Fante,English,Calvary Hillcrest,Methodist,christian,christian,Methodist
+gh_children_102_mice,9,F,Cape Coast,Volta Region,4,3,"English, Fante, Ewe","English, Fante",English,Calvary Hillcrest,Harvest Chapel,christian,christian,Harvest Chapel
+gh_children_103_beetles,7,F,Cape Coast,Cape Coast,2,3,"English, Fante",Fante,English,Calvary Hillcrest,Assemblies of God,christian,christian,Assemblies of God
+gh_children_104_god,8,M,Cape Coast,Swedru,4,Don't know,"English, Nzema",Nzema,English,Calvary Hillcrest,Roman Catholic,christian,christian,Roman Catholic
+gh_children_105_dogs,9,F,Cape Coast,Cape Coast,3,3,"English, Fante",Fante,English,Calvary Hillcrest,Roman Catholic,christian,christian,Roman Catholic
+gh_children_106_dogs,8,M,Cape Coast,Cape Coast,3,1,"English, Fante",English,"English, Fante",Calvary Hillcrest,Saint Augustine's Anglican Church,christian,christian,Saint Augustine's Anglican Church
+gh_children_107_cellphones,9,M,Cape Coast,Cape Coast,1,1,"English, Fante","English, Fante",English,Calvary Hillcrest,Ioe Temple,christian,christian,Ioe Temple
+gh_children_108_ghosts,9,F,Cape Coast,Kumasi,2,2,"English, Twi",Twi,English,Calvary Hillcrest,Seventh Day Adventist,christian,christian,Seventh Day Adventist
+gh_children_109_mice,7,F,Cape Coast,Cape Coast,1,1,English,English,English,Calvary Hillcrest,Holy Christ Center,christian,christian,Holy Christ Center
+gh_children_110_god,8,F,Elmina,Abakwampa,3,3,"English, Fante","English, Fante",English,Calvary Hillcrest,"ICGC (International Central Gospel Church), doesn't go lately",christian,christian,ICGC
+gh_children_111_cellphones,9,F,Atabadze,Nigeria,4,5,"English, Fante",Fante,English,Calvary Hillcrest,Christ Embassy,christian,christian,Christ Embassy
+gh_children_112_mice,9,M,Elmina,Nungua,4,1,"English, Fante, Ga",Ga,English,Calvary Hillcrest,Pentecost,christian,christian,Pentecost
+gh_children_113_chickens,6,M,Cape Coast,Cape Coast,2,2,"English, Fante",Fante,English,Calvary Hillcrest,Ioe Temple,christian,christian,Ioe Temple
+gh_children_114_mice,8,F,Cape Coast,Cape Coast,2,1,"English, Fante",Fante,English,Calvary Hillcrest,ICGC (International Central Gospel Church),christian,christian,ICGC
+gh_children_115_cellphones,8,F,Cape Coast,Accra,1,1,"English, Ga",English,English,Calvary Hillcrest,Breakthrough Assemblies of God,christian,christian,Breakthrough Assemblies of God
+gh_children_116_children,7,F,Cape Coast,Volta Region,2,2,"English, Ewe",English,English,Calvary Hillcrest,International Central Gospel (Grace temple),christian,christian,International Central Gospel (Grace temple)
+gh_children_117_rocks,8,F,Cape Coast,Cape Coast,5,1,English,English,English,Calvary Hillcrest,Wesley Methodist,christian,christian,Wesley Methodist
+gh_children_118_rocks,9,F,Cape Coast,Accra,2,1,"English, Fante",Fante,English,Calvary Hillcrest,Methodist,christian,christian,Methodist
+gh_children_119_god,10,F,Cape Coast,Cape Coast,7,5,"English, Fante",Fante,English,Calvary Hillcrest,The Light of Egypt,christian,christian,The Light of Egypt
+gh_children_120_god,9,M,Elmina,Elmina,3,1,"English, Fante",Fante,English,Calvary Hillcrest,Methodist,christian,christian,Methodist
+gh_children_121_mice,6,M,Cape Coast,Cape Coast,3,3,English,English,English,Calvary Hillcrest,Church of Pentecost,christian,christian,Church of Pentecost
+gh_children_122_flowers,7,F,Cape Coast,Saltpond,2,3,"English, Fante",Fante,English,Calvary Hillcrest,Roman Catholic,christian,christian,Roman Catholic
+gh_children_123_flowers,7,M,Cape Coast,Ezaiama (Western Region),7,3,"English, Fante, Nzema","Nzema, Fante",English,Calvary Hillcrest,Harvest Chapel International,christian,christian,Harvest Chapel International
+gh_children_124_mice,8,F,Cape Coast,Cape Coast,3,4,"English, Fante, Ewe","Fante, Ewe","Fante, Ewe",Calvary Hillcrest,Praise Baptist Church,christian,christian,Praise Baptist Church
+gh_children_125_chickens,8,F,Cape Coast,Kumasi,2,1,"English, Fante, Twi","English, Fante",English,Calvary Hillcrest,Assemblies of God,christian,christian,Assemblies of God
+gh_children_126_beetles,9,M,Cape Coast,Cape Coast,2,2,"English, Fante",Fante,English,Calvary Hillcrest,Seventh Day Adventist,christian,christian,Seventh Day Adventist
+gh_children_127_god,9,M,Cape Coast,Offinso,2,2,"English, Twi",Twi,English,Calvary Hillcrest,Victory Celebration,christian,christian,Victory Celebration
+gh_children_128_dogs,6,M,Cape Coast,Cape Coast,2,1,"English, Fante a little","English, Fante","English, Fante",Calvary Hillcrest,Saint Augustine's Anglican Church,christian,christian,Saint Augustine's Anglican Church
+gh_children_129_chickens,10,M,Cape Coast,Abura Dunkwa,2,1,"English, Fante",Fante,English,Calvary Hillcrest,Charity Prayer Ministry,christian,christian,Charity Prayer Ministry
+gh_children_130_god,6,M,Cape Coast,Cape Coast,1,1,"English, Fante","English, Fante",English,Calvary Hillcrest,Pentecost,christian,christian,Pentecost
+gh_children_131_chickens,7,F,Cape Coast,Cape Coast,7,8,"English, Fante",Fante,English,Calvary Hillcrest,Anomabo Anglican Church,christian,christian,Anomabo Anglican Church
+gh_children_132_chickens,8,F,Cape Coast,Cape Coast,2,2,English,English,English,Calvary Hillcrest,Calvary Charismatic Church,christian,christian,Calvary Charismatic Church
+gh_children_133_beetles,9,F,Cape Coast,Accra,2,1,"English, Ga","English, Ga learning now",English,Calvary Hillcrest,Destiny Life Chapel International,christian,christian,Destiny Life Chapel International
+gh_children_134_flowers,9,F,Cape Coast,Don't know,2,1,"English, Fante, Ewe","Fante, Ewe",English,Calvary Hillcrest,House of Power,christian,christian,House of Power
+gh_children_135_ghosts,9,F,Cape Coast,Upper West Region,1,1,"English, Dagari, Wala, Twi","English, Twi",English,Calvary Hillcrest,Roman Catholic,christian,christian,Roman Catholic
+gh_children_136_god,8,F,Cape Coast,Cape Coast,3,2,"English, Fante",Fante,English,Calvary Hillcrest,Theocracy Church,judaism,jewish,Theocracy Church
+gh_children_137_dogs,8,M,Cape Coast,Accra,3,2,"English, Ewe",Ewe,English,Calvary Hillcrest,Saint Francis Catholic Church,christian,christian,Saint Francis Catholic Church
+gh_children_138_flowers,10,F,Cape Coast,Volta Region,3,1,"English, Twi",Twi,English,Calvary Hillcrest,Anglican Methodist Church,christian,christian,Anglican Methodist Church
+gh_children_139_cellphones,8,F,Elmina,Elmina,3,2,"English, Fante",Fante,English,Calvary Hillcrest,Elmina Mosque,mosque,mosque,Elmina Mosque
+gh_children_140_cellphones,6,M,Cape Coast,Cape Coast,4,2,"English, Fante","English, Fante",English,Calvary Hillcrest,Grace Temple,christian,christian,Grace Temple
+gh_children_141_children,9,F,Cape Coast,Western Region,2,1,"English, Fante",English,"English, Fante in class",Calvary Hillcrest,University Interdenominational Church (U.I.C),christian,christian,University Interdenominational Church (U.I.C)
+gh_children_142_rocks,8,F,Cape Coast,Cape Coast,2,2,"English, Fante",Fante,English,Calvary Hillcrest,Pentecost,christian,christian,Pentecost
+gh_children_143_chickens,8,F,Cape Coast,Eastern Region,0,1,"English, Ga","English, Ga",English,Calvary Hillcrest,Lighthouse Chapel International,christian,christian,Lighthouse Chapel International
+gh_children_144_beetles,7,F,Cape Coast,Cape Coast,3,2,"English, Ga",Ga,English,Calvary Hillcrest,Methodist,christian,christian,Methodist
+gh_children_145_rocks,8,F,Elmina Zongo,Elmina,3,3,"English, Fante",Fante,English,Calvary Hillcrest,Elmina Mosque,muslim,muslim,Elmina Mosque
+gh_children_146_dogs,9,F,Ankaful,Kumasi,3,2,"English, Twi","English, Twi",English,Calvary Hillcrest,Action Faith Chapel,christian,christian,Action Faith Chapel
+gh_children_147_chickens,9,F,Cape Coast,Cape Coast,2,2,"English, Fante",Fante,English,Calvary Hillcrest,Methodist,christian,christian,Methodist
+gh_children_148_god,9,F,Cape Coast,Komenda,3,1,"English, Fante",Fante,English,Calvary Hillcrest,"Lighthouse Chapel, doesn't go lately",christian,christian,"Lighthouse Chapel, doesn't go lately"
+gh_children_149_beetles,10,F,Cape Coast,Bupe (Northern Region),2,1,"English, Hausa, Gunja","Hausa, English",English,Calvary Hillcrest,Bakaano Mosque,muslim,muslim,Bakaano Mosque
+gh_children_150_chickens,10,F,Cape Coast,Eastern Region,3,4,"English, Fante",Fante,English,Calvary Hillcrest,Assemblies of God,christian,christian,Assemblies of God

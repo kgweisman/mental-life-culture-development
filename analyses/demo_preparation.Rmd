@@ -1,0 +1,1251 @@
+---
+title: "Concepts of mental life across cultures: Demographics preparation"
+authors: "Weisman, Legare, & Luhrmann"
+output: 
+  html_notebook:
+    toc: true
+    toc_float: true
+---
+
+```{r setup}
+knitr::opts_chunk$set(echo = F, message = F)
+```
+
+In this notebook we prepare anonymized demographics for adults and children from each of our five field sites: the US, Ghana, Thailand, China, and Vanuatu. 
+
+```{r, echo = F, message = F}
+source("./scripts/dependencies.R")
+source("./scripts/custom_funs.R")
+source("./scripts/var_recode_contrast.R")
+```
+
+```{r data}
+# read in data: adults
+d_us_adults <- read_csv("../data/d_us_adults.csv")
+d_gh_adults <- read_csv("../data/d_gh_adults.csv")
+d_th_adults <- read_csv("../data/d_th_adults.csv")
+d_ch_adults <- read_csv("../data/d_ch_adults.csv")
+d_vt_adults <- read_csv("../data/d_vt_adults.csv")
+
+# read in data: children
+d_us_children <- read_csv("../data/d_us_children.csv")
+d_gh_children <- read_csv("../data/d_gh_children.csv")
+# d_gh_eng_children <- read_csv("../data/d_gh_eng_children.csv")
+d_th_children <- read_csv("../data/d_th_children.csv")
+d_ch_children <- read_csv("../data/d_ch_children.csv")
+d_vt_children <- read_csv("../data/d_vt_children.csv")
+```
+
+```{r}
+# read in subject keys
+key_adults <- read_csv("../raw data/adults/subject_key_adults.csv")
+key_children <- read_csv("../raw data/children/subject_key_children.csv")
+```
+
+# US
+
+## Adults
+
+```{r us adults process}
+plog_us_adults <- read_xlsx("../raw data/adults/demographics/(BEETLES) Demographics US Adults.xlsx") %>%
+   rename(subj_id_original = `Subject ID`) %>%
+   left_join(key_adults) %>%
+   select(-subj_id_original) %>%
+   rename(gender = "Gender",
+          age = "Age",
+          education = "Highest Education",
+          ethnicity = "Ethnicity",
+          urban_rural = "Was where you grew up urban or rural?",
+          born_us = "Were you born in US?",
+          language = "What languages doyou speak at home growing up?",
+          afford = "Do you feel you can afford the things you need, like Clothing Shoes and Housing?",
+          class = "What is the general class of your community?",
+          rich_poor = "Do you think you are richer or poorer than most of the people in your community?",
+          spirit_relig = "I consider myself a religious or spiritual person?",
+          religion = "What religion do you practice if any?") %>%
+   select(subj_id, age, gender, ethnicity, born_us, language,
+          urban_rural, education, afford, class, rich_poor,
+          spirit_relig, religion) %>%
+   mutate(ethnicity_cat = case_when(
+      ethnicity %in% c("caucasian", "white", "anglo", 
+                       "italian", "french", "european", "jewish", "swiss") ~ "white",
+      ethnicity %in% c("african american", "black") ~ "black",
+      ethnicity %in% c("asian", "chinese", "korean",
+                       "east asian") ~ "east asian",
+      ethnicity %in% c("filipino", "pacific islander") ~ "pacific islander",
+      ethnicity %in% c("east indian", "indian", "pakistan",
+                       "pakistani", "south asian") ~ "south asian",
+      ethnicity %in% c("middle eastern", "persian") ~ "middle eastern",
+      ethnicity %in% c("latino", "latina", "latinx", "hispanic",
+                       "mexican", "mexican american", "peruvian", 
+                       "latin american") ~ "hispanic/latino",
+      grepl("\\,", ethnicity) |
+         grepl(" and ", ethnicity) |
+         grepl("\\/", ethnicity) |
+         grepl("mix", ethnicity) |
+         ethnicity %in% c("biracial", "mixed", "multiracial") ~ "multiple",
+      ethnicity %in% c("missing data", "NA") ~ NA_character_,
+      TRUE ~ ethnicity
+   )) %>%
+   mutate(urban_rural_cat = case_when(
+      grepl("both", urban_rural) ~ "both",
+      urban_rural %in% c("missing data", "NA", "Curtone base") ~ NA_character_,
+      TRUE ~ urban_rural
+   )) %>%
+   mutate(education_cat = case_when(
+      education %in% c("1 year college", "2 yr college", "general ed") ~ "other college degree",
+      education %in% c("11th grade") ~ "some high school",
+      education %in% c("2 masters") ~ "masters",
+      education %in% c("2nd year college", "college") ~ "some college",
+      education %in% c("3 bachelors") ~ "bachelors",
+      education %in% c("emt certificate", "specialized training",
+                       "Tech school", "trade school") ~ "trade/certificate",
+      education %in% c("graduate school", "graduate work") ~ "some graduate school",
+      education %in% c("MD", "md", "JD", "jd") ~ "professional degree",
+      grepl("illegible", education) ~ NA_character_,
+      education %in% c("missing data", "NA") ~ NA_character_,
+      TRUE ~ education
+   )) %>%
+   mutate(education_cat = factor(education_cat,
+                                 levels = c("some high school", 
+                                            "ged", 
+                                            "high school", 
+                                            "trade/certificate",
+                                            "some college",
+                                            "associates",
+                                            "other college degree",
+                                            "bachelors", 
+                                            "some graduate school",
+                                            "masters", 
+                                            "phd",
+                                            "professional degree"))) %>%
+   mutate(class_cat = case_when(
+      class %in% c("upscale", "upper") ~ "upper",
+      class %in% c("upper middle", "suburban", "middle-upper") ~ "upper middle",
+      class %in% c("lower middle", "low middle class") ~ "lower middle",
+      class %in% c("lower", "lower income", "working class") ~ "lower/working class",
+      class %in% c("mixed", "missing data", "NA") ~ NA_character_,
+      TRUE ~ class
+   )) %>%
+   mutate(class_cat2 = case_when(
+      class_cat %in% c("upper", "upper middle") ~ "upper",
+      class_cat %in% c("middle") ~ "middle",
+      class_cat %in% c("lower middle", "lower/working class") ~ "lower",
+      class_cat %in% c("mixed", "missing data", "NA") ~ NA_character_,
+      TRUE ~ class
+   )) %>%
+   mutate(class_cat = factor(class_cat,
+                             levels = c("lower/working class",
+                                        "lower middle",
+                                        "middle",
+                                        "upper middle",
+                                        "upper")),
+          class_cat2 = factor(class_cat2,
+                              levels = c("lower", "middle", "upper"))) %>%
+   mutate(rich_poor = factor(rich_poor,
+                             levels = c("much poorer",
+                                        "a little poorer",
+                                        "about the same",
+                                        "a little richer",
+                                        "much richer"))) %>%
+   mutate(afford = factor(afford,
+                          levels = c("no",
+                                     "somewhat",
+                                     "yes"))) %>%
+   mutate(spirit_relig = factor(spirit_relig,
+                                levels = c("strongly disagree",
+                                           "disagree",
+                                           "neither agree nor disagree",
+                                           "agree",
+                                           "strongly agree")),
+          spirit_relig_num = as.numeric(spirit_relig) - 3) %>%
+   mutate(religion = tolower(religion),
+          religion_cat = case_when(
+             religion %in% c("no", "none") ~ "none",
+             religion %in% c("christian", "catholic", "christianity", 
+                             "lutheran", "baptist", "episcopalian",
+                             "jehova witness", "roman catholic") ~ "christian",
+             religion %in% c("buddhist", "buddhism") ~ "buddhist",
+             religion %in% c("hindu", "hinduism") ~ "hindu",
+             religion %in% c("jewish", "judaism") ~ "jewish",
+             religion %in% c("jain", "jainism") ~ "jain",
+             religion %in% c("muslim", "islam") ~ "muslim",
+             grepl("\\,", religion) |
+                grepl(" and ", religion) |
+                grepl("\\/", religion) |
+                grepl("mix", religion) |
+                religion %in% c("multiple", "all religions", "honor all traditions") ~ "multiple",
+             religion %in% c("missing data", "NA") ~ NA_character_,
+             TRUE ~ religion
+          )) %>%
+   mutate(age = as.numeric(age)) %>%
+   distinct()
+```
+
+```{r us adults checks}
+# check whether anyone is in plog but not data
+plog_us_adults %>%
+   mutate(kept = ifelse(subj_id %in% d_us_adults$subj_id, T, F)) %>%
+   filter(!kept)
+
+# check whether anyone is in data but not plog
+d_us_adults %>%
+   mutate(extra = ifelse(subj_id %in% plog_us_adults$subj_id, T, F)) %>%
+   filter(!extra) %>%
+   distinct(subj_id)
+
+# check whether sample size matches
+plog_us_adults %>% distinct(subj_id) %>% count()
+d_us_adults %>% distinct(subj_id) %>% count()
+```
+
+## Children
+
+```{r us children process}
+plog_us_children <- read_xlsx("../raw data/children/demographics/Demographic Sheet BEETLES (Children) -USA.xlsx") %>%
+   rename(subj_id_original = `Subject ID`) %>%
+   left_join(key_children) %>%
+   select(-subj_id_original) %>%
+   rename(gender = "Gender",
+          age = "Age",
+          ethnicity = "Race or Ethnicity",
+          live_here = "Do you live in here (San Jose)?",
+          from_here = "Is your family from here?",
+          from_where = "If NO: where is your family from?",
+          sibling_number = "How many brothers and sisters do you have?",
+          sibling_order = "Are you the first child (oldest child), the second child, the third?",
+          language = "What languages do you speak?",
+          language_home = "What language do you speak at home most of the time?",
+          school = "Do you go to school?",
+          language_school = "What language do you speak most of the time at school?",
+          church = "Do you go to church?",
+          religion = "What is your religion?") %>%
+   select(subj_id, age, gender, ethnicity, live_here, from_here, from_where,
+          sibling_number, sibling_order,
+          language, language_home, language_school,
+          school, church, religion) %>%
+   mutate(ethnicity_cat = case_when(
+      ethnicity %in% c("caucasian", "white", "anglo", 
+                       "italian", "french", "european", "jewish", "swiss") ~ "white",
+      ethnicity %in% c("african american", "black") ~ "black",
+      ethnicity %in% c("asian", "chinese", "korean",
+                       "east asian") ~ "east asian",
+      ethnicity %in% c("filipino", "pacific islander") ~ "pacific islander",
+      ethnicity %in% c("east indian", "indian", "pakistan",
+                       "pakistani", "south asian") ~ "south asian",
+      ethnicity %in% c("middle eastern", "persian") ~ "middle eastern",
+      ethnicity %in% c("latino", "latina", "latinx", "hispanic",
+                       "mexican", "mexican american", "peruvian", 
+                       "latin american") ~ "hispanic/latino",
+      grepl("\\,", ethnicity) |
+         grepl(" and ", ethnicity) |
+         grepl("\\/", ethnicity) |
+         grepl("mix", ethnicity) |
+         ethnicity %in% c("biracial", "mixed", "multiracial") ~ "multiple",
+      ethnicity %in% c("missing data", "NA") ~ NA_character_,
+      TRUE ~ ethnicity
+   )) %>%
+   mutate(religion = tolower(religion),
+          religion_cat = case_when(
+             religion %in% c("no", "none") ~ "none",
+             religion %in% c("christian", "catholic", "christianity", 
+                             "lutheran", "baptist", "episcopalian",
+                             "jehova witness", "roman catholic") ~ "christian",
+             religion %in% c("buddhist", "buddhism") ~ "buddhist",
+             religion %in% c("hindu", "hinduism") ~ "hindu",
+             religion %in% c("jewish", "judaism") ~ "jewish",
+             religion %in% c("jain", "jainism") ~ "jain",
+             religion %in% c("muslim", "islam") ~ "muslim",
+             grepl("\\,", religion) |
+                grepl(" and ", religion) |
+                grepl("\\/", religion) |
+                grepl("mix", religion) |
+                religion %in% c("multiple", "all religions", "honor all traditions") ~ "multiple",
+             religion %in% c("missing data", "NA") ~ NA_character_,
+             TRUE ~ religion
+          )) %>%
+   mutate(age = as.numeric(age)) %>%
+   distinct()
+```
+
+```{r us children checks}
+# check whether anyone is in plog but not data
+plog_us_children %>%
+   mutate(kept = ifelse(subj_id %in% d_us_children$subj_id, T, F)) %>%
+   filter(!kept)
+
+# check whether anyone is in data but not plog
+d_us_children %>%
+   mutate(extra = ifelse(subj_id %in% plog_us_children$subj_id, T, F)) %>%
+   filter(!extra) %>%
+   distinct(subj_id)
+
+# check whether sample size matches
+plog_us_children %>% distinct(subj_id) %>% count()
+d_us_children %>% distinct(subj_id) %>% count()
+```
+
+
+# Ghana
+
+## Adults
+
+```{r gh adults process}
+plog_gh_adults <- read_xlsx("../raw data/adults/demographics/GHA_BEETLES_ADULTS Demographics.xlsx") %>%
+   rename(subj_id_original = `Subject ID`) %>%
+   # standardize spelling with subj_key (probably some spelling errors, just trying to be consistent, not correct)
+   mutate(subj_id_original = gsub("Afoakwah Nkrumah", "Afoakwah Nkurmah", 
+                                  subj_id_original),
+          subj_id_original = gsub("Anthony", "Anothony", subj_id_original),
+          subj_id_original = gsub("Chyristolie", "Chyristolite", subj_id_original),
+          subj_id_original = gsub("Desond", "Desmond", subj_id_original),
+          subj_id_original = gsub("Essando", "Essanda", subj_id_original),
+          subj_id_original = gsub("Franisca", "Francisca", subj_id_original),
+          subj_id_original = gsub("Sarfowan", "Sarfowaa", subj_id_original),
+          subj_id_original = gsub("Oddaye", "Oddoye", subj_id_original),
+          subj_id_original = gsub("Mansah", "Manah", subj_id_original),
+          subj_id_original = gsub("Beatrice ", "Beatric ", subj_id_original),
+          subj_id_original = gsub("Donkor", "Konkor", subj_id_original),
+          subj_id_original = gsub("Forkuo", "Farkuo", subj_id_original),
+          subj_id_original = gsub("Dennis", "Denis", subj_id_original)) %>%
+   left_join(key_adults) %>%
+   select(-subj_id_original) %>%
+   rename(gender = "Gender",
+          age = "Age",
+          education = "Highest education",
+          ethnicity = "Ethnicity",
+          urban_rural = "Was where you grew up urban or rural?",
+          language = "What languages did you speak at home growing up?",
+          afford = "Do you feel you can afford the things you need, like clothing and shoes and housing? - Selected Choice",
+          class = "What is the general class of your community?",
+          rich_poor = "Do you think you are richer or poorer than most of the people in your community?",
+          spirit_relig = "Do you consider yourself a religious or spiritual person?",
+          religion = "What religion do you practice, if any?",
+          church = "What church, temple, mosque (etc.) do you attend most regularly now, if any?",
+          tongues = "If you are Christian, does your church encourage praying in tongues or seeking the gifts of the Holy Spirit? - Selected Choice") %>%
+   select(subj_id, age, gender, ethnicity, language,
+          urban_rural, education, afford, class, rich_poor,
+          spirit_relig, religion, church, tongues) %>%
+   mutate(ethnicity_cat = case_when(
+      grepl("fante", ethnicity) ~ "fante",
+      grepl("\\,", ethnicity) |
+         grepl(" and ", ethnicity) |
+         grepl("\\/", ethnicity) |
+         grepl("mix", ethnicity) |
+         ethnicity %in% c("biracial", "mixed", "multiracial") ~ "multiple",
+      ethnicity %in% c("missing data", "NA") ~ NA_character_,
+      TRUE ~ ethnicity
+   )) %>%
+   mutate(urban_rural_cat = case_when(
+      grepl("both", urban_rural) ~ "both",
+      urban_rural %in% c("missing data", "NA") ~ NA_character_,
+      TRUE ~ urban_rural
+   )) %>%
+   mutate(education_cat = case_when(
+      education %in% c("uneducated", "standard seven (old school system)",
+                       "form 4 (old school system)", "didn't go to school") |
+         grepl("primary", education) |
+         grepl("junior", education) ~ "less than high school",
+      grepl("senior", education) | education == "diploma" ~ "high school",
+      grepl("master", education) ~ "masters",
+      education %in% c("university") ~ "bachelors",
+      grepl("vocational", education) |
+         grepl("technical", education) |
+         grepl("training", education) |
+         grepl("polytechnic", education) ~ "trade/certificate",
+      grepl("tertiary", education) |
+         grepl("nurs", education) |
+         grepl("teach", education) |
+         grepl("catering", education) ~ "other college degree",
+      grepl("doctorate", education) ~ "phd",
+      education %in% c("graduate school", "graduate work") ~ "some graduate school",
+      education %in% c("MD", "md", "JD", "jd") ~ "professional degree",
+      education %in% c("missing data", "NA") ~ NA_character_,
+      TRUE ~ education
+   )) %>%
+   mutate(education_cat = factor(education_cat,
+                                 levels = c("less than high school",
+                                            "some high school",
+                                            "ged",
+                                            "high school",
+                                            "trade/certificate",
+                                            "some college",
+                                            "associates",
+                                            "other college degree",
+                                            "bachelors",
+                                            "some graduate school",
+                                            "masters",
+                                            "phd",
+                                            "professional degree"))) %>%
+   mutate(class_cat = case_when(
+      class %in% c("upscale", "upper", "rich", "high class") ~ "upper",
+      class %in% c("upper middle", "suburban", "middle-upper",
+                   "rich but not too much", "moderately rich") ~ "upper middle",
+      grepl("medium", class) |
+         class %in% c("moderate", "not so rich and not so poor",
+                      "middle income", "middle class") ~ "middle",
+      class %in% c("lower middle", "low middle class", 
+                   "poor but not too much",
+                   "poor but not so much", 
+                   "not so rich", "not so poor",
+                   "moderately poor", "a little poor") ~ "lower middle",
+      class %in% c("lower", "lower income", "working class",
+                   "low income", "poor", "low class", "low") ~ "lower/working class",
+      class %in% c("mixed", "missing data", "NA") ~ NA_character_,
+      TRUE ~ class
+   )) %>%
+   mutate(class_cat2 = case_when(
+      class_cat %in% c("upper", "upper middle") ~ "upper",
+      class_cat %in% c("middle") ~ "middle",
+      class_cat %in% c("lower middle", "lower/working class") ~ "lower",
+      class_cat %in% c("mixed", "missing data", "NA") ~ NA_character_,
+      TRUE ~ class
+   )) %>%
+   mutate(class_cat = factor(class_cat,
+                             levels = c("lower/working class",
+                                        "lower middle",
+                                        "middle",
+                                        "upper middle",
+                                        "upper")),
+          class_cat2 = factor(class_cat2,
+                              levels = c("lower", "middle", "upper"))) %>%
+   mutate(rich_poor = factor(rich_poor,
+                             levels = c("much poorer", 
+                                        "a little poorer", 
+                                        "about the same", 
+                                        "a little richer",
+                                        "much richer"))) %>%
+   mutate(afford_cat = case_when(grepl("yes", afford) ~ "yes",
+                                 grepl("some", afford) |
+                                    grepl("a little", afford) |
+                                    grepl("buy those things for me", afford) |
+                                    grepl("to a large extent", afford) ~ "somewhat",
+                                 grepl("not", afford) ~ "no",
+                                 TRUE ~ afford)) %>%
+   mutate(afford_cat = factor(afford_cat,
+                              levels = c("no",
+                                         "somewhat",
+                                         "yes"))) %>%
+   mutate(spirit_relig = factor(tolower(spirit_relig),
+                                levels = c("strongly disagree",
+                                           "disagree",
+                                           "neither agree nor disagree",
+                                           "agree",
+                                           "strongly agree")),
+          spirit_relig_num = as.numeric(spirit_relig) - 3) %>%
+   mutate(religion = tolower(religion),
+          religion_cat = case_when(
+             religion %in% c("no", "none") ~ "none",
+             religion %in% c("christian", "catholic", "christianity", 
+                             "lutheran", "baptist", "episcopalian",
+                             "jehova witness", 
+                             "roman catholic") ~ "christian",
+             religion %in% c("buddhist", "buddhism") ~ "buddhist",
+             religion %in% c("hindu", "hinduism") ~ "hindu",
+             religion %in% c("jewish", "judaism") ~ "jewish",
+             religion %in% c("jain", "jainism") ~ "jain",
+             religion %in% c("muslim", "islam", "islamic") ~ "muslim",
+             grepl("\\,", religion) |
+                grepl(" and ", religion) |
+                grepl("\\/", religion) |
+                grepl("mix", religion) |
+                religion %in% c("multiple", "all religions", "honor all traditions") ~ "multiple",
+             religion %in% c("missing data", "NA") ~ NA_character_,
+             TRUE ~ religion
+          )) %>%
+   mutate(church_cat = case_when(
+      grepl("method", church) ~ "methodist",
+      grepl("presby", church) ~ "presbyterian",
+      grepl("pentecost", church) ~ "pentecostal",
+      grepl("icgc", tolower(church)) ~ "ICGC",
+      grepl("assembl", church) |
+         grepl("aog", tolower(church)) ~ "assemblies of god",
+      grepl("catholic", church) |
+         grepl("roman", church) ~ "catholic",
+      TRUE ~ church
+   )) %>%
+   mutate(tongues_cat = case_when(grepl("no", tongues) ~ "no",
+                                  grepl("yes", tongues) ~ "yes",
+                                  tongues == "NA" ~ NA_character_,
+                                  TRUE ~ tongues)) %>%
+   mutate(age = as.numeric(age)) %>%
+   distinct()
+```
+
+```{r gh adults checks}
+# check whether anyone is in plog but not data
+plog_gh_adults %>%
+   mutate(kept = ifelse(subj_id %in% d_gh_adults$subj_id, T, F)) %>% 
+   filter(!kept)
+
+# check whether anyone is in data but not plog
+d_gh_adults %>%
+   mutate(extra = ifelse(subj_id %in% plog_gh_adults$subj_id, T, F)) %>%
+   filter(!extra) %>%
+   distinct(subj_id)
+
+# check whether sample size matches
+plog_gh_adults %>% distinct(subj_id) %>% count()
+d_gh_adults %>% distinct(subj_id) %>% count()
+```
+
+## Children
+
+```{r gh children process}
+plog_gh_children <- read_xlsx("../raw data/children/demographics/GHA_BEETLES_CHILDREN (Fante) Demographics.xlsx") %>%
+   rename(subj_id_original = name) %>%
+   left_join(key_children) %>%
+   select(-subj_id_original) %>%
+   rename(live_here = hometown_self,
+          from_where = hometown_family,
+          sibling_number = siblings_number, 
+          sibling_order = birth_order,
+          language = languages,
+          church = religious_institution) %>%
+   select(subj_id, age, gender, live_here, from_where,
+          sibling_number, sibling_order,
+          language, language_home, language_school,
+          school, church, religion) %>%
+   mutate(religion = tolower(religion),
+          religion_cat = case_when(
+             religion %in% c("no", "none") ~ "none",
+             religion %in% c("christian", "catholic", "christianity", 
+                             "lutheran", "baptist", "episcopalian",
+                             "jehova witness", 
+                             "roman catholic") ~ "christian",
+             religion %in% c("buddhist", "buddhism") ~ "buddhist",
+             religion %in% c("hindu", "hinduism") ~ "hindu",
+             religion %in% c("jewish", "judaism") ~ "jewish",
+             religion %in% c("jain", "jainism") ~ "jain",
+             religion %in% c("muslim", "islam", "islamic") ~ "muslim",
+             grepl("\\,", religion) |
+                grepl(" and ", religion) |
+                grepl("\\/", religion) |
+                grepl("mix", religion) |
+                religion %in% c("multiple", "all religions", "honor all traditions") ~ "multiple",
+             religion %in% c("missing data", "NA") ~ NA_character_,
+             TRUE ~ religion
+          )) %>%
+   mutate(church_cat = case_when(
+      grepl("method", church) ~ "methodist",
+      grepl("presby", church) ~ "presbyterian",
+      grepl("pentecost", church) ~ "pentecostal",
+      grepl("icgc", tolower(church)) ~ "ICGC",
+      grepl("assembl", church) |
+         grepl("aog", tolower(church)) ~ "assemblies of god",
+      grepl("catholic", church) |
+         grepl("roman", church) ~ "catholic",
+      TRUE ~ church
+   )) %>%
+   mutate(age = as.numeric(age)) %>%
+   distinct()
+```
+
+```{r gh children checks}
+# check whether anyone is in plog but not data
+plog_gh_children %>%
+   mutate(kept = ifelse(subj_id %in% d_gh_children$subj_id, T, F)) %>% 
+   filter(!kept)
+
+# check whether anyone is in data but not plog
+d_gh_children %>%
+   mutate(extra = ifelse(subj_id %in% plog_gh_children$subj_id, T, F)) %>%
+   filter(!extra) %>%
+   distinct(subj_id)
+
+# check whether sample size matches
+plog_gh_children %>% distinct(subj_id) %>% count()
+d_gh_children %>% distinct(subj_id) %>% count()
+```
+
+
+# Thailand
+
+## Adults
+
+```{r th adults process}
+plog_th_adults <- read_xlsx("../raw data/adults/demographics/THL_BEETLES_ADULTS Demographics.xlsx") %>%
+   mutate(`Subject ID` = case_when(
+      `Subject ID` == "Panuwat Thamkaewkiaw" ~ "Panuwat",
+      TRUE ~ gsub("\\(Pang\\) ", "", `Subject ID`))) %>%
+   rename(subj_id_original = `Subject ID`) %>%
+   left_join(key_adults) %>%
+   select(-subj_id_original) %>%
+   rename(gender = "Gender",
+          age = "Age",
+          education = "Highest Education",
+          ethnicity = "Ethnicity",
+          urban_rural = "Was where you grew up urban or rural?",
+          born_th = "Were you born in Thailand?",
+          language = "What languages doyou speak at home growing up?",
+          afford = "Do you feel you can afford the things you need, like Clothing Shoes and Housing?",
+          class = "What is the general class of your community?",
+          rich_poor = "Do you think you are richer or poorer than most of the people in your community?",
+          spirit_relig = "I consider myself a religious or spiritual person?",
+          religion = "What religion do you practice if any?") %>%
+   select(subj_id, age, gender, ethnicity, born_th, language, 
+          urban_rural, education, afford, class, rich_poor,
+          spirit_relig, religion) %>%
+   mutate(age = as.numeric(age)) %>%
+   mutate(ethnicity_cat = case_when(
+      ethnicity %in% c("caucasian", "white", "anglo", 
+                       "italian", "french", "european", "jewish", "swiss") ~ "white",
+      ethnicity %in% c("african american", "black") ~ "black",
+      ethnicity %in% c("asian", "chinese", "korean",
+                       "east asian") ~ "east asian",
+      ethnicity %in% c("filipino", "pacific islander") ~ "pacific islander",
+      ethnicity %in% c("east indian", "indian", "pakistan",
+                       "pakistani", "south asian") ~ "south asian",
+      ethnicity %in% c("middle eastern", "persian") ~ "middle eastern",
+      ethnicity %in% c("latino", "latina", "latinx", "hispanic",
+                       "mexican", "mexican american", "peruvian", 
+                       "latin american") ~ "hispanic/latino",
+      grepl("\\,", ethnicity) |
+         grepl(" and ", ethnicity) |
+         grepl("\\/", ethnicity) |
+         grepl("mix", ethnicity) |
+         ethnicity %in% c("biracial", "mixed", "multiracial") ~ "multiple",
+      ethnicity %in% c("missing data", "NA") ~ NA_character_,
+      TRUE ~ ethnicity
+   )) %>%
+   mutate(urban_rural_cat = case_when(
+      grepl("both", urban_rural) ~ "both",
+      urban_rural %in% c("missing data", "NA") ~ NA_character_,
+      TRUE ~ urban_rural
+   )) %>%
+   mutate(education = tolower(education)) %>%
+   mutate(education_cat = case_when(
+      education %in% c("no education", "junior high school",
+                       "grade 4", "grade 5", "grade 6", "grade 7", 
+                       "grade 8") ~ "less than high school",
+      education %in% c("grade 9", "grade 10", "grade 11", "grade 12",
+                       "grade 12 (student)", "grade 12 (high school)") ~ "some high school",
+      grepl("vocation", education) ~ "trade/certificate",
+      grepl("diploma", education) ~ "high school",
+      grepl("undergrad", education) | 
+         grepl("student", education) |
+         education %in% c("freshman year") ~ "some college",
+      grepl("bachelors", education) | 
+         grepl("CMU", education) ~ "bachelors",
+      grepl("masters", education) ~ "masters",
+      education %in% c("missing data", "NA", "not trans") ~ NA_character_,
+      TRUE ~ education
+   )) %>%
+   mutate(education_cat = factor(education_cat,
+                                 levels = c("less than high school", 
+                                            "some high school", 
+                                            "ged", 
+                                            "high school", 
+                                            "trade/certificate",
+                                            "some college",
+                                            "associates",
+                                            "other college degree",
+                                            "bachelors", 
+                                            "some graduate school",
+                                            "masters", 
+                                            "phd",
+                                            "professional degree"))) %>%
+   mutate(class = tolower(class)) %>%
+   mutate(class_cat = case_when(
+      class %in% c("rich", "good(rich)") ~ "upper",
+      class %in% c("middle-rich", "niddle-high", "middle-good(high)") ~ "upper middle",
+      class %in% c("poor-middle", "middle-poor") ~ "lower middle",
+      class %in% c("poor", "almost poor") ~ "lower/working class",
+      class %in% c("mixed", "missing data", "NA") ~ NA_character_,
+      TRUE ~ class
+   )) %>%
+   mutate(class_cat2 = case_when(
+      class_cat %in% c("upper", "upper middle") ~ "upper",
+      class_cat %in% c("middle") ~ "middle",
+      class_cat %in% c("lower middle", "lower/working class") ~ "lower",
+      class_cat %in% c("mixed", "missing data", "NA") ~ NA_character_,
+      TRUE ~ class
+   )) %>%
+   mutate(class_cat = factor(class_cat,
+                             levels = c("lower/working class",
+                                        "lower middle",
+                                        "middle",
+                                        "upper middle",
+                                        "upper")),
+          class_cat2 = factor(class_cat2,
+                              levels = c("lower", "middle", "upper"))) %>%
+   mutate(rich_poor = factor(tolower(rich_poor),
+                             levels = c("much poorer",
+                                        "a little poorer",
+                                        "about same",
+                                        "a little richer",
+                                        "much richer"))) %>%
+   mutate(afford = tolower(afford),
+          afford = case_when(grepl("yes", afford) ~ "yes",
+                             grepl("no", afford) ~ "no",
+                             is.na(afford) | afford == "missing data" ~ NA_character_,
+                             TRUE ~ "somewhat")) %>%
+   mutate(afford = factor(afford,
+                          levels = c("no",
+                                     "somewhat",
+                                     "yes"))) %>%
+   mutate(spirit_relig = factor(tolower(spirit_relig),
+                                levels = c("strongly disagree",
+                                           "disagree",
+                                           "neither",
+                                           "agree",
+                                           "strongly agree")),
+          spirit_relig_num = as.numeric(spirit_relig) - 3) %>%
+   mutate(religion = tolower(religion),
+          religion_cat = case_when(
+             religion %in% c("no", "none") ~ "none",
+             religion %in% c("christian", "catholic", "christianity", 
+                             "lutheran", "baptist", "episcopalian",
+                             "Jehova Witness", "roman catholic") ~ "christian",
+             religion %in% c("buddhist", "buddhism") ~ "buddhist",
+             religion %in% c("hindu", "hinduism") ~ "hindu",
+             religion %in% c("jewish", "judaism") ~ "jewish",
+             religion %in% c("jain", "jainism") ~ "jain",
+             religion %in% c("muslim", "islam") ~ "muslim",
+             grepl("\\,", religion) |
+                grepl(" and ", religion) |
+                grepl("\\/", religion) |
+                grepl("mix", religion) |
+                religion %in% c("multiple", "all religions", "honor all traditions") ~ "multiple",
+             religion %in% c("missing data", "NA") ~ NA_character_,
+             TRUE ~ religion
+          )) %>%
+   distinct()
+```
+
+```{r adults checks}
+# check whether anyone is in plog but not data
+plog_th_adults %>%
+   mutate(kept = ifelse(subj_id %in% d_th_adults$subj_id, T, F)) %>%
+   filter(!kept)
+
+# check whether anyone is in data but not plog
+d_th_adults %>%
+   mutate(extra = ifelse(subj_id %in% plog_th_adults$subj_id, T, F)) %>%
+   filter(!extra) %>%
+   distinct(subj_id, target, sequence)
+
+# check whether sample size matches
+plog_th_adults %>% distinct(subj_id) %>% count()
+d_th_adults %>% distinct(subj_id) %>% count()
+```
+
+## Children
+
+```{r th children process}
+plog_th_children <- read_xlsx("../raw data/children/demographics/THL_BEETLES_CHILDREN Demographics.xlsx") %>%
+   rename(subj_id_original = `Subject ID`) %>%
+   # standardize spelling with subj_key (probably some spelling errors, just trying to be consistent, not correct)
+   mutate(subj_id_original = gsub("^Yaya", "Yay",
+                                  subj_id_original),
+          subj_id_original = gsub("^Earn.*$", "Earn", subj_id_original),
+          subj_id_original = gsub("^Nak.*$", "Nak", subj_id_original)) %>%
+   left_join(key_children) %>%
+   # correct duplicate names by hand
+   mutate(subj_id = case_when(
+      subj_id_original == "Neu" & 
+         tolower(Character) == "god" ~ "th_children_008_god",
+      subj_id_original == "Neu" &
+         tolower(Character) == "rocks" ~ "th_children_073_rocks",
+      subj_id_original == "Gift" & 
+         tolower(Character) == "children" ~ "th_children_031_children",
+      subj_id_original == "Gift" &
+         tolower(Character) == "chickens" ~ "th_children_040_chickens",
+      subj_id_original == "Tangmo" & 
+         tolower(Character) == "dogs" ~ "th_children_041_dogs",
+      subj_id_original == "Tangmo" &
+         tolower(Character) == "mice" ~ "th_children_045_mice",
+      subj_id_original == "Phi" & 
+         tolower(Character) == "children" ~ "th_children_059_children",
+      subj_id_original == "Phi" &
+         tolower(Character) == "mice" ~ "th_children_072_mice",
+      TRUE ~ subj_id
+   )) %>%
+   select(-subj_id_original) %>%
+   rename(gender = "Gender",
+          age = "Age",
+          live_here = "Do you live in___?",
+          from_here = "Is your family from here?",
+          from_where = "If NO: Where is your family originally?",
+          sibling_number = "How many brothers and sisters do you have?",
+          sibling_order = "If≧1 sibling: Are you the first Child (oldest child),the second child, the third child?",
+          language = "What languages do you speak?",
+          language_home = "What language do you speak at home most of the time?",
+          school = "Do you go to school?",
+          language_school = "What language do you speak most of the time at school?",
+          church = "Do you go to church (temple, etc)?",
+          religion = "What is your religion?") %>%
+   select(subj_id, age, gender, live_here, from_here, from_where,
+          sibling_number, sibling_order,
+          language, language_home, language_school,
+          school, church, religion) %>%
+   distinct() %>%
+   mutate(religion = tolower(religion),
+          religion_cat = case_when(
+             religion %in% c("no", "none") ~ "none",
+             religion %in% c("christian", "catholic", "christianity", 
+                             "lutheran", "baptist", "episcopalian",
+                             "jehova witness", "roman catholic") ~ "christian",
+             religion %in% c("buddhist", "buddhism") ~ "buddhist",
+             religion %in% c("hindu", "hinduism") ~ "hindu",
+             religion %in% c("jewish", "judaism") ~ "jewish",
+             religion %in% c("jain", "jainism") ~ "jain",
+             religion %in% c("muslim", "islam") ~ "muslim",
+             grepl("\\,", religion) |
+                grepl(" and ", religion) |
+                grepl("\\/", religion) |
+                grepl("mix", religion) |
+                religion %in% c("multiple", "all religions", "honor all traditions") ~ "multiple",
+             religion %in% c("missing data", "NA") ~ NA_character_,
+             TRUE ~ religion
+          )) %>%
+   mutate(age = as.numeric(age)) %>%
+   distinct()
+```
+
+```{r th children checks}
+# check whether anyone is in plog but not data
+plog_th_children %>%
+   mutate(kept = ifelse(subj_id %in% d_th_children$subj_id, T, F)) %>%
+   filter(!kept)
+
+# check whether anyone is in data but not plog
+d_th_children %>%
+   mutate(extra = ifelse(subj_id %in% plog_th_children$subj_id, T, F)) %>%
+   filter(!extra) %>%
+   distinct(subj_id)
+
+# check whether sample size matches
+plog_th_children %>% distinct(subj_id) %>% count()
+d_th_children %>% distinct(subj_id) %>% count()
+```
+
+
+# China
+
+## Adults
+
+```{r ch adults process}
+plog_ch_adults <- read_xlsx("../raw data/adults/demographics/CHN_BEETLES_ADULTS Demographics.xlsx") %>%
+   rename(subj_id_original = `Subject ID`) %>%
+   left_join(key_adults) %>%
+   select(-subj_id_original) %>%
+   rename(gender = "Gender",
+          age = "Age",
+          education = "Highest education",
+          ethnicity = "Ethnicity",
+          urban_rural = "Was where you grew up urban or rural?",
+          born_ch = "Were you born in [fieldsite]?",
+          born_ch_text = "Were you born in [fieldsite]? \r\nOther - Text",
+          language = "What languages did you speak at home growing up?",
+          afford = "Do you feel you can afford the things you need, like clothing and shoes and housing? - Selected Choice",
+          class = "What is the general class of your community?",
+          rich_poor = "Do you think you are richer or poorer than most of the people in your community?",
+          spirit_relig = "Do you consider yourself a religious or spiritual person?",
+          religion = "What religion do you practice, if any?") %>%
+   select(subj_id, age, gender, ethnicity, born_ch, born_ch_text, language, 
+          urban_rural, education, afford, class, rich_poor,
+          spirit_relig, religion) %>%
+      mutate(ethnicity_cat = case_when(
+      grepl("han", ethnicity) ~ "han",
+      grepl("man", ethnicity) ~ "man",
+      TRUE ~ ethnicity
+   )) %>%
+   mutate(language = tolower(as.character(language)),
+          language = gsub("the dialect of ", "", language),
+          language = gsub(" dialect", "", language),
+          language = gsub("dialect..", "", language)) %>%
+   mutate(language_cat = case_when(
+      grepl("shanghai", language) ~ "shanghainese",
+      grepl("mandarin", language) ~ "mandarin",
+      grepl("wuhan", language) ~ "wuhanese",
+      language %in% c("chongqing", "chonqing") ~ "chongqing",
+      language %in% c("dialect", "local") ~ "local dialect",
+      TRUE ~ gsub(" dialect", "", language)
+   )) %>%
+   mutate(urban_rural = tolower(urban_rural)) %>%
+   mutate(urban_rural_cat = case_when(
+      grepl("both", urban_rural) ~ "both",
+      urban_rural %in% c("missing data", "NA") ~ NA_character_,
+      TRUE ~ urban_rural
+   )) %>%
+   mutate(education = tolower(education)) %>%
+   mutate(education_cat = case_when(
+      education %in% c("uneducated", "none", "junior school") |
+         grepl("primary", education) |
+         grepl("middle", education) |
+         grepl("elementary", education) |
+         grepl("junior high", education) ~ "less than high school",
+      grepl("technical", education) |
+         grepl("special", education) ~ "trade/certificate",
+      grepl("junior college", education) |
+         education == "community college" ~ "other college degree",
+      grepl("diploma", education) | 
+         grepl("high school", education) ~ "high school",
+      grepl("undergrad", education) | 
+         grepl("student", education) |
+         education %in% c("freshman year") ~ "some college",
+      grepl("bachelor", education) | 
+         education %in% c("college", "college degree") ~ "bachelors",
+      education %in% c("graduate", "doctor \\(studying\\)") ~ "some graduate school",
+      grepl("master", education) ~ "masters",
+      education %in% c("missing data", "NA", "not trans") ~ NA_character_,
+      TRUE ~ education
+   )) %>%
+   mutate(education_cat = factor(education_cat,
+                                 levels = c("less than high school",
+                                            "some high school",
+                                            "ged",
+                                            "high school",
+                                            "trade/certificate",
+                                            "some college",
+                                            "associates",
+                                            "other college degree",
+                                            "bachelors",
+                                            "some graduate school",
+                                            "masters",
+                                            "phd",
+                                            "professional degree"))) %>%
+   mutate(class = tolower(class)) %>%
+   mutate(class_cat = case_when(
+      grepl("well", class) |
+         grepl("rich", class) |
+         class %in% c("higher economic level",
+                      "good and harmony",
+                      "good", "affluent") ~ "upper",
+      class %in% c("upper middle", "middle class and the above") | 
+         grepl("above.*$", class) |
+         grepl("a little wealthy", class) |
+         grepl("middle-up", class) ~ "upper middle",
+      grepl("moderate", class) |
+         grepl("general", class) |
+         grepl("decent", class) |
+         grepl("common", class) |
+         grepl("medium", class) & !grepl("below", class) |
+         grepl("middle level", class) |
+         grepl("middle.class", class) |
+         grepl("middle of", class) |
+         grepl("mid-range", class) |
+         grepl("average", class) & !grepl("below", class) |
+         grepl("normal", class) |
+         grepl("ordinary", class) |
+         grepl("salariat", class) |
+         class %in% c("not rich", "middle (xiao kang)") ~ "middle",
+      grepl("middle.lower", class) |
+         grepl("below.*$", class) |
+         class %in% c("low and middle level",
+                      "just so so to good",
+                      "just so so", "just ok",
+                      "it changes. fluctuated between middle and lower") ~ "lower middle",
+      grepl("working", class) |
+         grepl("subsistence", class) |
+         class == "lower" ~ "lower/working class",
+      class %in% c("mixed", "missing data", "NA", "not trans",
+                   "almost the same as me") ~ NA_character_,
+      TRUE ~ class
+   )) %>%
+   mutate(class_cat2 = case_when(
+      class_cat %in% c("upper", "upper middle") ~ "upper",
+      class_cat %in% c("middle") ~ "middle",
+      class_cat %in% c("lower middle", "lower/working class") ~ "lower",
+      class_cat %in% c("mixed", "missing data", "NA", "not trans",
+                       "almost the same as me") |
+         is.na(class_cat) ~ NA_character_,
+      TRUE ~ class
+   )) %>%
+   mutate(class_cat = factor(class_cat,
+                             levels = c("lower/working class",
+                                        "lower middle",
+                                        "middle",
+                                        "upper middle",
+                                        "upper")),
+          class_cat2 = factor(class_cat2,
+                              levels = c("lower", "middle", "upper"))) %>%
+   mutate(rich_poor = factor(tolower(rich_poor),
+                             levels = c("much poorer",
+                                        "a little poorer",
+                                        "about the same",
+                                        "a little richer",
+                                        "much richer"))) %>%
+   mutate(afford = tolower(afford),
+          afford = case_when(grepl("yes", afford) ~ "yes",
+                             grepl("no", afford) ~ "no",
+                             is.na(afford) | afford == "missing data" ~ NA_character_,
+                             TRUE ~ "somewhat")) %>%
+   mutate(afford = factor(afford,
+                          levels = c("no",
+                                     "somewhat",
+                                     "yes"))) %>%
+   mutate(spirit_relig = factor(tolower(spirit_relig),
+                                levels = c("strongly disagree",
+                                           "disagree",
+                                           "neither agree nor disagree",
+                                           "agree",
+                                           "strongly agree")),
+          spirit_relig_num = as.numeric(spirit_relig) - 3) %>%
+   mutate(religion = tolower(religion)) %>%
+   mutate(religion_cat = case_when(
+      religion %in% c("no", "none", "do not practice religion",
+                      "don't practice religion") ~ "none",
+      religion %in% c("christian", "catholic", "christianity", 
+                      "lutheran", "baptist", "episcopalian",
+                      "Jehova Witness", "roman catholic") |
+         grepl("christ", religion) ~ "christian",
+      grepl("buddh", religion) ~ "buddhist",
+      grepl("ancestor", religion) |
+         grepl("anim", religion) |
+         grepl("tradition", religion) ~ "traditional",
+      religion %in% c("hindu", "hinduism") ~ "hindu",
+      religion %in% c("jewish", "judaism") ~ "jewish",
+      religion %in% c("jain", "jainism") ~ "jain",
+      religion %in% c("muslim", "islam") ~ "muslim",
+      grepl("\\,", religion) |
+         grepl(" and ", religion) |
+         grepl("\\/", religion) |
+         grepl("mix", religion) |
+         religion %in% c("multiple", "all religions", "honor all traditions") ~ "multiple",
+      religion %in% c("missing data", "NA", "mdata", "x", "as above") ~ NA_character_,
+      TRUE ~ religion
+   )) %>%
+   mutate(age = as.numeric(age)) %>%
+   distinct()
+```
+
+```{r ch adults checks}
+# check whether anyone is in plog but not data
+# THESE ARE JUST EXTRA ROWS IN PLOG EXCEL
+plog_ch_adults %>%
+   mutate(kept = ifelse(subj_id %in% d_ch_adults$subj_id, T, F)) %>%
+   filter(!kept)
+
+# check whether anyone is in data but not plog
+d_ch_adults %>%
+   mutate(extra = ifelse(subj_id %in% plog_ch_adults$subj_id, T, F)) %>%
+   filter(!extra) %>%
+   distinct(subj_id, target, sequence)
+
+# check whether sample size matches
+plog_ch_adults %>%
+   filter(!is.na(subj_id)) %>% # extra rows in plog excel
+   distinct(subj_id) %>% count()
+d_ch_adults %>% distinct(subj_id) %>% count()
+```
+
+## Children
+
+```{r ch children process}
+plog_ch_children <- read_xlsx("../raw data/children/demographics/CHN_BEETLES_CHILDREN_Demographics.xlsx") %>%
+   rename(subj_id_original = `Subject ID`) %>%
+   mutate(subj_id_original = gsub("K", "k", subj_id_original)) %>%
+   left_join(key_children) %>%
+   select(-subj_id_original) %>%
+   rename(gender = "Gender:",
+          age = "Age",
+          live_here = "Do you live in [site of data collection]?\r\nPlease write any comments next to the appropriate response. - Selected Choice",
+          from_here = "Is your family from [site of data collection]?\r\nPlease write any comments next to the appropriate response. - Selected Choice",
+          from_where = "Is your family from [site of data collection]?\r\nPlease write any comments next to the appropriate response. - No, they are from: - Text",
+          sibling_number = "How many brothers and sisters do you have?",
+          sibling_order = "Are you the first child (oldest child), the second child, the third child, ...?",
+          language = "What languages do you speak?",
+          language_home = "What language do you speak at home most of the time?",
+          school = "Do you go to school? - Selected Choice",
+          language_school = "What language do you speak at school most of the time?",
+          church = "Do you go to church (temple, etc.?) (If YES: What church (temple, etc.) do you go to?)\r\nIf this is not translated, just make a note that there is text here.",
+          religion = "What is your religion?") %>%
+   select(subj_id, age, gender, live_here, from_here, from_where,
+          sibling_number, sibling_order,
+          language, language_home, language_school,
+          school, church, religion) %>%
+   mutate(religion = tolower(religion),
+          religion_cat = case_when(
+             religion %in% c("no", "none") ~ "none",
+             religion %in% c("christian", "cacholic", "christianity", 
+                             "lutheran", "baptist", "episcopalian",
+                             "jehova witness", "roman cacholic") ~ "christian",
+             religion %in% c("buddhist", "buddhism") ~ "buddhist",
+             religion %in% c("hindu", "hinduism") ~ "hindu",
+             religion %in% c("jewish", "judaism") ~ "jewish",
+             religion %in% c("jain", "jainism") ~ "jain",
+             religion %in% c("muslim", "islam") ~ "muslim",
+             grepl("\\,", religion) |
+                grepl(" and ", religion) |
+                grepl("\\/", religion) |
+                grepl("mix", religion) |
+                religion %in% c("multiple", "all religions", "honor all traditions") ~ "multiple",
+             religion %in% c("missing data", "NA") ~ NA_character_,
+             TRUE ~ religion
+          )) %>%
+   mutate(age = as.numeric(age)) %>%
+   distinct()
+```
+
+```{r ch children checks}
+# check whether anyone is in plog but not data
+plog_ch_children %>%
+   mutate(kept = ifelse(subj_id %in% d_ch_children$subj_id, T, F)) %>%
+   filter(!kept)
+
+# check whether anyone is in data but not plog
+d_ch_children %>%
+   mutate(extra = ifelse(subj_id %in% plog_ch_children$subj_id, T, F)) %>%
+   filter(!extra) %>%
+   distinct(subj_id, target, sequence)
+
+# check whether sample size matches
+plog_ch_children %>%
+   distinct(subj_id) %>% count()
+d_ch_children %>% distinct(subj_id) %>% count()
+```
+
+
+# Vanuatu
+
+## Adults
+
+```{r vt adults process}
+plog_vt_adults <- read_xlsx("../raw data/adults/demographics/VUT_BEETLES_ADULTS Demographics.xlsx") %>%
+   rename(subj_id_original = `Subject ID`) %>%
+   left_join(key_adults) %>%
+   select(-subj_id_original) %>%
+   rename(gender = "Gender",
+          age = "Age",
+          # education = "Highest Education",
+          # ethnicity = "Ethnicity",
+          # urban_rural = "Was where you grew up urban or rural?",
+          # born_vt = "Is your family from here?",
+          language = "What languages do you speak at home growing up?",
+          # afford = "Do you feel you can afford the things you need, like Clothing Shoes and Housing?",
+          # class = "What is the general class of your community?",
+          # rich_poor = "Do you think you are richer or poorer than most of the people in your community?",
+          # spirit_relig = "I consider myself a religious or spiritual person?",
+          religion = "What Religion do you practice?") %>%
+   select(subj_id, age, gender, #ethnicity, born_vt, 
+          language, 
+          #urban_rural, education, afford, class, rich_poor, spirit_relig, 
+          religion) %>%
+      mutate(religion = tolower(religion)) %>%
+   mutate(religion_cat = case_when(
+      religion %in% c("no", "none") ~ "none",
+      # religion %in% c("christian", "catholic", "christianity", 
+      #                 "lutheran", "baptist", "episcopalian",
+      #                 "jehova witness", "roman catholic", "sda",
+      #                 "presbyterian", "anglican") ~ "christian",
+      religion %in% c("buddhist", "buddhism") ~ "buddhist",
+      religion %in% c("hindu", "hinduism") ~ "hindu",
+      religion %in% c("jewish", "judaism") ~ "jewish",
+      religion %in% c("jain", "jainism") ~ "jain",
+      religion %in% c("muslim", "islam") ~ "muslim",
+      grepl(" and ", religion) |
+         # grepl("\\/", religion) |
+         grepl("mix", religion) |
+         religion %in% c("multiple", "all religions", "honor all traditions",
+                         "any religion") ~ "multiple",
+      religion %in% c("missing data", "NA") ~ NA_character_,
+      TRUE ~ religion
+   )) %>%
+   mutate(age = as.numeric(age)) %>%
+   distinct()
+```
+
+```{r vt adults checks}
+# check whether anyone is in plog but not data
+plog_vt_adults %>%
+   mutate(kept = ifelse(subj_id %in% d_vt_adults$subj_id, T, F)) %>%
+   filter(!kept)
+
+# check whether anyone is in data but not plog
+d_vt_adults %>%
+   mutate(extra = ifelse(subj_id %in% plog_vt_adults$subj_id, T, F)) %>%
+   filter(!extra) %>%
+   distinct(subj_id, target, sequence)
+
+# check whether sample size matches
+plog_vt_adults %>%
+   distinct(subj_id) %>% count()
+d_vt_adults %>% distinct(subj_id) %>% count()
+```
+
+## Children
+
+```{r vt children process}
+plog_vt_children <- read_xlsx("../raw data/children/demographics/VUT_BEETLES_CHILDREN Demographics.xlsx") %>%
+   rename(subj_id_original = `Subject ID`) %>%
+   left_join(key_children) %>%
+   select(-subj_id_original) %>%
+   rename(gender = "Gender",
+          age = "Age",
+          live_here = "Do you live in___?",
+          from_here = "Is your family from here?",
+          from_where = "If NO: Where is your family originally?",
+          sibling_number = "How many brothers and sisters do you have?",
+          sibling_order = "If≧1 sibling: Are you the first Child (oldest child),the second child, the third child?",
+          language = "What languages do you speak?",
+          language_home = "What language do you speak at home most of the time?",
+          school = "Do you go to school?",
+          language_school = "What language do you speak most of the time at school?",
+          church = "Do you go to church (temple, etc)?",
+          religion = "What is your religion?") %>%
+   select(subj_id, age, gender, live_here, from_here, from_where,
+          sibling_number, sibling_order,
+          language, language_home, language_school,
+          school, church, religion) %>%
+   mutate(religion = tolower(religion),
+          religion_cat = case_when(
+             religion %in% c("no", "none") ~ "none",
+             religion %in% c("christian", "catholic", "christianity", 
+                             "lutheran", "baptist", "episcopalian",
+                             "jehova witness", "roman catholic") ~ "christian",
+             religion %in% c("buddhist", "buddhism") ~ "buddhist",
+             religion %in% c("hindu", "hinduism") ~ "hindu",
+             religion %in% c("jewish", "judaism") ~ "jewish",
+             religion %in% c("jain", "jainism") ~ "jain",
+             religion %in% c("muslim", "islam") ~ "muslim",
+             grepl("\\,", religion) |
+                grepl(" and ", religion) |
+                grepl("\\/", religion) |
+                grepl("mix", religion) |
+                religion %in% c("multiple", "all religions", "honor all traditions") ~ "multiple",
+             religion %in% c("missing data", "NA") ~ NA_character_,
+             TRUE ~ religion
+          )) %>%
+   # correct data entry error by hand
+   mutate(age = case_when(subj_id == "vt_children_118_ghosts" ~ 9,
+                          TRUE ~ as.numeric(age))) %>%
+   distinct()
+```
+
+```{r vt children checks}
+# check whether anyone is in plog but not data
+plog_vt_children %>%
+   mutate(kept = ifelse(subj_id %in% d_vt_children$subj_id, T, F)) %>%
+   filter(!kept)
+
+# check whether anyone is in data but not plog
+d_vt_children %>%
+   mutate(extra = ifelse(subj_id %in% plog_vt_children$subj_id, T, F)) %>%
+   filter(!extra) %>%
+   distinct(subj_id, target, sequence)
+
+# check whether sample size matches
+plog_vt_children %>%
+   distinct(subj_id) %>% count()
+d_vt_children %>% distinct(subj_id) %>% count()
+```
+
+
+# Export csvs
+
+```{r}
+# Export CSVs
+write_csv(plog_us_adults, "../demographics/plog_us_adults.csv")
+write_csv(plog_gh_adults, "../demographics/plog_gh_adults.csv")
+write_csv(plog_th_adults, "../demographics/plog_th_adults.csv")
+write_csv(plog_ch_adults, "../demographics/plog_ch_adults.csv")
+write_csv(plog_vt_adults, "../demographics/plog_vt_adults.csv")
+write_csv(plog_us_children, "../demographics/plog_us_children.csv")
+write_csv(plog_gh_children, "../demographics/plog_gh_children.csv")
+write_csv(plog_th_children, "../demographics/plog_th_children.csv")
+write_csv(plog_ch_children, "../demographics/plog_ch_children.csv")
+write_csv(plog_vt_children, "../demographics/plog_vt_children.csv")
+```
+

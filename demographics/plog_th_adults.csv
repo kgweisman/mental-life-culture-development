@@ -1,0 +1,151 @@
+subj_id,age,gender,ethnicity,born_th,language,urban_rural,education,afford,class,rich_poor,spirit_relig,religion,ethnicity_cat,urban_rural_cat,education_cat,class_cat,class_cat2,spirit_relig_num,religion_cat
+th_adults_061_ghosts,32,M,Thai,Yes,Native northern dialect,Rural,grade 6,yes,almost poor,about same,neither,buddhist,Thai,Rural,less than high school,lower/working class,lower,0,buddhist
+th_adults_078_dogs,39,M,Thai,Yes,Native northern dialect,Rural,no education,yes,middle,about same,disagree,buddhist,Thai,Rural,less than high school,middle,middle,-1,buddhist
+th_adults_121_chickens,25,M,Thai,Yes,Thai,Rural,bachelors degree,yes,middle,about same,strongly disagree,missing data,Thai,Rural,bachelors,middle,middle,-2,NA
+th_adults_042_flowers,41,F,Thai,Yes,Native northern dialect,Rural,grade 6,yes,middle,a little poorer,neither,buddhist,Thai,Rural,less than high school,middle,middle,0,buddhist
+th_adults_040_chickens,39,M,Thai,Yes,Native northern dialect,Rural,grade 6,yes,middle,about same,disagree,buddhist,Thai,Rural,less than high school,middle,middle,-1,buddhist
+th_adults_055_rocks,20,F,Thai,Yes,Thai,Rural,"bachelors degree (student), undergrad",yes,middle,about same,disagree,buddhist,Thai,Rural,some college,middle,middle,-1,buddhist
+th_adults_098_ghosts,21,M,Thai,Yes,Essan,Roi Et,grade 12,yes,not trans,about same,disagree,buddhist,Thai,Roi Et,some high school,NA,NA,-1,buddhist
+th_adults_124_flowers,39,M,Thai,Yes,Essan,Rural,grade 6,no,middle-poor,a little poorer,neither,buddhist,Thai,Rural,less than high school,lower middle,lower,0,buddhist
+th_adults_033_flowers,17,F,Thai,Yes,Thai,Urban,grade 12,yes,middle,about same,disagree,buddhist,Thai,Urban,some high school,middle,middle,-1,buddhist
+th_adults_003_chickens,37,M,Thai,Yes,"Norther dialect, Thai",Urban,bachelors degree,yes,middle,about same,neither,islam,Thai,Urban,bachelors,middle,middle,0,muslim
+th_adults_134_ghosts,35,M,Thai,Yes,Thai,Urban,bachelors degree,yes,middle,a little richer,disagree,buddhist,Thai,Urban,bachelors,middle,middle,-1,buddhist
+th_adults_011_cellphones,55,M,Thai,Yes,"Lanna (Northern dialect), Thai",Urban,grade 6,no,poor-middle,about same,neither,buddhist,Thai,Urban,less than high school,lower middle,lower,0,buddhist
+th_adults_048_cellphones,20,M,Thai,Yes,Native Phayao dialect,Rural,undergrad,yes,middle,about same,disagree,buddhist,Thai,Rural,some college,middle,middle,-1,buddhist
+th_adults_081_mice,24,M,Thai,Yes,Native,Urban,bachelors degree,yes,middle-good(high),about same,strongly disagree,no religion,Thai,Urban,bachelors,upper middle,upper,-2,no religion
+th_adults_020_beetles,22,F,Thai,Yes,Mom-Northern dialect/Central Thai,Urban,bachelors degree,yes,middle,about same,neither,buddhist,Thai,Urban,bachelors,middle,middle,0,buddhist
+th_adults_009_mice,40,M,Thai,Yes,Northern dialect(Chiang Mai),Rural,grade 6,yes,middle,a little richer,neither,buddhist,Thai,Rural,less than high school,middle,middle,0,buddhist
+th_adults_149_chickens,48,F,Thai,Yes,Native,Rural,bachelors degree,yes,middle,a little richer,neither,buddhist,Thai,Rural,bachelors,middle,middle,0,buddhist
+th_adults_002_cellphones,34,F,Thai,Yes,Northern dialect,Rural,bachelors degree,yes,middle,about same,neither,islam,Thai,Rural,bachelors,middle,middle,0,muslim
+th_adults_032_dogs,24,O,Thai,Yes,"Central Thai, Northern dialect",Urban,bachelors degree,yes,middle,about same,disagree,buddhist,Thai,Urban,bachelors,middle,middle,-1,buddhist
+th_adults_129_beetles,25,F,Thai,Yes,Thai,Urban,bachelors degree,yes,middle,about same,disagree,buddhist,Thai,Urban,bachelors,middle,middle,-1,buddhist
+th_adults_115_flowers,46,M,Thai,Yes,Native,Rural,bachelors degree,yes,middle,about same,neither,buddhist,Thai,Rural,bachelors,middle,middle,0,buddhist
+th_adults_131_children,37,M,Thai,Yes,Thai,Urban,masters degree,yes,middle,a little richer,agree,buddhist,Thai,Urban,masters,middle,middle,1,buddhist
+th_adults_095_children,23,M,Not trans,"Yes. No, in Myanmar",Not trans,Rural,grade 6,no,poor,about same,NA,buddhist,Not trans,Rural,less than high school,lower/working class,lower,NA,buddhist
+th_adults_113_children,39,F,Thai,Yes,Thai,Rural,grade 12,somewhat,middle,about same,neither,buddhist,Thai,Rural,some high school,middle,middle,0,buddhist
+th_adults_057_cellphones,42,F,Thai,Yes,Essan,Rural,grade 6,no,middle,about same,disagree,buddhist,Thai,Rural,less than high school,middle,middle,-1,buddhist
+th_adults_128_rocks,35,F,Thai,Yes,Not trans,Rural,bachelors degree,yes,middle,about same,disagree,no religion,Thai,Rural,bachelors,middle,middle,-1,no religion
+th_adults_137_rocks,22,F,Thai,Yes,Thai,Rural,"bachelors degree (student), undergrad",yes,middle,NA,disagree,buddhist,Thai,Rural,some college,middle,middle,-1,buddhist
+th_adults_116_ghosts,60,M,Thai,Yes,"Karen, Native, Thai",Rural,grade 12,yes,middle,about same,agree,buddhist,Thai,Rural,some high school,middle,middle,1,buddhist
+th_adults_036_mice,32,M,Thai,Yes,Thai Native northern dialect,Rural,grade 12,yes,middle,about same,neither,buddhist,Thai,Rural,some high school,middle,middle,0,buddhist
+th_adults_026_god,22,F,Thai,Yes,Thai,"Pak Chong, Korat",bachelors degree,yes,middle,about same,neither,buddhist,Thai,"Pak Chong, Korat",bachelors,middle,middle,0,buddhist
+th_adults_001_beetles,36,M,Thai,Yes,Native northern dialect,Rural,vocational school,yes,middle,a little poorer,neither,buddhist,Thai,Rural,trade/certificate,middle,middle,0,buddhist
+th_adults_083_beetles,66,F,Thai,Yes,Native,Rural,grade 4,yes,middle,about same,neither,buddhist,Thai,Rural,less than high school,middle,middle,0,buddhist
+th_adults_104_children,53,F,Thai,Yes,Not trans,Urban,grade 9,yes,middle,about same,neither,buddhist,Thai,Urban,some high school,middle,middle,0,buddhist
+th_adults_060_dogs,35,F,Thai,Yes,Essan,Rural,junior high school,yes,middle,about same,disagree,buddhist,Thai,Rural,less than high school,middle,middle,-1,buddhist
+th_adults_091_rocks,66,F,Thai,Yes,Native,Rural,grade 4,yes,middle,a little poorer,neither,buddhist,Thai,Rural,less than high school,middle,middle,0,buddhist
+th_adults_120_beetles,23,F,Thai,Yes,Thai,Urban,"bachelors degree (student), undergrad",yes,middle,about same,NA,buddhist,Thai,Urban,some college,middle,middle,NA,buddhist
+th_adults_107_ghosts,49,M,Thai,Yes,Thai,Rural,bachelors degree,no,middle-poor,a little poorer,neither,buddhist,Thai,Rural,bachelors,lower middle,lower,0,buddhist
+th_adults_117_god,38,F,Thai,Yes,Not trans,Rural,bachelors degree,yes,middle,about same,neither,buddhist,Thai,Rural,bachelors,middle,middle,0,buddhist
+th_adults_025_ghosts,21,F,Thai,Yes,Chiang Rai dialect,"Mae Lao, Chiang Rai",bachelors degree,yes,middle,about same,neither,buddhist,Thai,"Mae Lao, Chiang Rai",bachelors,middle,middle,0,buddhist
+th_adults_075_cellphones,21,F,Thai,Yes,Thai,Rural,"bachelors degree (student), junior year",yes,middle,a little richer,disagree,buddhist,Thai,Rural,some college,middle,middle,-1,buddhist
+th_adults_027_mice,44,F,Thai,Yes,Phayao dialect,Urban,bachelors degree,yes,middle,about same,disagree,buddhist,Thai,Urban,bachelors,middle,middle,-1,buddhist
+th_adults_122_children,38,F,Thai,Yes,"Thai, Essan",Rural,bachelors degree,yes,middle,about same,neither,buddhist,Thai,Rural,bachelors,middle,middle,0,buddhist
+th_adults_063_mice,22,M,Thai,Yes,Native northern dialect,Urban,bachelors degree,yes,middle,about same,disagree,buddhist,Thai,Urban,bachelors,middle,middle,-1,buddhist
+th_adults_079_flowers,23,F,Thai,Yes,Native,Rural,bachelors degree,yes,middle,about same,neither,buddhist,Thai,Rural,bachelors,middle,middle,0,buddhist
+th_adults_110_rocks,36,F,Thai,Yes,Not trans,Urban,bachelors degree,yes,not trans,about same,disagree,buddhist,Thai,Urban,bachelors,NA,NA,-1,buddhist
+th_adults_114_dogs,70,M,Thai,Yes,Thai,Urban,grade 4,yes,middle,about same,disagree,buddhist,Thai,Urban,less than high school,middle,middle,-1,buddhist
+th_adults_138_beetles,32,F,Thai,Yes,"Essan, Thai",Rural,bachelors degree,yes,middle,about same,disagree,buddhist,Thai,Rural,bachelors,middle,middle,-1,buddhist
+th_adults_004_children,26,F,Thai,Yes,Northern dialect,Rural,bachelors degree,yes,middle-poor,about same,neither,buddhist,Thai,Rural,bachelors,lower middle,lower,0,buddhist
+th_adults_136_mice,59,M,Thai,Yes,Thai,Rural,not trans,yes,middle,about same,NA,buddhist,Thai,Rural,NA,middle,middle,NA,buddhist
+th_adults_031_children,22,F,Thai,Yes,Phayao dialect,Rural,bachelors degree,yes,middle,about same,disagree,buddhist,Thai,Rural,bachelors,middle,middle,-1,buddhist
+th_adults_139_cellphones,25,F,Thai,Yes,Thai,Rural,bachelors degree,yes,middle,a little richer,disagree,buddhist,Thai,Rural,bachelors,middle,middle,-1,buddhist
+th_adults_127_mice,53,F,Thai,Yes,Essan,Rural,grade 4,yes,middle,a little poorer,neither,buddhist,Thai,Rural,less than high school,middle,middle,0,buddhist
+th_adults_100_mice,21,M,Thai,Yes,"Thai, Karen",Rural,grade 12,yes,middle,about same,neither,buddhist,Thai,Rural,some high school,middle,middle,0,buddhist
+th_adults_106_flowers,34,M,Thai,Yes,Not trans,Rural,vocational certificate,yes,middle,about same,disagree,buddhist,Thai,Rural,trade/certificate,middle,middle,-1,buddhist
+th_adults_144_god,26,M,Thai,Yes,Thai,Urban,bachelors degree,yes,middle,about same,disagree,buddhist,Thai,Urban,bachelors,middle,middle,-1,buddhist
+th_adults_030_cellphones,27,F,Thai,Yes,Thai,Rural,vocational certificate,no,middle,a little poorer,disagree,buddhist,Thai,Rural,trade/certificate,middle,middle,-1,buddhist
+th_adults_039_cellphones,40,F,Thai,Yes,Native Uttaradit dialect,Urban,bachelors degree,yes,middle,about same,NA,like buddhist / no religion,Thai,Urban,bachelors,middle,middle,NA,multiple
+th_adults_111_cellphones,54,F,Thai,Yes,Not trans,Urban,bachelors degree,yes,middle,about same,neither,buddhist,Thai,Urban,bachelors,middle,middle,0,buddhist
+th_adults_065_beetles,21,M,Thai,Yes,Essan dialect,Rural,undergrad student,yes,middle,about same,disagree,buddhist,Thai,Rural,some college,middle,middle,-1,buddhist
+th_adults_145_mice,69,M,Thai,Yes,"Thai, Essan",Rural,grade 4,yes,not trans,about same,disagree,buddhist,Thai,Rural,less than high school,NA,NA,-1,buddhist
+th_adults_050_children,35,M,Thai,Yes,Native northern dialect,Rural,bachelors degree,yes,middle,about same,neither,buddhist,Thai,Rural,bachelors,middle,middle,0,buddhist
+th_adults_034_ghosts,43,O,Thai,Yes,Thai,Rural,high school,yes,middle,about same,neither,buddhist,Thai,Rural,high school,middle,middle,0,buddhist
+th_adults_043_ghosts,23,F,Thai,Yes,"Native Central Thai, Northern dialect",Rural,high vocational certificate,yes,middle,about same,neither,buddhist,Thai,Rural,trade/certificate,middle,middle,0,buddhist
+th_adults_105_dogs,26,F,Thai,Yes,"Thai, Native",Rural,bachelors degree,no,middle,about same,neither,buddhist,Thai,Rural,bachelors,middle,middle,0,buddhist
+th_adults_023_dogs,30,M,Thai,Yes,Thai,Urban,bachelors degree,yes,middle,about same,disagree,no religion,Thai,Urban,bachelors,middle,middle,-1,no religion
+th_adults_015_flowers,65,M,Thai,Yes,"Thai, Northern dialect",Phayao,grade 11,yes,middle-rich,a little poorer,neither,buddhist,Thai,Phayao,some high school,upper middle,upper,0,buddhist
+th_adults_037_rocks,25,F,Thai,Yes,"Thai, Native Chiang Rai dialect",Rural,bachelors degree,yes,middle,about same,disagree,buddhist,Thai,Rural,bachelors,middle,middle,-1,buddhist
+th_adults_019_rocks,23,F,Thai,Yes,Isaan dialect,Rural,bachelors degree,yes,middle-poor,about same,neither,buddhist,Thai,Rural,bachelors,lower middle,lower,0,buddhist
+th_adults_147_beetles,40,F,Thai,Yes,"Thai, Native",Rural,grade 9,yes,middle,a little richer,neither,buddhist,Thai,Rural,some high school,middle,middle,0,buddhist
+th_adults_062_god,22,F,Thai,Yes,Thai,Urban,undergrad,yes,middle,about same,disagree,buddhist,Thai,Urban,some college,middle,middle,-1,buddhist
+th_adults_093_cellphones,24,M,Thai,Yes,Thai,Khonkhean,vocational certificate,yes,middle,about same,disagree,buddhist,Thai,Khonkhean,trade/certificate,middle,middle,-1,buddhist
+th_adults_125_ghosts,53,M,Thai,Yes,Essan,Urban,grade 9,no,middle,a little poorer,agree,buddhist,Thai,Urban,some high school,middle,middle,1,buddhist
+th_adults_126_god,41,F,Thai,Yes,Essan,Rural,grade 6,no,middle,a little poorer,disagree,buddhist,Thai,Rural,less than high school,middle,middle,-1,buddhist
+th_adults_046_rocks,19,F,Thai,Yes,Phayao dialect,Rural,bachelors degree,yes,middle,about same,disagree,buddhist,Thai,Rural,bachelors,middle,middle,-1,buddhist
+th_adults_148_cellphones,18,F,Thai,Yes,Thai,Rural,grade 12 (student),yes,middle,about same,disagree,buddhist,Thai,Rural,some high school,middle,middle,-1,buddhist
+th_adults_123_dogs,31,M,Thai,Yes,"Thai, Essan",Rural,bachelors degree,yes,middle,about same,neither,buddhist,Thai,Rural,bachelors,middle,middle,0,buddhist
+th_adults_096_dogs,22,F,Thai,Yes,Shan/Taiyai,Urban,bachelors degree,yes,middle,about same,NA,buddhist,Thai,Urban,bachelors,middle,middle,NA,buddhist
+th_adults_053_god,31,F,Thai,Yes,Native Lamphun dialect,Rural,vocational certificate,yes,middle,about same,disagree,buddhist,Thai,Rural,trade/certificate,middle,middle,-1,buddhist
+th_adults_017_god,22,M,Thai,Yes,Northern dialect,Urban,grade 9,yes,middle,about same,neither,buddhist,Thai,Urban,some high school,middle,middle,0,buddhist
+th_adults_073_rocks,20,F,Thai,Yes,"Thai, Native Northern dialect",Rural,bachelors degree,yes,middle-poor,a little richer,disagree,christian,Thai,Rural,bachelors,lower middle,lower,-1,christian
+th_adults_012_chickens,23,M,Thai,Yes,Thai,Urban,bachelors degree,yes,middle,about same,strongly disagree,no religion,Thai,Urban,bachelors,middle,middle,-2,no religion
+th_adults_109_mice,34,F,Thai,Yes,Not trans,Rural,not trans,no,middle,a little poorer,neither,buddhist,Thai,Rural,NA,middle,middle,0,buddhist
+th_adults_072_mice,20,F,Thai,Yes,Thai,Rural,"bachelors degree (student), undergrad",yes,middle,about same,disagree,buddhist,Thai,Rural,some college,middle,middle,-1,buddhist
+th_adults_076_chickens,19,F,Thai,Yes,Native northern dialect,Urban,"undergrad, freshman year student",yes,middle,about same,disagree,buddhist,Thai,Urban,some college,middle,middle,-1,buddhist
+th_adults_067_chickens,56,F,Thai,Yes,Northern dialect (Sankampaeng),"Chiangmai, San Kumpeng",grade 7,yes,poor,a little richer,neither,buddhist,Thai,"Chiangmai, San Kumpeng",less than high school,lower/working class,lower,0,buddhist
+th_adults_016_ghosts,32,F,Thai,Yes,"Central Thai, Issan dialect","Sakorn Nakorn, Waritchaphum district",bachelors degree,yes,middle,about same,neither,buddhist,Thai,"Sakorn Nakorn, Waritchaphum district",bachelors,middle,middle,0,buddhist
+th_adults_097_flowers,42,F,Thai,Yes,Not trans,Urban,not trans,yes,middle,about same,neither,buddhist,Thai,Urban,NA,middle,middle,0,buddhist
+th_adults_088_flowers,27,F,Thai,Yes,Thai,Rural,diploma degree,yes,middle,about same,neither,"buddhist, christian (cathedral school)",Thai,Rural,high school,middle,middle,0,multiple
+th_adults_054_mice,22,F,Thai,Yes,Native Nan dialect,Rural,"bachelors degree, post grad",yes,middle,about same,neither,buddhist,Thai,Rural,bachelors,middle,middle,0,buddhist
+th_adults_007_ghosts,20,M,Thai,Yes,Thai,Urban,"undergrad, sophomore",yes,middle,about same,neither,buddhist,Thai,Urban,some college,middle,middle,0,buddhist
+th_adults_066_cellphones,27,F,Thai,Yes,Chiang Rai dialect,Urban,bachelors degree,no,middle,about same,disagree,buddhist,Thai,Urban,bachelors,middle,middle,-1,buddhist
+th_adults_064_rocks,20,F,Thai,Yes,"Central Thai, Northern dialect",Urban,undergrad student (year 2),yes,middle,about same,disagree,buddhist,Thai,Urban,some college,middle,middle,-1,buddhist
+th_adults_010_rocks,66,M,Thai,Yes,Lanna (Northern dialect),Rural,grade 12 (high school),yes,middle,about same,neither,buddhist,Thai,Rural,some high school,middle,middle,0,buddhist
+th_adults_084_cellphones,47,F,Thai,Yes,Thai,Rural,bachelors degree,yes,middle,about same,neither,christian,Thai,Rural,bachelors,middle,middle,0,christian
+th_adults_082_rocks,NA,F,Thai,Yes,Thai,Rural,missing data,yes,middle,about same,agree,christian,Thai,Rural,NA,middle,middle,1,christian
+th_adults_077_children,23,F,Thai,Yes,"Thai, Native",Urban,undergrad,no,middle,about same,disagree,buddhist,Thai,Urban,some college,middle,middle,-1,buddhist
+th_adults_080_ghosts,19,F,Thai,Yes,Native northern dialect,Rural,"cmu, political science",yes,middle,about same,disagree,buddhist,Thai,Rural,NA,middle,middle,-1,buddhist
+th_adults_118_mice,57,M,Thai,Yes,Essan,Rural,grade 12,yes,middle,about same,neither,buddhist,Thai,Rural,some high school,middle,middle,0,buddhist
+th_adults_089_ghosts,56,F,Thai,Yes,Native,Rural,grade 4,yes,middle,a little poorer,neither,buddhist,Thai,Rural,less than high school,middle,middle,0,buddhist
+th_adults_014_dogs,53,M,Thai,Yes,Northern dialect,Rural,high school,yes,middle-poor,about same,neither,buddhist,Thai,Rural,high school,lower middle,lower,0,buddhist
+th_adults_068_children,55,F,Thai,Yes,Native Phrae,Rural,grade 4,yes,middle,about same,agree,buddhist,Thai,Rural,less than high school,middle,middle,1,buddhist
+th_adults_035_god,18,F,Thai,Yes,Native northern dialect,Rural,finish high school - undergrad,yes,middle,about same,agree,buddhist,Thai,Rural,some college,middle,middle,1,buddhist
+th_adults_021_chickens,24,M,Thai,Yes,"Thai, Chinese",Urban,bachelors degree,yes,middle,about same,neither,buddhist,Thai,Urban,bachelors,middle,middle,0,buddhist
+th_adults_099_god,23,F,Thai,Yes,Not trans,Rural,bachelors degree,yes,middle,about same,disagree,buddhist,Thai,Rural,bachelors,middle,middle,-1,buddhist
+th_adults_024_flowers,37,M,Thai,Yes,"Central Thai, foundation (?)",Kamphaengphet,masters degree,yes,middle,about same,NA,christian,Thai,Kamphaengphet,masters,middle,middle,NA,christian
+th_adults_101_beetles,22,F,Thai,Yes,Thai,Urban,bachelors degree,yes,middle,about same,disagree,buddhist,Thai,Urban,bachelors,middle,middle,-1,buddhist
+th_adults_112_chickens,62,M,Thai,Yes,Thai,Urban,bachelors degree,no,middle,about same,neither,buddhist,Thai,Urban,bachelors,middle,middle,0,buddhist
+th_adults_132_dogs,34,M,Thai,Yes,Native,Rural,bachelors degree,yes,middle,about same,neither,buddhist,Thai,Rural,bachelors,middle,middle,0,buddhist
+th_adults_090_god,55,F,Thai,Yes,Not trans,Rural,grade 4,yes,middle,about same,neither,buddhist,Thai,Rural,less than high school,middle,middle,0,buddhist
+th_adults_140_chickens,47,F,Thai,Yes,Essan,Rural,grade 6,no,middle,a little poorer,neither,buddhist,Thai,Rural,less than high school,middle,middle,0,buddhist
+th_adults_008_god,51,F,Thai,Yes,Isaan dialect,Rural,grade 12,yes,middle,about same,neither,buddhist,Thai,Rural,some high school,middle,middle,0,buddhist
+th_adults_071_god,20,F,Thai,Yes,Phrae dialect,Rural,"bachelors degree (student), undergrad",yes,middle,about same,disagree,buddhist,Thai,Rural,some college,middle,middle,-1,buddhist
+th_adults_051_flowers,43,M,Thai,Yes,"Thai, Akha",Rural,high school,no,middle,about same,neither,christian,Thai,Rural,high school,middle,middle,0,christian
+th_adults_094_chickens,25,F,Thai,Yes,Not trans,Rural,bachelors degree,yes,middle,about same,disagree,buddhist,Thai,Rural,bachelors,middle,middle,-1,buddhist
+th_adults_141_dogs,26,M,Thai,Yes,"Native, Thai",Rural,bachelors degree,yes,middle,about same,neither,buddhist,Thai,Rural,bachelors,middle,middle,0,buddhist
+th_adults_029_beetles,24,M,Thai,Yes,Chiang Rai dialect,Urban,bachelors degree,yes,middle,about same,disagree,buddhist,Thai,Urban,bachelors,middle,middle,-1,buddhist
+th_adults_028_rocks,38,M,Thai,Yes,Thai,Rural,masters degree,yes,good(rich),about same,disagree,buddhist,Thai,Rural,masters,upper,upper,-1,buddhist
+th_adults_074_beetles,21,M,Thai,Yes,Thai,Urban,"bachelors degree (student), undergrad",yes,middle,about same,disagree,buddhist,Thai,Urban,some college,middle,middle,-1,buddhist
+th_adults_013_children,27,M,Thai,Yes,"Northern dialect, San Pa Tong district",Rural,bachelors degree/ police (police academy?),yes,middle,about same,disagree,buddhist,Thai,Rural,bachelors,middle,middle,-1,buddhist
+th_adults_086_children,22,M,Thai,Yes,Thai,Urban,bachelors degree,yes,middle,about same,disagree,buddhist,Thai,Urban,bachelors,middle,middle,-1,buddhist
+th_adults_102_cellphones,50,F,Thai,Yes,Thai,Urban,grade 12,yes,middle-poor,about same,neither,buddhist,Thai,Urban,some high school,lower middle,lower,0,buddhist
+th_adults_056_beetles,18,F,Thai,Yes,Thai,Urban,freshman year,yes,middle,about same,agree,buddhist,Thai,Urban,some college,middle,middle,1,buddhist
+th_adults_005_dogs,31,M,Thai,Yes,Thai,Urban,grade 9,yes,middle,a little poorer,neither,buddhist,Thai,Urban,some high school,middle,middle,0,buddhist
+th_adults_103_chickens,68,M,Thai,Yes,Thai,Rural,vocational certificate,yes,middle-high,about same,neither,buddhist,Thai,Rural,trade/certificate,NA,NA,0,buddhist
+th_adults_058_chickens,22,F,Thai,Yes,Native northern dialect,Rural,undergrad student,yes,middle,about same,disagree,buddhist,Thai,Rural,some college,middle,middle,-1,buddhist
+th_adults_052_ghosts,21,F,Thai,Yes,Isaan dialect,Urban,"bachelors degree (student), undergrad",yes,middle,about same,neither,buddhist,Thai,Urban,some college,middle,middle,0,buddhist
+th_adults_143_ghosts,44,F,Thai,Yes,Thai,Rural,grade 12,yes,middle,about same,strongly disagree,buddhist,Thai,Rural,some high school,middle,middle,-2,buddhist
+th_adults_142_flowers,52,F,Thai,Yes,Not trans,Urban,grade 4,yes,middle,a little poorer,neither,buddhist,Thai,Urban,less than high school,middle,middle,0,buddhist
+th_adults_049_chickens,47,F,Thai,Yes,Native Lamphun dialect,Rural,high school,yes,mixed,about same,neither,buddhist,Thai,Rural,high school,NA,NA,0,buddhist
+th_adults_108_god,58,F,Thai,Yes,Native,Rural,grade 4,yes,middle,about same,neither,buddhist,Thai,Rural,less than high school,middle,middle,0,buddhist
+th_adults_085_chickens,31,M,Thai,Yes,Native,Rural,vocational certificate,yes,middle,about same,neither,buddhist,Thai,Rural,trade/certificate,middle,middle,0,buddhist
+th_adults_130_cellphones,36,M,Thai,Yes,Native,Rural,bachelors degree,yes,middle,a little richer,disagree,buddhist,Thai,Rural,bachelors,middle,middle,-1,buddhist
+th_adults_150_children,22,M,Thai,Yes,Thai,Rural,student,yes,middle,about same,disagree,buddhist,Thai,Rural,some college,middle,middle,-1,buddhist
+th_adults_006_flowers,25,F,Thai,Yes,Thai,Urban,bachelors degree,yes,middle,about same,disagree,buddhist,Thai,Urban,bachelors,middle,middle,-1,buddhist
+th_adults_047_beetles,35,F,Thai,Yes,Native northern dialect,Rural,vocational certificate,yes,middle,NA,disagree,buddhist,Thai,Rural,trade/certificate,middle,middle,-1,buddhist
+th_adults_044_god,44,F,Thai,Yes,Thai,Rural,grade 6,yes,middle,about same,agree,buddhist,Thai,Rural,less than high school,middle,middle,1,buddhist
+th_adults_119_rocks,49,F,Thai,Yes,Essan,Rural,grade 6,no,middle,a little poorer,neither,buddhist,Thai,Rural,less than high school,middle,middle,0,buddhist
+th_adults_022_children,24,F,Thai,Yes,Phayao dialect,"Chiang Kham, Phayao",bachelors degree,yes,middle,about same,neither,buddhist,Thai,"Chiang Kham, Phayao",bachelors,middle,middle,0,buddhist
+th_adults_041_dogs,18,F,Thai,Yes,Native northern dialect,Rural,freshman year (undergrad),yes,middle,about same,disagree,buddhist,Thai,Rural,some college,middle,middle,-1,buddhist
+th_adults_038_beetles,23,F,Thai,Yes,"Native northern dialect, Thai",Rural,bachelors degree,yes,middle,about same,agree,buddhist,Thai,Rural,bachelors,middle,middle,1,buddhist
+th_adults_070_flowers,22,F,Thai,Yes,Phrae dialect,Urban,bachelors degree,yes,middle,about same,disagree,buddhist,Thai,Urban,bachelors,middle,middle,-1,buddhist
+th_adults_133_flowers,32,F,Thai,Yes,Essan,Urban,grade 12,yes,middle,about same,disagree,buddhist,Thai,Urban,some high school,middle,middle,-1,buddhist
+th_adults_087_dogs,55,F,Thai,Yes,Not trans,Rural,grade 4,yes,middle,about same,neither,buddhist,Thai,Rural,less than high school,middle,middle,0,buddhist
+th_adults_135_god,42,F,Thai,Yes,Thai,Rural,masters degree,yes,middle,about same,disagree,buddhist,Thai,Rural,masters,middle,middle,-1,buddhist
+th_adults_045_mice,31,F,Thai,Yes,Native Phayao dialect,Rural,masters degree,yes,middle,about same,disagree,buddhist,Thai,Rural,masters,middle,middle,-1,buddhist
+th_adults_092_beetles,20,M,Thai,Yes,Essan,Rural,bachelors degree,yes,middle,about same,disagree,buddhist,Thai,Rural,bachelors,middle,middle,-1,buddhist
+th_adults_069_dogs,25,M,Thai,Yes,Thai,Urban,bachelors degree,yes,rich,about same,disagree,buddhist,Thai,Urban,bachelors,upper,upper,-1,buddhist
+th_adults_018_mice,21,M,Thai,Yes,Northern dialect,Rural,bachelors degree,no,middle,about same,disagree,buddhist,Thai,Rural,bachelors,middle,middle,-1,buddhist
+th_adults_059_children,20,M,Thai,Yes,Thai,Urban,"bachelors degree (student), undergrad",yes,middle,about same,disagree,buddhist,Thai,Urban,some college,middle,middle,-1,buddhist
+th_adults_146_rocks,52,M,Thai,Yes,Essan,Rural,grade 6,no,middle,a little poorer,neither,buddhist,Thai,Rural,less than high school,middle,middle,0,buddhist
