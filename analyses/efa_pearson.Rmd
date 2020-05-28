@@ -1076,4 +1076,54 @@ heatmap_comp_fun(list(efa_us_adults, efa_gh_adults, efa_th_adults,
 ggsave("../figures/fig01.png")
 ```
 
+```{r dominant factor, fig.width = 6.5, fig.asp = 0.6, include = F}
+# highlighting dominant factor (ignoring cross-loadings > 0.05)
+loadings_all <- loadings_adults %>%
+  select(-contains("ord")) %>%
+  full_join(loadings_children %>%
+              select(-contains("ord")))
+
+dom_factors_all <- loadings_all %>%
+  group_by(country, age_group, capacity) %>% 
+  top_n(1, abs(loading)) %>%
+  ungroup() %>%
+  select(country, age_group, capacity, factor, loading) %>%
+  rename(dom_factor = factor,
+         dom_loading = loading)
+
+rect_df <- loadings_all %>%
+  full_join(dom_factors_all) %>%
+  mutate(fnum = gsub(".*_F", "F", factor)) %>%
+  select(-starts_with("factor")) %>%
+  spread(fnum, loading) %>%
+  mutate(diff1 = abs(dom_loading) - abs(F1),
+         diff2 = abs(dom_loading) - abs(F2),
+         diff3 = abs(dom_loading) - abs(F3),
+         diff4 = abs(dom_loading) - abs(F4)) %>%
+  select(-c(dom_loading, starts_with("F"))) %>%
+  gather(which_diff, diff, starts_with("diff")) %>%
+  filter(diff != 0, !is.na(diff)) %>%
+  group_by(country, age_group, capacity) %>%
+  top_n(-1, diff) %>%
+  ungroup() %>%
+  mutate(any_small = diff < 0.05) %>%
+  rename(factor = dom_factor) %>%
+  left_join(full_join(factor_names_adults, factor_names_children))
+
+# analog to FIGURE 1
+temp_cap_order <- fa.sort(efa_us_adults)$loadings[] %>% rownames() %>% rev()
+
+ggplot(rect_df %>%
+         filter(!is.na(any_small)) %>%
+         mutate(capacity = factor(capacity, levels = temp_cap_order)),
+       aes(x = factor_labdescript, 
+           y = capacity, 
+           fill = any_small)) +
+  facet_grid(~ interaction(country, age_group), space = "free", scales = "free") +
+  geom_tile() +
+  theme(panel.spacing.x = unit(c(rep(0.2, 4), 1, rep(0.25, 4)), "line"),
+        axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1),
+        legend.position = "bottom")
+# ggsave("../figures/fig01v2.png")
+```
 
