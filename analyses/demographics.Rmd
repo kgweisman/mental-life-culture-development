@@ -490,14 +490,18 @@ demo_children %>%
 
 ```{r language children}
 demo_children %>% 
-  mutate(language = tolower(language)) %>%
+  mutate(language = paste(tolower(language_home), tolower(language))) %>%
   mutate(lang_english = grepl("engl", language),
+         lang_fante_twi = grepl("fant", language) | grepl("twi", language),
          lang_fante = grepl("fant", language),
+         lang_twi = grepl("twi", language),
          lang_thai = grepl("thai", language),
          lang_mandarin = grepl("mand", language),
          lang_bislama = grepl("bisl", language),
          lang_task = case_when(country == "US" ~ lang_english,
-                               country == "Ghana" ~ lang_fante,
+                               country == "Ghana" ~ lang_fante_twi,
+                               # country == "Ghana" ~ lang_fante,
+                               # country == "Ghana" ~ lang_twi,
                                country == "Thailand" ~ lang_thai,
                                country == "China" ~ lang_mandarin,
                                country == "Bislama" ~ lang_bislama)) %>%
@@ -507,78 +511,6 @@ demo_children %>%
   ungroup() %>%
   select(-n) %>%
   spread(lang_task, percent)
-```
-
-```{r urban rural children}
-demo_children %>% 
-  count(country, urban_rural_cat) %>%
-  complete(country, nesting(urban_rural_cat), fill = list(n = 0)) %>%
-  group_by(country) %>%
-  mutate(percent = 100 * (round(n/sum(n), 2))) %>%
-  ungroup() %>%
-  select(-n) %>%
-  mutate(urban_rural_cat = factor(urban_rural_cat,
-                                  levels = levels(demo_children$urban_rural_cat))) %>%
-  spread(urban_rural_cat, percent)
-```
-
-```{r education children}
-demo_children %>% 
-  # mutate(education_cat = case_when(as.numeric(education_cat) < 4 ~ "high school or less",
-  #                                   as.numeric(education_cat) < 8 ~ "some higher education",
-  #                                   as.numeric(education_cat) >= 8 ~ "bachelors or more",
-  #                                   TRUE ~ NA_character_),
-  #        education_cat = factor(education_cat,
-  #                                levels = c("high school or less",
-  #                                           "some higher education",
-  #                                           "bachelors or more"))) %>%
-  count(country, education_cat) %>%
-  complete(country, nesting(education_cat), fill = list(n = 0)) %>%
-  group_by(country) %>%
-  mutate(percent = 100 * (round(n/sum(n), 2))) %>%
-  ungroup() %>%
-  select(-n) %>%
-  spread(education_cat, percent)
-```
-
-```{r afford children}
-demo_children %>% 
-  count(country, afford_cat) %>%
-  complete(country, nesting(afford_cat), fill = list(n = 0)) %>%
-  group_by(country) %>%
-  mutate(percent = 100 * (round(n/sum(n), 2))) %>%
-  ungroup() %>%
-  select(-n) %>%
-  mutate(afford_cat = factor(afford_cat,
-                                  levels = levels(demo_children$afford_cat))) %>%
-  spread(afford_cat, percent)
-```
-
-```{r class children}
-demo_children %>% 
-  count(country, class_cat2) %>%
-  complete(country, nesting(class_cat2), fill = list(n = 0)) %>%
-  group_by(country) %>%
-  mutate(percent = 100 * (round(n/sum(n), 2))) %>%
-  ungroup() %>%
-  select(-n) %>%
-  mutate(class_cat2 = factor(class_cat2,
-                                  levels = levels(demo_children$class_cat2))) %>%
-  spread(class_cat2, percent)
-```
-
-```{r religiosity children}
-demo_children %>%
-  filter(!is.na(spirit_relig_num)) %>%
-  group_by(country) %>%
-  summarise(median = median(spirit_relig_num),
-            mean = mean(spirit_relig_num),
-            sd = sd(spirit_relig_num)) %>%
-  mutate_at(vars(-country),
-            ~ round(., 2)) %>%
-  mutate(mean_sd = paste0(mean, " (", sd, ")")) %>%
-  select(country, median, mean_sd) %>%
-  column_to_rownames("country")
 ```
 
 ```{r religion children}

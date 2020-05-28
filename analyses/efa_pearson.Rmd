@@ -1005,7 +1005,7 @@ cong_all_ordered %>%
     colors = viridisLite::viridis(6),
     values = c(0, 0.65, 0.75, 0.85, 0.95, 1),
     guide = guide_colorbar(barheight = 40)) +
-  scale_color_manual(values = c("black", "gray10", "gray20", "gray50")) +
+  scale_color_manual(values = c("black", "black", "black", "gray60")) +
   theme_minimal() +
   theme(
     axis.text.x = element_text(
