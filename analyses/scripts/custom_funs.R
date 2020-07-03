@@ -889,7 +889,8 @@ cong_plot_fun <- function(cong_df, which_country, bg_colors = NA) {
     theme_minimal() +
     theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1),
           legend.position = "right",
-          panel.border = element_rect(fill = alpha("white", 0), color = "black"),
+          panel.border = element_rect(fill = scales::alpha("white", 0), 
+                                      color = "black"),
           strip.text = element_text(size = 10, face = "bold"))
   
   return(plot)
@@ -958,7 +959,7 @@ dev_cong_plot_fun <- function(df, which_country, padding = F,
     theme_minimal() +
     theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1),
           legend.position = "right",
-          panel.border = element_rect(fill = alpha("white", 0), color = "black"),
+          panel.border = element_rect(fill = scales::alpha("white", 0), color = "black"),
           strip.text = element_text(size = 10, face = "bold"))
   
   return(plot)

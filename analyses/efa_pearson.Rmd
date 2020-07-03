@@ -870,7 +870,7 @@ cong_df_children %>%
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1),
         legend.position = "right",
-        panel.border = element_rect(fill = alpha("white", 0), color = "black"),
+        panel.border = element_rect(fill = scales::alpha("white", 0), color = "black"),
         strip.text = element_text(size = 10, face = "bold"), 
         plot.margin = unit(c(5.5, 5.5, 5.5, 15.5), "point"))
 ggsave("../figures/fig04.png")
