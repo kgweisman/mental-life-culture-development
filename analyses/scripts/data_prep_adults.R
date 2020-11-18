@@ -22,7 +22,7 @@ subj_key_us <- d_raw_us %>%
   mutate(subj_id = paste("us", "adults", 
                          str_pad(1:nrow(.), width = 3, side = "left", pad = "0"),
                          target,
-                         sep = "_"))
+                         sep = "_"))   
   
 d_us <- d_raw_us %>%
   rename(subj_id_original = `subject id`,
@@ -38,10 +38,12 @@ d_us <- d_raw_us %>%
   select(-subj_id_original) %>%
   # calculate age
   mutate_at(vars(dob, dot), 
-            funs(parse_date_time2(as.character(.), 
-                                  orders = "mdy",
-                                  cutoff_2000 = 18L))) %>%
-  mutate(age = year(as.period(interval(start = dob, end = dot)))) %>%
+            funs(parse_date_time(as.character(gsub("xx", "15", .)), 
+                                  orders = c("mdY", "mdy")))) %>% # ,
+                                  # cutoff_2000 = 18L))) %>%
+  mutate(age = year(as.period(interval(start = dob, end = dot))),
+         # hacky way to correct for century mis-handling
+         age = ifelse(age <= 0, age + 100, age)) %>%
   # recode gender
   mutate(gender = recode_factor(tolower(gender),
                                 "m" = "male",
@@ -209,10 +211,18 @@ d_th <- d_raw_th %>%
   left_join(subj_key_th) %>%
   select(-subj_id_original) %>%
   # calculate age
+  mutate(dob = case_when(
+    tolower(dob) %in% c("missing data", "not trans") ~ NA_character_,
+    TRUE ~ gsub("\\/19", "\\/", dob))) %>%
+  mutate(dot = case_when(
+    grepl("Mar", dot) ~ paste0("3/", gsub("\\-Mar", "", dot), "/18"),
+    grepl("Apr", dot) ~ paste0("4/", gsub("\\-Apr", "", dot), "/18"),
+    tolower(dot) %in% c("missing data", "not trans") ~ NA_character_,
+    TRUE ~ dot)) %>%
   mutate_at(vars(dob, dot), 
-            funs(parse_date_time2(as.character(.), 
-                                  orders = "mdy",
-                                  cutoff_2000 = 18L))) %>%
+            ~parse_date_time2(as.character(.), 
+                              orders = "mdy",
+                              cutoff_2000 = 18L)) %>%
   mutate(age = year(as.period(interval(start = dob, end = dot)))) %>%
   # recode gender
   mutate(gender = recode_factor(tolower(gender),
@@ -297,22 +307,33 @@ d_ch <- d_raw_ch %>%
   left_join(subj_key_ch) %>%
   select(-subj_id_original) %>%
   # deal with dob and age
-  mutate(age = case_when(is.na(age1) & is.na(age2) ~ NA_real_,
-                         !is.na(as.numeric(age1)) ~ as.numeric(age1),
-                         !is.na(as.numeric(age2)) ~ as.numeric(age2),
-                         TRUE ~ NA_real_),
-         age = as.numeric(age),
-         dob = case_when(!is.na(age) ~ NA_character_,
-                         TRUE ~ as.character(age2)),
+  mutate(dot = gsub("2019", "19", dot),
+         dot = gsub("2018", "18", dot),
+         dot = gsub("2017", "17", dot)) %>%
+  mutate(dob = age2,
          # hacky solution to year inconsistency
-         dob = gsub("1969", "69", dob),
-         dob = gsub("1933", "33", dob)) %>%
-  # mutate_at(vars(dob, dot), 
-  #           funs(parse_date_time2(., 
-  #                                 orders = "mdy",
-  #                                 cutoff_2000 = 18L))) %>%
-  # mutate(age = year(as.period(interval(start = dob, end = dot)))) %>%
-  select(-age1, -age2) %>%
+         dob = gsub("\\/19", "\\/", dob),
+         dob = gsub("\\/\\/", "\\/19\\/", dob),
+         dob = gsub("\\/20", "\\/", dob),
+         dob = gsub("\\/\\/", "\\/20\\/", dob),
+         dob = gsub("xx", "15", dob),
+         dob = case_when(!grepl("\\/", dob) ~ NA_character_,
+                         TRUE~ dob)) %>%
+  mutate(age3 = case_when(!is.na(age1) ~ as.numeric(age1),
+                          !is.na(age2) & !grepl("\\/", age2) ~ as.numeric(age2),
+                          TRUE ~ NA_real_)) %>%
+  mutate_at(vars(dob, dot),
+            funs(parse_date_time2(.,
+                                  orders = "mdy",
+                                  cutoff_2000 = 19L))) %>%
+  mutate(age4 = case_when(
+    !is.na(dob) & !is.na(dot) ~ year(as.period(interval(start = dob, end = dot))),
+    TRUE ~ NA_real_),
+    age = case_when(!is.na(age3) ~ as.numeric(age3),
+                    !is.na(age4) ~ as.numeric(age4),
+                    TRUE ~ NA_real_),
+    age = as.numeric(age)) %>%
+  select(-age1, -age2, -age3, -age4) %>%
   # recode gender
   mutate(gender = recode_factor(tolower(gender),
                                 "m" = "male",

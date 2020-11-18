@@ -92,7 +92,7 @@ factor_max_ok <- function(p_obs_var) {
 }
 
 # general custom efa function
-fa_fun <- function(df, n = NULL,
+fa_fun <- function(df, n = NULL, chosen_n.iter = 1,
                    chosen_cor = "cor", chosen_rot = "varimax",
                    chosen_fm = "minres", chosen_scores = "tenBerge"){
   
@@ -100,7 +100,8 @@ fa_fun <- function(df, n = NULL,
     n <- factor_max_ok(ncol(df))
   }
   
-  efa <- fa(df, nfactors = n, missing = T, impute = "median",
+  efa <- fa(df, nfactors = n, n.iter = chosen_n.iter, 
+            missing = T, impute = "median",
             cor = chosen_cor, rotate = chosen_rot,
             fm = chosen_fm, scores = chosen_scores)
   colnames(efa$r.scores) <- paste0("F", 1:n)
@@ -110,6 +111,12 @@ fa_fun <- function(df, n = NULL,
   colnames(efa$loadings) <- paste0("F", 1:n)
   colnames(efa$scores) <- paste0("F", 1:n)
   colnames(efa$Vaccounted) <- paste0("F", 1:n)
+
+  if (chosen_rot == "oblimin") {
+    colnames(efa$Phi) <- paste0("F", 1:n)
+    rownames(efa$Phi) <- paste0("F", 1:n)
+  }
+  
   return(efa)
 }
 
@@ -845,24 +852,65 @@ heatmap_comp_fun <- function(efa_list, shorten = T, padding = F,
 }
 
 # function for making congruence plots
-cong_plot_fun <- function(cong_df, which_country, bg_colors = NA) {
+cong_plot_fun <- function(cong_df, which_country, 
+                          sort_BHM = T, facet_long = T, bg_colors = NA) {
   
   if (is.na(bg_colors)) {
     bg_colors <- c("gray20", viridisLite::viridis(2, begin = 0.75/2, end = 0.75))
   }
   
   plot <- cong_df %>%
-    filter(country_A == which_country) %>%
+    filter(country_A == which_country)
+  
+  if (facet_long == T) {
+    plot <- plot %>%
+      mutate(region_A = case_when(
+        country_A == "US" ~ "SF Bay Area",
+        country_A == "Ghana" ~ "Cape Coast",
+        country_A == "Thailand" ~ "Chiang Mai",
+        country_A == "China" ~ "Shanghai",
+        country_A == "Vanuatu" ~ "PV & Malekula")) %>%
+      mutate(region_B = case_when(
+        country_B == "US" ~ "SF Bay Area",
+        country_B == "Ghana" ~ "Cape Coast",
+        country_B == "Thailand" ~ "Chiang Mai",
+        country_B == "China" ~ "Shanghai",
+        country_B == "Vanuatu" ~ "PV & Malekula")) %>%
+      mutate(lab_A = paste(toupper(country_A), ": ", age_group_A, "\n",
+                           factor_labdescript_A, sep = ""),
+             lab_B = paste(paste0(region_B, ","), 
+                           paste0(toupper(country_B), ":"), 
+                           age_group_B, sep = "\n"))
+  } else {
+    plot <- plot %>%
     mutate(lab_A = paste(country_A, " ", age_group_A, "\n",
                          factor_labdescript_A, sep = ""),
-           lab_B = paste(country_B, age_group_B, sep = "\n")) %>%
+           lab_B = paste(country_B, age_group_B, sep = "\n"))
     # mutate_at(#vars(contains("labdescript")),
     #   vars(factor_labdescript_B),
     #   funs(gsub(" \\(", "\n\\(", .))) %>%
     # mutate_at(#vars(contains("labdescript")),
     #   vars(factor_labdescript_B),
     #   funs(gsub("\\/", "\\/\n", .))) %>%
-    ggplot(aes(x = factor_labdescript_B, y = mean)) +
+    
+  }
+  
+  if (sort_BHM == T) {
+    plot <- plot %>%
+      mutate(bhm_B = case_when(
+        grepl("body", tolower(factor_labdescript_B)) ~ "body",
+        grepl("mind", tolower(factor_labdescript_B)) ~ "mind",
+        grepl("heart", tolower(factor_labdescript_B)) ~ "heart", 
+        TRUE ~ "other")) %>%
+      mutate(bhm_B = factor(bhm_B, levels = c("body", "heart", "mind", "other"))) %>%
+      ggplot(aes(x = reorder(factor_labdescript_B, as.numeric(bhm_B)), 
+                 y = mean))
+  } else {
+    plot <- plot %>%
+    ggplot(aes(x = factor_labdescript_B, y = mean))
+  }
+  
+  plot <- plot +
     facet_grid(lab_A ~ reorder(lab_B, as.numeric(country_B)), 
                space = "free_x", scales = "free_x") +
     annotate("rect", xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = 0.85,

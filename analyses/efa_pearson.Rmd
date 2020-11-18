@@ -1,5 +1,5 @@
 ---
-title: "Concepts of mental life across cultures: Supplemental analysis"
+title: "Concepts of mental life across cultures: Primary analysis"
 authors: "Weisman, Legare, & Luhrmann"
 output: 
   html_notebook:
@@ -397,7 +397,7 @@ if (file.exists("../results/cong_df_adults.RDS")) {
     select(capacity, factor, loading) %>%
     spread(factor, loading) %>%
     select(-capacity) %>%
-    bootstrap(1000) 
+    sjstats::bootstrap(1000) 
   
   factors <- levels(factor(loadings_adults$factor))
   
@@ -406,7 +406,7 @@ if (file.exists("../results/cong_df_adults.RDS")) {
     for (j in factors) {
       cname <- paste(i, j, sep = ".")
       temp <- bs_adults %>%
-        mutate(cong = map_dbl(strap, ~cosine(as.data.frame(.x)[,i],
+        mutate(cong = map_dbl(strap, ~lsa::cosine(as.data.frame(.x)[,i],
                                              as.data.frame(.x)[,j])))
       cong_df_adults[1:1000, cname] <- temp$cong
     }
@@ -778,7 +778,7 @@ if (file.exists("../results/cong_df_children.RDS")) {
                 select(capacity, factor, loading) %>%
                 spread(factor, loading)) %>%
     select(-capacity) %>%
-    bootstrap(1000) 
+    sjstats::bootstrap(1000) 
   
   cong_df_children <- data.frame(NULL)
   
@@ -793,8 +793,8 @@ if (file.exists("../results/cong_df_children.RDS")) {
       for (j in factors_adults) {
         cname <- paste(i, j, sep = ".")
         temp <- bs_children %>%
-          mutate(cong = map_dbl(strap, ~cosine(as.data.frame(.x)[,i],
-                                               as.data.frame(.x)[,j])))
+          mutate(cong = map_dbl(strap, ~lsa::cosine(as.data.frame(.x)[,i],
+                                                    as.data.frame(.x)[,j])))
         cong_df_children[1:1000, cname] <- temp$cong
       }
     }

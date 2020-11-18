@@ -1,0 +1,125 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+require(CCTpack)
+require(caret)
+```
+
+```{r, echo = F, message = F}
+source("./scripts/dependencies.R")
+source("./scripts/custom_funs.R")
+source("./scripts/var_recode_contrast.R")
+```
+
+```{r data}
+# read in data, shorten "feel sick," and limit to universal targets and questions: adults
+d_us_adults <- read_csv("../data/d_us_adults.csv") %>%
+  filter(target %in% levels_target_univ, question_cat == "universal") %>%
+  mutate(question = gsub("\\, .*$", " \\[...\\]", question))
+d_gh_adults <- read_csv("../data/d_gh_adults.csv") %>%
+  filter(target %in% levels_target_univ, question_cat == "universal") %>%
+  mutate(question = gsub("\\, .*$", " \\[...\\]", question))
+d_th_adults <- read_csv("../data/d_th_adults.csv") %>%
+  filter(target %in% levels_target_univ, question_cat == "universal") %>%
+  mutate(question = gsub("\\, .*$", " \\[...\\]", question))
+d_ch_adults <- read_csv("../data/d_ch_adults.csv") %>%
+  filter(target %in% levels_target_univ, question_cat == "universal") %>%
+  mutate(question = gsub("\\, .*$", " \\[...\\]", question))
+d_vt_adults <- read_csv("../data/d_vt_adults.csv") %>%
+  filter(target %in% levels_target_univ, question_cat == "universal") %>%
+  mutate(question = gsub("\\, .*$", " \\[...\\]", question))
+
+# read in data, shorten "feel sick," and limit to universal targets and questions: children
+d_us_children <- read_csv("../data/d_us_children.csv") %>%
+  filter(target %in% levels_target_univ, question_cat == "universal") %>%
+  mutate(question = gsub("\\, .*$", " \\[...\\]", question))
+d_gh_children <- read_csv("../data/d_gh_children.csv") %>%
+  filter(target %in% levels_target_univ, question_cat == "universal") %>%
+  mutate(question = gsub("\\, .*$", " \\[...\\]", question))
+# d_gh_eng_children <- read_csv("../data/d_gh_eng_children.csv") %>%
+#   filter(target %in% levels_target_univ, question_cat == "universal") %>%
+#   mutate(question = gsub("\\, .*$", " \\[...\\]", question))
+d_th_children <- read_csv("../data/d_th_children.csv") %>%
+  filter(target %in% levels_target_univ, question_cat == "universal") %>%
+  mutate(question = gsub("\\, .*$", " \\[...\\]", question))
+d_ch_children <- read_csv("../data/d_ch_children.csv") %>%
+  filter(target %in% levels_target_univ, question_cat == "universal") %>%
+  mutate(question = gsub("\\, .*$", " \\[...\\]", question))
+d_vt_children <- read_csv("../data/d_vt_children.csv") %>%
+  filter(target %in% levels_target_univ, question_cat == "universal") %>%
+  mutate(question = gsub("\\, .*$", " \\[...\\]", question)) %>%
+  # filter out participants outside of the age range
+  filter((age >= 6 & age <= 12) | is.na(age))
+```
+
+```{r wide}
+# make wide-form datasets for EFA: adults
+d_us_adults_w <- wide_df_fun(d_us_adults)
+d_gh_adults_w <- wide_df_fun(d_gh_adults)
+d_th_adults_w <- wide_df_fun(d_th_adults)
+d_ch_adults_w <- wide_df_fun(d_ch_adults)
+d_vt_adults_w <- wide_df_fun(d_vt_adults)
+
+# make wide-form datasets for EFA: children
+d_us_children_w <- wide_df_fun(d_us_children)
+d_gh_children_w <- wide_df_fun(d_gh_children)
+# d_gh_eng_children_w <- wide_df_fun(d_gh_eng_children)
+d_th_children_w <- wide_df_fun(d_th_children)
+d_ch_children_w <- wide_df_fun(d_ch_children)
+d_vt_children_w <- wide_df_fun(d_vt_children)
+```
+
+```{r}
+d_cct <- d_us_adults_w %>%
+  bind_rows(d_gh_adults_w,
+            d_th_adults_w,
+            d_ch_adults_w,
+            d_vt_adults_w) %>% 
+  drop_na() %>%
+  rename(feel_sick = "feel sick [...]") %>%
+  rename_all(~gsub(" ", "_", .)) %>%
+  # snap to binary scale
+  mutate_all(~ case_when(. %in% c(0.5, 1) ~ 1,
+                         . == 0 ~ 0)) %>%
+  as.matrix()
+
+# check for near-zero variance by column
+nz_col <- nearZeroVar(d_cct, saveMetrics = T) %>%
+  data.frame() %>%
+  rownames_to_column("capacity") %>%
+  filter(nzv == T)
+
+# check for near-zero variance by row
+nz_row <- nearZeroVar(t(d_cct), saveMetrics = T) %>%
+  data.frame() %>%
+  rownames_to_column("subj_id") %>%
+  filter(nzv == T)
+
+d_cct <- d_cct %>%
+  data.frame() %>%
+  rownames_to_column("subj_id") %>%
+  # select(-nz_col %>% pull(capacity)) %>% # need to modify to make it work
+  filter(!subj_id %in% nz_row$subj_id) %>%
+  column_to_rownames("subj_id") %>%
+  as.matrix()
+```
+
+```{r}
+cctscree(data = d_cct)
+```
+
+```{r}
+# cctapply(data = d_cct,
+#          clusters = 2, samples = 10,
+#          seed = 123, 
+#          exportfilename = "../results/cct_2samp.Rdata")
+```
+
+```{r}
+
+```
+
+

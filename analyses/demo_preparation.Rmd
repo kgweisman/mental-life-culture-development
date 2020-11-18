@@ -101,7 +101,8 @@ plog_us_adults <- read_xlsx("../raw data/adults/demographics/(BEETLES) Demograph
       education %in% c("emt certificate", "specialized training",
                        "Tech school", "trade school") ~ "trade/certificate",
       education %in% c("graduate school", "graduate work") ~ "some graduate school",
-      education %in% c("MD", "md", "JD", "jd") ~ "professional degree",
+      grepl("phd", education) ~ "phd",
+      education %in% c("MD", "md", "JD", "jd", "doctor") ~ "professional degree",
       grepl("illegible", education) ~ NA_character_,
       education %in% c("missing data", "NA") ~ NA_character_,
       TRUE ~ education
@@ -348,6 +349,7 @@ plog_gh_adults <- read_xlsx("../raw data/adults/demographics/GHA_BEETLES_ADULTS 
          grepl("junior", education) ~ "less than high school",
       grepl("senior", education) | education == "diploma" ~ "high school",
       grepl("master", education) ~ "masters",
+      grepl("phd", education) ~ "phd",
       education %in% c("university") ~ "bachelors",
       grepl("vocational", education) |
          grepl("technical", education) |
@@ -357,9 +359,9 @@ plog_gh_adults <- read_xlsx("../raw data/adults/demographics/GHA_BEETLES_ADULTS 
          grepl("nurs", education) |
          grepl("teach", education) |
          grepl("catering", education) ~ "other college degree",
-      grepl("doctorate", education) ~ "phd",
+      grepl("doctorate", education) | grepl("phd", education) ~ "phd",
       education %in% c("graduate school", "graduate work") ~ "some graduate school",
-      education %in% c("MD", "md", "JD", "jd") ~ "professional degree",
+      education %in% c("MD", "md", "JD", "jd", "doctor") ~ "professional degree",
       education %in% c("missing data", "NA") ~ NA_character_,
       TRUE ~ education
    )) %>%
@@ -628,6 +630,8 @@ plog_th_adults <- read_xlsx("../raw data/adults/demographics/THL_BEETLES_ADULTS 
       grepl("bachelors", education) | 
          grepl("CMU", education) ~ "bachelors",
       grepl("masters", education) ~ "masters",
+      grepl("phd", education) ~ "phd",
+      education %in% c("MD", "md", "JD", "jd", "doctor") ~ "professional degree",
       education %in% c("missing data", "NA", "not trans") ~ NA_character_,
       TRUE ~ education
    )) %>%
@@ -846,9 +850,9 @@ plog_ch_adults <- read_xlsx("../raw data/adults/demographics/CHN_BEETLES_ADULTS 
    select(subj_id, age, gender, ethnicity, born_ch, born_ch_text, language, 
           urban_rural, education, afford, class, rich_poor,
           spirit_relig, religion) %>%
-      mutate(ethnicity_cat = case_when(
-      grepl("han", ethnicity) ~ "han",
-      grepl("man", ethnicity) ~ "man",
+   mutate(ethnicity_cat = case_when(
+      grepl("han", tolower(ethnicity)) ~ "han",
+      grepl("man", tolower(ethnicity)) ~ "man",
       TRUE ~ ethnicity
    )) %>%
    mutate(language = tolower(as.character(language)),
@@ -889,6 +893,8 @@ plog_ch_adults <- read_xlsx("../raw data/adults/demographics/CHN_BEETLES_ADULTS 
          education %in% c("college", "college degree") ~ "bachelors",
       education %in% c("graduate", "doctor \\(studying\\)") ~ "some graduate school",
       grepl("master", education) ~ "masters",
+      grepl("phd", education) ~ "phd",
+      education %in% c("MD", "md", "JD", "jd", "doctor") ~ "professional degree",
       education %in% c("missing data", "NA", "not trans") ~ NA_character_,
       TRUE ~ education
    )) %>%

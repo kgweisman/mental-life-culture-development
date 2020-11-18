@@ -1,0 +1,1605 @@
+---
+title: "Concepts of mental life across cultures: Secondary analysis"
+authors: "Weisman, Legare, & Luhrmann"
+output: 
+  html_notebook:
+    toc: true
+    toc_float: true
+---
+
+```{r setup}
+knitr::opts_chunk$set(echo = F, message = F)
+```
+
+In this notebook we conduct exploratory factor analyses (EFAs) on the datasets for our studies of concepts of mental life, in which each participants judged the various mental capacities of a particular target entity. We analyze datasets for adults and children from each of our five field sites: the US, Ghana, Thailand, China, and Vanuatu. 
+
+This notebook contains supplementary results: Cultural consensus analysis (CCA). **We have considered all responses of 'kinda' as equivalent to 'yes' (1).**
+
+```{r, echo = F, message = F}
+source("./scripts/dependencies.R")
+source("./scripts/custom_funs.R")
+source("./scripts/var_recode_contrast.R")
+```
+
+```{r}
+require(caret)
+```
+
+```{r data}
+# read in data, shorten "feel sick," and limit to universal targets and questions: adults
+d_us_adults <- read_csv("../data/d_us_adults.csv") %>%
+  mutate(response = case_when(response %in% c(0.5, 1) ~ 1, 
+                              response == 0 ~ 0,
+                              TRUE ~ NA_real_)) %>%
+  filter(target %in% levels_target_univ, question_cat == "universal") %>%
+  mutate(question = gsub("\\, .*$", " \\[...\\]", question))
+d_gh_adults <- read_csv("../data/d_gh_adults.csv") %>%
+  mutate(response = case_when(response %in% c(0.5, 1) ~ 1, 
+                              response == 0 ~ 0,
+                              TRUE ~ NA_real_)) %>%
+  filter(target %in% levels_target_univ, question_cat == "universal") %>%
+  mutate(question = gsub("\\, .*$", " \\[...\\]", question))
+d_th_adults <- read_csv("../data/d_th_adults.csv") %>%
+  mutate(response = case_when(response %in% c(0.5, 1) ~ 1, 
+                              response == 0 ~ 0,
+                              TRUE ~ NA_real_)) %>%
+  filter(target %in% levels_target_univ, question_cat == "universal") %>%
+  mutate(question = gsub("\\, .*$", " \\[...\\]", question))
+d_ch_adults <- read_csv("../data/d_ch_adults.csv") %>%
+  mutate(response = case_when(response %in% c(0.5, 1) ~ 1, 
+                              response == 0 ~ 0,
+                              TRUE ~ NA_real_)) %>%
+  filter(target %in% levels_target_univ, question_cat == "universal") %>%
+  mutate(question = gsub("\\, .*$", " \\[...\\]", question))
+d_vt_adults <- read_csv("../data/d_vt_adults.csv") %>%
+  mutate(response = case_when(response %in% c(0.5, 1) ~ 1, 
+                              response == 0 ~ 0,
+                              TRUE ~ NA_real_)) %>%
+  filter(target %in% levels_target_univ, question_cat == "universal") %>%
+  mutate(question = gsub("\\, .*$", " \\[...\\]", question))
+
+# read in data, shorten "feel sick," and limit to universal targets and questions: children
+d_us_children <- read_csv("../data/d_us_children.csv") %>%
+  mutate(response = case_when(response %in% c(0.5, 1) ~ 1, 
+                              response == 0 ~ 0,
+                              TRUE ~ NA_real_)) %>%
+  filter(target %in% levels_target_univ, question_cat == "universal") %>%
+  mutate(question = gsub("\\, .*$", " \\[...\\]", question))
+d_gh_children <- read_csv("../data/d_gh_children.csv") %>%
+  mutate(response = case_when(response %in% c(0.5, 1) ~ 1, 
+                              response == 0 ~ 0,
+                              TRUE ~ NA_real_)) %>%
+  filter(target %in% levels_target_univ, question_cat == "universal") %>%
+  mutate(question = gsub("\\, .*$", " \\[...\\]", question))
+# d_gh_eng_children <- read_csv("../data/d_gh_eng_children.csv") %>%
+  # mutate(response = case_when(response %in% c(0.5, 1) ~ 1, 
+  #                             response == 0 ~ 0,
+  #                             TRUE ~ NA_real_)) %>%
+#   filter(target %in% levels_target_univ, question_cat == "universal") %>%
+#   mutate(question = gsub("\\, .*$", " \\[...\\]", question))
+d_th_children <- read_csv("../data/d_th_children.csv") %>%
+  mutate(response = case_when(response %in% c(0.5, 1) ~ 1, 
+                              response == 0 ~ 0,
+                              TRUE ~ NA_real_)) %>%
+  filter(target %in% levels_target_univ, question_cat == "universal") %>%
+  mutate(question = gsub("\\, .*$", " \\[...\\]", question))
+d_ch_children <- read_csv("../data/d_ch_children.csv") %>%
+  mutate(response = case_when(response %in% c(0.5, 1) ~ 1, 
+                              response == 0 ~ 0,
+                              TRUE ~ NA_real_)) %>%
+  filter(target %in% levels_target_univ, question_cat == "universal") %>%
+  mutate(question = gsub("\\, .*$", " \\[...\\]", question))
+d_vt_children <- read_csv("../data/d_vt_children.csv") %>%
+  mutate(response = case_when(response %in% c(0.5, 1) ~ 1, 
+                              response == 0 ~ 0,
+                              TRUE ~ NA_real_)) %>%
+  filter(target %in% levels_target_univ, question_cat == "universal") %>%
+  mutate(question = gsub("\\, .*$", " \\[...\\]", question)) %>%
+  # filter out participants outside of the age range
+  filter((age >= 6 & age <= 12) | is.na(age))
+```
+
+```{r wide}
+# make wide-form datasets for EFA: adults
+d_us_adults_w <- wide_df_fun(d_us_adults)
+d_gh_adults_w <- wide_df_fun(d_gh_adults)
+d_th_adults_w <- wide_df_fun(d_th_adults)
+d_ch_adults_w <- wide_df_fun(d_ch_adults)
+d_vt_adults_w <- wide_df_fun(d_vt_adults)
+
+# make wide-form datasets for EFA: children
+d_us_children_w <- wide_df_fun(d_us_children)
+d_gh_children_w <- wide_df_fun(d_gh_children)
+# d_gh_eng_children_w <- wide_df_fun(d_gh_eng_children)
+d_th_children_w <- wide_df_fun(d_th_children)
+d_ch_children_w <- wide_df_fun(d_ch_children)
+d_vt_children_w <- wide_df_fun(d_vt_children)
+```
+
+```{r}
+d_adults_all <- bind_rows(d_us_adults_w %>% rownames_to_column("subj_id"),
+                          d_gh_adults_w %>% rownames_to_column("subj_id"),
+                          d_th_adults_w %>% rownames_to_column("subj_id"),
+                          d_ch_adults_w %>% rownames_to_column("subj_id"),
+                          d_vt_adults_w %>% rownames_to_column("subj_id")) %>%
+  column_to_rownames("subj_id")
+```
+
+
+# CCA: US adults
+
+## Single analysis with all targets
+
+```{r}
+q_adults_us <- d_us_adults_w %>% 
+  # remove participants who skipped questions
+  drop_na() %>% 
+  t() %>% data.frame()
+```
+
+```{r}
+# check for near-zero variance by column
+nz_col <- nearZeroVar(q_adults_us, saveMetrics = T) %>%
+  data.frame() %>%
+  rownames_to_column("capacity") %>%
+  filter(nzv == T)
+
+q_adults_us <- q_adults_us %>%
+  select(-(nz_col$capacity))
+```
+
+```{r}
+qfa_us_adults <- fa_fun(q_adults_us, n = 2, chosen_rot = "none")
+```
+
+"Conventionally, a ratio of the first-to-second eigenvalue > 3:1... 
+
+```{r}
+qfa_us_adults$Vaccounted %>%
+  data.frame() %>%
+  rownames_to_column("stat") %>%
+  mutate(ratio = F1/F2) %>%
+  filter(grepl("SS", stat))
+```
+
+"...plus no (or very few) negative loadings on the first factor..." 
+
+```{r}
+qfa_us_adults$loadings[] %>%
+  data.frame() %>%
+  mutate(F1_neg = ifelse(F1 < 0, T, F)) %>%
+  count(F1_neg) %>%
+  mutate(prop = n/sum(n)) %>%
+  filter(F1_neg == T)
+```
+
+"...and a mean competence of (very roughly) around .5 (and preferably much higher) means you have consensus, and increases your confidence in the inference that it is a cultural consensus." 
+
+```{r}
+qfa_us_adults$loadings[] %>%
+  data.frame() %>%
+  summarise(mean = mean(F1))
+```
+
+```{r, fig.width = 4, fig.asp = 0.5}
+qfa_us_adults$loadings[] %>%
+  data.frame() %>%
+  rownames_to_column("subj_id") %>%
+  left_join(d_us_adults %>% select(subj_id, target)) %>%
+  mutate(target = factor(target, levels = levels_target_univ)) %>%
+  gather(factor, loading, -c(subj_id, target)) %>%
+  distinct() %>%
+  ggplot(aes(x = target, y = loading, color = factor, fill = factor)) +
+  geom_hline(yintercept = 0.5, lty = 2, color = "gray50") +
+  geom_hline(yintercept = 0, lty = 1, color = "gray50") +
+  geom_jitter(height = 0, size = 0.1) +
+  scale_color_brewer(palette = "Set1", aesthetics = c("color", "fill")) +
+  geom_pointrange(data = . %>% group_by(target, factor) %>%
+                    multi_boot_standard(col = "loading") %>%
+                    ungroup(),
+                  position = position_dodge(width = 0.5),
+                  aes(y = mean, ymin = ci_lower, ymax = ci_upper),
+                  shape = 21,
+                  color = "black") +
+  labs(title = "US adults",
+       subtitle = "F1: cultural competence, F2: residual agreement")
+```
+
+## Separate analyses by target
+
+```{r}
+# qfa_us_adults_rocks <- fa_fun(q_adults_us %>% select(contains("rocks")), 
+#                               n = 2, chosen_rot = "none")
+qfa_us_adults_flowers <- fa_fun(q_adults_us %>% select(contains("flowers")), 
+                                n = 2, chosen_rot = "none")
+qfa_us_adults_beetles <- fa_fun(q_adults_us %>% select(contains("beetles"),
+                                                       contains("crickets")), 
+                                n = 2, chosen_rot = "none")
+qfa_us_adults_chickens <- fa_fun(q_adults_us %>% select(contains("chickens")), 
+                                 n = 2, chosen_rot = "none")
+qfa_us_adults_mice <- fa_fun(q_adults_us %>% select(contains("mice")), 
+                             n = 2, chosen_rot = "none")
+qfa_us_adults_dogs <- fa_fun(q_adults_us %>% select(contains("dogs")), 
+                             n = 2, chosen_rot = "none")
+# qfa_us_adults_children <- fa_fun(q_adults_us %>% select(contains("children")), 
+#                                  n = 2, chosen_rot = "none")
+qfa_us_adults_cellphones <- fa_fun(q_adults_us %>% select(contains("cellphones")), 
+                                   n = 2, chosen_rot = "none")
+qfa_us_adults_ghosts <- fa_fun(q_adults_us %>% select(contains("ghosts")), 
+                               n = 2, chosen_rot = "none")
+qfa_us_adults_god <- fa_fun(q_adults_us %>% select(contains("god")), 
+                            n = 2, chosen_rot = "none")
+```
+
+"Conventionally, a ratio of the first-to-second eigenvalue > 3:1...
+
+```{r}
+data.frame(#rocks = qfa_us_adults_rocks$Vaccounted[1,],
+          flowers = qfa_us_adults_flowers$Vaccounted[1,],
+          beetles = qfa_us_adults_beetles$Vaccounted[1,],
+          chickens = qfa_us_adults_chickens$Vaccounted[1,],
+          mice = qfa_us_adults_mice$Vaccounted[1,],
+          dogs = qfa_us_adults_dogs$Vaccounted[1,],
+          # children = qfa_us_adults_children$Vaccounted[1,],
+          cellphones = qfa_us_adults_cellphones$Vaccounted[1,],
+          ghosts = qfa_us_adults_ghosts$Vaccounted[1,],
+          god = qfa_us_adults_god$Vaccounted[1,]) %>%
+  t() %>%
+  data.frame() %>%
+  rownames_to_column("target") %>%
+  mutate(ratio = F1/F2)
+```
+
+"...plus no (or very few) negative loadings on the first factor..." 
+
+```{r}
+bind_rows(#loadings_fun(qfa_us_adults_rocks, long_wide = "wide"),
+          loadings_fun(qfa_us_adults_flowers, long_wide = "wide"),
+          loadings_fun(qfa_us_adults_beetles, long_wide = "wide"),
+          loadings_fun(qfa_us_adults_chickens, long_wide = "wide"),
+          loadings_fun(qfa_us_adults_mice, long_wide = "wide"),
+          loadings_fun(qfa_us_adults_dogs, long_wide = "wide"),
+          # loadings_fun(qfa_us_adults_children, long_wide = "wide"),
+          loadings_fun(qfa_us_adults_cellphones, long_wide = "wide"),
+          loadings_fun(qfa_us_adults_ghosts, long_wide = "wide"),
+          loadings_fun(qfa_us_adults_god, long_wide = "wide")) %>%
+  rename(subj_id = capacity) %>%
+  mutate(target = gsub("^.*_", "", subj_id),
+         target = factor(target, levels = levels_target_univ)) %>%
+  mutate(F1_neg = ifelse(F1 < 0, T, F)) %>%
+  count(target, F1_neg) %>%
+  complete(F1_neg, nesting(target), fill = list(n = 0)) %>%
+  group_by(target) %>%
+  mutate(prop = n/sum(n)) %>%
+  filter(F1_neg == T)
+```
+
+"...and a mean competence of (very roughly) around .5 (and preferably much higher) means you have consensus, and increases your confidence in the inference that it is a cultural consensus." 
+
+```{r}
+bind_rows(#loadings_fun(qfa_us_adults_rocks, long_wide = "wide"),
+          loadings_fun(qfa_us_adults_flowers, long_wide = "wide"),
+          loadings_fun(qfa_us_adults_beetles, long_wide = "wide"),
+          loadings_fun(qfa_us_adults_chickens, long_wide = "wide"),
+          loadings_fun(qfa_us_adults_mice, long_wide = "wide"),
+          loadings_fun(qfa_us_adults_dogs, long_wide = "wide"),
+          # loadings_fun(qfa_us_adults_children, long_wide = "wide"),
+          loadings_fun(qfa_us_adults_cellphones, long_wide = "wide"),
+          loadings_fun(qfa_us_adults_ghosts, long_wide = "wide"),
+          loadings_fun(qfa_us_adults_god, long_wide = "wide")) %>%
+  rename(subj_id = capacity) %>%
+  mutate(target = gsub("^.*_", "", subj_id),
+         target = factor(target, levels = levels_target_univ)) %>%
+  group_by(target) %>%
+  summarise(mean = mean(F1))
+```
+
+```{r, fig.width = 4, fig.asp = 0.5}
+bind_rows(#loadings_fun(qfa_us_adults_rocks, long_wide = "wide"),
+          loadings_fun(qfa_us_adults_flowers, long_wide = "wide"),
+          loadings_fun(qfa_us_adults_beetles, long_wide = "wide"),
+          loadings_fun(qfa_us_adults_chickens, long_wide = "wide"),
+          loadings_fun(qfa_us_adults_mice, long_wide = "wide"),
+          loadings_fun(qfa_us_adults_dogs, long_wide = "wide"),
+          # loadings_fun(qfa_us_adults_children, long_wide = "wide"),
+          loadings_fun(qfa_us_adults_cellphones, long_wide = "wide"),
+          loadings_fun(qfa_us_adults_ghosts, long_wide = "wide"),
+          loadings_fun(qfa_us_adults_god, long_wide = "wide")) %>%
+  rename(subj_id = capacity) %>%
+  mutate(target = gsub("^.*_", "", subj_id),
+         target = factor(target, levels = levels_target_univ)) %>%
+  gather(factor, loading, -c(subj_id, target)) %>%
+  distinct() %>%
+  ggplot(aes(x = target, y = loading, color = factor, fill = factor)) +
+  geom_hline(yintercept = 0.5, lty = 2, color = "gray50") +
+  geom_hline(yintercept = 0, lty = 1, color = "gray50") +
+  geom_jitter(height = 0, size = 0.1) +
+  scale_color_brewer(palette = "Set1", aesthetics = c("color", "fill")) +
+  geom_pointrange(data = . %>% group_by(target, factor) %>%
+                    multi_boot_standard(col = "loading") %>%
+                    ungroup(),
+                  position = position_dodge(width = 0.5),
+                  aes(y = mean, ymin = ci_lower, ymax = ci_upper),
+                  shape = 21,
+                  color = "black") +
+  labs(title = "US adults (separate CCAs by target)",
+       subtitle = "F1: cultural competence, F2: residual agreement")
+```
+
+
+# CCA: Ghana adults
+
+## Single analysis with all targets
+
+```{r}
+q_adults_gh <- d_gh_adults_w %>% 
+  # remove participants who skipped questions
+  drop_na() %>% 
+  t() %>% data.frame()
+```
+
+```{r}
+# check for near-zero variance by column
+nz_col <- nearZeroVar(q_adults_gh, saveMetrics = T) %>%
+  data.frame() %>%
+  rownames_to_column("capacity") %>%
+  filter(nzv == T)
+
+q_adults_gh <- q_adults_gh %>%
+  select(-(nz_col$capacity))
+```
+
+```{r}
+qfa_gh_adults <- fa_fun(q_adults_gh, n = 2, chosen_rot = "none")
+```
+
+"Conventionally, a ratio of the first-to-second eigenvalue > 3:1... 
+
+```{r}
+qfa_gh_adults$Vaccounted %>%
+  data.frame() %>%
+  rownames_to_column("stat") %>%
+  mutate(ratio = F1/F2) %>%
+  filter(grepl("SS", stat))
+```
+
+"...plus no (or very few) negative loadings on the first factor..." 
+
+```{r}
+qfa_gh_adults$loadings[] %>%
+  data.frame() %>%
+  mutate(F1_neg = ifelse(F1 < 0, T, F)) %>%
+  count(F1_neg) %>%
+  mutate(prop = n/sum(n)) %>%
+  filter(F1_neg == T)
+```
+
+"...and a mean competence of (very roughly) around .5 (and preferably much higher) means you have consensus, and increases your confidence in the inference that it is a cultural consensus." 
+
+```{r}
+qfa_gh_adults$loadings[] %>%
+  data.frame() %>%
+  summarise(mean = mean(F1))
+```
+
+```{r, fig.width = 4, fig.asp = 0.5}
+qfa_gh_adults$loadings[] %>%
+  data.frame() %>%
+  rownames_to_column("subj_id") %>%
+  left_join(d_gh_adults %>% select(subj_id, target)) %>%
+  mutate(target = factor(target, levels = levels_target_univ)) %>%
+  gather(factor, loading, -c(subj_id, target)) %>%
+  distinct() %>%
+  ggplot(aes(x = target, y = loading, color = factor, fill = factor)) +
+  geom_hline(yintercept = 0.5, lty = 2, color = "gray50") +
+  geom_hline(yintercept = 0, lty = 1, color = "gray50") +
+  geom_jitter(height = 0, size = 0.1) +
+  scale_color_brewer(palette = "Set1", aesthetics = c("color", "fill")) +
+  geom_pointrange(data = . %>% group_by(target, factor) %>%
+                    multi_boot_standard(col = "loading") %>%
+                    ungroup(),
+                  position = position_dodge(width = 0.5),
+                  aes(y = mean, ymin = ci_lower, ymax = ci_upper),
+                  shape = 21,
+                  color = "black") +
+  labs(title = "Ghana adults",
+       subtitle = "F1: cultural competence, F2: residual agreement")
+```
+
+## Separate analyses by target
+
+```{r}
+# qfa_gh_adults_rocks <- fa_fun(q_adults_gh %>% select(contains("rocks")),
+#                               n = 2, chosen_rot = "none")
+# qfa_gh_adults_flowers <- fa_fun(q_adults_gh %>% select(contains("flowers")), 
+#                                 n = 2, chosen_rot = "none")
+qfa_gh_adults_beetles <- fa_fun(q_adults_gh %>% select(contains("beetles"),
+                                                       contains("crickets")), 
+                                n = 2, chosen_rot = "none")
+qfa_gh_adults_chickens <- fa_fun(q_adults_gh %>% select(contains("chickens")), 
+                                 n = 2, chosen_rot = "none")
+qfa_gh_adults_mice <- fa_fun(q_adults_gh %>% select(contains("mice")), 
+                             n = 2, chosen_rot = "none")
+qfa_gh_adults_dogs <- fa_fun(q_adults_gh %>% select(contains("dogs")), 
+                             n = 2, chosen_rot = "none")
+qfa_gh_adults_children <- fa_fun(q_adults_gh %>% select(contains("children")),
+                                 n = 2, chosen_rot = "none")
+# qfa_gh_adults_cellphones <- fa_fun(q_adults_gh %>% select(contains("cellphones")), 
+#                                    n = 2, chosen_rot = "none")
+qfa_gh_adults_ghosts <- fa_fun(q_adults_gh %>% select(contains("ghosts")), 
+                               n = 2, chosen_rot = "none")
+qfa_gh_adults_god <- fa_fun(q_adults_gh %>% select(contains("god")), 
+                            n = 2, chosen_rot = "none")
+```
+
+"Conventionally, a ratio of the first-to-second eigenvalue > 3:1...
+
+```{r}
+data.frame(# rocks = qfa_gh_adults_rocks$Vaccounted[1,],
+           # flowers = qfa_gh_adults_flowers$Vaccounted[1,],
+           beetles = qfa_gh_adults_beetles$Vaccounted[1,],
+           chickens = qfa_gh_adults_chickens$Vaccounted[1,],
+           mice = qfa_gh_adults_mice$Vaccounted[1,],
+           dogs = qfa_gh_adults_dogs$Vaccounted[1,],
+           children = qfa_gh_adults_children$Vaccounted[1,],
+           # cellphones = qfa_gh_adults_cellphones$Vaccounted[1,],
+           ghosts = qfa_gh_adults_ghosts$Vaccounted[1,],
+           god = qfa_gh_adults_god$Vaccounted[1,]) %>%
+  t() %>%
+  data.frame() %>%
+  rownames_to_column("target") %>%
+  mutate(ratio = F1/F2)
+```
+
+"...plus no (or very few) negative loadings on the first factor..." 
+
+```{r}
+bind_rows(#loadings_fun(qfa_gh_adults_rocks, long_wide = "wide"),
+          # loadings_fun(qfa_gh_adults_flowers, long_wide = "wide"),
+          loadings_fun(qfa_gh_adults_beetles, long_wide = "wide"),
+          loadings_fun(qfa_gh_adults_chickens, long_wide = "wide"),
+          loadings_fun(qfa_gh_adults_mice, long_wide = "wide"),
+          loadings_fun(qfa_gh_adults_dogs, long_wide = "wide"),
+          loadings_fun(qfa_gh_adults_children, long_wide = "wide"),
+          # loadings_fun(qfa_gh_adults_cellphones, long_wide = "wide"),
+          loadings_fun(qfa_gh_adults_ghosts, long_wide = "wide"),
+          loadings_fun(qfa_gh_adults_god, long_wide = "wide")) %>%
+  rename(subj_id = capacity) %>%
+  mutate(target = gsub("^.*_", "", subj_id),
+         target = factor(target, levels = levels_target_univ)) %>%
+  mutate(F1_neg = ifelse(F1 < 0, T, F)) %>%
+  count(target, F1_neg) %>%
+  complete(F1_neg, nesting(target), fill = list(n = 0)) %>%
+  group_by(target) %>%
+  mutate(prop = n/sum(n)) %>%
+  filter(F1_neg == T)
+```
+
+"...and a mean competence of (very roughly) around .5 (and preferably much higher) means you have consensus, and increases your confidence in the inference that it is a cultural consensus." 
+
+```{r}
+bind_rows(#loadings_fun(qfa_gh_adults_rocks, long_wide = "wide"),
+          # loadings_fun(qfa_gh_adults_flowers, long_wide = "wide"),
+          loadings_fun(qfa_gh_adults_beetles, long_wide = "wide"),
+          loadings_fun(qfa_gh_adults_chickens, long_wide = "wide"),
+          loadings_fun(qfa_gh_adults_mice, long_wide = "wide"),
+          loadings_fun(qfa_gh_adults_dogs, long_wide = "wide"),
+          loadings_fun(qfa_gh_adults_children, long_wide = "wide"),
+          # loadings_fun(qfa_gh_adults_cellphones, long_wide = "wide"),
+          loadings_fun(qfa_gh_adults_ghosts, long_wide = "wide"),
+          loadings_fun(qfa_gh_adults_god, long_wide = "wide")) %>%
+  rename(subj_id = capacity) %>%
+  mutate(target = gsub("^.*_", "", subj_id),
+         target = factor(target, levels = levels_target_univ)) %>%
+  group_by(target) %>%
+  summarise(mean = mean(F1))
+```
+
+```{r, fig.width = 4, fig.asp = 0.5}
+bind_rows(#loadings_fun(qfa_gh_adults_rocks, long_wide = "wide"),
+          # loadings_fun(qfa_gh_adults_flowers, long_wide = "wide"),
+          loadings_fun(qfa_gh_adults_beetles, long_wide = "wide"),
+          loadings_fun(qfa_gh_adults_chickens, long_wide = "wide"),
+          loadings_fun(qfa_gh_adults_mice, long_wide = "wide"),
+          loadings_fun(qfa_gh_adults_dogs, long_wide = "wide"),
+          loadings_fun(qfa_gh_adults_children, long_wide = "wide"),
+          # loadings_fun(qfa_gh_adults_cellphones, long_wide = "wide"),
+          loadings_fun(qfa_gh_adults_ghosts, long_wide = "wide"),
+          loadings_fun(qfa_gh_adults_god, long_wide = "wide")) %>%
+  rename(subj_id = capacity) %>%
+  mutate(target = gsub("^.*_", "", subj_id),
+         target = factor(target, levels = levels_target_univ)) %>%
+  gather(factor, loading, -c(subj_id, target)) %>%
+  distinct() %>%
+  ggplot(aes(x = target, y = loading, color = factor, fill = factor)) +
+  geom_hline(yintercept = 0.5, lty = 2, color = "gray50") +
+  geom_hline(yintercept = 0, lty = 1, color = "gray50") +
+  geom_jitter(height = 0, size = 0.1) +
+  scale_color_brewer(palette = "Set1", aesthetics = c("color", "fill")) +
+  geom_pointrange(data = . %>% group_by(target, factor) %>%
+                    multi_boot_standard(col = "loading") %>%
+                    ungroup(),
+                  position = position_dodge(width = 0.5),
+                  aes(y = mean, ymin = ci_lower, ymax = ci_upper),
+                  shape = 21,
+                  color = "black") +
+  labs(title = "Ghana adults (separate CCAs by target)",
+       subtitle = "F1: cultural competence, F2: residual agreement")
+```
+
+# CCA: Thailand adults
+
+## Single analysis with all targets
+
+```{r}
+q_adults_th <- d_th_adults_w %>% 
+  # remove participants who skipped questions
+  drop_na() %>% 
+  t() %>% data.frame()
+```
+
+```{r}
+# check for near-zero variance by column
+nz_col <- nearZeroVar(q_adults_th, saveMetrics = T) %>%
+  data.frame() %>%
+  rownames_to_column("capacity") %>%
+  filter(nzv == T)
+
+q_adults_th <- q_adults_th %>%
+  select(-(nz_col$capacity))
+```
+
+```{r}
+qfa_th_adults <- fa_fun(q_adults_th, n = 2, chosen_rot = "none")
+```
+
+"Conventionally, a ratio of the first-to-second eigenvalue > 3:1... 
+
+```{r}
+qfa_th_adults$Vaccounted %>%
+  data.frame() %>%
+  rownames_to_column("stat") %>%
+  mutate(ratio = F1/F2) %>%
+  filter(grepl("SS", stat))
+```
+
+"...plus no (or very few) negative loadings on the first factor..." 
+
+```{r}
+qfa_th_adults$loadings[] %>%
+  data.frame() %>%
+  mutate(F1_neg = ifelse(F1 < 0, T, F)) %>%
+  count(F1_neg) %>%
+  mutate(prop = n/sum(n)) %>%
+  filter(F1_neg == T)
+```
+
+"...and a mean competence of (very roughly) around .5 (and preferably much higher) means you have consensus, and increases your confidence in the inference that it is a cultural consensus." 
+
+```{r}
+qfa_th_adults$loadings[] %>%
+  data.frame() %>%
+  summarise(mean = mean(F1))
+```
+
+```{r, fig.width = 4, fig.asp = 0.5}
+qfa_th_adults$loadings[] %>%
+  data.frame() %>%
+  rownames_to_column("subj_id") %>%
+  left_join(d_th_adults %>% select(subj_id, target)) %>%
+  mutate(target = factor(target, levels = levels_target_univ)) %>%
+  gather(factor, loading, -c(subj_id, target)) %>%
+  distinct() %>%
+  ggplot(aes(x = target, y = loading, color = factor, fill = factor)) +
+  geom_hline(yintercept = 0.5, lty = 2, color = "gray50") +
+  geom_hline(yintercept = 0, lty = 1, color = "gray50") +
+  geom_jitter(height = 0, size = 0.1) +
+  scale_color_brewer(palette = "Set1", aesthetics = c("color", "fill")) +
+  geom_pointrange(data = . %>% group_by(target, factor) %>%
+                    multi_boot_standard(col = "loading") %>%
+                    ungroup(),
+                  position = position_dodge(width = 0.5),
+                  aes(y = mean, ymin = ci_lower, ymax = ci_upper),
+                  shape = 21,
+                  color = "black") +
+  labs(title = "Thailand adults",
+       subtitle = "F1: cultural competence, F2: residual agreement")
+```
+
+## Separate analyses by target
+
+```{r}
+qfa_th_adults_rocks <- fa_fun(q_adults_th %>% select(contains("rocks")),
+                              n = 2, chosen_rot = "none")
+qfa_th_adults_flowers <- fa_fun(q_adults_th %>% select(contains("flowers")), 
+                                n = 2, chosen_rot = "none")
+qfa_th_adults_beetles <- fa_fun(q_adults_th %>% select(contains("beetles"),
+                                                       contains("crickets")), 
+                                n = 2, chosen_rot = "none")
+qfa_th_adults_chickens <- fa_fun(q_adults_th %>% select(contains("chickens")), 
+                                 n = 2, chosen_rot = "none")
+qfa_th_adults_mice <- fa_fun(q_adults_th %>% select(contains("mice")), 
+                             n = 2, chosen_rot = "none")
+qfa_th_adults_dogs <- fa_fun(q_adults_th %>% select(contains("dogs")), 
+                             n = 2, chosen_rot = "none")
+qfa_th_adults_children <- fa_fun(q_adults_th %>% select(contains("children")),
+                                 n = 2, chosen_rot = "none")
+qfa_th_adults_cellphones <- fa_fun(q_adults_th %>% select(contains("cellphones")), 
+                                   n = 2, chosen_rot = "none")
+qfa_th_adults_chosts <- fa_fun(q_adults_th %>% select(contains("ghosts")), 
+                               n = 2, chosen_rot = "none")
+qfa_th_adults_god <- fa_fun(q_adults_th %>% select(contains("god")), 
+                            n = 2, chosen_rot = "none")
+```
+
+"Conventionally, a ratio of the first-to-second eigenvalue > 3:1...
+
+```{r}
+data.frame(rocks = qfa_th_adults_rocks$Vaccounted[1,],
+           flowers = qfa_th_adults_flowers$Vaccounted[1,],
+           beetles = qfa_th_adults_beetles$Vaccounted[1,],
+           chickens = qfa_th_adults_chickens$Vaccounted[1,],
+           mice = qfa_th_adults_mice$Vaccounted[1,],
+           dogs = qfa_th_adults_dogs$Vaccounted[1,],
+           children = qfa_th_adults_children$Vaccounted[1,],
+           cellphones = qfa_th_adults_cellphones$Vaccounted[1,],
+           ghosts = qfa_th_adults_chosts$Vaccounted[1,],
+           god = qfa_th_adults_god$Vaccounted[1,]) %>%
+  t() %>%
+  data.frame() %>%
+  rownames_to_column("target") %>%
+  mutate(ratio = F1/F2)
+```
+
+"...plus no (or very few) negative loadings on the first factor..." 
+
+```{r}
+bind_rows(loadings_fun(qfa_th_adults_rocks, long_wide = "wide"),
+          loadings_fun(qfa_th_adults_flowers, long_wide = "wide"),
+          loadings_fun(qfa_th_adults_beetles, long_wide = "wide"),
+          loadings_fun(qfa_th_adults_chickens, long_wide = "wide"),
+          loadings_fun(qfa_th_adults_mice, long_wide = "wide"),
+          loadings_fun(qfa_th_adults_dogs, long_wide = "wide"),
+          loadings_fun(qfa_th_adults_children, long_wide = "wide"),
+          loadings_fun(qfa_th_adults_cellphones, long_wide = "wide"),
+          loadings_fun(qfa_th_adults_chosts, long_wide = "wide"),
+          loadings_fun(qfa_th_adults_god, long_wide = "wide")) %>%
+  rename(subj_id = capacity) %>%
+  mutate(target = gsub("^.*_", "", subj_id),
+         target = factor(target, levels = levels_target_univ)) %>%
+  mutate(F1_neg = ifelse(F1 < 0, T, F)) %>%
+  count(target, F1_neg) %>%
+  complete(F1_neg, nesting(target), fill = list(n = 0)) %>%
+  group_by(target) %>%
+  mutate(prop = n/sum(n)) %>%
+  filter(F1_neg == T)
+```
+
+"...and a mean competence of (very roughly) around .5 (and preferably much higher) means you have consensus, and increases your confidence in the inference that it is a cultural consensus." 
+
+```{r}
+bind_rows(loadings_fun(qfa_th_adults_rocks, long_wide = "wide"),
+          loadings_fun(qfa_th_adults_flowers, long_wide = "wide"),
+          loadings_fun(qfa_th_adults_beetles, long_wide = "wide"),
+          loadings_fun(qfa_th_adults_chickens, long_wide = "wide"),
+          loadings_fun(qfa_th_adults_mice, long_wide = "wide"),
+          loadings_fun(qfa_th_adults_dogs, long_wide = "wide"),
+          loadings_fun(qfa_th_adults_children, long_wide = "wide"),
+          loadings_fun(qfa_th_adults_cellphones, long_wide = "wide"),
+          loadings_fun(qfa_th_adults_chosts, long_wide = "wide"),
+          loadings_fun(qfa_th_adults_god, long_wide = "wide")) %>%
+  rename(subj_id = capacity) %>%
+  mutate(target = gsub("^.*_", "", subj_id),
+         target = factor(target, levels = levels_target_univ)) %>%
+  group_by(target) %>%
+  summarise(mean = mean(F1))
+```
+
+```{r, fig.width = 4, fig.asp = 0.5}
+bind_rows(loadings_fun(qfa_th_adults_rocks, long_wide = "wide"),
+          loadings_fun(qfa_th_adults_flowers, long_wide = "wide"),
+          loadings_fun(qfa_th_adults_beetles, long_wide = "wide"),
+          loadings_fun(qfa_th_adults_chickens, long_wide = "wide"),
+          loadings_fun(qfa_th_adults_mice, long_wide = "wide"),
+          loadings_fun(qfa_th_adults_dogs, long_wide = "wide"),
+          loadings_fun(qfa_th_adults_children, long_wide = "wide"),
+          loadings_fun(qfa_th_adults_cellphones, long_wide = "wide"),
+          loadings_fun(qfa_th_adults_chosts, long_wide = "wide"),
+          loadings_fun(qfa_th_adults_god, long_wide = "wide")) %>%
+  rename(subj_id = capacity) %>%
+  mutate(target = gsub("^.*_", "", subj_id),
+         target = factor(target, levels = levels_target_univ)) %>%
+  gather(factor, loading, -c(subj_id, target)) %>%
+  distinct() %>%
+  ggplot(aes(x = target, y = loading, color = factor, fill = factor)) +
+  geom_hline(yintercept = 0.5, lty = 2, color = "gray50") +
+  geom_hline(yintercept = 0, lty = 1, color = "gray50") +
+  geom_jitter(height = 0, size = 0.1) +
+  scale_color_brewer(palette = "Set1", aesthetics = c("color", "fill")) +
+  geom_pointrange(data = . %>% group_by(target, factor) %>%
+                    multi_boot_standard(col = "loading") %>%
+                    ungroup(),
+                  position = position_dodge(width = 0.5),
+                  aes(y = mean, ymin = ci_lower, ymax = ci_upper),
+                  shape = 21,
+                  color = "black") +
+  labs(title = "Thailand adults (separate CCAs by target)",
+       subtitle = "F1: cultural competence, F2: residual agreement")
+```
+
+
+# CCA: China adults
+
+## Single analysis with all targets
+
+```{r}
+q_adults_ch <- d_ch_adults_w %>% 
+  # remove participants who skipped questions
+  drop_na() %>% 
+  t() %>% data.frame()
+```
+
+```{r}
+# check for near-zero variance by column
+nz_col <- nearZeroVar(q_adults_ch, saveMetrics = T) %>%
+  data.frame() %>%
+  rownames_to_column("capacity") %>%
+  filter(nzv == T)
+
+q_adults_ch <- q_adults_ch %>%
+  select(-(nz_col$capacity))
+```
+
+```{r}
+qfa_ch_adults <- fa_fun(q_adults_ch, n = 2, chosen_rot = "none")
+```
+
+"Conventionally, a ratio of the first-to-second eigenvalue > 3:1... 
+
+```{r}
+qfa_ch_adults$Vaccounted %>%
+  data.frame() %>%
+  rownames_to_column("stat") %>%
+  mutate(ratio = F1/F2) %>%
+  filter(grepl("SS", stat))
+```
+
+"...plus no (or very few) negative loadings on the first factor..." 
+
+```{r}
+qfa_ch_adults$loadings[] %>%
+  data.frame() %>%
+  mutate(F1_neg = ifelse(F1 < 0, T, F)) %>%
+  count(F1_neg) %>%
+  mutate(prop = n/sum(n)) %>%
+  filter(F1_neg == T)
+```
+
+"...and a mean competence of (very roughly) around .5 (and preferably much higher) means you have consensus, and increases your confidence in the inference that it is a cultural consensus." 
+
+```{r}
+qfa_ch_adults$loadings[] %>%
+  data.frame() %>%
+  summarise(mean = mean(F1))
+```
+
+```{r, fig.width = 4, fig.asp = 0.5}
+qfa_ch_adults$loadings[] %>%
+  data.frame() %>%
+  rownames_to_column("subj_id") %>%
+  left_join(d_ch_adults %>% select(subj_id, target)) %>%
+  mutate(target = factor(target, levels = levels_target_univ)) %>%
+  gather(factor, loading, -c(subj_id, target)) %>%
+  distinct() %>%
+  ggplot(aes(x = target, y = loading, color = factor, fill = factor)) +
+  geom_hline(yintercept = 0.5, lty = 2, color = "gray50") +
+  geom_hline(yintercept = 0, lty = 1, color = "gray50") +
+  geom_jitter(height = 0, size = 0.1) +
+  scale_color_brewer(palette = "Set1", aesthetics = c("color", "fill")) +
+  geom_pointrange(data = . %>% group_by(target, factor) %>%
+                    multi_boot_standard(col = "loading") %>%
+                    ungroup(),
+                  position = position_dodge(width = 0.5),
+                  aes(y = mean, ymin = ci_lower, ymax = ci_upper),
+                  shape = 21,
+                  color = "black") +
+  labs(title = "China adults",
+       subtitle = "F1: cultural competence, F2: residual agreement")
+```
+
+## Separate analyses by target
+
+```{r}
+qfa_ch_adults_rocks <- fa_fun(q_adults_ch %>% select(contains("rocks")),
+                              n = 2, chosen_rot = "none")
+qfa_ch_adults_flowers <- fa_fun(q_adults_ch %>% select(contains("flowers")),
+                                n = 2, chosen_rot = "none")
+qfa_ch_adults_beetles <- fa_fun(q_adults_ch %>% select(contains("beetles"),
+                                                       contains("crickets")), 
+                                n = 2, chosen_rot = "none")
+qfa_ch_adults_chickens <- fa_fun(q_adults_ch %>% select(contains("chickens")), 
+                                 n = 2, chosen_rot = "none")
+qfa_ch_adults_mice <- fa_fun(q_adults_ch %>% select(contains("mice")), 
+                             n = 2, chosen_rot = "none")
+# qfa_ch_adults_dogs <- fa_fun(q_adults_ch %>% select(contains("dogs")), 
+#                              n = 2, chosen_rot = "none")
+qfa_ch_adults_children <- fa_fun(q_adults_ch %>% select(contains("children")),
+                                 n = 2, chosen_rot = "none")
+qfa_ch_adults_cellphones <- fa_fun(q_adults_ch %>% select(contains("cellphones")),
+                                   n = 2, chosen_rot = "none")
+qfa_ch_adults_ghosts <- fa_fun(q_adults_ch %>% select(contains("ghosts")), 
+                               n = 2, chosen_rot = "none")
+qfa_ch_adults_god <- fa_fun(q_adults_ch %>% select(contains("god")), 
+                            n = 2, chosen_rot = "none")
+```
+
+"Conventionally, a ratio of the first-to-second eigenvalue > 3:1...
+
+```{r}
+data.frame(rocks = qfa_ch_adults_rocks$Vaccounted[1,],
+           flowers = qfa_ch_adults_flowers$Vaccounted[1,],
+           beetles = qfa_ch_adults_beetles$Vaccounted[1,],
+           chickens = qfa_ch_adults_chickens$Vaccounted[1,],
+           mice = qfa_ch_adults_mice$Vaccounted[1,],
+           # dogs = qfa_ch_adults_dogs$Vaccounted[1,],
+           children = qfa_ch_adults_children$Vaccounted[1,],
+           cellphones = qfa_ch_adults_cellphones$Vaccounted[1,],
+           ghosts = qfa_ch_adults_ghosts$Vaccounted[1,],
+           god = qfa_ch_adults_god$Vaccounted[1,]) %>%
+  t() %>%
+  data.frame() %>%
+  rownames_to_column("target") %>%
+  mutate(ratio = F1/F2)
+```
+
+"...plus no (or very few) negative loadings on the first factor..." 
+
+```{r}
+bind_rows(loadings_fun(qfa_ch_adults_rocks, long_wide = "wide"),
+          loadings_fun(qfa_ch_adults_flowers, long_wide = "wide"),
+          loadings_fun(qfa_ch_adults_beetles, long_wide = "wide"),
+          loadings_fun(qfa_ch_adults_chickens, long_wide = "wide"),
+          loadings_fun(qfa_ch_adults_mice, long_wide = "wide"),
+          # loadings_fun(qfa_ch_adults_dogs, long_wide = "wide"),
+          loadings_fun(qfa_ch_adults_children, long_wide = "wide"),
+          loadings_fun(qfa_ch_adults_cellphones, long_wide = "wide"),
+          loadings_fun(qfa_ch_adults_ghosts, long_wide = "wide"),
+          loadings_fun(qfa_ch_adults_god, long_wide = "wide")) %>%
+  rename(subj_id = capacity) %>%
+  mutate(target = gsub("^.*_", "", subj_id),
+         target = factor(target, levels = levels_target_univ)) %>%
+  mutate(F1_neg = ifelse(F1 < 0, T, F)) %>%
+  count(target, F1_neg) %>%
+  complete(F1_neg, nesting(target), fill = list(n = 0)) %>%
+  group_by(target) %>%
+  mutate(prop = n/sum(n)) %>%
+  filter(F1_neg == T)
+```
+
+"...and a mean competence of (very roughly) around .5 (and preferably much higher) means you have consensus, and increases your confidence in the inference that it is a cultural consensus." 
+
+```{r}
+bind_rows(loadings_fun(qfa_ch_adults_rocks, long_wide = "wide"),
+          loadings_fun(qfa_ch_adults_flowers, long_wide = "wide"),
+          loadings_fun(qfa_ch_adults_beetles, long_wide = "wide"),
+          loadings_fun(qfa_ch_adults_chickens, long_wide = "wide"),
+          loadings_fun(qfa_ch_adults_mice, long_wide = "wide"),
+          # loadings_fun(qfa_ch_adults_dogs, long_wide = "wide"),
+          loadings_fun(qfa_ch_adults_children, long_wide = "wide"),
+          loadings_fun(qfa_ch_adults_cellphones, long_wide = "wide"),
+          loadings_fun(qfa_ch_adults_ghosts, long_wide = "wide"),
+          loadings_fun(qfa_ch_adults_god, long_wide = "wide")) %>%
+  rename(subj_id = capacity) %>%
+  mutate(target = gsub("^.*_", "", subj_id),
+         target = factor(target, levels = levels_target_univ)) %>%
+  group_by(target) %>%
+  summarise(mean = mean(F1))
+```
+
+```{r, fig.width = 4, fig.asp = 0.5}
+bind_rows(loadings_fun(qfa_ch_adults_rocks, long_wide = "wide"),
+          loadings_fun(qfa_ch_adults_flowers, long_wide = "wide"),
+          loadings_fun(qfa_ch_adults_beetles, long_wide = "wide"),
+          loadings_fun(qfa_ch_adults_chickens, long_wide = "wide"),
+          loadings_fun(qfa_ch_adults_mice, long_wide = "wide"),
+          # loadings_fun(qfa_ch_adults_dogs, long_wide = "wide"),
+          loadings_fun(qfa_ch_adults_children, long_wide = "wide"),
+          loadings_fun(qfa_ch_adults_cellphones, long_wide = "wide"),
+          loadings_fun(qfa_ch_adults_ghosts, long_wide = "wide"),
+          loadings_fun(qfa_ch_adults_god, long_wide = "wide")) %>%
+  rename(subj_id = capacity) %>%
+  mutate(target = gsub("^.*_", "", subj_id),
+         target = factor(target, levels = levels_target_univ)) %>%
+  gather(factor, loading, -c(subj_id, target)) %>%
+  distinct() %>%
+  ggplot(aes(x = target, y = loading, color = factor, fill = factor)) +
+  geom_hline(yintercept = 0.5, lty = 2, color = "gray50") +
+  geom_hline(yintercept = 0, lty = 1, color = "gray50") +
+  geom_jitter(height = 0, size = 0.1) +
+  scale_color_brewer(palette = "Set1", aesthetics = c("color", "fill")) +
+  geom_pointrange(data = . %>% group_by(target, factor) %>%
+                    multi_boot_standard(col = "loading") %>%
+                    ungroup(),
+                  position = position_dodge(width = 0.5),
+                  aes(y = mean, ymin = ci_lower, ymax = ci_upper),
+                  shape = 21,
+                  color = "black") +
+  labs(title = "China adults (separate CCAs by target)",
+       subtitle = "F1: cultural competence, F2: residual agreement")
+```
+
+
+# CCA: Vanuatu adults
+
+## Single analysis with all targets
+
+```{r}
+q_adults_vt <- d_vt_adults_w %>% 
+  # remove participants who skipped questions
+  drop_na() %>% 
+  t() %>% data.frame()
+```
+
+```{r}
+# check for near-zero variance by column
+nz_col <- nearZeroVar(q_adults_vt, saveMetrics = T) %>%
+  data.frame() %>%
+  rownames_to_column("capacity") %>%
+  filter(nzv == T)
+
+q_adults_vt <- q_adults_vt %>%
+  select(-(nz_col$capacity))
+```
+
+```{r}
+qfa_vt_adults <- fa_fun(q_adults_vt, n = 2, chosen_rot = "none")
+```
+
+"Conventionally, a ratio of the first-to-second eigenvalue > 3:1... 
+
+```{r}
+qfa_vt_adults$Vaccounted %>%
+  data.frame() %>%
+  rownames_to_column("stat") %>%
+  mutate(ratio = F1/F2) %>%
+  filter(grepl("SS", stat))
+```
+
+"...plus no (or very few) negative loadings on the first factor..." 
+
+```{r}
+qfa_vt_adults$loadings[] %>%
+  data.frame() %>%
+  mutate(F1_neg = ifelse(F1 < 0, T, F)) %>%
+  count(F1_neg) %>%
+  mutate(prop = n/sum(n)) %>%
+  filter(F1_neg == T)
+```
+
+"...and a mean competence of (very roughly) around .5 (and preferably much higher) means you have consensus, and increases your confidence in the inference that it is a cultural consensus." 
+
+```{r}
+qfa_vt_adults$loadings[] %>%
+  data.frame() %>%
+  summarise(mean = mean(F1))
+```
+
+```{r, fig.width = 4, fig.asp = 0.5}
+qfa_vt_adults$loadings[] %>%
+  data.frame() %>%
+  rownames_to_column("subj_id") %>%
+  left_join(d_vt_adults %>% select(subj_id, target)) %>%
+  mutate(target = factor(target, levels = levels_target_univ)) %>%
+  gather(factor, loading, -c(subj_id, target)) %>%
+  distinct() %>%
+  ggplot(aes(x = target, y = loading, color = factor, fill = factor)) +
+  geom_hline(yintercept = 0.5, lty = 2, color = "gray50") +
+  geom_hline(yintercept = 0, lty = 1, color = "gray50") +
+  geom_jitter(height = 0, size = 0.1) +
+  scale_color_brewer(palette = "Set1", aesthetics = c("color", "fill")) +
+  geom_pointrange(data = . %>% group_by(target, factor) %>%
+                    multi_boot_standard(col = "loading") %>%
+                    ungroup(),
+                  position = position_dodge(width = 0.5),
+                  aes(y = mean, ymin = ci_lower, ymax = ci_upper),
+                  shape = 21,
+                  color = "black") +
+  labs(title = "Vanuatu adults",
+       subtitle = "F1: cultural competence, F2: residual agreement")
+```
+
+## Separate analyses by target
+
+```{r}
+qfa_vt_adults_rocks <- fa_fun(q_adults_vt %>% select(contains("rocks")),
+                              n = 2, chosen_rot = "none")
+qfa_vt_adults_flowers <- fa_fun(q_adults_vt %>% select(contains("flowers")),
+                                n = 2, chosen_rot = "none")
+qfa_vt_adults_beetles <- fa_fun(q_adults_vt %>% select(contains("beetles"),
+                                                       contains("crickets")), 
+                                n = 2, chosen_rot = "none")
+qfa_vt_adults_vtickens <- fa_fun(q_adults_vt %>% select(contains("chickens")), 
+                                 n = 2, chosen_rot = "none")
+qfa_vt_adults_mice <- fa_fun(q_adults_vt %>% select(contains("mice")), 
+                             n = 2, chosen_rot = "none")
+qfa_vt_adults_dogs <- fa_fun(q_adults_vt %>% select(contains("dogs")),
+                             n = 2, chosen_rot = "none")
+qfa_vt_adults_vtildren <- fa_fun(q_adults_vt %>% select(contains("children")),
+                                 n = 2, chosen_rot = "none")
+qfa_vt_adults_cellphones <- fa_fun(q_adults_vt %>% select(contains("cellphones")),
+                                   n = 2, chosen_rot = "none")
+qfa_vt_adults_ghosts <- fa_fun(q_adults_vt %>% select(contains("ghosts")), 
+                               n = 2, chosen_rot = "none")
+qfa_vt_adults_god <- fa_fun(q_adults_vt %>% select(contains("god")), 
+                            n = 2, chosen_rot = "none")
+```
+
+"Conventionally, a ratio of the first-to-second eigenvalue > 3:1...
+
+```{r}
+data.frame(rocks = qfa_vt_adults_rocks$Vaccounted[1,],
+           flowers = qfa_vt_adults_flowers$Vaccounted[1,],
+           beetles = qfa_vt_adults_beetles$Vaccounted[1,],
+           chickens = qfa_vt_adults_vtickens$Vaccounted[1,],
+           mice = qfa_vt_adults_mice$Vaccounted[1,],
+           dogs = qfa_vt_adults_dogs$Vaccounted[1,],
+           children = qfa_vt_adults_vtildren$Vaccounted[1,],
+           cellphones = qfa_vt_adults_cellphones$Vaccounted[1,],
+           ghosts = qfa_vt_adults_ghosts$Vaccounted[1,],
+           god = qfa_vt_adults_god$Vaccounted[1,]) %>%
+  t() %>%
+  data.frame() %>%
+  rownames_to_column("target") %>%
+  mutate(ratio = F1/F2)
+```
+
+"...plus no (or very few) negative loadings on the first factor..." 
+
+```{r}
+bind_rows(loadings_fun(qfa_vt_adults_rocks, long_wide = "wide"),
+          loadings_fun(qfa_vt_adults_flowers, long_wide = "wide"),
+          loadings_fun(qfa_vt_adults_beetles, long_wide = "wide"),
+          loadings_fun(qfa_vt_adults_vtickens, long_wide = "wide"),
+          loadings_fun(qfa_vt_adults_mice, long_wide = "wide"),
+          loadings_fun(qfa_vt_adults_dogs, long_wide = "wide"),
+          loadings_fun(qfa_vt_adults_vtildren, long_wide = "wide"),
+          loadings_fun(qfa_vt_adults_cellphones, long_wide = "wide"),
+          loadings_fun(qfa_vt_adults_ghosts, long_wide = "wide"),
+          loadings_fun(qfa_vt_adults_god, long_wide = "wide")) %>%
+  rename(subj_id = capacity) %>%
+  mutate(target = gsub("^.*_", "", subj_id),
+         target = factor(target, levels = levels_target_univ)) %>%
+  mutate(F1_neg = ifelse(F1 < 0, T, F)) %>%
+  count(target, F1_neg) %>%
+  complete(F1_neg, nesting(target), fill = list(n = 0)) %>%
+  group_by(target) %>%
+  mutate(prop = n/sum(n)) %>%
+  filter(F1_neg == T)
+```
+
+"...and a mean competence of (very roughly) around .5 (and preferably much higher) means you have consensus, and increases your confidence in the inference that it is a cultural consensus." 
+
+```{r}
+bind_rows(loadings_fun(qfa_vt_adults_rocks, long_wide = "wide"),
+          loadings_fun(qfa_vt_adults_flowers, long_wide = "wide"),
+          loadings_fun(qfa_vt_adults_beetles, long_wide = "wide"),
+          loadings_fun(qfa_vt_adults_vtickens, long_wide = "wide"),
+          loadings_fun(qfa_vt_adults_mice, long_wide = "wide"),
+          loadings_fun(qfa_vt_adults_dogs, long_wide = "wide"),
+          loadings_fun(qfa_vt_adults_vtildren, long_wide = "wide"),
+          loadings_fun(qfa_vt_adults_cellphones, long_wide = "wide"),
+          loadings_fun(qfa_vt_adults_ghosts, long_wide = "wide"),
+          loadings_fun(qfa_vt_adults_god, long_wide = "wide")) %>%
+  rename(subj_id = capacity) %>%
+  mutate(target = gsub("^.*_", "", subj_id),
+         target = factor(target, levels = levels_target_univ)) %>%
+  group_by(target) %>%
+  summarise(mean = mean(F1))
+```
+
+```{r, fig.width = 4, fig.asp = 0.5}
+bind_rows(loadings_fun(qfa_vt_adults_rocks, long_wide = "wide"),
+          loadings_fun(qfa_vt_adults_flowers, long_wide = "wide"),
+          loadings_fun(qfa_vt_adults_beetles, long_wide = "wide"),
+          loadings_fun(qfa_vt_adults_vtickens, long_wide = "wide"),
+          loadings_fun(qfa_vt_adults_mice, long_wide = "wide"),
+          loadings_fun(qfa_vt_adults_dogs, long_wide = "wide"),
+          loadings_fun(qfa_vt_adults_vtildren, long_wide = "wide"),
+          loadings_fun(qfa_vt_adults_cellphones, long_wide = "wide"),
+          loadings_fun(qfa_vt_adults_ghosts, long_wide = "wide"),
+          loadings_fun(qfa_vt_adults_god, long_wide = "wide")) %>%
+  rename(subj_id = capacity) %>%
+  mutate(target = gsub("^.*_", "", subj_id),
+         target = factor(target, levels = levels_target_univ)) %>%
+  gather(factor, loading, -c(subj_id, target)) %>%
+  distinct() %>%
+  ggplot(aes(x = target, y = loading, color = factor, fill = factor)) +
+  geom_hline(yintercept = 0.5, lty = 2, color = "gray50") +
+  geom_hline(yintercept = 0, lty = 1, color = "gray50") +
+  geom_jitter(height = 0, size = 0.1) +
+  scale_color_brewer(palette = "Set1", aesthetics = c("color", "fill")) +
+  geom_pointrange(data = . %>% group_by(target, factor) %>%
+                    multi_boot_standard(col = "loading") %>%
+                    ungroup(),
+                  position = position_dodge(width = 0.5),
+                  aes(y = mean, ymin = ci_lower, ymax = ci_upper),
+                  shape = 21,
+                  color = "black") +
+  labs(title = "Vanuatu adults (separate CCAs by target)",
+       subtitle = "F1: cultural competence, F2: residual agreement")
+```
+
+
+# CCA: All adults
+
+## Single analysis with all targets
+
+```{r}
+q_adults_all <- bind_rows(d_us_adults_w %>% rownames_to_column("subj_id"), 
+                          d_gh_adults_w %>% rownames_to_column("subj_id"), 
+                          d_th_adults_w %>% rownames_to_column("subj_id"),
+                          d_ch_adults_w %>% rownames_to_column("subj_id"), 
+                          d_vt_adults_w %>% rownames_to_column("subj_id")) %>% 
+  column_to_rownames("subj_id") %>%
+  # remove participants who skipped questions
+  drop_na() %>% 
+  t() %>% 
+  data.frame()
+```
+
+```{r}
+# check for near-zero variance by column
+nz_col <- nearZeroVar(q_adults_all, saveMetrics = T) %>%
+  data.frame() %>%
+  rownames_to_column("capacity") %>%
+  filter(nzv == T)
+
+q_adults_all <- q_adults_all %>%
+  select(-(nz_col$capacity))
+```
+
+```{r}
+qfa_all_adults <- fa_fun(q_adults_all, n = 2, chosen_rot = "none")
+```
+
+"Conventionally, a ratio of the first-to-second eigenvalue > 3:1... 
+
+```{r}
+qfa_all_adults$Vaccounted %>%
+  data.frame() %>%
+  rownames_to_column("stat") %>%
+  mutate(ratio = F1/F2)
+```
+
+"...plus no (or very few) negative loadings on the first factor..." 
+
+```{r}
+qfa_all_adults$loadings[] %>%
+  data.frame() %>%
+  mutate(F1_neg = ifelse(F1 < 0, T, F)) %>%
+  count(F1_neg) %>%
+  mutate(prop = n/sum(n))
+```
+"...and a mean competence of (very roughly) around .5 (and preferably much higher) means you have consensus, and increases your confidence in the inference that it is a cultural consensus."
+
+```{r}
+qfa_all_adults$loadings[] %>%
+  data.frame() %>%
+  summarise(mean = mean(F1))
+```
+
+```{r}
+qfa_all_adults$loadings[] %>%
+  data.frame() %>%
+  rownames_to_column("subj_id") %>%
+  left_join(bind_rows(d_us_adults %>% select(subj_id, target),
+                      d_gh_adults %>% select(subj_id, target),
+                      d_th_adults %>% select(subj_id, target),
+                      d_ch_adults %>% select(subj_id, target),
+                      d_vt_adults %>% select(subj_id, target))) %>%
+  group_by(target) %>%
+  summarise(mean_F1 = mean(F1),
+            mean_F2 = mean(F2)) %>%
+  ungroup() %>%
+  arrange(mean_F1)
+```
+
+```{r, fig.width = 6, fig.asp = 0.3}
+qfa_all_adults$loadings[] %>%
+  data.frame() %>%
+  rownames_to_column("subj_id") %>%
+  left_join(bind_rows(d_us_adults %>% select(subj_id, target),
+                      d_gh_adults %>% select(subj_id, target),
+                      d_th_adults %>% select(subj_id, target),
+                      d_ch_adults %>% select(subj_id, target),
+                      d_vt_adults %>% select(subj_id, target))) %>%
+  mutate(target = factor(target, levels = levels_target_univ),
+         country = gsub("_.*$", "", subj_id),
+         country = factor(country, 
+                          levels = c("us", "gh", "th", "ch", "vt"),
+                          labels = levels_country)) %>%
+  gather(factor, loading, -c(subj_id, country, target)) %>%
+  distinct() %>%
+  ggplot(aes(x = target, y = loading, color = factor, fill = factor)) +
+  facet_grid(~ country) +
+  geom_hline(yintercept = 0.5, lty = 2, color = "gray50") +
+  geom_hline(yintercept = 0, lty = 1, color = "gray50") +
+  geom_jitter(height = 0, size = 0.1) +
+  scale_color_brewer(palette = "Set1", aesthetics = c("color", "fill")) +
+  geom_pointrange(data = . %>% group_by(country, target, factor) %>%
+                    multi_boot_standard(col = "loading") %>%
+                    ungroup(),
+                  position = position_dodge(width = 0.5),
+                  aes(y = mean, ymin = ci_lower, ymax = ci_upper),
+                  shape = 21,
+                  color = "black") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1)) +
+  labs(title = "All adults",
+       subtitle = "F1: cultural competence, F2: residual agreement")
+```
+
+```{r, fig.width = 6, fig.asp = 0.3}
+qfa_all_adults$loadings[] %>%
+  data.frame() %>%
+  rownames_to_column("subj_id") %>%
+  left_join(bind_rows(d_us_adults %>% select(subj_id, target),
+                      d_gh_adults %>% select(subj_id, target),
+                      d_th_adults %>% select(subj_id, target),
+                      d_ch_adults %>% select(subj_id, target),
+                      d_vt_adults %>% select(subj_id, target))) %>%
+  mutate(target = factor(target, levels = levels_target_univ),
+         country = gsub("_.*$", "", subj_id),
+         country = factor(country, 
+                          levels = c("us", "gh", "th", "ch", "vt"),
+                          labels = levels_country)) %>%
+  gather(factor, loading, -c(subj_id, country, target)) %>%
+  distinct() %>%
+  ggplot(aes(x = country, y = loading, color = factor, fill = factor)) +
+  facet_grid(~ target) +
+  geom_hline(yintercept = 0.5, lty = 2, color = "gray50") +
+  geom_hline(yintercept = 0, lty = 1, color = "gray50") +
+  geom_jitter(height = 0, size = 0.1) +
+  scale_color_brewer(palette = "Set1", aesthetics = c("color", "fill")) +
+  geom_pointrange(data = . %>% group_by(country, target, factor) %>%
+                    multi_boot_standard(col = "loading") %>%
+                    ungroup(),
+                  position = position_dodge(width = 0.5),
+                  aes(y = mean, ymin = ci_lower, ymax = ci_upper),
+                  shape = 21,
+                  color = "black") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1)) +
+  labs(title = "All adults (separate CCAs by target, pooled across samples)",
+       subtitle = "F1: cultural competence, F2: residual agreement",
+       caption = "Error bars are bootstrapped 95% CIs")
+```
+
+```{r, fig.width = 4, fig.asp = 1}
+qfa_all_adults$loadings[] %>%
+  data.frame() %>%
+  rownames_to_column("subj_id") %>%
+  left_join(bind_rows(d_us_adults %>% select(subj_id, target),
+                      d_gh_adults %>% select(subj_id, target),
+                      d_th_adults %>% select(subj_id, target),
+                      d_ch_adults %>% select(subj_id, target),
+                      d_vt_adults %>% select(subj_id, target))) %>%
+  mutate(target = factor(target, levels = levels_target_univ),
+         country = gsub("_.*$", "", subj_id),
+         country = factor(country, 
+                          levels = c("us", "gh", "th", "ch", "vt"),
+                          labels = levels_country)) %>%
+  gather(factor, loading, -c(subj_id, country, target)) %>%
+  distinct() %>%
+  ggplot(aes(x = country, y = loading, color = factor, fill = factor)) +
+  facet_wrap(~ target, ncol = 3) +
+  geom_hline(yintercept = 0.5, lty = 2, color = "gray50") +
+  geom_hline(yintercept = 0, lty = 1, color = "gray50") +
+  geom_jitter(height = 0, size = 0.1) +
+  scale_color_brewer(palette = "Set1", aesthetics = c("color", "fill")) +
+  geom_pointrange(data = . %>% group_by(country, target, factor) %>%
+                    multi_boot_standard(col = "loading") %>%
+                    ungroup(),
+                  position = position_dodge(width = 0.5),
+                  aes(y = mean, ymin = ci_lower, ymax = ci_upper),
+                  shape = 21,
+                  color = "black") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1)) +
+  labs(title = "All adults",
+       subtitle = "F1: cultural competence, F2: residual agreement")
+```
+
+```{r, fig.width = 4, fig.asp = 0.5}
+qfa_all_adults$loadings[] %>%
+  data.frame() %>%
+  rownames_to_column("subj_id") %>%
+  left_join(bind_rows(d_us_adults %>% select(subj_id, target),
+                      d_gh_adults %>% select(subj_id, target),
+                      d_th_adults %>% select(subj_id, target),
+                      d_ch_adults %>% select(subj_id, target),
+                      d_vt_adults %>% select(subj_id, target))) %>%
+  mutate(target = factor(target, levels = levels_target_univ),
+         country = gsub("_.*$", "", subj_id),
+         country = factor(country, 
+                          levels = c("us", "gh", "th", "ch", "vt"),
+                          labels = levels_country)) %>%
+  gather(factor, loading, -c(subj_id, country, target)) %>%
+  distinct() %>%
+  ggplot(aes(x = country, y = loading, color = factor, fill = factor)) +
+  # facet_wrap(~ target, ncol = 3) +
+  geom_hline(yintercept = 0.5, lty = 2, color = "gray50") +
+  geom_hline(yintercept = 0, lty = 1, color = "gray50") +
+  geom_jitter(height = 0, size = 0.1) +
+  scale_color_brewer(palette = "Set1", aesthetics = c("color", "fill")) +
+  geom_pointrange(data = . %>% group_by(country, factor) %>%
+                    multi_boot_standard(col = "loading") %>%
+                    ungroup(),
+                  position = position_dodge(width = 0.5),
+                  aes(y = mean, ymin = ci_lower, ymax = ci_upper),
+                  shape = 21,
+                  color = "black") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1)) +
+  labs(title = "All adults",
+       subtitle = "F1: cultural competence, F2: residual agreement")
+```
+
+## Separate analyses by target
+
+```{r}
+qfa_all_adults_rocks <- fa_fun(q_adults_all %>% select(contains("rocks")),
+                               n = 2, chosen_rot = "none")
+qfa_all_adults_flowers <- fa_fun(q_adults_all %>% select(contains("flowers")),
+                                 n = 2, chosen_rot = "none")
+qfa_all_adults_beetles <- fa_fun(q_adults_all %>% select(contains("beetles"),
+                                                         contains("crickets")), 
+                                 n = 2, chosen_rot = "none")
+qfa_all_adults_allickens <- fa_fun(q_adults_all %>% select(contains("chickens")), 
+                                   n = 2, chosen_rot = "none")
+qfa_all_adults_mice <- fa_fun(q_adults_all %>% select(contains("mice")), 
+                              n = 2, chosen_rot = "none")
+qfa_all_adults_dogs <- fa_fun(q_adults_all %>% select(contains("dogs")),
+                              n = 2, chosen_rot = "none")
+qfa_all_adults_allildren <- fa_fun(q_adults_all %>% select(contains("children")),
+                                   n = 2, chosen_rot = "none")
+qfa_all_adults_cellphones <- fa_fun(q_adults_all %>% select(contains("cellphones")),
+                                    n = 2, chosen_rot = "none")
+qfa_all_adults_ghosts <- fa_fun(q_adults_all %>% select(contains("ghosts")), 
+                                n = 2, chosen_rot = "none")
+qfa_all_adults_god <- fa_fun(q_adults_all %>% select(contains("god")), 
+                             n = 2, chosen_rot = "none")
+```
+
+"Conventionally, a ratio of the first-to-second eigenvalue > 3:1...
+
+```{r}
+data.frame(rocks = qfa_all_adults_rocks$Vaccounted[1,],
+           flowers = qfa_all_adults_flowers$Vaccounted[1,],
+           beetles = qfa_all_adults_beetles$Vaccounted[1,],
+           chickens = qfa_all_adults_allickens$Vaccounted[1,],
+           mice = qfa_all_adults_mice$Vaccounted[1,],
+           dogs = qfa_all_adults_dogs$Vaccounted[1,],
+           children = qfa_all_adults_allildren$Vaccounted[1,],
+           cellphones = qfa_all_adults_cellphones$Vaccounted[1,],
+           ghosts = qfa_all_adults_ghosts$Vaccounted[1,],
+           god = qfa_all_adults_god$Vaccounted[1,]) %>%
+  t() %>%
+  data.frame() %>%
+  rownames_to_column("target") %>%
+  mutate(ratio = F1/F2)
+```
+
+"...plus no (or very few) negative loadings on the first factor..." 
+
+```{r}
+bind_rows(loadings_fun(qfa_all_adults_rocks, long_wide = "wide"),
+          loadings_fun(qfa_all_adults_flowers, long_wide = "wide"),
+          loadings_fun(qfa_all_adults_beetles, long_wide = "wide"),
+          loadings_fun(qfa_all_adults_allickens, long_wide = "wide"),
+          loadings_fun(qfa_all_adults_mice, long_wide = "wide"),
+          loadings_fun(qfa_all_adults_dogs, long_wide = "wide"),
+          loadings_fun(qfa_all_adults_allildren, long_wide = "wide"),
+          loadings_fun(qfa_all_adults_cellphones, long_wide = "wide"),
+          loadings_fun(qfa_all_adults_ghosts, long_wide = "wide"),
+          loadings_fun(qfa_all_adults_god, long_wide = "wide")) %>%
+  rename(subj_id = capacity) %>%
+  mutate(target = gsub("^.*_", "", subj_id),
+         target = factor(target, levels = levels_target_univ)) %>%
+  mutate(F1_neg = ifelse(F1 < 0, T, F)) %>%
+  count(target, F1_neg) %>%
+  complete(F1_neg, nesting(target), fill = list(n = 0)) %>%
+  group_by(target) %>%
+  mutate(prop = n/sum(n)) %>%
+  filter(F1_neg == T)
+```
+
+"...and a mean competence of (very roughly) around .5 (and preferably much higher) means you have consensus, and increases your confidence in the inference that it is a cultural consensus." 
+
+```{r}
+bind_rows(loadings_fun(qfa_all_adults_rocks, long_wide = "wide"),
+          loadings_fun(qfa_all_adults_flowers, long_wide = "wide"),
+          loadings_fun(qfa_all_adults_beetles, long_wide = "wide"),
+          loadings_fun(qfa_all_adults_allickens, long_wide = "wide"),
+          loadings_fun(qfa_all_adults_mice, long_wide = "wide"),
+          loadings_fun(qfa_all_adults_dogs, long_wide = "wide"),
+          loadings_fun(qfa_all_adults_allildren, long_wide = "wide"),
+          loadings_fun(qfa_all_adults_cellphones, long_wide = "wide"),
+          loadings_fun(qfa_all_adults_ghosts, long_wide = "wide"),
+          loadings_fun(qfa_all_adults_god, long_wide = "wide")) %>%
+  rename(subj_id = capacity) %>%
+  mutate(target = gsub("^.*_", "", subj_id),
+         target = factor(target, levels = levels_target_univ)) %>%
+  group_by(target) %>%
+  summarise(mean = mean(F1))
+```
+
+```{r, fig.width = 4, fig.asp = 0.5}
+bind_rows(loadings_fun(qfa_all_adults_rocks, long_wide = "wide"),
+          loadings_fun(qfa_all_adults_flowers, long_wide = "wide"),
+          loadings_fun(qfa_all_adults_beetles, long_wide = "wide"),
+          loadings_fun(qfa_all_adults_allickens, long_wide = "wide"),
+          loadings_fun(qfa_all_adults_mice, long_wide = "wide"),
+          loadings_fun(qfa_all_adults_dogs, long_wide = "wide"),
+          loadings_fun(qfa_all_adults_allildren, long_wide = "wide"),
+          loadings_fun(qfa_all_adults_cellphones, long_wide = "wide"),
+          loadings_fun(qfa_all_adults_ghosts, long_wide = "wide"),
+          loadings_fun(qfa_all_adults_god, long_wide = "wide")) %>%
+  rename(subj_id = capacity) %>%
+  mutate(country = gsub("_.*$", "", subj_id),
+         country = factor(country, 
+                          levels = c("us", "gh", "th", "ch", "vt"),
+                          labels = levels_country),
+         target = gsub("^.*_", "", subj_id),
+         target = factor(target,
+                         levels = levels_target_univ)) %>%
+  gather(factor, loading, -c(subj_id, country, target)) %>%
+  distinct() %>%
+  ggplot(aes(x = target, y = loading, color = factor, fill = factor)) +
+  facet_grid(cols = vars(country)) +
+  geom_hline(yintercept = 0.5, lty = 2, color = "gray50") +
+  geom_hline(yintercept = 0, lty = 1, color = "gray50") +
+  geom_jitter(height = 0, size = 0.1) +
+  scale_color_brewer(palette = "Set1", aesthetics = c("color", "fill")) +
+  geom_pointrange(data = . %>% group_by(target, factor) %>%
+                    multi_boot_standard(col = "loading") %>%
+                    ungroup(),
+                  position = position_dodge(width = 0.5),
+                  aes(y = mean, ymin = ci_lower, ymax = ci_upper),
+                  shape = 21,
+                  color = "black") +
+  labs(title = "All adults (separate CCAs by target)",
+       subtitle = "F1: cultural competence, F2: residual agreement") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1))
+```
+
+```{r, fig.width = 6, fig.asp = 0.3}
+qfa_all_adults$loadings[] %>%
+  data.frame() %>%
+  rownames_to_column("subj_id") %>%
+  left_join(bind_rows(d_us_adults %>% select(subj_id, target),
+                      d_gh_adults %>% select(subj_id, target),
+                      d_th_adults %>% select(subj_id, target),
+                      d_ch_adults %>% select(subj_id, target),
+                      d_vt_adults %>% select(subj_id, target))) %>%
+  mutate(target = factor(target, levels = levels_target_univ),
+         country = gsub("_.*$", "", subj_id),
+         country = factor(country, 
+                          levels = c("us", "gh", "th", "ch", "vt"),
+                          labels = levels_country)) %>%
+  gather(factor, loading, -c(subj_id, country, target)) %>%
+  distinct() %>%
+  ggplot(aes(x = target, y = loading, color = factor, fill = factor)) +
+  facet_grid(~ country) +
+  geom_hline(yintercept = 0.5, lty = 2, color = "gray50") +
+  geom_hline(yintercept = 0, lty = 1, color = "gray50") +
+  geom_jitter(height = 0, size = 0.1) +
+  scale_color_brewer(palette = "Set1", aesthetics = c("color", "fill")) +
+  geom_pointrange(data = . %>% group_by(country, target, factor) %>%
+                    multi_boot_standard(col = "loading") %>%
+                    ungroup(),
+                  position = position_dodge(width = 0.5),
+                  aes(y = mean, ymin = ci_lower, ymax = ci_upper),
+                  shape = 21,
+                  color = "black") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1)) +
+  labs(title = "All adults",
+       subtitle = "F1: cultural competence, F2: residual agreement")
+```
+
+```{r, fig.width = 4, fig.asp = 1}
+qfa_all_adults$loadings[] %>%
+  data.frame() %>%
+  rownames_to_column("subj_id") %>%
+  left_join(bind_rows(d_us_adults %>% select(subj_id, target),
+                      d_gh_adults %>% select(subj_id, target),
+                      d_th_adults %>% select(subj_id, target),
+                      d_ch_adults %>% select(subj_id, target),
+                      d_vt_adults %>% select(subj_id, target))) %>%
+  mutate(target = factor(target, levels = levels_target_univ),
+         country = gsub("_.*$", "", subj_id),
+         country = factor(country, 
+                          levels = c("us", "gh", "th", "ch", "vt"),
+                          labels = levels_country)) %>%
+  gather(factor, loading, -c(subj_id, country, target)) %>%
+  distinct() %>%
+  ggplot(aes(x = country, y = loading, color = factor, fill = factor)) +
+  facet_wrap(~ target, ncol = 3) +
+  geom_hline(yintercept = 0.5, lty = 2, color = "gray50") +
+  geom_hline(yintercept = 0, lty = 1, color = "gray50") +
+  geom_jitter(height = 0, size = 0.1) +
+  scale_color_brewer(palette = "Set1", aesthetics = c("color", "fill")) +
+  geom_pointrange(data = . %>% group_by(country, target, factor) %>%
+                    multi_boot_standard(col = "loading") %>%
+                    ungroup(),
+                  position = position_dodge(width = 0.5),
+                  aes(y = mean, ymin = ci_lower, ymax = ci_upper),
+                  shape = 21,
+                  color = "black") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1)) +
+  labs(title = "All adults",
+       subtitle = "F1: cultural competence, F2: residual agreement")
+```
+
+```{r, fig.width = 4, fig.asp = 0.5}
+qfa_all_adults$loadings[] %>%
+  data.frame() %>%
+  rownames_to_column("subj_id") %>%
+  left_join(bind_rows(d_us_adults %>% select(subj_id, target),
+                      d_gh_adults %>% select(subj_id, target),
+                      d_th_adults %>% select(subj_id, target),
+                      d_ch_adults %>% select(subj_id, target),
+                      d_vt_adults %>% select(subj_id, target))) %>%
+  mutate(target = factor(target, levels = levels_target_univ),
+         country = gsub("_.*$", "", subj_id),
+         country = factor(country, 
+                          levels = c("us", "gh", "th", "ch", "vt"),
+                          labels = levels_country)) %>%
+  gather(factor, loading, -c(subj_id, country, target)) %>%
+  distinct() %>%
+  ggplot(aes(x = country, y = loading, color = factor, fill = factor)) +
+  # facet_wrap(~ target, ncol = 3) +
+  geom_hline(yintercept = 0.5, lty = 2, color = "gray50") +
+  geom_hline(yintercept = 0, lty = 1, color = "gray50") +
+  geom_jitter(height = 0, size = 0.1) +
+  scale_color_brewer(palette = "Set1", aesthetics = c("color", "fill")) +
+  geom_pointrange(data = . %>% group_by(country, factor) %>%
+                    multi_boot_standard(col = "loading") %>%
+                    ungroup(),
+                  position = position_dodge(width = 0.5),
+                  aes(y = mean, ymin = ci_lower, ymax = ci_upper),
+                  shape = 21,
+                  color = "black") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1)) +
+  labs(title = "All adults",
+       subtitle = "F1: cultural competence, F2: residual agreement")
+```
+
+
+
+
+
+# Alpha
+
+```{r, results = "hide"}
+q_alpha_adults <- data.frame(
+  US = alpha_fun(q_adults_us, 
+                 which_country = "ALL", 
+                 which_vars = colnames(q_adults_us)),
+  Ghana = alpha_fun(q_adults_gh, 
+                    which_country = "ALL", 
+                    which_vars = colnames(q_adults_gh)),
+  Thailand = alpha_fun(q_adults_th, 
+                       which_country = "ALL", 
+                       which_vars = colnames(q_adults_th)),
+  China = alpha_fun(q_adults_ch, 
+                    which_country = "ALL", 
+                    which_vars = colnames(q_adults_ch)),
+  Vanuatu = alpha_fun(q_adults_vt, 
+                      which_country = "ALL", 
+                      which_vars = colnames(q_adults_vt)),
+  ALL = alpha_fun(q_adults_all, 
+                  which_country = "ALL", 
+                  which_vars = colnames(q_adults_vt)))
+```
+
+```{r}
+q_alpha_adults
+```
+

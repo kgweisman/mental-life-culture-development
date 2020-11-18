@@ -1,0 +1,4049 @@
+---
+title: "Concepts of mental life across cultures: Fit between individuals and cultural modesl"
+authors: "Weisman, Legare, & Luhrmann"
+output: 
+  html_notebook:
+    toc: true
+    toc_float: true
+---
+
+```{r setup}
+knitr::opts_chunk$set(echo = F, message = F)
+```
+
+```{r}
+library(betareg)
+library(lme4)
+library(lmerTest)
+```
+
+In this notebook we conduct exploratory factor analyses (EFAs) on the datasets for our studies of concepts of mental life, in which each participants judged the various mental capacities of a particular target entity. We analyze datasets for adults and children from each of our five field sites: the Ghana, Ghana, Thailand, China, and Vanuatu. 
+      
+This notebook contains an exploration of how well the cultural model represented by the EFA solution describes the responses of individuals within that culture, and whether this "fit" between individtual and cultural model varies along demographic lines.
+
+NOTE: As of now, the "efa_oblique.Rmd" notebook must be run prior to this notebook.
+
+```{r}
+# read in participant logs for full demographics
+plog_us_adults <- read_csv("../demographics/plog_us_adults.csv") %>%
+  mutate(gender = factor(gender, 
+                         levels = c("F", "M"),
+                         labels = c("female", "male")),
+         education_catX = case_when(
+           education_cat %in% c("less than high school", "some high school") ~ "less than high school degree", 
+           education_cat %in% c("ged", "high school") ~ "high school degree",
+           education_cat %in% c("trade/certificate") ~ "trade/certificate",
+           education_cat %in% c("associates", "some college") ~ "some college",
+           education_cat %in% c("bachelors", "other college degree") ~ "college degree",
+           education_cat %in% c("masters", "some graduate school") ~ "masters",
+           education_cat %in% c("phd", "professional degree") ~ "profesional degree"),
+         education_catX = factor(education_catX,
+                                 levels = c("less than high school degree", "high school degree",
+                                            "trade/certificate", "some college", "college degree",
+                                            "masters", "professional degree")),
+         education_cat2 = case_when(
+           education_catX %in% c("less than high school degree", "high school degree", "trade/certificate") ~ "no college",
+           education_catX %in% c("some college", "college degree", "masters", "professional degree") ~ "at least some college",
+           TRUE ~ NA_character_),
+         education_cat2 = factor(education_cat2, levels = c("no college", "at least some college")),
+         ethnicity_cat2 = case_when(ethnicity_cat == "white" ~ "White",
+                                    is.na(ethnicity_cat) ~ NA_character_,
+                                    TRUE ~ "POC"),
+         ethnicity_cat2 = factor(ethnicity_cat2,
+                                 levels = c("White", "POC")),
+         urban_rural_cat2 = case_when(urban_rural_cat == "rural" ~ "rural",
+                                      is.na(urban_rural_cat) ~ NA_character_,
+                                      TRUE ~ "urban (etc.)"),
+         urban_rural_cat2 = factor(urban_rural_cat2,
+                                   levels = c("urban (etc.)", "rural")),
+         class_cat = factor(class_cat,
+                            levels = c("lower/working class", "lower middle", 
+                                       "middle", "upper middle", "upper")),
+         class_cat2 = factor(class_cat2,
+                             levels = c("lower", "middle", "upper")),
+         religion_cat3 = case_when(religion_cat == "christian" ~ "Christian",
+                                   religion_cat %in% c("na", "none") ~ "None",
+                                   is.na(religion_cat) ~ NA_character_,
+                                   TRUE ~ "Other religious"),
+         religion_cat3 = factor(religion_cat3,
+                                levels = c("None", "Christian", "Other religious")))
+
+plog_gh_adults <- read_csv("../demographics/plog_gh_adults.csv") %>%
+  mutate(gender = factor(gender, 
+                         levels = c("f", "m"),
+                         labels = c("female", "male")),
+         education_catX = case_when(
+           education_cat %in% c("less than high school", "some high school") ~ "less than high school degree", 
+           education_cat %in% c("ged", "high school") ~ "high school degree",
+           education_cat %in% c("trade/certificate") ~ "trade/certificate",
+           education_cat %in% c("associates", "some college") ~ "some college",
+           education_cat %in% c("bachelors", "other college degree") ~ "college degree",
+           education_cat %in% c("masters", "some graduate school") ~ "masters",
+           education_cat %in% c("phd", "professional degree") ~ "profesional degree"),
+         education_catX = factor(education_catX,
+                                 levels = c("less than high school degree", "high school degree",
+                                            "trade/certificate", "some college", "college degree",
+                                            "masters", "professional degree")),
+         education_cat2 = case_when(
+           education_catX %in% c("less than high school degree") ~ "no degree",
+           education_catX %in% c("high school degree", "trade/certificate",
+                                 "some college", "college degree", "masters", "professional degree") ~ "at least HS degree",
+           TRUE ~ NA_character_),
+         education_cat2 = factor(education_cat2, levels = c("no degree", "at least HS degree")),
+         ethnicity_cat2 = case_when(ethnicity_cat == "fante" ~ "Fante",
+                                    is.na(ethnicity_cat) ~ NA_character_,
+                                    TRUE ~ "other"),
+         ethnicity_cat2 = factor(ethnicity_cat2,
+                                 levels = c("Fante", "other")),
+         urban_rural_cat2 = case_when(urban_rural_cat == "rural" ~ "rural",
+                                      is.na(urban_rural_cat) ~ NA_character_,
+                                      TRUE ~ "urban (etc.)"),
+         urban_rural_cat2 = factor(urban_rural_cat2,
+                                   levels = c("urban (etc.)", "rural")),
+         class_cat = factor(class_cat,
+                            levels = c("lower/working class", "lower middle", 
+                                       "middle", "upper middle", "upper")),
+         class_cat2 = factor(class_cat2,
+                             levels = c("lower", "middle", "upper")),
+         religion_cat3 = case_when(religion_cat == "christian" ~ "Christian",
+                                   religion_cat %in% c("na", "none") ~ "None",
+                                   is.na(religion_cat) ~ NA_character_,
+                                   TRUE ~ "Other religious"),
+         religion_cat3 = factor(religion_cat3,
+                                levels = c("None", "Christian", "Other religious")))
+
+plog_th_adults <- read_csv("../demographics/plog_th_adults.csv") %>%
+  mutate(gender = factor(gender, 
+                         levels = c("F", "M", "O"),
+                         labels = c("female", "male", "other")),
+         education_catX = case_when(
+           education_cat %in% c("less than high school", "some high school") ~ "less than high school degree", 
+           education_cat %in% c("ged", "high school") ~ "high school degree",
+           education_cat %in% c("trade/certificate") ~ "trade/certificate",
+           education_cat %in% c("associates", "some college") ~ "some college",
+           education_cat %in% c("bachelors", "other college degree") ~ "college degree",
+           education_cat %in% c("masters", "some graduate school") ~ "masters",
+           education_cat %in% c("phd", "professional degree") ~ "profesional degree"),
+         education_catX = factor(education_catX,
+                                 levels = c("less than high school degree", "high school degree",
+                                            "trade/certificate", "some college", "college degree",
+                                            "masters", "professional degree")),
+         education_cat2 = case_when(
+           education_catX %in% c("less than high school degree", "high school degree", "trade/certificate") ~ "no college",
+           education_catX %in% c("some college", "college degree", "masters", "professional degree") ~ "at least some college",
+           TRUE ~ NA_character_),
+         education_cat2 = factor(education_cat2, levels = c("no college", "at least some college")),
+         ethnicity_cat2 = case_when(ethnicity_cat == "Thai" ~ "Thai",
+                                    ethnicity_cat == "Not trans" ~ NA_character_,
+                                    is.na(ethnicity_cat) ~ NA_character_,
+                                    TRUE ~ "other"),
+         ethnicity_cat2 = factor(ethnicity_cat2,
+                                 levels = c("White", "POC")),
+         urban_rural_cat2 = case_when(urban_rural_cat == "Rural" ~ "rural",
+                                      urban_rural_cat == "Urban" ~ "urban (etc.)",
+                                      TRUE ~ NA_character_),
+         urban_rural_cat2 = factor(urban_rural_cat2,
+                                   levels = c("urban (etc.)", "rural")),
+         class_cat = factor(class_cat,
+                            levels = c("lower/working class", "lower middle", 
+                                       "middle", "upper middle", "upper")),
+         class_cat2 = factor(class_cat2,
+                             levels = c("lower", "middle", "upper")),
+         religion_cat3 = case_when(religion_cat == "buddhist" ~ "Buddhist",
+                                   religion_cat %in% c("no religion") ~ "None",
+                                   is.na(religion_cat) ~ NA_character_,
+                                   TRUE ~ "Other religious"),
+         religion_cat3 = factor(religion_cat3,
+                                levels = c("None", "Buddhist", "Other religious")))
+
+plog_ch_adults <- read_csv("../demographics/plog_ch_adults.csv") %>%
+  mutate(gender = factor(gender, 
+                         levels = c("Female", "Male"),
+                         labels = c("female", "male")),
+         education_catX = case_when(
+           education_cat %in% c("less than high school", "some high school") ~ "less than high school degree", 
+           education_cat %in% c("ged", "high school") ~ "high school degree",
+           education_cat %in% c("trade/certificate") ~ "trade/certificate",
+           education_cat %in% c("associates", "some college") ~ "some college",
+           education_cat %in% c("bachelors", "other college degree") ~ "college degree",
+           education_cat %in% c("masters", "some graduate school") ~ "masters",
+           education_cat %in% c("phd", "professional degree") ~ "profesional degree"),
+         education_catX = factor(education_catX,
+                                 levels = c("less than high school degree", "high school degree",
+                                            "trade/certificate", "some college", "college degree",
+                                            "masters", "professional degree")),
+         education_cat2 = case_when(
+           education_catX %in% c("less than high school degree", "high school degree", "trade/certificate") ~ "no college",
+           education_catX %in% c("some college", "college degree", "masters", "professional degree") ~ "at least some college",
+           TRUE ~ NA_character_),
+         education_cat2 = factor(education_cat2, levels = c("no college", "at least some college")),
+         ethnicity_cat2 = case_when(ethnicity_cat == "han" ~ "Han",
+                                    is.na(ethnicity_cat) ~ NA_character_,
+                                    TRUE ~ "Other"),
+         ethnicity_cat2 = factor(ethnicity_cat2,
+                                 levels = c("Han", "Other")),
+         urban_rural_cat2 = case_when(urban_rural_cat == "rural" ~ "rural",
+                                      is.na(urban_rural_cat) ~ NA_character_,
+                                      TRUE ~ "urban (etc.)"),
+         urban_rural_cat2 = factor(urban_rural_cat2,
+                                   levels = c("urban (etc.)", "rural")),
+         class_cat = factor(class_cat,
+                            levels = c("lower/working class", "lower middle", 
+                                       "middle", "upper middle", "upper")),
+         class_cat2 = factor(class_cat2,
+                             levels = c("lower", "middle", "upper")),
+         religion_cat3 = case_when(religion_cat == "buddhist" ~ "Buddhist",
+                                   religion_cat %in% c("na", "none", "communist party") ~ "None",
+                                   is.na(religion_cat) ~ NA_character_,
+                                   TRUE ~ "Other religious"),
+         religion_cat3 = factor(religion_cat3,
+                                levels = c("None", "Buddhist", "Other religious")))
+
+plog_vt_adults <- read_csv("../demographics/plog_vt_adults.csv") %>%
+  mutate(gender = factor(gender, 
+                         levels = c("F", "M"),
+                         labels = c("female", "male")))
+```
+
+```{r}
+plog_us_children <- read_csv("../demographics/plog_us_children.csv") %>%
+  mutate(gender = factor(gender, 
+                         levels = c("F", "M"),
+                         labels = c("female", "male")),
+         ethnicity_cat2 = case_when(grepl("white", ethnicity_cat) |
+                                      ethnicity_cat == "irish" ~ "White",
+                                    is.na(ethnicity_cat) ~ NA_character_,
+                                    TRUE ~ "POC"),
+         ethnicity_cat2 = factor(ethnicity_cat2,
+                                 levels = c("White", "POC")),
+         religion_cat3 = case_when(
+           religion_cat == "christian" | grepl("lutheran", religion_cat) | 
+             religion_cat %in% c("presbyterian", "protestant") ~ "Christian",
+           religion_cat %in% c("na", "none", "agnostic", "atheist", "healthy", 
+                               "limited", "not religious", "secular") ~ "None",
+           is.na(religion_cat) | religion_cat == "i don't know" ~ NA_character_,
+           TRUE ~ "Other religious"),
+         religion_cat3 = factor(religion_cat3,
+                                levels = c("None", "Christian", "Other religious")))
+
+plog_gh_children <- read_csv("../demographics/plog_gh_children.csv") %>%
+  mutate(gender = factor(gender, 
+                         levels = c("F", "M"),
+                         labels = c("female", "male")),
+         religion_cat3 = case_when(
+           religion_cat == "christian" | grepl("lutheran", religion_cat) | 
+             religion_cat %in% c("presbyterian", "protestant") ~ "Christian",
+           religion_cat %in% c("na", "none", "agnostic", "atheist", "healthy", 
+                               "limited", "not religious", "secular") ~ "None",
+           is.na(religion_cat) | religion_cat == "i don't know" ~ NA_character_,
+           TRUE ~ "Other religious"),
+         religion_cat3 = factor(religion_cat3,
+                                levels = c("None", "Christian", "Other religious")))
+
+plog_th_children <- read_csv("../demographics/plog_th_children.csv") %>%
+  mutate(gender = factor(gender, 
+                         levels = c("F", "M"),
+                         labels = c("female", "male")),
+         religion_cat3 = case_when(
+           religion_cat == "buddhist" ~ "Buddhist",
+           religion_cat %in% c("no religion") ~ "None",
+           is.na(religion_cat) | grepl("don't know", religion_cat) |
+             religion_cat %in% c("maybe") ~ NA_character_,
+           TRUE ~ "Other religious"),
+         religion_cat3 = factor(religion_cat3,
+                                levels = c("None", "Buddhist", "Other religious")))
+
+plog_ch_children <- read_csv("../demographics/plog_ch_children.csv") %>%
+  mutate(gender = factor(gender, 
+                         levels = c("Female", "Male"),
+                         labels = c("female", "male")))
+
+plog_vt_children <- read_csv("../demographics/plog_vt_children.csv") %>%
+  mutate(gender = factor(gender, 
+                         levels = c("F", "M"),
+                         labels = c("female", "male")))
+```
+
+
+# Functions
+
+```{r}
+# function for getting individual model ("matching")
+mod_indiv_fun <- function(df_w, subj, kinda = 0.5, long = T) {
+  
+  df_w <- df_w %>%
+    mutate_if(is.numeric, 
+              ~ case_when(. == 0.5 ~ kinda,
+                          TRUE ~ .))
+  
+  subj_responses <- df_w[subj,]
+  res <- data.frame()
+  for (i in names(subj_responses)) {
+    res <- bind_rows(res, 
+                     1 - abs(subj_responses - as.numeric(subj_responses[i])))
+  }
+  
+  if (long == T) {
+    res <- res %>%
+      as.matrix() %>%
+      get_upper_tri_fun() %>%
+      data.frame() %>%
+      mutate(mc1 = names(subj_responses)) %>%
+      gather(mc2, score, -mc1) %>%
+      mutate_at(vars(mc1, mc2), ~ gsub(" ", ".", .)) %>%
+      mutate_at(vars(mc1, mc2), ~ gsub("sick.*$", "sick", .)) %>%
+      filter(!is.na(score), mc1 != mc2) %>%
+      unite(pair, c(mc1, mc2))
+  }
+  return(res)
+}
+```
+
+```{r}
+# function for compiling all individual models in a sample
+mod_indiv_multi_fun <- function(df_w, kinda_val = 0.5, long = T) {
+  
+  indiv_mods <- data.frame(pair = character())
+  
+  for (i in 1:nrow(df_w)) {
+    mod <- mod_indiv_fun(df_w, subj = i, kinda = kinda_val, long = long) %>%
+      rename_at(vars(score), ~ rownames(df_w)[i])
+    indiv_mods <- full_join(indiv_mods, mod)
+  }
+  
+  indiv_mods <- indiv_mods %>%
+    arrange(pair)
+  
+  return(indiv_mods)
+}
+```
+
+```{r}
+# function for getting cultural ("group") model from individuals
+mod_cult_fun <- function(df_w, kinda = 0.5, long_val = T, rescale = F) {
+  
+  res <- mod_indiv_multi_fun(df_w, kinda_val = kinda, long = long_val) %>%
+    gather(subj_id, match, -pair) %>%
+    group_by(pair) %>%
+    summarise(mean_match = mean(match, na.rm = T)) %>%
+    ungroup() %>%
+    data.frame() %>%
+    arrange(pair)
+
+  if (rescale == T) {
+    res <- res %>%
+      mutate_if(is.numeric, ~scales::rescale(., to = c(0, 1))) %>%
+      data.frame()
+  }
+  
+  return(res)
+}
+```
+
+```{r}
+# function for calculating the theoretical min and max MSE based on cultural model
+mse_minmax_fun <- function(mod_cult, kinda = 0.5) {
+  
+  if (kinda == 0.5) {
+    d <- mod_cult %>%
+      mutate(best_ans = case_when(mean_match > 2/3 ~ 1,
+                                  mean_match < 1/3 ~ 0,
+                                  mean_match > 1/3 & mean_match < 2/3 ~ 0.5,
+                                  TRUE ~ NA_real_),
+             worst_ans = case_when(mean_match >= 0.5 ~ 0,
+                                   mean_match < 0.5 ~ 1,
+                                   TRUE ~ NA_real_))
+  } 
+  
+  if (kinda == 1) {
+    d <- mod_cult %>%
+      mutate(best_ans = case_when(mean_match >= 0.5 ~ 1,
+                                  mean_match < 0.5 ~ 0,
+                                  TRUE ~ NA_real_),
+             worst_ans = case_when(mean_match >= 0.5 ~ 0,
+                                   mean_match < 0.5 ~ 1,
+                                   TRUE ~ NA_real_))
+  }
+  
+  d <- d %>%
+    mutate(best_diff = best_ans - mean_match,
+           worst_diff = worst_ans - mean_match,
+           best_sq_diff = best_diff^2,
+           worst_sq_diff = worst_diff^2) %>%
+    summarise(best_mse = mean(best_sq_diff, na.rm = T),
+              worst_mse = mean(worst_sq_diff, na.rm = T))
+  
+  return(d)
+    
+}
+```
+
+```{r}
+# function for comparing all individuals to the cultural ("group") model using MSE
+comp_mod_fun <- function(df_w_cult, df_w_indiv = NULL, 
+                         kinda_val = 0.5, long_val = T, rescale_val = F) {
+
+  if (is.null(df_w_indiv)) {
+    df_w_indiv = df_w_cult
+  }
+  
+  indiv_mods <- mod_indiv_multi_fun(df_w_indiv, kinda = kinda_val, long = long_val) %>%
+    arrange(pair)
+  
+  cult_mod <- mod_cult_fun(df_w_cult, kinda = kinda_val, 
+                           long = long_val, rescale = rescale_val) %>%
+    arrange(pair)
+  
+  
+  similar <- data.frame(subj_id = character(), MSE = numeric())
+  
+  for (i in names(indiv_mods)[2:ncol(indiv_mods)]) {
+    mse <- mean((indiv_mods[,i] - cult_mod[,"mean_match"])^2, na.rm = T)
+    similar <- bind_rows(similar,
+                         data.frame(subj_id = i, MSE = mse))
+  }
+  
+  d_minmax <- mse_minmax_fun(cult_mod)
+  
+  similar <- similar %>%
+    mutate(MSE_rescaled = scales::rescale(MSE, to = c(0, 1), 
+                                          from = c(d_minmax$best_mse, d_minmax$worst_mse)))
+  
+  return(similar)
+  
+}
+```
+
+
+
+# US
+
+## US adults
+
+```{r}
+d_sim_us_adults <- comp_mod_fun(d_us_adults_w) %>% 
+  left_join(d_us_adults %>% distinct(country, subj_id, target)) %>%
+  left_join(plog_us_adults) %>%
+  mutate(target = factor(target, levels = levels_target_univ),
+         target = droplevels(target))
+```
+
+```{r}
+contrasts(d_sim_us_adults$gender) <- cbind("_m" = c(-1, 1))
+contrasts(d_sim_us_adults$target) <- contr.sum(length(levels(factor(d_sim_us_adults$target))))
+contrasts(d_sim_us_adults$urban_rural_cat2) <- cbind("_rural" = c(-1, 1))
+contrasts(d_sim_us_adults$education_cat2) <- cbind("_coll" = c(-1, 1))
+contrasts(d_sim_us_adults$ethnicity_cat2) <- cbind("_POC" = c(-1, 1))
+contrasts(d_sim_us_adults$religion_cat3) <- cbind("_christian" = c(-1, 1, 0),
+                                                  "_other" = c(-1, 0, 1))
+```
+
+### Age
+
+```{r}
+d_sim_us_adults %>%
+  ggplot(aes(x = age, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_smooth(method = "loess", span = 1)
+```
+
+```{r}
+lm(scale(MSE) ~ scale(age), data = d_sim_us_adults) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ scale(age), data = d_sim_us_adults) %>% summary()
+```
+
+
+### Gender
+
+```{r}
+d_sim_us_adults %>%
+  ggplot(aes(x = gender, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(gender) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(gender) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+lm(scale(MSE) ~ gender, data = d_sim_us_adults) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ gender, data = d_sim_us_adults) %>% summary()
+```
+
+### Race/ethnicity
+
+```{r}
+d_sim_us_adults %>%
+  ggplot(aes(x = ethnicity_cat, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(ethnicity_cat) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(ethnicity_cat) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean)) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1))
+```
+
+```{r}
+d_sim_us_adults %>%
+  ggplot(aes(x = ethnicity_cat2, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(ethnicity_cat2) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(ethnicity_cat2) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+lm(scale(MSE) ~ ethnicity_cat2, data = d_sim_us_adults) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ ethnicity_cat2, data = d_sim_us_adults) %>% summary()
+```
+
+### Education
+
+```{r}
+d_sim_us_adults %>%
+  ggplot(aes(x = education_catX, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(education_catX) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(education_catX) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean)) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1))
+```
+
+```{r}
+lm(scale(MSE) ~ scale(education_catX), 
+   data = d_sim_us_adults %>% mutate(education_catX = as.numeric(education_catX))) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ scale(education_catX), 
+        data = d_sim_us_adults %>% mutate(education_catX = as.numeric(education_catX))) %>% summary()
+```
+
+```{r}
+d_sim_us_adults %>%
+  ggplot(aes(x = education_cat2, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(education_cat2) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(education_cat2) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean)) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1))
+```
+
+```{r}
+lm(scale(MSE) ~ education_cat2, data = d_sim_us_adults) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ education_cat2, data = d_sim_us_adults) %>% summary()
+```
+
+### Rural/urban
+
+```{r}
+d_sim_us_adults %>%
+  ggplot(aes(x = urban_rural_cat2, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(urban_rural_cat2) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(urban_rural_cat2) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+lm(scale(MSE) ~ urban_rural_cat2, data = d_sim_us_adults) %>% summary()
+```
+
+
+```{r}
+betareg(MSE_rescaled ~ urban_rural_cat2, data = d_sim_us_adults) %>% summary()
+```
+
+### Religion
+
+```{r}
+d_sim_us_adults %>%
+  ggplot(aes(x = religion_cat3, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(religion_cat3) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(religion_cat3) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+lm(scale(MSE) ~ religion_cat3, data = d_sim_us_adults) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ religion_cat3, data = d_sim_us_adults) %>% summary()
+```
+
+### Target
+
+```{r}
+d_sim_us_adults %>%
+  mutate(target = factor(target, levels = levels_target_univ)) %>%
+  ggplot(aes(x = target, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(target) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(target) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean), 
+                  position = position_dodge(width = 0.25))
+```
+
+```{r}
+lm(scale(MSE) ~ target, data = d_sim_us_adults, contrasts = list(target = "contr.sum")) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ target, data = d_sim_us_adults) %>% summary()
+```
+
+### All together
+
+```{r}
+lm(scale(MSE) ~ scale(age) + gender + 
+     scale(education_catX) + ethnicity_cat2 + religion_cat3 + urban_rural_cat2 + 
+     target, 
+   data = d_sim_us_adults %>%
+     mutate(education_catX = as.numeric(education_catX))) %>% 
+  summary()
+```
+
+```{r}
+lm(scale(MSE) ~ scale(age) + gender + 
+     education_cat2 + ethnicity_cat2 + religion_cat3 + urban_rural_cat2 + 
+     target, 
+   data = d_sim_us_adults) %>% 
+  summary()
+```
+
+```{r}
+lmer(scale(MSE) ~ scale(age) + gender + 
+       scale(education_catX) + ethnicity_cat2 + religion_cat3 + urban_rural_cat2 + 
+       + (1 | target), 
+     data = d_sim_us_adults %>%
+       mutate(education_catX = as.numeric(education_catX))) %>% 
+  summary()
+```
+
+```{r}
+lmer(scale(MSE) ~ scale(age) + gender + 
+       education_cat2 + ethnicity_cat2 + religion_cat3 + urban_rural_cat2 + 
+       + (1 | target), 
+     data = d_sim_us_adults) %>% 
+  summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ scale(age) + gender + 
+          scale(education_catX) + ethnicity_cat2 + religion_cat3 + urban_rural_cat2 + 
+          target, 
+        data = d_sim_us_adults %>%
+          mutate(education_catX = as.numeric(education_catX))) %>% 
+  summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ scale(age) + gender + 
+     education_cat2 + ethnicity_cat2 + religion_cat3 + urban_rural_cat2 + 
+     target, 
+   data = d_sim_us_adults %>%
+     mutate(education_catX = as.numeric(education_catX))) %>% 
+  summary()
+```
+
+## US children
+
+```{r}
+d_sim_us_children <- comp_mod_fun(d_us_children_w) %>% 
+  left_join(d_us_children %>% distinct(country, subj_id, target)) %>%
+  left_join(plog_us_children) %>%
+  mutate(target = factor(target, levels = levels_target_univ),
+         target = droplevels(target))
+```
+
+```{r}
+contrasts(d_sim_us_children$gender) <- cbind("_m" = c(-1, 1))
+contrasts(d_sim_us_children$target) <- contr.sum(length(levels(factor(d_sim_us_children$target))))
+contrasts(d_sim_us_children$ethnicity_cat2) <- cbind("_POC" = c(-1, 1))
+contrasts(d_sim_us_children$religion_cat3) <- cbind("_christian" = c(-1, 1, 0),
+                                                  "_other" = c(-1, 0, 1))
+```
+
+### Age
+
+```{r}
+d_sim_us_children %>%
+  ggplot(aes(x = age, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_smooth(method = "loess", span = 1)
+```
+```{r}
+lm(scale(MSE) ~ scale(age), data = d_sim_us_children) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ scale(age), data = d_sim_us_children) %>% summary()
+```
+
+
+### Gender
+
+```{r}
+d_sim_us_children %>%
+  ggplot(aes(x = gender, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(gender) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(gender) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+lm(scale(MSE) ~ gender, data = d_sim_us_children) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ gender, data = d_sim_us_children) %>% summary()
+```
+
+### Race/ethnicity
+
+```{r}
+d_sim_us_children %>%
+  ggplot(aes(x = ethnicity_cat, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(ethnicity_cat) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(ethnicity_cat) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+d_sim_us_children %>%
+  ggplot(aes(x = ethnicity_cat2, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(ethnicity_cat2) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(ethnicity_cat2) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+lm(scale(MSE) ~ ethnicity_cat2, data = d_sim_us_children) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ ethnicity_cat2, data = d_sim_us_children) %>% summary()
+```
+
+### Religion
+
+```{r}
+d_sim_us_children %>%
+  ggplot(aes(x = religion_cat3, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(religion_cat3) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(religion_cat3) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+lm(scale(MSE) ~ religion_cat3, data = d_sim_us_children) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ religion_cat3, data = d_sim_us_children) %>% summary()
+```
+
+### Target
+
+```{r}
+d_sim_us_children %>%
+  mutate(target = factor(target, levels = levels_target_univ)) %>%
+  ggplot(aes(x = target, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(target) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(target) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean), 
+                  position = position_dodge(width = 0.25))
+```
+
+```{r}
+lm(scale(MSE) ~ target, data = d_sim_us_children, contrasts = list(target = "contr.sum")) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ target, data = d_sim_us_children) %>% summary()
+```
+
+### All together
+
+```{r}
+lm(scale(MSE) ~ scale(age) + gender + 
+     ethnicity_cat2 + religion_cat3 + 
+     target, 
+   data = d_sim_us_children) %>% 
+  summary()
+```
+
+
+```{r}
+lmer(scale(MSE) ~ scale(age) + gender + 
+       ethnicity_cat2 + religion_cat3 + 
+       + (1 | target), 
+     data = d_sim_us_children) %>% 
+  summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ scale(age) + gender + 
+          ethnicity_cat2 + religion_cat3 + 
+          target, 
+        data = d_sim_us_children) %>% 
+  summary()
+```
+
+# Ghana
+
+## Ghana adults
+
+```{r}
+d_sim_gh_adults <- comp_mod_fun(d_gh_adults_w) %>% 
+  left_join(d_gh_adults %>% distinct(country, subj_id, target)) %>%
+  left_join(plog_gh_adults) %>%
+  mutate(target = factor(target, levels = levels_target_univ),
+         target = droplevels(target))
+```
+
+```{r}
+contrasts(d_sim_gh_adults$gender) <- cbind("_m" = c(-1, 1))
+contrasts(d_sim_gh_adults$target) <- contr.sum(length(levels(factor(d_sim_gh_adults$target))))
+contrasts(d_sim_gh_adults$urban_rural_cat2) <- cbind("_rural" = c(-1, 1))
+contrasts(d_sim_gh_adults$education_cat2) <- cbind("_hs" = c(-1, 1))
+contrasts(d_sim_gh_adults$ethnicity_cat2) <- cbind("_nonFante" = c(-1, 1))
+contrasts(d_sim_gh_adults$religion_cat3) <- cbind("_christian" = c(-1, 1, 0),
+                                                  "_other" = c(-1, 0, 1))
+```
+
+### Age
+
+```{r}
+d_sim_gh_adults %>%
+  ggplot(aes(x = age, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_smooth(method = "loess", span = 1)
+```
+```{r}
+lm(scale(MSE) ~ scale(age), data = d_sim_gh_adults) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ scale(age), data = d_sim_gh_adults) %>% summary()
+```
+
+
+### Gender
+
+```{r}
+d_sim_gh_adults %>%
+  ggplot(aes(x = gender, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(gender) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(gender) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+lm(scale(MSE) ~ gender, data = d_sim_gh_adults) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ gender, data = d_sim_gh_adults) %>% summary()
+```
+
+### Race/ethnicity
+
+```{r}
+d_sim_gh_adults %>%
+  ggplot(aes(x = ethnicity_cat, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(ethnicity_cat) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(ethnicity_cat) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean)) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1))
+```
+
+```{r}
+d_sim_gh_adults %>%
+  ggplot(aes(x = ethnicity_cat2, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(ethnicity_cat2) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(ethnicity_cat2) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+lm(scale(MSE) ~ ethnicity_cat2, data = d_sim_gh_adults) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ ethnicity_cat2, data = d_sim_gh_adults) %>% summary()
+```
+
+### Education
+
+```{r}
+d_sim_gh_adults %>%
+  ggplot(aes(x = education_catX, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(education_catX) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(education_catX) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean)) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1))
+```
+
+```{r}
+lm(scale(MSE) ~ scale(education_catX), 
+   data = d_sim_gh_adults %>% mutate(education_catX = as.numeric(education_catX))) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ scale(education_catX), 
+        data = d_sim_gh_adults %>% mutate(education_catX = as.numeric(education_catX))) %>% summary()
+```
+
+```{r}
+d_sim_gh_adults %>%
+  ggplot(aes(x = education_cat2, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(education_cat2) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(education_cat2) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+lm(scale(MSE) ~ education_cat2, data = d_sim_gh_adults) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ education_cat2, data = d_sim_gh_adults) %>% summary()
+```
+
+### Rural/urban
+
+```{r}
+d_sim_gh_adults %>%
+  ggplot(aes(x = urban_rural_cat2, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(urban_rural_cat2) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(urban_rural_cat2) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+lm(scale(MSE) ~ urban_rural_cat2, data = d_sim_gh_adults) %>% summary()
+```
+
+
+```{r}
+betareg(MSE_rescaled ~ urban_rural_cat2, data = d_sim_gh_adults) %>% summary()
+```
+
+### Religion
+
+```{r}
+d_sim_gh_adults %>%
+  ggplot(aes(x = religion_cat3, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(religion_cat3) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(religion_cat3) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+# lm(scale(MSE) ~ religion_cat3, data = d_sim_gh_adults) %>% summary() # almost all christian
+```
+
+```{r}
+# betareg(MSE_rescaled ~ religion_cat3, data = d_sim_gh_adults) %>% summary() # almost all christian
+```
+
+### Target
+
+```{r}
+d_sim_gh_adults %>%
+  mutate(target = factor(target, levels = levels_target_univ)) %>%
+  ggplot(aes(x = target, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(target) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(target) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean), 
+                  position = position_dodge(width = 0.25))
+```
+
+```{r}
+lm(scale(MSE) ~ target, data = d_sim_gh_adults, contrasts = list(target = "contr.sum")) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ target, data = d_sim_gh_adults) %>% summary()
+```
+
+### All together
+
+```{r}
+lm(scale(MSE) ~ scale(age) + gender + 
+     scale(education_catX) + ethnicity_cat2 + 
+     # religion_cat3 + # almost all christian 
+     urban_rural_cat2 + 
+     target, 
+   data = d_sim_gh_adults %>%
+     mutate(education_catX = as.numeric(education_catX))) %>% 
+  summary()
+```
+
+```{r}
+lm(scale(MSE) ~ scale(age) + gender + 
+     education_cat2 + ethnicity_cat2 + 
+     # religion_cat3 + # almost all christian 
+     urban_rural_cat2 + 
+     target, 
+   data = d_sim_gh_adults) %>% 
+  summary()
+```
+
+```{r}
+lmer(scale(MSE) ~ scale(age) + gender + 
+       scale(education_catX) + ethnicity_cat2 + 
+       # religion_cat3 + # almost all christian 
+       urban_rural_cat2 + 
+       + (1 | target), 
+     data = d_sim_gh_adults %>%
+       mutate(education_catX = as.numeric(education_catX))) %>% 
+  summary()
+```
+
+```{r}
+lmer(scale(MSE) ~ scale(age) + gender + 
+       education_cat2 + ethnicity_cat2 + 
+       # religion_cat3 + # almost all christian 
+       urban_rural_cat2 + 
+       + (1 | target), 
+     data = d_sim_gh_adults) %>% 
+  summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ scale(age) + gender + 
+          scale(education_catX) + ethnicity_cat2 + 
+          # religion_cat3 + # almost all christian 
+          urban_rural_cat2 + 
+          target, 
+        data = d_sim_gh_adults %>%
+          mutate(education_catX = as.numeric(education_catX))) %>% 
+  summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ scale(age) + gender + 
+          education_cat2 + ethnicity_cat2 + 
+          # religion_cat3 + # almost all christian 
+          urban_rural_cat2 + 
+          target, 
+        data = d_sim_gh_adults %>%
+          mutate(education_catX = as.numeric(education_catX))) %>% 
+  summary()
+```
+
+## Ghana children
+
+```{r}
+d_sim_gh_children <- comp_mod_fun(d_gh_children_w) %>% 
+  left_join(d_gh_children %>% distinct(country, subj_id, target)) %>%
+  left_join(plog_gh_children) %>%
+  mutate(target = factor(target, levels = levels_target_univ),
+         target = droplevels(target))
+```
+
+```{r}
+contrasts(d_sim_gh_children$gender) <- cbind("_m" = c(-1, 1))
+contrasts(d_sim_gh_children$target) <- contr.sum(length(levels(factor(d_sim_gh_children$target))))
+contrasts(d_sim_gh_children$religion_cat3) <- cbind("_christian" = c(-1, 1, 0),
+                                                  "_other" = c(-1, 0, 1))
+```
+
+### Age
+
+```{r}
+d_sim_gh_children %>%
+  ggplot(aes(x = age, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_smooth(method = "loess", span = 1)
+```
+```{r}
+lm(scale(MSE) ~ scale(age), data = d_sim_gh_children) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ scale(age), data = d_sim_gh_children) %>% summary()
+```
+
+
+### Gender
+
+```{r}
+d_sim_gh_children %>%
+  ggplot(aes(x = gender, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(gender) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(gender) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+lm(scale(MSE) ~ gender, data = d_sim_gh_children) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ gender, data = d_sim_gh_children) %>% summary()
+```
+
+### Religion
+
+```{r}
+d_sim_gh_children %>%
+  ggplot(aes(x = religion_cat3, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(religion_cat3) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(religion_cat3) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+# lm(scale(MSE) ~ religion_cat3, data = d_sim_gh_children) %>% summary() # almost all christian
+```
+
+```{r}
+# betareg(MSE_rescaled ~ religion_cat3, data = d_sim_gh_children) %>% summary() # almost all christian
+```
+
+### Target
+
+```{r}
+d_sim_gh_children %>%
+  mutate(target = factor(target, levels = levels_target_univ)) %>%
+  ggplot(aes(x = target, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(target) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(target) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean), 
+                  position = position_dodge(width = 0.25))
+```
+
+```{r}
+lm(scale(MSE) ~ target, data = d_sim_gh_children, contrasts = list(target = "contr.sum")) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ target, data = d_sim_gh_children) %>% summary()
+```
+
+### All together
+
+```{r}
+lm(scale(MSE) ~ scale(age) + gender + 
+     # religion_cat3 + # almost all christian
+     target, 
+   data = d_sim_gh_children) %>% 
+  summary()
+```
+
+
+```{r}
+lmer(scale(MSE) ~ scale(age) + gender + 
+       # religion_cat3 + # almost all christian
+       + (1 | target), 
+     data = d_sim_gh_children) %>% 
+  summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ scale(age) + gender + 
+          # religion_cat3 + almost all christian 
+          target, 
+        data = d_sim_gh_children) %>% 
+  summary()
+```
+
+
+# Thailand
+
+## Thailand adults
+
+```{r}
+d_sim_th_adults <- comp_mod_fun(d_th_adults_w) %>% 
+  left_join(d_th_adults %>% distinct(country, subj_id, target)) %>%
+  left_join(plog_th_adults) %>%
+  mutate(target = factor(target, levels = levels_target_univ),
+         target = droplevels(target))
+```
+
+```{r}
+contrasts(d_sim_th_adults$gender) <- cbind("_m" = c(-1, 1, 0),
+                                           "_o" = c(-1, 0, 1))
+contrasts(d_sim_th_adults$target) <- contr.sum(length(levels(factor(d_sim_th_adults$target))))
+contrasts(d_sim_th_adults$urban_rural_cat2) <- cbind("_rural" = c(-1, 1))
+contrasts(d_sim_th_adults$education_cat2) <- cbind("_coll" = c(-1, 1))
+contrasts(d_sim_th_adults$ethnicity_cat2) <- cbind("_nonThai" = c(-1, 1))
+contrasts(d_sim_th_adults$religion_cat3) <- cbind("_christian" = c(-1, 1, 0),
+                                                  "_other" = c(-1, 0, 1))
+```
+
+### Age
+
+```{r}
+d_sim_th_adults %>%
+  ggplot(aes(x = age, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_smooth(method = "loess", span = 1)
+```
+
+```{r}
+lm(scale(MSE) ~ scale(age), data = d_sim_th_adults) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ scale(age), data = d_sim_th_adults) %>% summary()
+```
+
+
+### Gender
+
+```{r}
+d_sim_th_adults %>%
+  ggplot(aes(x = gender, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(gender) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(gender) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+lm(scale(MSE) ~ gender, data = d_sim_th_adults) %>% summary()
+```
+
+```{r}
+lm(scale(MSE) ~ gender, 
+   data = d_sim_th_adults %>% filter(gender != "other"),
+   contrasts = list(gender = "contr.sum")) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ gender, 
+        data = d_sim_th_adults %>%
+          filter(gender != "other") %>%
+          # effect-code
+          mutate(gender = case_when(gender == "female" ~ -1,
+                                    gender == "male" ~ 1))) %>% summary()
+```
+
+
+### Race/ethnicity
+
+```{r}
+d_sim_th_adults %>%
+  ggplot(aes(x = ethnicity_cat, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(ethnicity_cat) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(ethnicity_cat) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+# lm(scale(MSE) ~ ethnicity_cat2, data = d_sim_th_adults) %>% summary() # all thai
+```
+
+```{r}
+# betareg(MSE_rescaled ~ ethnicity_cat2, data = d_sim_th_adults) %>% summary() # all thai
+```
+
+### Education
+
+```{r}
+d_sim_th_adults %>%
+  ggplot(aes(x = education_catX, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(education_catX) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(education_catX) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean)) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1))
+```
+
+```{r}
+lm(scale(MSE) ~ scale(education_catX), 
+   data = d_sim_th_adults %>% mutate(education_catX = as.numeric(education_catX))) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ scale(education_catX), 
+        data = d_sim_th_adults %>% mutate(education_catX = as.numeric(education_catX))) %>% summary()
+```
+
+```{r}
+d_sim_th_adults %>%
+  ggplot(aes(x = education_cat2, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(education_cat2) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(education_cat2) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+lm(scale(MSE) ~ education_cat2, data = d_sim_th_adults) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ education_cat2, data = d_sim_th_adults) %>% summary()
+```
+
+### Rural/urban
+
+```{r}
+d_sim_th_adults %>%
+  ggplot(aes(x = urban_rural_cat2, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(urban_rural_cat2) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(urban_rural_cat2) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+lm(scale(MSE) ~ urban_rural_cat2, data = d_sim_th_adults) %>% summary()
+```
+
+
+```{r}
+betareg(MSE_rescaled ~ urban_rural_cat2, data = d_sim_th_adults) %>% summary()
+```
+
+### Religion
+
+```{r}
+d_sim_th_adults %>%
+  ggplot(aes(x = religion_cat3, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(religion_cat3) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(religion_cat3) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+# lm(scale(MSE) ~ religion_cat3, data = d_sim_th_adults) %>% summary() # almost all buddhist
+```
+
+```{r}
+# betareg(MSE_rescaled ~ religion_cat3, data = d_sim_th_adults) %>% summary() # almost all buddhist
+```
+
+### Target
+
+```{r}
+d_sim_th_adults %>%
+  mutate(target = factor(target, levels = levels_target_univ)) %>%
+  ggplot(aes(x = target, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(target) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(target) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean), 
+                  position = position_dodge(width = 0.25))
+```
+
+```{r}
+lm(scale(MSE) ~ target, data = d_sim_th_adults, contrasts = list(target = "contr.sum")) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ target, data = d_sim_th_adults) %>% summary()
+```
+
+### All together
+
+```{r}
+lm(scale(MSE) ~ scale(age) + gender + 
+     scale(education_catX) + 
+     # ethnicity_cat2 + religion_cat3 + almost all thai and buddhist 
+     urban_rural_cat2 + 
+     target, 
+   data = d_sim_th_adults %>%
+     filter(gender != "other") %>%
+     mutate(education_catX = as.numeric(education_catX),
+            gender = case_when(gender == "female" ~ -1,
+                               gender == "male" ~ 1))) %>% 
+  summary()
+```
+
+```{r}
+lm(scale(MSE) ~ scale(age) + gender + 
+     education_cat2 + 
+     # ethnicity_cat2 + religion_cat3 + almost all thai and buddhist 
+     urban_rural_cat2 + 
+     target, 
+   data = d_sim_th_adults %>%
+     filter(gender != "other") %>%
+     mutate(education_catX = as.numeric(education_catX),
+            gender = case_when(gender == "female" ~ -1,
+                               gender == "male" ~ 1))) %>% 
+  summary()
+```
+
+```{r}
+lmer(scale(MSE) ~ scale(age) + gender + 
+       scale(education_catX) + 
+     # ethnicity_cat2 + religion_cat3 + almost all thai and buddhist 
+       urban_rural_cat2 + 
+       + (1 | target), 
+   data = d_sim_th_adults %>%
+     filter(gender != "other") %>%
+     mutate(education_catX = as.numeric(education_catX),
+            gender = case_when(gender == "female" ~ -1,
+                               gender == "male" ~ 1))) %>% 
+  summary()
+```
+
+```{r}
+lmer(scale(MSE) ~ scale(age) + gender + 
+       education_cat2 + 
+     # ethnicity_cat2 + religion_cat3 + almost all thai and buddhist 
+       urban_rural_cat2 + 
+       + (1 | target), 
+   data = d_sim_th_adults %>%
+     filter(gender != "other") %>%
+     mutate(education_catX = as.numeric(education_catX),
+            gender = case_when(gender == "female" ~ -1,
+                               gender == "male" ~ 1))) %>% 
+  summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ scale(age) + gender + 
+          scale(education_catX) + 
+     # ethnicity_cat2 + religion_cat3 + almost all thai and buddhist 
+          urban_rural_cat2 + 
+          target, 
+   data = d_sim_th_adults %>%
+     filter(gender != "other") %>%
+     mutate(education_catX = as.numeric(education_catX),
+            gender = case_when(gender == "female" ~ -1,
+                               gender == "male" ~ 1))) %>% 
+  summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ scale(age) + gender + 
+     education_cat2 + 
+       # ethnicity_cat2 + religion_cat3 + almost all thai and buddhist 
+       urban_rural_cat2 + 
+     target, 
+   data = d_sim_th_adults %>%
+     filter(gender != "other") %>%
+     mutate(education_catX = as.numeric(education_catX),
+            gender = case_when(gender == "female" ~ -1,
+                               gender == "male" ~ 1))) %>% 
+  summary()
+```
+
+## Thailand children
+
+```{r}
+d_sim_th_children <- comp_mod_fun(d_th_children_w) %>% 
+  left_join(d_th_children %>% distinct(country, subj_id, target)) %>%
+  left_join(plog_th_children) %>%
+  mutate(target = factor(target, levels = levels_target_univ),
+         target = droplevels(target))
+```
+
+```{r}
+contrasts(d_sim_th_children$gender) <- cbind("_m" = c(-1, 1))
+contrasts(d_sim_th_children$target) <- contr.sum(length(levels(factor(d_sim_th_children$target))))
+contrasts(d_sim_th_children$religion_cat3) <- cbind("_christian" = c(-1, 1, 0),
+                                                  "_other" = c(-1, 0, 1))
+```
+
+### Age
+
+```{r}
+d_sim_th_children %>%
+  ggplot(aes(x = age, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_smooth(method = "loess", span = 1)
+```
+```{r}
+lm(scale(MSE) ~ scale(age), data = d_sim_th_children) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ scale(age), data = d_sim_th_children) %>% summary()
+```
+
+
+### Gender
+
+```{r}
+d_sim_th_children %>%
+  ggplot(aes(x = gender, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(gender) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(gender) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+lm(scale(MSE) ~ gender, data = d_sim_th_children) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ gender, data = d_sim_th_children) %>% summary()
+```
+
+### Religion
+
+```{r}
+d_sim_th_children %>%
+  ggplot(aes(x = religion_cat3, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(religion_cat3) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(religion_cat3) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+# lm(scale(MSE) ~ religion_cat3, data = d_sim_th_children) %>% summary() # almost all buddhist
+```
+
+```{r}
+# betareg(MSE_rescaled ~ religion_cat3, data = d_sim_th_children) %>% summary() # almost all buddhist
+```
+
+### Target
+
+```{r}
+d_sim_th_children %>%
+  mutate(target = factor(target, levels = levels_target_univ)) %>%
+  ggplot(aes(x = target, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(target) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(target) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean), 
+                  position = position_dodge(width = 0.25))
+```
+
+```{r}
+lm(scale(MSE) ~ target, data = d_sim_th_children, contrasts = list(target = "contr.sum")) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ target, data = d_sim_th_children) %>% summary()
+```
+
+### All together
+
+```{r}
+lm(scale(MSE) ~ scale(age) + gender + 
+     # religion_cat3 + # almost all buddhist 
+     target, 
+   data = d_sim_th_children) %>% 
+  summary()
+```
+
+
+```{r}
+lmer(scale(MSE) ~ scale(age) + gender + 
+       # religion_cat3 + # almost all buddhist 
+       + (1 | target), 
+     data = d_sim_th_children) %>% 
+  summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ scale(age) + gender + 
+          # religion_cat3 + # almost all buddhist 
+          target, 
+        data = d_sim_th_children) %>% 
+  summary()
+```
+
+
+# China
+
+## China adults
+
+```{r}
+d_sim_ch_adults <- comp_mod_fun(d_ch_adults_w) %>% 
+  left_join(d_ch_adults %>% distinct(country, subj_id, target)) %>%
+  left_join(plog_ch_adults) %>%
+  mutate(target = factor(target, levels = levels_target_univ),
+         target = droplevels(target))
+```
+
+```{r}
+contrasts(d_sim_ch_adults$gender) <- cbind("_m" = c(-1, 1))
+contrasts(d_sim_ch_adults$target) <- contr.sum(length(levels(factor(d_sim_ch_adults$target))))
+contrasts(d_sim_ch_adults$urban_rural_cat2) <- cbind("_rural" = c(-1, 1))
+contrasts(d_sim_ch_adults$education_cat2) <- cbind("_coll" = c(-1, 1))
+contrasts(d_sim_ch_adults$ethnicity_cat2) <- cbind("_nonHan" = c(-1, 1))
+contrasts(d_sim_ch_adults$religion_cat3) <- cbind("_buddhist" = c(-1, 1, 0),
+                                                  "_other" = c(-1, 0, 1))
+```
+
+### Age
+
+```{r}
+d_sim_ch_adults %>%
+  ggplot(aes(x = age, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_smooth(method = "loess", span = 1)
+```
+
+```{r}
+lm(scale(MSE) ~ scale(age), data = d_sim_ch_adults) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ scale(age), data = d_sim_ch_adults) %>% summary()
+```
+
+
+### Gender
+
+```{r}
+d_sim_ch_adults %>%
+  ggplot(aes(x = gender, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(gender) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(gender) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+lm(scale(MSE) ~ gender, data = d_sim_ch_adults) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ gender, data = d_sim_ch_adults) %>% summary()
+```
+
+### Race/ethnicity
+
+```{r}
+d_sim_ch_adults %>%
+  ggplot(aes(x = ethnicity_cat, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(ethnicity_cat) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(ethnicity_cat) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+d_sim_ch_adults %>%
+  ggplot(aes(x = ethnicity_cat2, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(ethnicity_cat2) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(ethnicity_cat2) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+# lm(scale(MSE) ~ ethnicity_cat2, data = d_sim_ch_adults) %>% summary() # almost all han
+```
+
+```{r}
+# betareg(MSE_rescaled ~ ethnicity_cat2, data = d_sim_ch_adults) %>% summary() # almost all han
+```
+
+### Education
+
+```{r}
+d_sim_ch_adults %>%
+  ggplot(aes(x = education_catX, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(education_catX) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(education_catX) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean)) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1))
+```
+
+```{r}
+lm(scale(MSE) ~ scale(education_catX), 
+   data = d_sim_ch_adults %>% mutate(education_catX = as.numeric(education_catX))) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ scale(education_catX), 
+        data = d_sim_ch_adults %>% mutate(education_catX = as.numeric(education_catX))) %>% summary()
+```
+
+```{r}
+d_sim_ch_adults %>%
+  ggplot(aes(x = education_cat2, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(education_cat2) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(education_cat2) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+lm(scale(MSE) ~ education_cat2, data = d_sim_ch_adults) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ education_cat2, data = d_sim_ch_adults) %>% summary()
+```
+
+### Rural/urban
+
+```{r}
+d_sim_ch_adults %>%
+  ggplot(aes(x = urban_rural_cat2, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(urban_rural_cat2) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(urban_rural_cat2) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+lm(scale(MSE) ~ urban_rural_cat2, data = d_sim_ch_adults) %>% summary()
+```
+
+
+```{r}
+betareg(MSE_rescaled ~ urban_rural_cat2, data = d_sim_ch_adults) %>% summary()
+```
+
+### Religion
+
+```{r}
+d_sim_ch_adults %>%
+  ggplot(aes(x = religion_cat3, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(religion_cat3) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(religion_cat3) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+lm(scale(MSE) ~ religion_cat3, data = d_sim_ch_adults) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ religion_cat3, data = d_sim_ch_adults) %>% summary()
+```
+
+### Target
+
+```{r}
+d_sim_ch_adults %>%
+  mutate(target = factor(target, levels = levels_target_univ)) %>%
+  ggplot(aes(x = target, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(target) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(target) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean), 
+                  position = position_dodge(width = 0.25))
+```
+
+```{r}
+lm(scale(MSE) ~ target, data = d_sim_ch_adults, contrasts = list(target = "contr.sum")) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ target, data = d_sim_ch_adults) %>% summary()
+```
+
+### All together
+
+```{r}
+lm(scale(MSE) ~ scale(age) + gender + 
+     scale(education_catX) + 
+     # ethnicity_cat2 + # almost all han
+     religion_cat3 + urban_rural_cat2 + 
+     target, 
+   data = d_sim_ch_adults %>%
+     mutate(education_catX = as.numeric(education_catX))) %>% 
+  summary()
+```
+
+```{r}
+lm(scale(MSE) ~ scale(age) + gender + 
+     education_cat2 + 
+     # ethnicity_cat2 + # almost all han
+     religion_cat3 + urban_rural_cat2 + 
+     target, 
+   data = d_sim_ch_adults) %>% 
+  summary()
+```
+
+```{r}
+lmer(scale(MSE) ~ scale(age) + gender + 
+       scale(education_catX) + 
+     # ethnicity_cat2 + # almost all han
+     religion_cat3 + urban_rural_cat2 + 
+       + (1 | target), 
+     data = d_sim_ch_adults %>%
+       mutate(education_catX = as.numeric(education_catX))) %>% 
+  summary()
+```
+
+```{r}
+lmer(scale(MSE) ~ scale(age) + gender + 
+       education_cat2 + 
+     # ethnicity_cat2 + # almost all han
+     religion_cat3 + urban_rural_cat2 + 
+       + (1 | target), 
+     data = d_sim_ch_adults) %>% 
+  summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ scale(age) + gender + 
+          scale(education_catX) + 
+     # ethnicity_cat2 + # almost all han
+     religion_cat3 + urban_rural_cat2 + 
+          target, 
+        data = d_sim_ch_adults %>%
+          mutate(education_catX = as.numeric(education_catX))) %>% 
+  summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ scale(age) + gender + 
+     education_cat2 + 
+     # ethnicity_cat2 + # almost all han
+     religion_cat3 + urban_rural_cat2 + 
+     target, 
+   data = d_sim_ch_adults %>%
+     mutate(education_catX = as.numeric(education_catX))) %>% 
+  summary()
+```
+
+## China children
+
+```{r}
+d_sim_ch_children <- comp_mod_fun(d_ch_children_w) %>% 
+  left_join(d_ch_children %>% distinct(country, subj_id, target)) %>%
+  left_join(plog_ch_children) %>%
+  mutate(target = factor(target, levels = levels_target_univ),
+         target = droplevels(target))
+```
+
+```{r}
+contrasts(d_sim_ch_children$gender) <- cbind("_m" = c(-1, 1))
+contrasts(d_sim_ch_children$target) <- contr.sum(length(levels(factor(d_sim_ch_children$target))))
+```
+
+### Age
+
+```{r}
+d_sim_ch_children %>%
+  ggplot(aes(x = age, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_smooth(method = "loess", span = 1)
+```
+```{r}
+lm(scale(MSE) ~ scale(age), data = d_sim_ch_children) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ scale(age), data = d_sim_ch_children) %>% summary()
+```
+
+
+### Gender
+
+```{r}
+d_sim_ch_children %>%
+  ggplot(aes(x = gender, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(gender) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(gender) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+lm(scale(MSE) ~ gender, data = d_sim_ch_children) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ gender, data = d_sim_ch_children) %>% summary()
+```
+
+### Target
+
+```{r}
+d_sim_ch_children %>%
+  mutate(target = factor(target, levels = levels_target_univ)) %>%
+  ggplot(aes(x = target, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(target) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(target) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean), 
+                  position = position_dodge(width = 0.25))
+```
+
+```{r}
+lm(scale(MSE) ~ target, data = d_sim_ch_children, contrasts = list(target = "contr.sum")) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ target, data = d_sim_ch_children) %>% summary()
+```
+
+### All together
+
+```{r}
+lm(scale(MSE) ~ scale(age) + gender + 
+     target, 
+   data = d_sim_ch_children) %>% 
+  summary()
+```
+
+
+```{r}
+lmer(scale(MSE) ~ scale(age) + gender + 
+       + (1 | target), 
+     data = d_sim_ch_children) %>% 
+  summary()
+```
+
+```{r}
+# error ?
+# betareg(MSE_rescaled ~ scale(age) + gender + 
+#           target, 
+#         data = d_sim_ch_children) %>% 
+#   summary()
+```
+
+
+# Vanuatu
+
+## Vanuatu adults
+
+```{r}
+d_sim_vt_adults <- comp_mod_fun(d_vt_adults_w) %>% 
+  left_join(d_vt_adults %>% distinct(country, subj_id, location, target)) %>%
+  left_join(plog_vt_adults) %>%
+  mutate(target = factor(target, levels = levels_target_univ),
+         target = droplevels(target)) %>%
+  mutate(location_cat3 = case_when(grepl("Espigles", location) |
+                                     grepl("Malekula", location) ~ "rural",
+                                   grepl("Fresh Water", location) |
+                                     grepl("Namba", location) |
+                                     grepl("Port Vila", location) ~ "urban",
+                                   grepl("Teouma", location) ~ "periurban",
+                                   TRUE ~ NA_character_),
+         location_cat3 = factor(location_cat3, levels = c("rural", "periurban", "urban")),
+         location_cat2 = case_when(grepl("urban", location_cat3) ~ "urban/periurban",
+                                   grepl("rural", location_cat3) ~ "rural",
+                                   TRUE ~ NA_character_),
+         location_cat2 = factor(location_cat2, levels = c("rural", "urban/periurban")))
+```
+
+```{r}
+contrasts(d_sim_vt_adults$gender) <- cbind("_m" = c(-1, 1))
+contrasts(d_sim_vt_adults$target) <- contr.sum(length(levels(factor(d_sim_vt_adults$target))))
+contrasts(d_sim_vt_adults$location_cat2) <- cbind("_urban" = c(-1, 1))
+```
+
+### Age
+
+```{r}
+d_sim_vt_adults %>%
+  ggplot(aes(x = age, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_smooth(method = "loess", span = 1)
+```
+
+```{r}
+lm(scale(MSE) ~ scale(age), data = d_sim_vt_adults) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ scale(age), data = d_sim_vt_adults) %>% summary()
+```
+
+
+### Gender
+
+```{r}
+d_sim_vt_adults %>%
+  ggplot(aes(x = gender, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(gender) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(gender) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+lm(scale(MSE) ~ gender, data = d_sim_vt_adults) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ gender, data = d_sim_vt_adults) %>% summary()
+```
+
+### Location
+
+```{r}
+d_sim_vt_adults %>%
+  ggplot(aes(x = location_cat2, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(location_cat2) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(location_cat2) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+lm(scale(MSE) ~ location_cat2, data = d_sim_vt_adults) %>% summary()
+```
+
+
+```{r}
+betareg(MSE_rescaled ~ location_cat2, data = d_sim_vt_adults) %>% summary()
+```
+
+### Target
+
+```{r}
+d_sim_vt_adults %>%
+  mutate(target = factor(target, levels = levels_target_univ)) %>%
+  ggplot(aes(x = target, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(target) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(target) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean), 
+                  position = position_dodge(width = 0.25))
+```
+
+```{r}
+lm(scale(MSE) ~ target, data = d_sim_vt_adults, contrasts = list(target = "contr.sum")) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ target, data = d_sim_vt_adults) %>% summary()
+```
+
+### All together
+
+
+```{r}
+lm(scale(MSE) ~ scale(age) + gender + 
+     location_cat2 + 
+     target, 
+   data = d_sim_vt_adults) %>% 
+  summary()
+```
+
+```{r}
+lmer(scale(MSE) ~ scale(age) + gender + 
+     location_cat2 + 
+       + (1 | target), 
+     data = d_sim_vt_adults) %>% 
+  summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ scale(age) + gender + 
+     location_cat2 + 
+          target, 
+        data = d_sim_vt_adults) %>% 
+  summary()
+```
+
+
+## Vanuatu children
+
+```{r}
+d_sim_vt_children <- comp_mod_fun(d_vt_children_w) %>% 
+  left_join(d_vt_children %>% distinct(country, subj_id, location, target)) %>%
+  left_join(plog_vt_children) %>%
+  mutate(target = factor(target, levels = levels_target_univ),
+         target = droplevels(target)) %>%
+  mutate(location_cat3 = case_when(grepl("espigles", location) |
+                                     grepl("malekula", location) |
+                                     location %in% c("khomi", "matanvat", "molin", "moliu", "ulam") ~ "rural",
+                                   grepl("childcare", location) ~ "urban",
+                                   grepl("teouma", location) |
+                                     grepl("eratap", location) ~ "periurban",
+                                   TRUE ~ NA_character_),
+         location_cat3 = factor(location_cat3, levels = c("rural", "periurban", "urban")),
+         location_cat2 = case_when(grepl("urban", location_cat3) ~ "urban/periurban",
+                                   grepl("rural", location_cat3) ~ "rural",
+                                   TRUE ~ NA_character_),
+         location_cat2 = factor(location_cat2, levels = c("rural", "urban/periurban")))
+```
+
+```{r}
+contrasts(d_sim_vt_children$gender) <- cbind("_m" = c(-1, 1))
+contrasts(d_sim_vt_children$target) <- contr.sum(length(levels(factor(d_sim_vt_children$target))))
+```
+
+### Age
+
+```{r}
+d_sim_vt_children %>%
+  ggplot(aes(x = age, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_smooth(method = "loess", span = 1)
+```
+```{r}
+lm(scale(MSE) ~ scale(age), data = d_sim_vt_children) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ scale(age), data = d_sim_vt_children) %>% summary()
+```
+
+
+### Gender
+
+```{r}
+d_sim_vt_children %>%
+  ggplot(aes(x = gender, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(gender) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(gender) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+lm(scale(MSE) ~ gender, data = d_sim_vt_children) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ gender, data = d_sim_vt_children) %>% summary()
+```
+
+### Target
+
+```{r}
+d_sim_vt_children %>%
+  mutate(target = factor(target, levels = levels_target_univ)) %>%
+  ggplot(aes(x = target, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(target) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(target) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean), 
+                  position = position_dodge(width = 0.25))
+```
+
+```{r}
+lm(scale(MSE) ~ target, data = d_sim_vt_children, contrasts = list(target = "contr.sum")) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ target, data = d_sim_vt_children) %>% summary()
+```
+
+### All together
+
+```{r}
+lm(scale(MSE) ~ scale(age) + gender + 
+     target, 
+   data = d_sim_vt_children) %>% 
+  summary()
+```
+
+
+```{r}
+lmer(scale(MSE) ~ scale(age) + gender + 
+       + (1 | target), 
+     data = d_sim_vt_children) %>% 
+  summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ scale(age) + gender + 
+          target, 
+        data = d_sim_vt_children) %>% 
+  summary()
+```
+
+
+# Using adults' models for individual children
+
+## US
+
+```{r}
+d_sim_us_adch <- comp_mod_fun(df_w_cult = d_us_adults_w, df_w_indiv = d_us_children_w) %>% 
+  left_join(d_us_children %>% distinct(country, subj_id, target)) %>%
+  left_join(plog_us_children) %>%
+  mutate(target = factor(target, levels = levels_target_univ),
+         target = droplevels(target))
+```
+
+```{r}
+contrasts(d_sim_us_adch$gender) <- cbind("_m" = c(-1, 1))
+contrasts(d_sim_us_adch$target) <- contr.sum(length(levels(factor(d_sim_us_adch$target))))
+contrasts(d_sim_us_adch$ethnicity_cat2) <- cbind("_POC" = c(-1, 1))
+contrasts(d_sim_us_adch$religion_cat3) <- cbind("_christian" = c(-1, 1, 0),
+                                                  "_other" = c(-1, 0, 1))
+```
+
+### Age
+
+```{r}
+d_sim_us_adch %>%
+  ggplot(aes(x = age, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_smooth(method = "loess", span = 1)
+```
+```{r}
+lm(scale(MSE) ~ scale(age), data = d_sim_us_adch) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ scale(age), data = d_sim_us_adch) %>% summary()
+```
+
+
+### Gender
+
+```{r}
+d_sim_us_adch %>%
+  ggplot(aes(x = gender, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(gender) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(gender) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+lm(scale(MSE) ~ gender, data = d_sim_us_adch) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ gender, data = d_sim_us_adch) %>% summary()
+```
+
+### Race/ethnicity
+
+```{r}
+d_sim_us_adch %>%
+  ggplot(aes(x = ethnicity_cat, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(ethnicity_cat) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(ethnicity_cat) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+d_sim_us_adch %>%
+  ggplot(aes(x = ethnicity_cat2, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(ethnicity_cat2) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(ethnicity_cat2) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+lm(scale(MSE) ~ ethnicity_cat2, data = d_sim_us_adch) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ ethnicity_cat2, data = d_sim_us_adch) %>% summary()
+```
+
+### Religion
+
+```{r}
+d_sim_us_adch %>%
+  ggplot(aes(x = religion_cat3, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(religion_cat3) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(religion_cat3) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+lm(scale(MSE) ~ religion_cat3, data = d_sim_us_adch) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ religion_cat3, data = d_sim_us_adch) %>% summary()
+```
+
+### Target
+
+```{r}
+d_sim_us_adch %>%
+  mutate(target = factor(target, levels = levels_target_univ)) %>%
+  ggplot(aes(x = target, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(target) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(target) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean), 
+                  position = position_dodge(width = 0.25))
+```
+
+```{r}
+lm(scale(MSE) ~ target, data = d_sim_us_adch, contrasts = list(target = "contr.sum")) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ target, data = d_sim_us_adch) %>% summary()
+```
+
+### All together
+
+```{r}
+lm(scale(MSE) ~ scale(age) + gender + 
+     ethnicity_cat2 + religion_cat3 + 
+     target, 
+   data = d_sim_us_adch) %>% 
+  summary()
+```
+
+```{r}
+lmer(scale(MSE) ~ scale(age) + gender + 
+       ethnicity_cat2 + religion_cat3 + 
+       + (1 | target), 
+     data = d_sim_us_adch) %>% 
+  summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ scale(age) + gender + 
+          ethnicity_cat2 + religion_cat3 + 
+          target, 
+        data = d_sim_us_adch) %>% 
+  summary()
+```
+
+
+## Ghana
+
+```{r}
+d_sim_gh_adch <- comp_mod_fun(df_w_cult = d_gh_adults_w, df_w_indiv = d_gh_children_w) %>% 
+  left_join(d_gh_children %>% distinct(country, subj_id, target)) %>%
+  left_join(plog_gh_children) %>%
+  mutate(target = factor(target, levels = levels_target_univ),
+         target = droplevels(target))
+```
+
+```{r}
+contrasts(d_sim_gh_adch$gender) <- cbind("_m" = c(-1, 1))
+contrasts(d_sim_gh_adch$target) <- contr.sum(length(levels(factor(d_sim_gh_adch$target))))
+contrasts(d_sim_gh_adch$religion_cat3) <- cbind("_christian" = c(-1, 1, 0),
+                                                  "_other" = c(-1, 0, 1))
+```
+
+### Age
+
+```{r}
+d_sim_gh_adch %>%
+  ggplot(aes(x = age, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_smooth(method = "loess", span = 1)
+```
+```{r}
+lm(scale(MSE) ~ scale(age), data = d_sim_gh_adch) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ scale(age), data = d_sim_gh_adch) %>% summary()
+```
+
+
+### Gender
+
+```{r}
+d_sim_gh_adch %>%
+  ggplot(aes(x = gender, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(gender) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(gender) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+lm(scale(MSE) ~ gender, data = d_sim_gh_adch) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ gender, data = d_sim_gh_adch) %>% summary()
+```
+
+### Religion
+
+```{r}
+d_sim_gh_adch %>%
+  ggplot(aes(x = religion_cat3, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(religion_cat3) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(religion_cat3) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+# lm(scale(MSE) ~ religion_cat3, data = d_sim_gh_adch) %>% summary() # almost all christian
+```
+
+```{r}
+# betareg(MSE_rescaled ~ religion_cat3, data = d_sim_gh_adch) %>% summary() # almost all christian
+```
+
+### Target
+
+```{r}
+d_sim_gh_adch %>%
+  mutate(target = factor(target, levels = levels_target_univ)) %>%
+  ggplot(aes(x = target, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(target) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(target) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean), 
+                  position = position_dodge(width = 0.25))
+```
+
+```{r}
+lm(scale(MSE) ~ target, data = d_sim_gh_adch, contrasts = list(target = "contr.sum")) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ target, data = d_sim_gh_adch) %>% summary()
+```
+
+### All together
+
+```{r}
+lm(scale(MSE) ~ scale(age) + gender + 
+     # religion_cat3 + # almost all christian
+     target, 
+   data = d_sim_gh_adch) %>% 
+  summary()
+```
+
+
+```{r}
+lmer(scale(MSE) ~ scale(age) + gender + 
+       # religion_cat3 + # almost all christian
+       + (1 | target), 
+     data = d_sim_gh_adch) %>% 
+  summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ scale(age) + gender + 
+          # religion_cat3 + almost all christian 
+          target, 
+        data = d_sim_gh_adch) %>% 
+  summary()
+```
+
+
+## Thailand
+
+```{r}
+d_sim_th_adch <- comp_mod_fun(d_th_children_w) %>% 
+  left_join(d_th_children %>% distinct(country, subj_id, target)) %>%
+  left_join(plog_th_children) %>%
+  mutate(target = factor(target, levels = levels_target_univ),
+         target = droplevels(target))
+```
+
+```{r}
+contrasts(d_sim_th_adch$gender) <- cbind("_m" = c(-1, 1))
+contrasts(d_sim_th_adch$target) <- contr.sum(length(levels(factor(d_sim_th_adch$target))))
+contrasts(d_sim_th_adch$religion_cat3) <- cbind("_christian" = c(-1, 1, 0),
+                                                  "_other" = c(-1, 0, 1))
+```
+
+### Age
+
+```{r}
+d_sim_th_adch %>%
+  ggplot(aes(x = age, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_smooth(method = "loess", span = 1)
+```
+```{r}
+lm(scale(MSE) ~ scale(age), data = d_sim_th_adch) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ scale(age), data = d_sim_th_adch) %>% summary()
+```
+
+
+### Gender
+
+```{r}
+d_sim_th_adch %>%
+  ggplot(aes(x = gender, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(gender) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(gender) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+lm(scale(MSE) ~ gender, data = d_sim_th_adch) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ gender, data = d_sim_th_adch) %>% summary()
+```
+
+### Religion
+
+```{r}
+d_sim_th_adch %>%
+  ggplot(aes(x = religion_cat3, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(religion_cat3) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(religion_cat3) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+# lm(scale(MSE) ~ religion_cat3, data = d_sim_th_adch) %>% summary() # almost all buddhist
+```
+
+```{r}
+# betareg(MSE_rescaled ~ religion_cat3, data = d_sim_th_adch) %>% summary() # almost all buddhist
+```
+
+### Target
+
+```{r}
+d_sim_th_adch %>%
+  mutate(target = factor(target, levels = levels_target_univ)) %>%
+  ggplot(aes(x = target, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(target) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(target) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean), 
+                  position = position_dodge(width = 0.25))
+```
+
+```{r}
+lm(scale(MSE) ~ target, data = d_sim_th_adch, contrasts = list(target = "contr.sum")) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ target, data = d_sim_th_adch) %>% summary()
+```
+
+### All together
+
+```{r}
+lm(scale(MSE) ~ scale(age) + gender + 
+     # religion_cat3 + # almost all buddhist 
+     target, 
+   data = d_sim_th_adch) %>% 
+  summary()
+```
+
+
+```{r}
+lmer(scale(MSE) ~ scale(age) + gender + 
+       # religion_cat3 + # almost all buddhist 
+       + (1 | target), 
+     data = d_sim_th_adch) %>% 
+  summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ scale(age) + gender + 
+          # religion_cat3 + # almost all buddhist 
+          target, 
+        data = d_sim_th_adch) %>% 
+  summary()
+```
+
+
+## China
+
+```{r}
+d_sim_ch_adch <- comp_mod_fun(df_w_cult = d_ch_adults_w, df_w_indiv = d_ch_children_w) %>% 
+  left_join(d_ch_children %>% distinct(country, subj_id, target)) %>%
+  left_join(plog_ch_children) %>%
+  mutate(target = factor(target, levels = levels_target_univ),
+         target = droplevels(target))
+```
+
+```{r}
+contrasts(d_sim_ch_adch$gender) <- cbind("_m" = c(-1, 1))
+contrasts(d_sim_ch_adch$target) <- contr.sum(length(levels(factor(d_sim_ch_adch$target))))
+```
+
+### Age
+
+```{r}
+d_sim_ch_adch %>%
+  ggplot(aes(x = age, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_smooth(method = "loess", span = 1)
+```
+```{r}
+lm(scale(MSE) ~ scale(age), data = d_sim_ch_adch) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ scale(age), data = d_sim_ch_adch) %>% summary()
+```
+
+
+### Gender
+
+```{r}
+d_sim_ch_adch %>%
+  ggplot(aes(x = gender, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(gender) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(gender) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+lm(scale(MSE) ~ gender, data = d_sim_ch_adch) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ gender, data = d_sim_ch_adch) %>% summary()
+```
+
+### Target
+
+```{r}
+d_sim_ch_adch %>%
+  mutate(target = factor(target, levels = levels_target_univ)) %>%
+  ggplot(aes(x = target, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(target) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(target) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean), 
+                  position = position_dodge(width = 0.25))
+```
+
+```{r}
+lm(scale(MSE) ~ target, data = d_sim_ch_adch, contrasts = list(target = "contr.sum")) %>% summary()
+```
+
+```{r}
+# betareg(MSE_rescaled ~ target, data = d_sim_ch_adch) %>% summary()
+```
+
+### All together
+
+```{r}
+lm(scale(MSE) ~ scale(age) + gender + 
+     target, 
+   data = d_sim_ch_adch) %>% 
+  summary()
+```
+
+
+```{r}
+lmer(scale(MSE) ~ scale(age) + gender + 
+       + (1 | target), 
+     data = d_sim_ch_adch) %>% 
+  summary()
+```
+
+```{r}
+# error ?
+# betareg(MSE_rescaled ~ scale(age) + gender + 
+#           target, 
+#         data = d_sim_ch_adch) %>% 
+#   summary()
+```
+
+
+## Vanuatu
+
+```{r}
+d_sim_vt_adch <- comp_mod_fun(df_w_cult = d_vt_children_w, df_w_indiv = d_vt_children_w) %>% 
+  left_join(d_vt_children %>% distinct(country, subj_id, location, target)) %>%
+  left_join(plog_vt_children) %>%
+  mutate(target = factor(target, levels = levels_target_univ),
+         target = droplevels(target)) %>%
+  mutate(location_cat3 = case_when(grepl("espigles", location) |
+                                     grepl("malekula", location) |
+                                     location %in% c("khomi", "matanvat", "molin", "moliu", "ulam") ~ "rural",
+                                   grepl("childcare", location) ~ "urban",
+                                   grepl("teouma", location) |
+                                     grepl("eratap", location) ~ "periurban",
+                                   TRUE ~ NA_character_),
+         location_cat3 = factor(location_cat3, levels = c("rural", "periurban", "urban")),
+         location_cat2 = case_when(grepl("urban", location_cat3) ~ "urban/periurban",
+                                   grepl("rural", location_cat3) ~ "rural",
+                                   TRUE ~ NA_character_),
+         location_cat2 = factor(location_cat2, levels = c("rural", "urban/periurban")))
+```
+
+```{r}
+contrasts(d_sim_vt_adch$gender) <- cbind("_m" = c(-1, 1))
+contrasts(d_sim_vt_adch$target) <- contr.sum(length(levels(factor(d_sim_vt_adch$target))))
+```
+
+### Age
+
+```{r}
+d_sim_vt_adch %>%
+  ggplot(aes(x = age, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_smooth(method = "loess", span = 1)
+```
+```{r}
+lm(scale(MSE) ~ scale(age), data = d_sim_vt_adch) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ scale(age), data = d_sim_vt_adch) %>% summary()
+```
+
+
+### Gender
+
+```{r}
+d_sim_vt_adch %>%
+  ggplot(aes(x = gender, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(gender) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(gender) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+lm(scale(MSE) ~ gender, data = d_sim_vt_adch) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ gender, data = d_sim_vt_adch) %>% summary()
+```
+
+### Target
+
+```{r}
+d_sim_vt_adch %>%
+  mutate(target = factor(target, levels = levels_target_univ)) %>%
+  ggplot(aes(x = target, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(target) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(target) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean), 
+                  position = position_dodge(width = 0.25))
+```
+
+```{r}
+lm(scale(MSE) ~ target, data = d_sim_vt_adch, contrasts = list(target = "contr.sum")) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ target, data = d_sim_vt_adch) %>% summary()
+```
+
+### All together
+
+```{r}
+lm(scale(MSE) ~ scale(age) + gender + 
+     target, 
+   data = d_sim_vt_adch) %>% 
+  summary()
+```
+
+
+```{r}
+lmer(scale(MSE) ~ scale(age) + gender + 
+       + (1 | target), 
+     data = d_sim_vt_adch) %>% 
+  summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ scale(age) + gender + 
+          target, 
+        data = d_sim_vt_adch) %>% 
+  summary()
+```
+
+
+
+
+
+
+
+
+
+
+
+# Using US model for other adults (kinda = yes = 1)
+
+```{r}
+d_sim_us_us <- comp_mod_fun(df_w_cult = d_us_adults_w, 
+                            df_w_indiv = d_us_adults_w, kinda_val = 1) %>% 
+  left_join(d_us_adults %>% distinct(country, subj_id, target)) %>%
+  left_join(plog_us_adults) %>%
+  mutate(target = factor(target, levels = levels_target_univ),
+         target = droplevels(target))
+```
+
+```{r}
+d_sim_us_gh <- comp_mod_fun(df_w_cult = d_us_adults_w, 
+                            df_w_indiv = d_gh_adults_w, kinda_val = 1) %>% 
+  left_join(d_gh_adults %>% distinct(country, subj_id, target)) %>%
+  left_join(plog_gh_adults) %>%
+  mutate(target = factor(target, levels = levels_target_univ),
+         target = droplevels(target))
+```
+
+```{r}
+d_sim_us_th <- comp_mod_fun(df_w_cult = d_us_adults_w, 
+                            df_w_indiv = d_th_adults_w, kinda_val = 1) %>% 
+  left_join(d_th_adults %>% distinct(country, subj_id, target)) %>%
+  left_join(plog_th_adults) %>%
+  mutate(target = factor(target, levels = levels_target_univ),
+         target = droplevels(target))
+```
+
+```{r}
+d_sim_us_ch <- comp_mod_fun(df_w_cult = d_us_adults_w, 
+                            df_w_indiv = d_ch_adults_w, kinda_val = 1) %>% 
+  left_join(d_ch_adults %>% distinct(country, subj_id, target)) %>%
+  left_join(plog_ch_adults) %>%
+  mutate(target = factor(target, levels = levels_target_univ),
+         target = droplevels(target))
+```
+
+```{r}
+d_sim_us_vt <- comp_mod_fun(df_w_cult = d_us_adults_w, 
+                            df_w_indiv = d_vt_adults_w, kinda_val = 1) %>% 
+  left_join(d_vt_adults %>% distinct(country, subj_id, location, target)) %>%
+  left_join(plog_vt_adults) %>%
+  mutate(target = factor(target, levels = levels_target_univ),
+         target = droplevels(target)) %>%
+  mutate(location_cat3 = case_when(grepl("Espigles", location) |
+                                     grepl("Malekula", location) ~ "rural",
+                                   grepl("Fresh Water", location) |
+                                     grepl("Namba", location) |
+                                     grepl("Port Vila", location) ~ "urban",
+                                   grepl("Teouma", location) ~ "periurban",
+                                   TRUE ~ NA_character_),
+         location_cat3 = factor(location_cat3, levels = c("rural", "periurban", "urban")),
+         location_cat2 = case_when(grepl("urban", location_cat3) ~ "urban/periurban",
+                                   grepl("rural", location_cat3) ~ "rural",
+                                   TRUE ~ NA_character_),
+         location_cat2 = factor(location_cat2, levels = c("rural", "urban/periurban")))
+```
+
+```{r}
+full_join(bind_rows(d_sim_us_us, d_sim_us_gh, d_sim_us_th, 
+                    d_sim_us_ch, d_sim_us_vt) %>%
+            mutate(cult_mod = "US adults"),
+          bind_rows(d_sim_us_adults, d_sim_gh_adults, d_sim_th_adults, 
+                    d_sim_ch_adults, d_sim_vt_adults) %>%
+            mutate(cult_mod = "Own sample")) %>%
+  mutate(country = factor(country, levels = levels_country)) %>%
+  ggplot(aes(x = country, y = MSE, color = country, shape = cult_mod)) +
+  geom_point(alpha = 0.2, position = position_jitterdodge(jitter.height = 0, dodge.width = 0.5)) +
+  geom_pointrange(data = . %>%
+                    group_by(country, cult_mod) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(y = mean, ymin = ci_lower, ymax = ci_upper),
+                  position = position_dodge(width = 0.5),
+                  color = "black") + 
+  scale_color_brewer(palette = "Dark2") +
+  scale_y_continuous(limits = c(0, NA))
+```
+```{r}
+full_join(bind_rows(d_sim_us_us, d_sim_us_gh, d_sim_us_th, 
+                    d_sim_us_ch, d_sim_us_vt) %>%
+            mutate(cult_mod = "US adults"),
+          bind_rows(d_sim_us_adults, d_sim_gh_adults, d_sim_th_adults, 
+                    d_sim_ch_adults, d_sim_vt_adults) %>%
+            mutate(cult_mod = "Own sample")) %>%
+  mutate(country = factor(country, levels = levels_country)) %>%
+  ggplot(aes(x = country, y = MSE_rescaled, color = country, shape = cult_mod)) +
+  geom_point(alpha = 0.2, position = position_jitterdodge(jitter.height = 0, dodge.width = 0.5)) +
+  geom_pointrange(data = . %>%
+                    group_by(country, cult_mod) %>%
+                    multi_boot_standard(col = "MSE_rescaled", na.rm = T),
+                  aes(y = mean, ymin = ci_lower, ymax = ci_upper),
+                  position = position_dodge(width = 0.5),
+                  color = "black") + 
+  scale_color_brewer(palette = "Dark2") +
+  scale_y_continuous(limits = c(0, NA))
+```
+
+## Ghana
+
+```{r}
+contrasts(d_sim_us_gh$gender) <- cbind("_m" = c(-1, 1))
+contrasts(d_sim_us_gh$target) <- contr.sum(length(levels(factor(d_sim_us_gh$target))))
+contrasts(d_sim_us_gh$urban_rural_cat2) <- cbind("_rural" = c(-1, 1))
+contrasts(d_sim_us_gh$education_cat2) <- cbind("_hs" = c(-1, 1))
+contrasts(d_sim_us_gh$ethnicity_cat2) <- cbind("_nonFante" = c(-1, 1))
+contrasts(d_sim_us_gh$religion_cat3) <- cbind("_christian" = c(-1, 1, 0),
+                                                  "_other" = c(-1, 0, 1))
+```
+
+### Age
+
+```{r}
+d_sim_us_gh %>%
+  ggplot(aes(x = age, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_smooth(method = "loess", span = 1)
+```
+```{r}
+lm(scale(MSE) ~ scale(age), data = d_sim_us_gh) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ scale(age), data = d_sim_us_gh) %>% summary()
+```
+
+
+### Gender
+
+```{r}
+d_sim_us_gh %>%
+  ggplot(aes(x = gender, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(gender) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(gender) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+lm(scale(MSE) ~ gender, data = d_sim_us_gh) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ gender, data = d_sim_us_gh) %>% summary()
+```
+
+### Race/ethnicity
+
+```{r}
+d_sim_us_gh %>%
+  ggplot(aes(x = ethnicity_cat, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(ethnicity_cat) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(ethnicity_cat) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+d_sim_us_gh %>%
+  ggplot(aes(x = ethnicity_cat2, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(ethnicity_cat2) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(ethnicity_cat2) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+lm(scale(MSE) ~ ethnicity_cat2, data = d_sim_us_gh) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ ethnicity_cat2, data = d_sim_us_gh) %>% summary()
+```
+
+### Education
+
+```{r}
+d_sim_us_gh %>%
+  ggplot(aes(x = education_catX, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(education_catX) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(education_catX) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+lm(scale(MSE) ~ scale(education_catX), 
+   data = d_sim_us_gh %>% mutate(education_catX = as.numeric(education_catX))) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ scale(education_catX), 
+        data = d_sim_us_gh %>% mutate(education_catX = as.numeric(education_catX))) %>% summary()
+```
+
+```{r}
+d_sim_us_gh %>%
+  ggplot(aes(x = education_cat2, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(education_cat2) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(education_cat2) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+lm(scale(MSE) ~ education_cat2, data = d_sim_us_gh) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ education_cat2, data = d_sim_us_gh) %>% summary()
+```
+
+### Rural/urban
+
+```{r}
+d_sim_us_gh %>%
+  ggplot(aes(x = urban_rural_cat2, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(urban_rural_cat2) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(urban_rural_cat2) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+lm(scale(MSE) ~ urban_rural_cat2, data = d_sim_us_gh) %>% summary()
+```
+
+
+```{r}
+betareg(MSE_rescaled ~ urban_rural_cat2, data = d_sim_us_gh) %>% summary()
+```
+
+### Religion
+
+```{r}
+d_sim_us_gh %>%
+  ggplot(aes(x = religion_cat3, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(religion_cat3) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(religion_cat3) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+# lm(scale(MSE) ~ religion_cat3, data = d_sim_us_gh) %>% summary() # almost all christian
+```
+
+```{r}
+# betareg(MSE_rescaled ~ religion_cat3, data = d_sim_us_gh) %>% summary() # almost all christian
+```
+
+### Target
+
+```{r}
+d_sim_us_gh %>%
+  mutate(target = factor(target, levels = levels_target_univ)) %>%
+  ggplot(aes(x = target, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(target) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(target) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean), 
+                  position = position_dodge(width = 0.25))
+```
+
+```{r}
+lm(scale(MSE) ~ target, data = d_sim_us_gh, contrasts = list(target = "contr.sum")) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ target, data = d_sim_us_gh) %>% summary()
+```
+
+### All together
+
+```{r}
+lm(scale(MSE) ~ scale(age) + gender + 
+     scale(education_catX) + ethnicity_cat2 + 
+     # religion_cat3 + # almost all christian 
+     urban_rural_cat2 + 
+     target, 
+   data = d_sim_us_gh %>%
+     mutate(education_catX = as.numeric(education_catX))) %>% 
+  summary()
+```
+
+```{r}
+lm(scale(MSE) ~ scale(age) + gender + 
+     education_cat2 + ethnicity_cat2 + 
+     # religion_cat3 + # almost all christian 
+     urban_rural_cat2 + 
+     target, 
+   data = d_sim_us_gh) %>% 
+  summary()
+```
+
+```{r}
+lmer(scale(MSE) ~ scale(age) + gender + 
+       scale(education_catX) + ethnicity_cat2 + 
+       # religion_cat3 + # almost all christian 
+       urban_rural_cat2 + 
+       + (1 | target), 
+     data = d_sim_us_gh %>%
+       mutate(education_catX = as.numeric(education_catX))) %>% 
+  summary()
+```
+
+```{r}
+lmer(scale(MSE) ~ scale(age) + gender + 
+       education_cat2 + ethnicity_cat2 + 
+       # religion_cat3 + # almost all christian 
+       urban_rural_cat2 + 
+       + (1 | target), 
+     data = d_sim_us_gh) %>% 
+  summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ scale(age) + gender + 
+          scale(education_catX) + ethnicity_cat2 + 
+          # religion_cat3 + # almost all christian 
+          urban_rural_cat2 + 
+          target, 
+        data = d_sim_us_gh %>%
+          mutate(education_catX = as.numeric(education_catX))) %>% 
+  summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ scale(age) + gender + 
+          education_cat2 + ethnicity_cat2 + 
+          # religion_cat3 + # almost all christian 
+          urban_rural_cat2 + 
+          target, 
+        data = d_sim_us_gh %>%
+          mutate(education_catX = as.numeric(education_catX))) %>% 
+  summary()
+```
+
+## Thailand
+
+```{r}
+contrasts(d_sim_us_th$gender) <- cbind("_m" = c(-1, 1, 0),
+                                           "_o" = c(-1, 0, 1))
+contrasts(d_sim_us_th$target) <- contr.sum(length(levels(factor(d_sim_us_th$target))))
+contrasts(d_sim_us_th$urban_rural_cat2) <- cbind("_rural" = c(-1, 1))
+contrasts(d_sim_us_th$education_cat2) <- cbind("_coll" = c(-1, 1))
+contrasts(d_sim_us_th$ethnicity_cat2) <- cbind("_nonThai" = c(-1, 1))
+contrasts(d_sim_us_th$religion_cat3) <- cbind("_christian" = c(-1, 1, 0),
+                                                  "_other" = c(-1, 0, 1))
+```
+
+### Age
+
+```{r}
+d_sim_us_th %>%
+  ggplot(aes(x = age, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_smooth(method = "loess", span = 1)
+```
+```{r}
+lm(scale(MSE) ~ scale(age), data = d_sim_us_th) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ scale(age), data = d_sim_us_th) %>% summary()
+```
+
+
+### Gender
+
+```{r}
+d_sim_us_th %>%
+  ggplot(aes(x = gender, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(gender) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(gender) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+lm(scale(MSE) ~ gender, data = d_sim_us_th) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ gender, data = d_sim_us_th) %>% summary()
+```
+
+### Race/ethnicity
+
+```{r}
+d_sim_us_th %>%
+  ggplot(aes(x = ethnicity_cat, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(ethnicity_cat) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(ethnicity_cat) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+# lm(scale(MSE) ~ ethnicity_cat2, data = d_sim_us_th) %>% summary() # all thai
+```
+
+```{r}
+# betareg(MSE_rescaled ~ ethnicity_cat2, data = d_sim_us_th) %>% summary() # all thai
+```
+
+### Education
+
+```{r}
+d_sim_us_th %>%
+  ggplot(aes(x = education_catX, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(education_catX) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(education_catX) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+lm(scale(MSE) ~ scale(education_catX), 
+   data = d_sim_us_th %>% mutate(education_catX = as.numeric(education_catX))) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ scale(education_catX), 
+        data = d_sim_us_th %>% mutate(education_catX = as.numeric(education_catX))) %>% summary()
+```
+
+```{r}
+d_sim_us_th %>%
+  ggplot(aes(x = education_cat2, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(education_cat2) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(education_cat2) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+lm(scale(MSE) ~ education_cat2, data = d_sim_us_th) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ education_cat2, data = d_sim_us_th) %>% summary()
+```
+
+### Rural/urban
+
+```{r}
+d_sim_us_th %>%
+  ggplot(aes(x = urban_rural_cat2, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(urban_rural_cat2) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(urban_rural_cat2) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+lm(scale(MSE) ~ urban_rural_cat2, data = d_sim_us_th) %>% summary()
+```
+
+
+```{r}
+betareg(MSE_rescaled ~ urban_rural_cat2, data = d_sim_us_th) %>% summary()
+```
+
+### Religion
+
+```{r}
+d_sim_us_th %>%
+  ggplot(aes(x = religion_cat3, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(religion_cat3) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(religion_cat3) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+# lm(scale(MSE) ~ religion_cat3, data = d_sim_us_th) %>% summary() # almost all buddhist
+```
+
+```{r}
+# betareg(MSE_rescaled ~ religion_cat3, data = d_sim_us_th) %>% summary() # almost all buddhist
+```
+
+### Target
+
+```{r}
+d_sim_us_th %>%
+  mutate(target = factor(target, levels = levels_target_univ)) %>%
+  ggplot(aes(x = target, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(target) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(target) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean), 
+                  position = position_dodge(width = 0.25))
+```
+
+```{r}
+lm(scale(MSE) ~ target, data = d_sim_us_th, contrasts = list(target = "contr.sum")) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ target, data = d_sim_us_th) %>% summary()
+```
+
+### All together
+
+```{r}
+lm(scale(MSE) ~ scale(age) + gender + 
+     scale(education_catX) + 
+     # ethnicity_cat2 + religion_cat3 + almost all thai and buddhist 
+     urban_rural_cat2 + 
+     target, 
+   data = d_sim_us_th %>%
+     mutate(education_catX = as.numeric(education_catX))) %>% 
+  summary()
+```
+
+```{r}
+lm(scale(MSE) ~ scale(age) + gender + 
+     education_cat2 + 
+     # ethnicity_cat2 + religion_cat3 + almost all thai and buddhist 
+     urban_rural_cat2 + 
+     target, 
+   data = d_sim_us_th) %>% 
+  summary()
+```
+
+```{r}
+lmer(scale(MSE) ~ scale(age) + gender + 
+       scale(education_catX) + 
+     # ethnicity_cat2 + religion_cat3 + almost all thai and buddhist 
+       urban_rural_cat2 + 
+       + (1 | target), 
+     data = d_sim_us_th %>%
+       mutate(education_catX = as.numeric(education_catX))) %>% 
+  summary()
+```
+
+```{r}
+lmer(scale(MSE) ~ scale(age) + gender + 
+       education_cat2 + 
+     # ethnicity_cat2 + religion_cat3 + almost all thai and buddhist 
+       urban_rural_cat2 + 
+       + (1 | target), 
+     data = d_sim_us_th) %>% 
+  summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ scale(age) + gender + 
+          scale(education_catX) + 
+     # ethnicity_cat2 + religion_cat3 + almost all thai and buddhist 
+          urban_rural_cat2 + 
+          target, 
+        data = d_sim_us_th %>%
+          mutate(education_catX = as.numeric(education_catX))) %>% 
+  summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ scale(age) + gender + 
+     education_cat2 + 
+       # ethnicity_cat2 + religion_cat3 + almost all thai and buddhist 
+       urban_rural_cat2 + 
+     target, 
+   data = d_sim_us_th %>%
+     mutate(education_catX = as.numeric(education_catX))) %>% 
+  summary()
+```
+
+## China
+
+```{r}
+contrasts(d_sim_us_ch$gender) <- cbind("_m" = c(-1, 1))
+contrasts(d_sim_us_ch$target) <- contr.sum(length(levels(factor(d_sim_us_ch$target))))
+contrasts(d_sim_us_ch$urban_rural_cat2) <- cbind("_rural" = c(-1, 1))
+contrasts(d_sim_us_ch$education_cat2) <- cbind("_coll" = c(-1, 1))
+contrasts(d_sim_us_ch$ethnicity_cat2) <- cbind("_nonHan" = c(-1, 1))
+contrasts(d_sim_us_ch$religion_cat3) <- cbind("_buddhist" = c(-1, 1, 0),
+                                                  "_other" = c(-1, 0, 1))
+```
+
+### Age
+
+```{r}
+d_sim_us_ch %>%
+  ggplot(aes(x = age, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_smooth(method = "loess", span = 1)
+```
+```{r}
+lm(scale(MSE) ~ scale(age), data = d_sim_us_ch) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ scale(age), data = d_sim_us_ch) %>% summary()
+```
+
+
+### Gender
+
+```{r}
+d_sim_us_ch %>%
+  ggplot(aes(x = gender, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(gender) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(gender) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+lm(scale(MSE) ~ gender, data = d_sim_us_ch) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ gender, data = d_sim_us_ch) %>% summary()
+```
+
+### Race/ethnicity
+
+```{r}
+d_sim_us_ch %>%
+  ggplot(aes(x = ethnicity_cat, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(ethnicity_cat) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(ethnicity_cat) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+d_sim_us_ch %>%
+  ggplot(aes(x = ethnicity_cat2, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(ethnicity_cat2) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(ethnicity_cat2) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+# lm(scale(MSE) ~ ethnicity_cat2, data = d_sim_us_ch) %>% summary() # almost all han
+```
+
+```{r}
+# betareg(MSE_rescaled ~ ethnicity_cat2, data = d_sim_us_ch) %>% summary() # almost all han
+```
+
+### Education
+
+```{r}
+d_sim_us_ch %>%
+  ggplot(aes(x = education_catX, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(education_catX) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(education_catX) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+lm(scale(MSE) ~ scale(education_catX), 
+   data = d_sim_us_ch %>% mutate(education_catX = as.numeric(education_catX))) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ scale(education_catX), 
+        data = d_sim_us_ch %>% mutate(education_catX = as.numeric(education_catX))) %>% summary()
+```
+
+```{r}
+d_sim_us_ch %>%
+  ggplot(aes(x = education_cat2, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(education_cat2) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(education_cat2) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+lm(scale(MSE) ~ education_cat2, data = d_sim_us_ch) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ education_cat2, data = d_sim_us_ch) %>% summary()
+```
+
+### Rural/urban
+
+```{r}
+d_sim_us_ch %>%
+  ggplot(aes(x = urban_rural_cat2, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(urban_rural_cat2) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(urban_rural_cat2) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+lm(scale(MSE) ~ urban_rural_cat2, data = d_sim_us_ch) %>% summary()
+```
+
+
+```{r}
+betareg(MSE_rescaled ~ urban_rural_cat2, data = d_sim_us_ch) %>% summary()
+```
+
+### Religion
+
+```{r}
+d_sim_us_ch %>%
+  ggplot(aes(x = religion_cat3, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(religion_cat3) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(religion_cat3) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+lm(scale(MSE) ~ religion_cat3, data = d_sim_us_ch) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ religion_cat3, data = d_sim_us_ch) %>% summary()
+```
+
+### Target
+
+```{r}
+d_sim_us_ch %>%
+  mutate(target = factor(target, levels = levels_target_univ)) %>%
+  ggplot(aes(x = target, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(target) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(target) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean), 
+                  position = position_dodge(width = 0.25))
+```
+
+```{r}
+lm(scale(MSE) ~ target, data = d_sim_us_ch, contrasts = list(target = "contr.sum")) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ target, data = d_sim_us_ch) %>% summary()
+```
+
+### All together
+
+```{r}
+lm(scale(MSE) ~ scale(age) + gender + 
+     scale(education_catX) + 
+     # ethnicity_cat2 + # almost all han
+     religion_cat3 + urban_rural_cat2 + 
+     target, 
+   data = d_sim_us_ch %>%
+     mutate(education_catX = as.numeric(education_catX))) %>% 
+  summary()
+```
+
+```{r}
+lm(scale(MSE) ~ scale(age) + gender + 
+     education_cat2 + 
+     # ethnicity_cat2 + # almost all han
+     religion_cat3 + urban_rural_cat2 + 
+     target, 
+   data = d_sim_us_ch) %>% 
+  summary()
+```
+
+```{r}
+lmer(scale(MSE) ~ scale(age) + gender + 
+       scale(education_catX) + 
+     # ethnicity_cat2 + # almost all han
+     religion_cat3 + urban_rural_cat2 + 
+       + (1 | target), 
+     data = d_sim_us_ch %>%
+       mutate(education_catX = as.numeric(education_catX))) %>% 
+  summary()
+```
+
+```{r}
+lmer(scale(MSE) ~ scale(age) + gender + 
+       education_cat2 + 
+     # ethnicity_cat2 + # almost all han
+     religion_cat3 + urban_rural_cat2 + 
+       + (1 | target), 
+     data = d_sim_us_ch) %>% 
+  summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ scale(age) + gender + 
+          scale(education_catX) + 
+     # ethnicity_cat2 + # almost all han
+     religion_cat3 + urban_rural_cat2 + 
+          target, 
+        data = d_sim_us_ch %>%
+          mutate(education_catX = as.numeric(education_catX))) %>% 
+  summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ scale(age) + gender + 
+     education_cat2 + 
+     # ethnicity_cat2 + # almost all han
+     religion_cat3 + urban_rural_cat2 + 
+     target, 
+   data = d_sim_us_ch %>%
+     mutate(education_catX = as.numeric(education_catX))) %>% 
+  summary()
+```
+
+## Vanuatu
+
+```{r}
+contrasts(d_sim_us_vt$gender) <- cbind("_m" = c(-1, 1))
+contrasts(d_sim_us_vt$target) <- contr.sum(length(levels(factor(d_sim_us_vt$target))))
+contrasts(d_sim_us_vt$location_cat2) <- cbind("_urban" = c(-1, 1))
+```
+
+### Age
+
+```{r}
+d_sim_us_vt %>%
+  ggplot(aes(x = age, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_smooth(method = "loess", span = 1)
+```
+```{r}
+lm(scale(MSE) ~ scale(age), data = d_sim_us_vt) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ scale(age), data = d_sim_us_vt) %>% summary()
+```
+
+
+### Gender
+
+```{r}
+d_sim_us_vt %>%
+  ggplot(aes(x = gender, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(gender) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(gender) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+lm(scale(MSE) ~ gender, data = d_sim_us_vt) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ gender, data = d_sim_us_vt) %>% summary()
+```
+
+### Location
+
+```{r}
+d_sim_us_vt %>%
+  ggplot(aes(x = location_cat2, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(location_cat2) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(location_cat2) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean))
+```
+
+```{r}
+lm(scale(MSE) ~ location_cat2, data = d_sim_us_vt) %>% summary()
+```
+
+
+```{r}
+betareg(MSE_rescaled ~ location_cat2, data = d_sim_us_vt) %>% summary()
+```
+
+### Target
+
+```{r}
+d_sim_us_vt %>%
+  mutate(target = factor(target, levels = levels_target_univ)) %>%
+  ggplot(aes(x = target, y = MSE)) +
+  geom_jitter(height = 0, alpha = 0.2) +
+  geom_text(data = . %>% count(target) %>% data.frame(),
+            aes(y = 0.5, label = paste("n =", n))) +
+  geom_pointrange(data = . %>% 
+                    group_by(target) %>%
+                    multi_boot_standard(col = "MSE", na.rm = T),
+                  aes(ymin = ci_lower, ymax = ci_upper, y = mean), 
+                  position = position_dodge(width = 0.25))
+```
+
+```{r}
+lm(scale(MSE) ~ target, data = d_sim_us_vt, contrasts = list(target = "contr.sum")) %>% summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ target, data = d_sim_us_vt) %>% summary()
+```
+
+### All together
+
+
+```{r}
+lm(scale(MSE) ~ scale(age) + gender + 
+     location_cat2 + 
+     target, 
+   data = d_sim_us_vt) %>% 
+  summary()
+```
+
+```{r}
+lmer(scale(MSE) ~ scale(age) + gender + 
+     location_cat2 + 
+       + (1 | target), 
+     data = d_sim_us_vt) %>% 
+  summary()
+```
+
+```{r}
+betareg(MSE_rescaled ~ scale(age) + gender + 
+     location_cat2 + 
+          target, 
+        data = d_sim_us_vt) %>% 
+  summary()
+```
+
+
+# Summary stats
+
+## Group-level average matching scores (observed)
+
+```{r}
+bind_rows(mod_cult_fun(d_us_adults_w) %>% mutate(country = "US"),
+          mod_cult_fun(d_gh_adults_w) %>% mutate(country = "Ghana"),
+          mod_cult_fun(d_th_adults_w) %>% mutate(country = "Thailand"),
+          mod_cult_fun(d_ch_adults_w) %>% mutate(country = "China"),
+          mod_cult_fun(d_vt_adults_w) %>% mutate(country = "Vanuatu")) %>%
+  mutate(country = factor(country, levels = levels_country)) %>%
+  group_by(country) %>%
+  summarise(min = min(mean_match), max = max(mean_match))
+```
+
+## Theoretical range for MSE 
+
+### Kinda = 0.5
+
+```{r}
+bind_rows(mse_minmax_fun(mod_cult_fun(d_us_adults_w)) %>% mutate(country = "US"),
+          mse_minmax_fun(mod_cult_fun(d_gh_adults_w)) %>% mutate(country = "Ghana"),
+          mse_minmax_fun(mod_cult_fun(d_th_adults_w)) %>% mutate(country = "Thailand"),
+          mse_minmax_fun(mod_cult_fun(d_ch_adults_w)) %>% mutate(country = "China"),
+          mse_minmax_fun(mod_cult_fun(d_vt_adults_w)) %>% mutate(country = "Vanuatu")) %>%
+  mutate(country = factor(country, levels = levels_country)) %>%
+  mutate_if(is.numeric, ~format(round(., 2), nsmall = 2)) 
+```
+
+### Kinda = yes = 1
+
+```{r}
+bind_rows(mse_minmax_fun(mod_cult_fun(d_us_adults_w, kinda = 0.5)) %>% mutate(country = "US"),
+          mse_minmax_fun(mod_cult_fun(d_gh_adults_w, kinda = 0.5)) %>% mutate(country = "Ghana"),
+          mse_minmax_fun(mod_cult_fun(d_th_adults_w, kinda = 0.5)) %>% mutate(country = "Thailand"),
+          mse_minmax_fun(mod_cult_fun(d_ch_adults_w, kinda = 0.5)) %>% mutate(country = "China"),
+          mse_minmax_fun(mod_cult_fun(d_vt_adults_w, kinda = 0.5)) %>% mutate(country = "Vanuatu")) %>%
+  mutate(country = factor(country, levels = levels_country)) %>%
+  mutate_if(is.numeric, ~format(round(., 2), nsmall = 2))
+```
+
+## MSE summary stats by group (observed) 
+
+```{r}
+d_sim_us_adults %>%
+  full_join(d_sim_gh_adults) %>%
+  full_join(d_sim_th_adults) %>%
+  full_join(d_sim_ch_adults) %>%
+  full_join(d_sim_vt_adults) %>%
+  full_join(d_sim_us_children) %>% select(-starts_with("sib")) %>%
+  full_join(d_sim_gh_children) %>% select(-starts_with("sib")) %>%
+  full_join(d_sim_th_children) %>% select(-starts_with("sib")) %>%
+  full_join(d_sim_ch_children) %>% select(-starts_with("sib")) %>%
+  full_join(d_sim_vt_children) %>% select(-starts_with("sib")) %>%
+  mutate(age_group = case_when(grepl("adults", subj_id) ~ "adults",
+                               grepl("children", subj_id) ~ "children")) %>%
+  mutate(country = factor(country, levels = levels_country)) %>%
+  group_by(country, age_group) %>%
+  mutate(dev_rescale = scales::rescale(MSE)) %>%
+  summarise(min_MSE = min(MSE, na.rm = T),
+            max_MSE = max(MSE, na.rm = T),
+            mean_MSE  = mean(MSE, na.rm = T),
+            sd_MSE = sd(MSE, na.rm = T),
+            median_MSE = median(MSE, na.rm = T),
+            min_MSE_rescaled = min(MSE_rescaled, na.rm = T),
+            max_MSE_rescaled = max(MSE_rescaled, na.rm = T),
+            mean_MSE_rescaled  = mean(MSE_rescaled, na.rm = T),
+            sd_MSE_rescaled = sd(MSE_rescaled, na.rm = T),
+            median_MSE_rescaled = median(MSE_rescaled, na.rm = T)) %>%
+  arrange(age_group, country) %>%
+  mutate_if(is.numeric, ~format(round(., 2), nsmall = 2))
+```
+

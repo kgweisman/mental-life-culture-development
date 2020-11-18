@@ -1,0 +1,213 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+require(lavaan)
+```
+
+# 4 items per factor, US adult model
+
+```{r}
+model_us_adults <- '
+body =~ get_hungry + feel_tired + smell_things + feel_scared #+ feel_pain + feel_sick
+heart =~ get_hurt_feelings + feel_guilty + feel_sad + feel_shy #+ feel_proud + feel_love
+mind =~ sense_when_things_are_far_away + remember_things + hear_things + choose_what_to_do
+'
+```
+
+```{r}
+cfa_fun <- function(model, df) {
+  fit <- cfa(model, 
+             data = df %>% rename("feel sick" = "feel sick [...]") %>%
+                       rename_all(~gsub(" ", "_", .)))
+  return(fit)
+}
+```
+
+```{r}
+fit_us_adults <- cfa_fun(model_us_adults, d_us_adults_w)
+fit_gh_adults <- cfa_fun(model_us_adults, d_gh_adults_w)
+fit_th_adults <- cfa_fun(model_us_adults, d_th_adults_w)
+fit_ch_adults <- cfa_fun(model_us_adults, d_ch_adults_w)
+fit_vt_adults <- cfa_fun(model_us_adults, d_vt_adults_w)
+```
+
+```{r}
+fit_us_children <- cfa_fun(model_us_adults, d_us_children_w)
+fit_gh_children <- cfa_fun(model_us_adults, d_gh_children_w)
+fit_th_children <- cfa_fun(model_us_adults, d_th_children_w)
+fit_ch_children <- cfa_fun(model_us_adults, d_ch_children_w)
+fit_vt_children <- cfa_fun(model_us_adults, d_vt_children_w)
+```
+
+```{r}
+fitmeasures_fun <- function(res_list, 
+                            which_measures = c("chisq", "tli", "cfi", 
+                                               "rmsea", "srmr")) {
+  fit_res <- NULL
+
+  for (i in res_list) {
+    temp_res <- fitmeasures(i, fit.measures = which_measures)
+    fit_res <- bind_rows(fit_res, temp_res)
+  }
+  
+  # fit_res$fitted_object <- deparse(quote(res_list))
+
+  # fit_res <- fit_res %>%
+  #   mutate(sample = gsub("fit_", "", fitted_object)) %>%
+  #   separate(sample, into = c("country", "age_group")) %>%
+  #   mutate(country = factor(country,
+  #                           levels = c("us", "gh", "th", "ch", "vt"),
+  #                           labels = levels_country),
+  #          age_group = factor(age_group, levels = c("adults", "children"))) %>%
+  #   select(country, age_group, everything(), -fitted_object)
+  
+  return(fit_res)
+  
+}
+```
+
+```{r}
+cfa_fits_model_us_adults <- fitmeasures_fun(res_list = list(fit_us_adults,
+                                                            fit_gh_adults,
+                                                            fit_th_adults,
+                                                            fit_ch_adults,
+                                                            fit_vt_adults,
+                                                            fit_us_children,
+                                                            fit_gh_children,
+                                                            fit_th_children,
+                                                            fit_ch_children,
+                                                            fit_vt_children))
+```
+
+```{r}
+cfa_fits_model_us_adults <- cfa_fits_model_us_adults %>%
+  mutate(country = rep(c("US", "Ghana", "Thailand", "China", "Vanuatu"), 2),
+         country = factor(country, levels = levels_country),
+         age_group = c(rep("adults", 5), rep("children", 5)),
+         age_group = factor(age_group, levels = c("adults", "children")))
+```
+
+```{r}
+fit_plot_fun <- function(df_fits, fit_index, legend = F) {
+  
+  y_int <- case_when(fit_index == "cfi" ~ 0.90,
+                     fit_index == "tli" ~ 0.95,
+                     fit_index == "rmsea" ~ 0.08,
+                     fit_index == "srmr" ~ 0.08,
+                     TRUE ~ NA_real_)
+  
+  g <- cfa_fits_model_us_adults %>%
+    gather(index, fit, -c(country, age_group)) %>%
+    filter(index == fit_index) %>%
+    ggplot(aes(x = country, y = fit, color = country, size = age_group)) +
+    # facet_wrap(~ index, scales = "free", ncol = 5) + 
+    geom_hline(yintercept = y_int, lty = 2) +
+    geom_point() +
+    scale_color_brewer(palette = "Dark2") +
+    scale_size_manual(values = c(2, 1)) +
+    labs(title = toupper(fit_index),
+         x = NULL, y = NULL,
+         color = "Site", size = "Age group") +
+    theme(legend.position = "top",
+          # legend.box = "vertical",
+          axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1))
+  
+  if (!legend) { g <- g + theme(legend.position = "none") }
+  
+  return(g)
+  
+}
+```
+
+```{r, fig.width = 4, fig.asp = 0.4}
+plot_grid(get_legend(fit_plot_fun(cfa_fits_model_us_adults, 
+                                  fit_index = "cfi", legend = T)),
+          plot_grid(fit_plot_fun(cfa_fits_model_us_adults, fit_index = "chisq"),
+                    fit_plot_fun(cfa_fits_model_us_adults, fit_index = "cfi"),
+                    fit_plot_fun(cfa_fits_model_us_adults, fit_index = "tli"),
+                    fit_plot_fun(cfa_fits_model_us_adults, fit_index = "rmsea"),
+                    fit_plot_fun(cfa_fits_model_us_adults, fit_index = "srmr"),
+                    nrow = 1),
+          ncol = 1, rel_heights = c(0.2, 1))
+```
+
+
+# Multi-group CFA
+
+```{r}
+require(lavaan)
+require(semTools)
+```
+
+```{r}
+d_all_w <- d_us_adults_w %>%
+  mutate(country = "US", 
+         age_group = "adults") %>%
+  bind_rows(d_gh_adults_w %>%
+              mutate(country = "Ghana", 
+                     age_group = "adults")) %>%
+  bind_rows(d_th_adults_w %>%
+              mutate(country = "Thailand", 
+                     age_group = "adults")) %>%
+  bind_rows(d_ch_adults_w %>%
+              mutate(country = "China", 
+                     age_group = "adults")) %>%
+  bind_rows(d_vt_adults_w %>%
+              mutate(country = "Vanuatu", 
+                     age_group = "adults")) %>%
+  bind_rows(d_us_children_w %>%
+              mutate(country = "US", 
+                     age_group = "children")) %>%
+  bind_rows(d_gh_children_w %>%
+              mutate(country = "Ghana", 
+                     age_group = "children")) %>%
+  bind_rows(d_th_children_w %>%
+              mutate(country = "Thailand", 
+                     age_group = "children")) %>%
+  bind_rows(d_ch_children_w %>%
+              mutate(country = "China", 
+                     age_group = "children")) %>%
+  bind_rows(d_vt_children_w %>%
+              mutate(country = "Vanuatu", 
+                     age_group = "children")) %>%
+  rename("feel sick" = "feel sick [...]") %>%
+  rename_all(~ gsub(" ", "_", .))
+```
+
+```{r}
+compareFit(fit_us_adults, fit_gh_adults, fit_th_adults, 
+           fit_ch_adults, fit_vt_adults, nested = F)
+```
+
+```{r}
+fit_us_adults_us_children <- cfa(model_us_adults,
+                                 data = d_us_adults_w %>%
+                                   mutate(country = "US", 
+                                          age_group = "adults") %>%
+                                   bind_rows(d_us_children_w %>%
+                                               mutate(country = "US", 
+                                                      age_group = "children")) %>%
+                                   rename("feel sick" = "feel sick [...]") %>%
+                                   rename_all(~ gsub(" ", "_", .)),
+                                 group = "age_group",
+                                 std.lv = TRUE)
+```
+
+```{r}
+temp <- measEq.syntax(configural.model = model_us_adults,
+                      data = d_all_w %>% filter(country == "US"),
+                      group = "age_group")
+```
+
+```{r}
+model <- as.character(temp)
+fit <- lavaan(model)
+```
+
+```{r}
+summary(fit_us_adults_us_children, fit.measures = T)
+```
+
