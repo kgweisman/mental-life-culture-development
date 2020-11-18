@@ -1,6 +1,6 @@
 ---
 title: "Concepts of mental life across cultures: Primary analysis"
-authors: "Weisman, Legare, & Luhrmann"
+subtitle: "Exploratory factor analysis using full datasets, Pearson correlations, and oblique transformations"
 output: 
   html_notebook:
     toc: true
@@ -8,7 +8,7 @@ output:
 ---
 
 ```{r setup}
-knitr::opts_chunk$set(echo = F, message = F)
+knitr::opts_chunk$set(message = F, warning = FALSE)
 ```
 
 In this notebook we conduct exploratory factor analyses (EFAs) on the datasets for our studies of concepts of mental life, in which each participants judged the various mental capacities of a particular target entity. We analyze datasets for adults and children from each of our five field sites: the US, Ghana, Thailand, China, and Vanuatu. 
@@ -47,9 +47,6 @@ d_us_children <- read_csv("../data/d_us_children.csv") %>%
 d_gh_children <- read_csv("../data/d_gh_children.csv") %>%
   filter(target %in% levels_target_univ, question_cat == "universal") %>%
   mutate(question = gsub("\\, .*$", " \\[...\\]", question))
-# d_gh_eng_children <- read_csv("../data/d_gh_eng_children.csv") %>%
-#   filter(target %in% levels_target_univ, question_cat == "universal") %>%
-#   mutate(question = gsub("\\, .*$", " \\[...\\]", question))
 d_th_children <- read_csv("../data/d_th_children.csv") %>%
   filter(target %in% levels_target_univ, question_cat == "universal") %>%
   mutate(question = gsub("\\, .*$", " \\[...\\]", question))
@@ -116,7 +113,7 @@ bind_rows(d_us_adults, d_gh_adults, d_th_adults, d_ch_adults, d_vt_adults) %>%
 ## Factor retention: parallel analysis
 
 ```{r parallel dist adults, fig.width = 3, fig.asp = 0.5}
-# NOTE: there appears to be some unreliability/non-reproducibility in results, especially for vt adults, which I don't understand -- so here's the distribution over outcomes of parallel analysis with 100 iterations. We'll choose the median number of factors.
+# NOTE: Here is distribution over outcomes of parallel analysis with 100 iterations. We'll choose the median number of factors.
 
 if (file.exists("../results/pa_outcomes_dist_adults.RDS")) {
   
@@ -266,45 +263,6 @@ loadings_adults <- bind_rows(
   arrange(country, factor, desc(abs(loading)), capacity) %>%
   mutate(order = 1:nrow(.)) %>%
   left_join(factor_names_adults)
-```
-
-```{r heatmaps by site adults, fig.width = 15, fig.asp = 0.25}
-plot_grid(heatmap_fun(efa_us_adults, 
-                      factor_names = factor_names_adults %>%
-                        filter(country == "US") %>%
-                        select(factor_labdescript) %>%
-                        unlist()) + 
-            theme(legend.position = "none") +
-            labs(title = "US: adults"),
-          heatmap_fun(efa_gh_adults,
-                      factor_names = factor_names_adults %>%
-                        filter(country == "Ghana") %>%
-                        select(factor_labdescript) %>%
-                        unlist()) + 
-            theme(legend.position = "none") +
-            labs(title = "GHANA: adults"),
-          heatmap_fun(efa_th_adults,
-                      factor_names = factor_names_adults %>%
-                        filter(country == "Thailand") %>%
-                        select(factor_labdescript) %>%
-                        unlist()) + 
-            theme(legend.position = "none") +
-            labs(title = "THAILAND: adults"),
-          heatmap_fun(efa_ch_adults,
-                      factor_names = factor_names_adults %>%
-                        filter(country == "China") %>%
-                        select(factor_labdescript) %>%
-                        unlist()) + 
-            theme(legend.position = "none") +
-            labs(title = "CHINA: adults"),
-          heatmap_fun(efa_vt_adults,
-                      factor_names = factor_names_adults %>%
-                        filter(country == "Vanuatu") %>%
-                        select(factor_labdescript) %>%
-                        unlist()) + 
-            theme(legend.position = "none") +
-            labs(title = "VANUATU: adults"),
-          ncol = 5)
 ```
 
 ```{r heatmap adults, fig.width = 5, fig.asp = 0.7}
@@ -579,7 +537,7 @@ bind_rows(d_us_children, d_gh_children, d_th_children, d_ch_children, d_vt_child
 ## Factor retention: parallel analysis
 
 ```{r parallel dist children, fig.width = 3, fig.asp = 0.5}
-# NOTE: there appears to be some unreliability/non-reproducibility in results, especially for vt adults, which I don't understand -- so here's the distribution over outcomes of parallel analysis with 100 iterations. We'll choose the median number of factors.
+# Here's the distribution over outcomes of parallel analysis with 100 iterations. We'll choose the median number of factors.
 
 if (file.exists("../results/pa_outcomes_dist_children.RDS")) {
   
@@ -734,45 +692,6 @@ loadings_children <- bind_rows(
   left_join(factor_names_children)
 ```
 
-```{r heatmaps by site children, fig.width = 15, fig.asp = 0.25}
-plot_grid(heatmap_fun(efa_us_children, 
-                      factor_names = factor_names_children %>%
-                        filter(country == "US") %>%
-                        select(factor_labdescript) %>%
-                        unlist()) + 
-            theme(legend.position = "none") +
-            labs(title = "US: children"),
-          heatmap_fun(efa_gh_children,
-                      factor_names = factor_names_children %>%
-                        filter(country == "Ghana") %>%
-                        select(factor_labdescript) %>%
-                        unlist()) + 
-            theme(legend.position = "none") +
-            labs(title = "GHANA: children"),
-          heatmap_fun(efa_th_children,
-                      factor_names = factor_names_children %>%
-                        filter(country == "Thailand") %>%
-                        select(factor_labdescript) %>%
-                        unlist()) + 
-            theme(legend.position = "none") +
-            labs(title = "THAILAND: children"),
-          heatmap_fun(efa_ch_children,
-                      factor_names = factor_names_children %>%
-                        filter(country == "China") %>%
-                        select(factor_labdescript) %>%
-                        unlist()) + 
-            theme(legend.position = "none") +
-            labs(title = "CHINA: children"),
-          heatmap_fun(efa_vt_children,
-                      factor_names = factor_names_children %>%
-                        filter(country == "Vanuatu") %>%
-                        select(factor_labdescript) %>%
-                        unlist()) + 
-            theme(legend.position = "none") +
-            labs(title = "VANUATU: children"),
-          ncol = 5)
-```
-
 ```{r heatmap children, fig.width = 5, fig.asp = 0.7}
 # make heatmap figure: children
 loadings_children %>%
@@ -894,7 +813,13 @@ cong_df_children %>%
   mutate(lab_A = paste(paste0(region_A, ","), 
                        paste0(toupper(country_A), ":"), 
                        age_group_A, sep = "\n")) %>%
-  ggplot(aes(x = factor_labdescript_A, y = mean)) +
+  mutate(bhm_A = case_when(
+    grepl("body", tolower(factor_labdescript_A)) ~ "body",
+    grepl("mind", tolower(factor_labdescript_A)) ~ "mind",
+    grepl("heart", tolower(factor_labdescript_A)) ~ "heart", 
+    TRUE ~ "other")) %>%
+  mutate(bhm_A = factor(bhm_A, levels = c("body", "heart", "mind", "other"))) %>%
+  ggplot(aes(x = reorder(factor_labdescript_A, as.numeric(bhm_A)), y = mean)) +
   facet_grid(factor_bhm_B ~ reorder(lab_A, as.numeric(country_A)), 
              scales = "free_x", space = "free_x") +
   annotate("rect", xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = 0.85,
@@ -1266,7 +1191,7 @@ ggsave("../figures/figS09_oblique.png")
 ```
 
 ```{r loadings all samples, fig.width = 6.5, fig.asp = 0.6}
-# FIGURE 1
+# FIGURE 1, version 1
 heatmap_comp_fun(list(efa_us_adults, efa_gh_adults, efa_th_adults, 
                       efa_ch_adults, efa_vt_adults, 
                       efa_us_children, efa_gh_children, efa_th_children, 
@@ -1277,7 +1202,7 @@ heatmap_comp_fun(list(efa_us_adults, efa_gh_adults, efa_th_adults,
         legend.position = "bottom") +
   guides(fill = guide_colorbar(barwidth = 30, barheight = 0.5, 
                                title = "Factor loading", title.vjust = 1))
-ggsave("../figures/fig01_oblique.png")
+ggsave("../figures/fig01v1_oblique.png")
 ```
 
 ```{r dominant factor, fig.width = 6.5, fig.asp = 0.6, include = F}
@@ -1332,7 +1257,7 @@ ggplot(rect_df %>%
 ```
 
 ```{r loadings all samples v2, fig.width = 6.5, fig.asp = 0.6}
-# alternative to FIGURE 1
+# FIGURE 1, version 2 (included in main text)
 loadings_adults %>%
   bind_rows(loadings_children) %>%
   # select(-contains("_ord")) %>%
@@ -1369,120 +1294,6 @@ loadings_adults %>%
   # spread(country, loading)
 ggsave("../figures/fig01v2_oblique.png")
 ```
-
-## Other metrics of similarity
-
-```{r}
-loadings_adults %>%
-  filter(factor == "usADULTS_F1") %>%
-  filter(loading >= 0.50)
-
-loadings_adults %>%
-  bind_rows(loadings_children) %>%
-  # filter(grepl("body", factor_descript)) %>%
-  select(country, factor, capacity, loading) %>%
-  filter(loading >= 0.50) %>%
-  count(country, factor)
-```
-
-```{r}
-strong_loadings <- loadings_all %>%
-  select(factor, capacity, loading) %>%
-  mutate(strong_load = ifelse(loading >= 0.5, 1, 0)) %>%
-  select(-loading) %>%
-  spread(factor, strong_load)
-```
-
-```{r}
-compare_fun <- function(x, y) {
-  res <- x == y
-  res <- sum(res)/length(x)
-  return(res)
-}
-```
-
-```{r}
-compare_fun(strong_loadings$chADULTS_F1, strong_loadings$chADULTS_F2)
-```
-
-```{r}
-bin_sim <- loadings_all %>%
-  select(factor, capacity, loading) %>%
-  mutate(strong_load = ifelse(loading >= 0.5, 1, 0)) %>%
-  select(-loading) %>%
-  spread(factor, strong_load) %>%
-  column_to_rownames("capacity") %>%
-  t() %>%
-  dist(method = "binary", diag = T, upper = T) %>%
-  as.matrix() %>%
-  data.frame() %>%
-  rownames_to_column("factor_A") %>%
-  gather(factor_B, bin_sim, -factor_A)
-```
-
-```{r}
-ggplot(bin_sim, 
-       aes(x = factor_A, y = factor_B, fill = bin_sim)) +
-  geom_tile()
-```
-
-```{r}
-strong_load_fun <- function(which_base, which_bhm, which_age_group, 
-                            cutoff) {
-  df <- loadings_adults %>%
-    bind_rows(loadings_children) %>%
-    filter(grepl(which_bhm, tolower(factor_descript))) %>%
-    select(capacity, factor, loading) %>%
-    spread(factor, loading) %>%
-    filter_at(vars(-capacity), any_vars(. > cutoff)) %>%
-    gather(factor, loading, -capacity) %>%
-    mutate(strong_load = ifelse(loading > cutoff, T, F)) %>%
-    count(factor, strong_load) %>%
-    group_by(factor) %>%
-    mutate(prop_strong_load = n/sum(n)) %>%
-    filter(strong_load == T) %>%
-    select(factor, prop_strong_load) %>%
-    left_join(full_join(factor_names_adults, factor_names_children)) %>%
-    mutate(factor_bhm = case_when(
-      grepl("body", tolower(factor_descript)) ~ "BODY-like factors",
-      grepl("mind", tolower(factor_descript)) ~ "MIND-like factors",
-      grepl("heart", tolower(factor_descript)) ~ "HEART-like factors",
-      TRUE ~ "Other")) %>%
-    filter(as.character(age_group) %in% which_age_group)
-  
-  return(df)
-}
-```
-
-```{r}
-strong_load_plot_fun <- function(strong_df, which_bhm) {
-  g <- strong_df %>%
-    ggplot(aes(x = reorder(factor, as.numeric(country)), 
-               y = prop_strong_load, fill = country)) +
-    facet_grid(. ~ factor_bhm, scales = "free_x", space = "free_x") +
-    geom_bar(stat = "identity") +
-    scale_fill_brewer(palette = "Dark2") +
-    scale_y_continuous(limits = c(0, 1)) +
-    labs(title = paste0(toupper(which_bhm), "-like factors")) 
-  
-  return(g)
-}
-```
-
-```{r}
-strong_load_fun(which_bhm = "body", which_age_group = "adults", cutoff = 0.5)
-strong_load_fun(which_bhm = "heart", which_age_group = "adults", cutoff = 0.5)
-strong_load_fun(which_bhm = "mind", which_age_group = "adults", cutoff = 0.5)
-```
-
-
-```{r}
-strong_load_fun(which_bhm = "body", which_age_group = "adults", cutoff = 0.5) %>%
-  strong_load_plot_fun(which_bhm = "body")
-strong_load_fun(which_bhm = "heart", which_age_group = "adults", cutoff = 0.5)
-strong_load_fun(which_bhm = "mind", which_age_group = "adults", cutoff = 0.5)
-```
-
 
 ## Variance accounted for
 
@@ -1540,9 +1351,10 @@ Vaccounted_all %>%
   spread(country, value) %>%
   arrange(age_group, metric)
 ```
+
 ## Interfactor correlations
 
-```{r}
+```{r, include = F}
 interfactor_cor_fun <- function(efa_name) {
   sample = gsub("efa_", "", efa_name)
   country = gsub("_.*$", "", sample)
@@ -1574,7 +1386,7 @@ interfactor_cor_fun <- function(efa_name) {
 }
 ```
 
-```{r, results = "hide"}
+```{r, results = "hide", , include = F}
 d_phi <- bind_rows(interfactor_cor_fun("efa_us_adults"),
                    interfactor_cor_fun("efa_gh_adults"),
                    interfactor_cor_fun("efa_th_adults"),
@@ -1586,7 +1398,8 @@ d_phi <- bind_rows(interfactor_cor_fun("efa_us_adults"),
                    interfactor_cor_fun("efa_ch_children"),
                    interfactor_cor_fun("efa_vt_children"))
 ```
-```{r}
+
+```{r, include = F}
 d_phi <- d_phi %>%
   full_join(d_phi %>%
               rename_all(~ gsub("factor_A", "factor_C", .)) %>%
@@ -1595,7 +1408,7 @@ d_phi <- d_phi %>%
               rename_all(~ gsub("factor_C", "factor_B", .))) %>% distinct()
 ```
 
-```{r}
+```{r, include = F}
 d_phi <- d_phi %>%
   select(-country, -age_group) %>%
   left_join(factor_names_adults %>%
@@ -1623,8 +1436,7 @@ d_phi <- d_phi %>%
   rename(country = country_A, age_group = age_group_A)
 ```
 
-
-```{r, fig.width = 4, fig.asp = 1}
+```{r, fig.width = 4, fig.asp = 1, , include = F}
 d_phi %>%
   ggplot(aes(x = factor_bhm_A, 
              y = reorder(factor_bhm_B, desc(factor_bhm_B)), 
@@ -1635,7 +1447,8 @@ d_phi %>%
   theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1)) +
   labs(x = NULL, y = NULL, fill = quote(phi))
 ```
-```{r, fig.width = 4, fig.asp = 0.6}
+
+```{r, fig.width = 4, fig.asp = 0.6, include = F}
 d_phi %>%
   ggplot(aes(x = factor_bhm_A, 
              color = country,
@@ -1654,7 +1467,7 @@ d_phi %>%
   labs(x = NULL, y = quote(phi))
 ```
 
-```{r, fig.width = 5, fig.asp = 0.7}
+```{r, fig.width = 5, fig.asp = 0.7, include = F}
 d_phi %>%
   ggplot(aes(x = country, 
              color = country,
@@ -1681,55 +1494,51 @@ d_phi %>%
 ```{r}
 cat("US ADULTS\n")
 efa_us_adults$Phi
-(efa_us_adults$Phi)^2
+# (efa_us_adults$Phi)^2
 
 cat("\nUS CHILDREN\n")
 efa_us_children$Phi
-(efa_us_children$Phi)^2
+# (efa_us_children$Phi)^2
 ```
 
 ```{r}
 cat("GHANA ADULTS\n")
 efa_gh_adults$Phi
-(efa_gh_adults$Phi)^2
+# (efa_gh_adults$Phi)^2
 
 cat("\nGHANA CHILDREN\n")
 efa_gh_children$Phi
-(efa_gh_children$Phi)^2
+# (efa_gh_children$Phi)^2
 ```
 
 ```{r}
 cat("THAILAND ADULTS\n")
 efa_th_adults$Phi
-(efa_th_adults$Phi)^2
+# (efa_th_adults$Phi)^2
 
 cat("\nTHAILAND CHILDREN\n")
 efa_th_children$Phi
-(efa_th_children$Phi)^2
+# (efa_th_children$Phi)^2
 ```
 
 ```{r}
 cat("CHINA ADULTS\n")
 efa_ch_adults$Phi
-(efa_ch_adults$Phi)^2
+# (efa_ch_adults$Phi)^2
 
 cat("\nCHINA CHILDREN\n")
 efa_ch_children$Phi
-(efa_ch_children$Phi)^2
+# (efa_ch_children$Phi)^2
 ```
 
 ```{r}
 cat("VANUATU ADULTS\n")
 efa_vt_adults$Phi
-(efa_vt_adults$Phi)^2
+# (efa_vt_adults$Phi)^2
 
 cat("\nVANUATU CHILDREN\n")
 efa_vt_children$Phi
-(efa_vt_children$Phi)^2
-```
-
-```{r}
-
+# (efa_vt_children$Phi)^2
 ```
 
 
