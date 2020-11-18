@@ -21,7 +21,3 @@ This repo includes analyses of the quantitative data from these studies, which w
 - betareg (built using version 3.1.3)
 - lme4 (built using verison 1.1.23)
 - lmerTest (built using version 3.1.2)
-
-**Figures** are available [here](https://github.com/kgweisman/mental-life-culture-development/tree/master/figures) -- HTML preview: [figures](http://htmlpreview.github.io/?https://github.com/kgweisman/mental-life-culture-development/blob/master/figures/figures.nb.html)
-
-
