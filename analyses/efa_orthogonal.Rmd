@@ -823,12 +823,12 @@ cong_df_children %>%
   ggplot(aes(x = reorder(factor_labdescript_A, as.numeric(bhm_A)), y = mean)) +
   facet_grid(factor_bhm_B ~ reorder(lab_A, as.numeric(country_A)), 
              scales = "free_x", space = "free_x") +
-  annotate("rect", xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = 0.85,
-           fill = "gray20", alpha = 0.2) +
-  annotate("rect", xmin = -Inf, xmax = Inf, ymin = 0.85, ymax = 0.95,
-           fill = viridisLite::viridis(2, begin = 0.75/2, end = 0.75)[1], alpha = 0.2) +
-  annotate("rect", xmin = -Inf, xmax = Inf, ymin = 0.95, ymax = Inf,
-           fill = viridisLite::viridis(2, begin = 0.75/2, end = 0.75)[2], alpha = 0.2) +
+  # annotate("rect", xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = 0.85,
+  #          fill = "gray20", alpha = 0.2) +
+  # annotate("rect", xmin = -Inf, xmax = Inf, ymin = 0.85, ymax = 0.95,
+  #          fill = viridisLite::viridis(2, begin = 0.75/2, end = 0.75)[1], alpha = 0.2) +
+  # annotate("rect", xmin = -Inf, xmax = Inf, ymin = 0.95, ymax = Inf,
+  #          fill = viridisLite::viridis(2, begin = 0.75/2, end = 0.75)[2], alpha = 0.2) +
   geom_hline(yintercept = 0.85, lty = 2, color = "gray10") +
   geom_hline(yintercept = 0.95, lty = 2, color = "gray10") +
   geom_pointrange(aes(ymin = ci_lower, ymax = ci_upper),
@@ -956,15 +956,15 @@ cong_all_ordered %>%
                                   cong > 0.65 ~ "c",
                                   TRUE ~ "d")),
             show.legend = F) +
-  # body-like factors
-  annotate("rect", xmin = 5.5, xmax = 15.5, ymin = 16.5, ymax = 26.5,
-           color = cong_plot_colors[1], size = 1.5, alpha = 0) +
-  # mind-like factors
-  annotate("rect", xmin = 15.5, xmax = 25.5, ymin = 6.5, ymax = 16.5,
-           color = cong_plot_colors[2], size = 1.5, alpha = 0) +
-  # heart-like factors
-  annotate("rect", xmin = 25.5, xmax = 31.5, ymin = 0.5, ymax = 6.5,
-           color = cong_plot_colors[3], size = 1.5, alpha = 0) +
+  # # body-like factors
+  # annotate("rect", xmin = 5.5, xmax = 15.5, ymin = 16.5, ymax = 26.5,
+  #          color = cong_plot_colors[1], size = 1.5, alpha = 0) +
+  # # mind-like factors
+  # annotate("rect", xmin = 15.5, xmax = 25.5, ymin = 6.5, ymax = 16.5,
+  #          color = cong_plot_colors[2], size = 1.5, alpha = 0) +
+  # # heart-like factors
+  # annotate("rect", xmin = 25.5, xmax = 31.5, ymin = 0.5, ymax = 6.5,
+  #          color = cong_plot_colors[3], size = 1.5, alpha = 0) +
   # scale_fill_viridis_c(trans = scales::exp_trans(base = exp(1)),
   #                      limits = c(cong_lower_lim, 1), 
   #                      breaks = seq(cong_lower_lim, 1, 0.05),
@@ -1102,15 +1102,15 @@ jaccard_all_ordered %>%
                       jaccard >= 0.25 ~ "c",
                       TRUE ~ "d")),
     show.legend = F) +
-  # mind-like and other factors
-  annotate("rect", xmin = 0.5, xmax = 14.5, ymin = 17.5, ymax = 31.5,
-           color = jaccard_plot_colors[2], size = 1.5, alpha = 0) +
-  # body-like factors
-  annotate("rect", xmin = 14.5, xmax = 24.5, ymin = 7.5, ymax = 17.5,
-           color = jaccard_plot_colors[1], size = 1.5, alpha = 0) +
-  # heart-like factors
-  annotate("rect", xmin = 24.5, xmax = 31.5, ymin = 0.5, ymax = 7.5,
-           color = jaccard_plot_colors[3], size = 1.5, alpha = 0) +
+  # # mind-like and other factors
+  # annotate("rect", xmin = 0.5, xmax = 14.5, ymin = 17.5, ymax = 31.5,
+  #          color = jaccard_plot_colors[2], size = 1.5, alpha = 0) +
+  # # body-like factors
+  # annotate("rect", xmin = 14.5, xmax = 24.5, ymin = 7.5, ymax = 17.5,
+  #          color = jaccard_plot_colors[1], size = 1.5, alpha = 0) +
+  # # heart-like factors
+  # annotate("rect", xmin = 24.5, xmax = 31.5, ymin = 0.5, ymax = 7.5,
+  #          color = jaccard_plot_colors[3], size = 1.5, alpha = 0) +
   scale_fill_viridis_c(#trans = scales::exp_trans(base = exp(1)),
                        limits = c(jaccard_lower_lim, 1),
                        breaks = seq(jaccard_lower_lim, 1, 0.05),
