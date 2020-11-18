@@ -8,7 +8,13 @@ This repo includes analyses of the quantitative data from these studies, which w
 
 **Analysis scripts** include both the primary results described the main text (exploratory factor analyses using Pearson correlations and oblique transformations) and many second analyses described or briefly referred to in the supplement. To view the results of an analysis in an HTML file, download the R Notebook (extension: .nb.html) to a folder on your computer and re-open it (from that folder) in a web browser -- or use the [htmlpreview.github.com](htmlpreview.github.com) links provided below. To view and manipulate the code, download the R Markdown file (extension: .Rmd) and open it in RStudio.
 
-**Dependencies**: These analyses were conducted using the following R packages:
+**Programming environment**: All analyses were conducted in R (version 4.0.0). 
+
+Additional session info:
+- Platform: x86_64-apple-darwin17.0 (64-bit)
+- Running under: macOS Catalina 10.15.7
+
+Dependencies:
 - tidyverse (built using version 1.3.0) 
 - lubridate (built using version 1.7.8)
 - readxl (built using version 1.3.1)
