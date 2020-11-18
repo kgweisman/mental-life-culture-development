@@ -1,6 +1,7 @@
 ---
 title: "Concepts of mental life across cultures: Primary analysis"
 subtitle: "Exploratory factor analysis using full datasets, Pearson correlations, and oblique transformations"
+authors: "**Kara Weisman**, Cristine H. Legare, Rachel E. Smith, Vivian A. Dzokoto, Felicity Aulino, Emily Ng, John C. Dulin, Nicole Ross-Zehnder, Joshua D. Brahinsky, & Tanya M. Luhrmann"
 output: 
   html_notebook:
     toc: true
