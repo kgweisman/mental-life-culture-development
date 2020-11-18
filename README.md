@@ -6,26 +6,22 @@ How do concepts of mental life vary across cultures? By asking simple questions 
 
 This repo includes analyses of the quantitative data from these studies, which were part of the [Mind and Spirit Project](https://themindandspiritproject.stanford.edu/#Home).
 
-**Datasets** for adults and children (6-12y) from each of the five field sites are available [here](https://github.com/kgweisman/mental-life-culture-development/tree/master/data); demographic information is available [here](https://github.com/kgweisman/mental-life-culture-development/tree/master/demographics). Scripts for cleaning and anonymization can be found in [data_preparation.nb.html](https://github.com/kgweisman/mental-life-culture-development/blob/master/analyses/data_preparation.nb.html) and [demo_preparation.nb.html](https://github.com/kgweisman/mental-life-culture-development/blob/master/analyses/demo_preparation.nb.html).
+**Datasets** for adults and children (6-12y) from each of the five field sites are available [here](https://github.com/kgweisman/mental-life-culture-development/tree/master/data); demographic information is available [here](https://github.com/kgweisman/mental-life-culture-development/tree/master/demographics). Scripts for cleaning and anonymization can be found in [data_preparation.nb.html](http://htmlpreview.github.io/?https://github.com/kgweisman/mental-life-culture-development/blob/master/analyses/data_preparation.nb.html) and [demo_preparation.nb.html](http://htmlpreview.github.io/?https://github.com/kgweisman/mental-life-culture-development/blob/master/analyses/demo_preparation.nb.html).
 
-**Analysis scripts** include both the primary results described the main text (exploratory factor analyses using Pearson correlations and oblique transformations: [efa_oblique.nb.html](https://github.com/kgweisman/mental-life-culture-development/blob/master/analyses/efa_oblique.nb.html)) and many second analyses described or briefly referred to in the supplement. To view the results of an analysis in an HTML file, download the R Notebook (extension: .nb.html) to a folder on your computer and re-open it (from that folder) in a web browser -- or use the [htmlpreview.github.com](htmlpreview.github.com) links provided below. To view and manipulate the code, download the R Markdown file (extension: .Rmd) and open it in RStudio.
+**Analysis scripts** include both the primary results described the main text (exploratory factor analyses using Pearson correlations and oblique transformations: [efa_oblique.nb.html](http://htmlpreview.github.io/?https://github.com/kgweisman/mental-life-culture-development/blob/master/analyses/efa_oblique.nb.html)) and many second analyses described or briefly referred to in the supplement. To view the results of an analysis in an HTML file, download the R Notebook (extension: .nb.html) to a folder on your computer and re-open it (from that folder) in a web browser -- or use the [htmlpreview.github.io](http://htmlpreview.github.io/) links provided. To view and manipulate the code, download the R Markdown file (extension: .Rmd) and open it in RStudio.
 
-**Programming environment**: All analyses were conducted in R (version 4.0.0). 
+**Programming environment**: All analyses were conducted in R (version 4.0.0); platform: x86_64-apple-darwin17.0 (64-bit); running under: macOS Catalina 10.15.7.
 
-Additional session info:
-- Platform: x86_64-apple-darwin17.0 (64-bit)
-- Running under: macOS Catalina 10.15.7
-
-Dependencies:
-- tidyverse (built using version 1.3.0) 
-- lubridate (built using version 1.7.8)
-- readxl (built using version 1.3.1)
-- psych (built using version 1.9.12.31)
-- cowplot (built using version 1.0.0)
-- reshape2 (built using version 1.4.4)
-- sjstats (built using version 0.18.0)
-- lsa (built using version 0.73.2)
-- langcog (built using version 0.1.9001; available at https://github.com/langcog/langcog-package)
-- betareg (built using version 3.1.3)
-- lme4 (built using verison 1.1.23)
-- lmerTest (built using version 3.1.2)
+The analyses were built using the following packages:
+- tidyverse (version 1.3.0) 
+- lubridate (version 1.7.8)
+- readxl (version 1.3.1)
+- psych (version 1.9.12.31)
+- cowplot (version 1.0.0)
+- reshape2 (version 1.4.4)
+- sjstats (version 0.18.0)
+- lsa (version 0.73.2)
+- langcog (version 0.1.9001; available at https://github.com/langcog/langcog-package)
+- betareg (version 3.1.3)
+- lme4 (verison 1.1.23)
+- lmerTest (version 3.1.2)
