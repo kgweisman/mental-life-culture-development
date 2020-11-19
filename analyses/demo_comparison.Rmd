@@ -21,7 +21,7 @@ In this notebook we conduct exploratory factor analyses (EFAs) on the datasets f
       
 This notebook contains an exploration of how well the cultural model represented by the EFA solution describes the responses of individuals within that culture, and whether this "fit" between individtual and cultural model varies along demographic lines.
 
-NOTE: As of now, the "efa_oblique.Rmd" notebook must be run prior to this notebook.
+**NOTE: As of now, the "efa_oblique.Rmd" notebook (or one of the alternative versions of these analyses) must be run prior to this notebook.** 
 
 ```{r}
 # read in participant logs for full demographics
