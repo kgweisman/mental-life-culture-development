@@ -15,7 +15,7 @@ knitr::opts_chunk$set(message = F, warning = FALSE)
 In this notebook we conduct exploratory factor analyses (EFAs) on the datasets for our studies of concepts of mental life, in which each participants judged the various mental capacities of a particular target entity. We analyze datasets for adults and children from each of our five field sites: the US, Ghana, Thailand, China, and Vanuatu. 
 
 This notebook contains secondary analyses, parallel to the results presented in the main text, in which we dropped participants who gave the same answer on every trial. 
-
+_
 ```{r, echo = F, message = F}
 source("./scripts/dependencies.R")
 source("./scripts/custom_funs.R")
@@ -390,9 +390,9 @@ cong_adults %>%
 ## Bootstrapped congruence
 
 ```{r bootstrap congruence adults}
-if (file.exists("../results/cong_df_adults_oblique_drop.RDS")) {
+if (file.exists("../results/cong_df_adults_drop.RDS")) {
   
-  cong_df_adults <- readRDS("../results/cong_df_adults_oblique_drop.RDS")
+  cong_df_adults <- readRDS("../results/cong_df_adults_drop.RDS")
   
 } else {
   
@@ -430,7 +430,7 @@ if (file.exists("../results/cong_df_adults_oblique_drop.RDS")) {
   
   rm(i, j, cname, temp, factors)
   
-  saveRDS(cong_df_adults, file = "../results/cong_df_adults_oblique_drop.RDS")
+  saveRDS(cong_df_adults, file = "../results/cong_df_adults_drop.RDS")
 }
 ```
 
@@ -446,11 +446,11 @@ cong_plot_fun(cong_df = cong_df_adults, which_country = "US") +
   ylim(min_cong_adults$min_cong, 1) +
   # ylim(NA, 1) +
   labs(x = NULL)
-ggsave("../figures/fig03_oblique.png")
+ggsave("../figures/fig03_drop.png")
 ```
 
 ```{r cong cis gh base adults, fig.width = 4, fig.asp = 0.9}
-# FIGURE S1
+# FIGURE S2
 cong_plot_fun(cong_df = cong_df_adults %>%
                 mutate_at(#vars(contains("labdescript")),
                   vars(factor_labdescript_A),
@@ -460,27 +460,27 @@ cong_plot_fun(cong_df = cong_df_adults %>%
                   funs(gsub("\\/", "\\/\n", .))), 
               which_country = "Ghana") +
   ylim(min_cong_adults$min_cong, 1)
-ggsave("../figures/figS01_oblique.png")
+ggsave("../figures/figS02_drop.png")
 ```
 
 ```{r cong cis th base adults, fig.width = 4, fig.asp = 0.9}
-# FIGURE S2
+# FIGURE S3
 cong_plot_fun(cong_df = cong_df_adults, 
               which_country = "Thailand") +
   ylim(min_cong_adults$min_cong, 1)
-ggsave("../figures/figS02_oblique.png")
+ggsave("../figures/figS03_drop.png")
 ```
 
 ```{r cong cis ch base adults, fig.width = 4, fig.asp = 0.9}
-# FIGURE S3
+# FIGURE S4
 cong_plot_fun(cong_df = cong_df_adults, 
               which_country = "China") +
   ylim(min_cong_adults$min_cong, 1)
-ggsave("../figures/figS03_oblique.png")
+ggsave("../figures/figS04_drop.png")
 ```
 
 ```{r cong cis vt base adults, fig.width = 4, fig.asp = 0.9}
-# FIGURE S4
+# FIGURE S5
 cong_plot_fun(cong_df = cong_df_adults %>%
                 mutate_at(#vars(contains("labdescript")),
                   vars(factor_labdescript_A),
@@ -490,7 +490,7 @@ cong_plot_fun(cong_df = cong_df_adults %>%
                   funs(gsub("\\/", "\\/\n", .))), 
               which_country = "Vanuatu") +
   ylim(min_cong_adults$min_cong, 1)
-ggsave("../figures/figS04_oblique.png")
+ggsave("../figures/figS05_drop.png")
 ```
 
 ```{r body mind cong adults}
@@ -756,9 +756,9 @@ See [All samples], below.
 ## Bootstrapped congruence
 
 ```{r bootstrap congruence children}
-if (file.exists("../results/cong_df_children_oblique_drop.RDS")) {
+if (file.exists("../results/cong_df_children_drop.RDS")) {
   
-  cong_df_children <- readRDS("../results/cong_df_children_oblique_drop.RDS")
+  cong_df_children <- readRDS("../results/cong_df_children_drop.RDS")
   
 } else {
   
@@ -819,7 +819,7 @@ if (file.exists("../results/cong_df_children_oblique_drop.RDS")) {
       grepl("heart", tolower(factor_descript_B)) ~ "Local adults:\nHeart-like factor",
       TRUE ~ "Local adults:\nOther factor"))
   
-  saveRDS(cong_df_children, file = "../results/cong_df_children_oblique_drop.RDS")
+  saveRDS(cong_df_children, file = "../results/cong_df_children_drop.RDS")
 }
 ```
 
@@ -852,12 +852,12 @@ cong_df_children %>%
   ggplot(aes(x = reorder(factor_labdescript_A, as.numeric(bhm_A)), y = mean)) +
   facet_grid(factor_bhm_B ~ reorder(lab_A, as.numeric(country_A)), 
              scales = "free_x", space = "free_x") +
-  annotate("rect", xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = 0.85,
-           fill = "gray20", alpha = 0.2) +
-  annotate("rect", xmin = -Inf, xmax = Inf, ymin = 0.85, ymax = 0.95,
-           fill = viridisLite::viridis(2, begin = 0.75/2, end = 0.75)[1], alpha = 0.2) +
-  annotate("rect", xmin = -Inf, xmax = Inf, ymin = 0.95, ymax = Inf,
-           fill = viridisLite::viridis(2, begin = 0.75/2, end = 0.75)[2], alpha = 0.2) +
+  # annotate("rect", xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = 0.85,
+  #          fill = "gray20", alpha = 0.2) +
+  # annotate("rect", xmin = -Inf, xmax = Inf, ymin = 0.85, ymax = 0.95,
+  #          fill = viridisLite::viridis(2, begin = 0.75/2, end = 0.75)[1], alpha = 0.2) +
+  # annotate("rect", xmin = -Inf, xmax = Inf, ymin = 0.95, ymax = Inf,
+  #          fill = viridisLite::viridis(2, begin = 0.75/2, end = 0.75)[2], alpha = 0.2) +
   geom_hline(yintercept = 0.85, lty = 2, color = "gray10") +
   geom_hline(yintercept = 0.95, lty = 2, color = "gray10") +
   geom_pointrange(aes(ymin = ci_lower, ymax = ci_upper),
@@ -879,7 +879,7 @@ cong_df_children %>%
         panel.border = element_rect(fill = scales::alpha("white", 0), color = "black"),
         strip.text = element_text(size = 10, face = "bold"), 
         plot.margin = unit(c(5.5, 5.5, 5.5, 15.5), "point"))
-ggsave("../figures/fig04_oblique.png")
+ggsave("../figures/fig04_drop.png")
 ```
 
 ```{r body mind cong children}
@@ -985,15 +985,15 @@ cong_all_ordered %>%
                                   cong > 0.65 ~ "c",
                                   TRUE ~ "d")),
             show.legend = F) +
-  # body-like factors
-  annotate("rect", xmin = 5.5, xmax = 15.5, ymin = 16.5, ymax = 26.5,
-           color = cong_plot_colors[1], size = 1.5, alpha = 0) +
-  # mind-like factors
-  annotate("rect", xmin = 15.5, xmax = 25.5, ymin = 6.5, ymax = 16.5,
-           color = cong_plot_colors[2], size = 1.5, alpha = 0) +
-  # heart-like factors
-  annotate("rect", xmin = 25.5, xmax = 31.5, ymin = 0.5, ymax = 6.5,
-           color = cong_plot_colors[3], size = 1.5, alpha = 0) +
+  # # body-like factors
+  # annotate("rect", xmin = 5.5, xmax = 15.5, ymin = 16.5, ymax = 26.5,
+  #          color = cong_plot_colors[1], size = 1.5, alpha = 0) +
+  # # mind-like factors
+  # annotate("rect", xmin = 15.5, xmax = 25.5, ymin = 6.5, ymax = 16.5,
+  #          color = cong_plot_colors[2], size = 1.5, alpha = 0) +
+  # # heart-like factors
+  # annotate("rect", xmin = 25.5, xmax = 31.5, ymin = 0.5, ymax = 6.5,
+  #          color = cong_plot_colors[3], size = 1.5, alpha = 0) +
   # scale_fill_viridis_c(trans = scales::exp_trans(base = exp(1)),
   #                      limits = c(cong_lower_lim, 1), 
   #                      breaks = seq(cong_lower_lim, 1, 0.05),
@@ -1034,7 +1034,7 @@ cong_all_ordered %>%
       color = rev(color_fun(cong_all_ordered$lab_A, color_list = cong_plot_colors))),
     axis.ticks.length = unit(0.25, "cm")) +
   labs(x = NULL, y = NULL, fill = expression(italic(r[c])))
-ggsave("../figures/fig02_oblique.png")
+ggsave("../figures/fig02_drop.png")
 ```
 
 ## Jaccard Similarity
@@ -1111,7 +1111,7 @@ jaccard_all_ordered <- melt(as.matrix(jaccard_all_w)) %>%
 ```
 
 ```{r jaccard all pairs plot, fig.width = 9.5, fig.asp = 0.9}
-# FIGURE 2 equivalent
+# FIGURE S1
 jaccard_lower_lim <- ifelse(min(jaccard_all_ordered$jaccard) > 0, 0, 
                          min(jaccard_all_ordered$jaccard))
 # jaccard_plot_colors <- c("red4", "blue4", "darkorchid4", "black")
@@ -1131,15 +1131,15 @@ jaccard_all_ordered %>%
                       jaccard >= 0.25 ~ "c",
                       TRUE ~ "d")),
     show.legend = F) +
-  # mind-like and other factors
-  annotate("rect", xmin = 0.5, xmax = 14.5, ymin = 17.5, ymax = 31.5,
-           color = jaccard_plot_colors[2], size = 1.5, alpha = 0) +
-  # body-like factors
-  annotate("rect", xmin = 14.5, xmax = 24.5, ymin = 7.5, ymax = 17.5,
-           color = jaccard_plot_colors[1], size = 1.5, alpha = 0) +
-  # heart-like factors
-  annotate("rect", xmin = 24.5, xmax = 31.5, ymin = 0.5, ymax = 7.5,
-           color = jaccard_plot_colors[3], size = 1.5, alpha = 0) +
+  # # mind-like and other factors
+  # annotate("rect", xmin = 0.5, xmax = 14.5, ymin = 17.5, ymax = 31.5,
+  #          color = jaccard_plot_colors[2], size = 1.5, alpha = 0) +
+  # # body-like factors
+  # annotate("rect", xmin = 14.5, xmax = 24.5, ymin = 7.5, ymax = 17.5,
+  #          color = jaccard_plot_colors[1], size = 1.5, alpha = 0) +
+  # # heart-like factors
+  # annotate("rect", xmin = 24.5, xmax = 31.5, ymin = 0.5, ymax = 7.5,
+  #          color = jaccard_plot_colors[3], size = 1.5, alpha = 0) +
   scale_fill_viridis_c(#trans = scales::exp_trans(base = exp(1)),
                        limits = c(jaccard_lower_lim, 1),
                        breaks = seq(jaccard_lower_lim, 1, 0.05),
@@ -1182,42 +1182,42 @@ jaccard_all_ordered %>%
       color = rev(color_fun(jaccard_all_ordered$lab_A, color_list = jaccard_plot_colors))),
     axis.ticks.length = unit(0.25, "cm")) +
   labs(x = NULL, y = NULL, fill = "Jaccard\nsimilarity")
-ggsave("../figures/fig02_oblique_jaccard.png")
+ggsave("../figures/figS01_drop.png")
 ```
 
 ## Developmental comparisons
 
 ```{r dev comp all sites, fig.width = 4, fig.asp = 1.2}
-# FIGURE S5, FIGURE S6, FIGURE S7, FIGURE S8, FIGURE S9
+# FIGURE S6, FIGURE S7, FIGURE S8, FIGURE S9, FIGURE S10
 plot_grid(heatmap_comp_fun(
   efa_list = list(efa_us_adults, efa_us_children), padding = F),
   dev_cong_plot_fun(cong_df_children, which_country = "US", padding = T),
   ncol = 1, rel_heights = c(2, 1.5), labels = "AUTO")
-ggsave("../figures/figS05_oblique.png")
+ggsave("../figures/figS06_drop.png")
 
 plot_grid(heatmap_comp_fun(
   efa_list = list(efa_gh_adults, efa_gh_children), padding = F),
   dev_cong_plot_fun(cong_df_children, which_country = "Ghana", padding = T),
   ncol = 1, rel_heights = c(2, 1.5), labels = "AUTO")
-ggsave("../figures/figS06_oblique.png")
+ggsave("../figures/figS07_drop.png")
 
 plot_grid(heatmap_comp_fun(
   efa_list = list(efa_th_adults, efa_th_children), padding = F),
   dev_cong_plot_fun(cong_df_children, which_country = "Thailand", padding = T),
   ncol = 1, rel_heights = c(2, 1.5), labels = "AUTO")
-ggsave("../figures/figS07_oblique.png")
+ggsave("../figures/figS08_drop.png")
 
 plot_grid(heatmap_comp_fun(
   efa_list = list(efa_ch_adults, efa_ch_children), padding = F),
   dev_cong_plot_fun(cong_df_children, which_country = "China", padding = T),
   ncol = 1, rel_heights = c(2, 1.5), labels = "AUTO")
-ggsave("../figures/figS08_oblique.png")
+ggsave("../figures/figS09_drop.png")
 
 plot_grid(heatmap_comp_fun(
   efa_list = list(efa_vt_adults, efa_vt_children), padding = F),
   dev_cong_plot_fun(cong_df_children, which_country = "Vanuatu", padding = T),
   ncol = 1, rel_heights = c(2, 1.5), labels = "AUTO")
-ggsave("../figures/figS09_oblique.png")
+ggsave("../figures/figS10_drop.png")
 ```
 
 ```{r loadings all samples, fig.width = 6.5, fig.asp = 0.6}
@@ -1232,7 +1232,7 @@ heatmap_comp_fun(list(efa_us_adults, efa_gh_adults, efa_th_adults,
         legend.position = "bottom") +
   guides(fill = guide_colorbar(barwidth = 30, barheight = 0.5, 
                                title = "Factor loading", title.vjust = 1))
-ggsave("../figures/fig01v1_oblique.png")
+ggsave("../figures/fig01v1_drop.png")
 ```
 
 ```{r dominant factor, fig.width = 6.5, fig.asp = 0.6, include = F}
@@ -1283,7 +1283,7 @@ ggplot(rect_df %>%
   theme(panel.spacing.x = unit(c(rep(0.2, 4), 1, rep(0.2, 4)), "line"),
         axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1),
         legend.position = "bottom")
-# ggsave("../figures/fig01v2_oblique.png")
+# ggsave("../figures/fig01v2_drop.png")
 ```
 
 ```{r loadings all samples v2, fig.width = 6.5, fig.asp = 0.6}
@@ -1307,7 +1307,7 @@ loadings_adults %>%
              y = reorder(capacity_ord_us, desc(capacity_ord_us)),
              fill = loading)) +
   facet_grid(cols = vars(factor_bhm, age_group), 
-             scales = "free", space = "free") +
+             scales = "fixed", space = "free") +
   geom_tile(color = "black", size = 0.2) +
   geom_text(aes(label = format(round(loading, 2), nsmall = 2), 
                 fontface = font_face), size = 3) +
@@ -1315,14 +1315,14 @@ loadings_adults %>%
   theme_minimal() +
   labs(x = NULL, y = NULL) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1),
-        panel.spacing.x = unit(c(0.2, 1, 0.2, 1, 0.2, 1, 0.2), "line"),
+        panel.spacing.x = unit(c(0.2, 1, 0.2, 1, 0.2, 1), "line"),
         legend.position = "bottom") +
   guides(fill = guide_colorbar(barwidth = 30, barheight = 0.5, 
                                title = "Factor loading", title.vjust = 1))
   # select(country, capacity, loading) %>%
   # mutate(loading = round(loading, 2)) %>%
   # spread(country, loading)
-ggsave("../figures/fig01v2_oblique.png")
+ggsave("../figures/fig01v2_drop.png")
 ```
 
 ## Variance accounted for

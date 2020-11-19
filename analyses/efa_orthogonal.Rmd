@@ -421,7 +421,7 @@ ggsave("../figures/fig03_orthogonal.png")
 ```
 
 ```{r cong cis gh base adults, fig.width = 4, fig.asp = 0.9}
-# FIGURE S1
+# FIGURE S2
 cong_plot_fun(cong_df = cong_df_adults %>%
                 mutate_at(#vars(contains("labdescript")),
                   vars(factor_labdescript_A),
@@ -431,27 +431,27 @@ cong_plot_fun(cong_df = cong_df_adults %>%
                   funs(gsub("\\/", "\\/\n", .))), 
               which_country = "Ghana") +
   ylim(min_cong_adults$min_cong, 1)
-ggsave("../figures/figS01_orthogonal.png")
-```
-
-```{r cong cis th base adults, fig.width = 4, fig.asp = 0.9}
-# FIGURE S2
-cong_plot_fun(cong_df = cong_df_adults, 
-              which_country = "Thailand") +
-  ylim(min_cong_adults$min_cong, 1)
 ggsave("../figures/figS02_orthogonal.png")
 ```
 
-```{r cong cis ch base adults, fig.width = 4, fig.asp = 0.9}
+```{r cong cis th base adults, fig.width = 4, fig.asp = 0.9}
 # FIGURE S3
 cong_plot_fun(cong_df = cong_df_adults, 
-              which_country = "China") +
+              which_country = "Thailand") +
   ylim(min_cong_adults$min_cong, 1)
 ggsave("../figures/figS03_orthogonal.png")
 ```
 
-```{r cong cis vt base adults, fig.width = 4, fig.asp = 0.9}
+```{r cong cis ch base adults, fig.width = 4, fig.asp = 0.9}
 # FIGURE S4
+cong_plot_fun(cong_df = cong_df_adults, 
+              which_country = "China") +
+  ylim(min_cong_adults$min_cong, 1)
+ggsave("../figures/figS04_orthogonal.png")
+```
+
+```{r cong cis vt base adults, fig.width = 4, fig.asp = 0.9}
+# FIGURE S5
 cong_plot_fun(cong_df = cong_df_adults %>%
                 mutate_at(#vars(contains("labdescript")),
                   vars(factor_labdescript_A),
@@ -461,7 +461,7 @@ cong_plot_fun(cong_df = cong_df_adults %>%
                   funs(gsub("\\/", "\\/\n", .))), 
               which_country = "Vanuatu") +
   ylim(min_cong_adults$min_cong, 1)
-ggsave("../figures/figS04_orthogonal.png")
+ggsave("../figures/figS05_orthogonal.png")
 ```
 
 ```{r body mind cong adults}
@@ -1082,7 +1082,7 @@ jaccard_all_ordered <- melt(as.matrix(jaccard_all_w)) %>%
 ```
 
 ```{r jaccard all pairs plot, fig.width = 9.5, fig.asp = 0.9}
-# FIGURE 2 equivalent
+# FIGURE S1
 jaccard_lower_lim <- ifelse(min(jaccard_all_ordered$jaccard) > 0, 0, 
                          min(jaccard_all_ordered$jaccard))
 # jaccard_plot_colors <- c("red4", "blue4", "darkorchid4", "black")
@@ -1153,42 +1153,42 @@ jaccard_all_ordered %>%
       color = rev(color_fun(jaccard_all_ordered$lab_A, color_list = jaccard_plot_colors))),
     axis.ticks.length = unit(0.25, "cm")) +
   labs(x = NULL, y = NULL, fill = "Jaccard\nsimilarity")
-ggsave("../figures/fig02_orthogonal_jaccard.png")
+ggsave("../figures/figS01_orthogonal.png")
 ```
 
 ## Developmental comparisons
 
 ```{r dev comp all sites, fig.width = 4, fig.asp = 1.2}
-# FIGURE S5, FIGURE S6, FIGURE S7, FIGURE S8, FIGURE S9
+# FIGURE S6, FIGURE S7, FIGURE S8, FIGURE S9, FIGURE S10
 plot_grid(heatmap_comp_fun(
   efa_list = list(efa_us_adults, efa_us_children), padding = F),
   dev_cong_plot_fun(cong_df_children, which_country = "US", padding = T),
   ncol = 1, rel_heights = c(2, 1.5), labels = "AUTO")
-ggsave("../figures/figS05_orthogonal.png")
+ggsave("../figures/figS06_orthogonal.png")
 
 plot_grid(heatmap_comp_fun(
   efa_list = list(efa_gh_adults, efa_gh_children), padding = F),
   dev_cong_plot_fun(cong_df_children, which_country = "Ghana", padding = T),
   ncol = 1, rel_heights = c(2, 1.5), labels = "AUTO")
-ggsave("../figures/figS06_orthogonal.png")
+ggsave("../figures/figS07_orthogonal.png")
 
 plot_grid(heatmap_comp_fun(
   efa_list = list(efa_th_adults, efa_th_children), padding = F),
   dev_cong_plot_fun(cong_df_children, which_country = "Thailand", padding = T),
   ncol = 1, rel_heights = c(2, 1.5), labels = "AUTO")
-ggsave("../figures/figS07_orthogonal.png")
+ggsave("../figures/figS08_orthogonal.png")
 
 plot_grid(heatmap_comp_fun(
   efa_list = list(efa_ch_adults, efa_ch_children), padding = F),
   dev_cong_plot_fun(cong_df_children, which_country = "China", padding = T),
   ncol = 1, rel_heights = c(2, 1.5), labels = "AUTO")
-ggsave("../figures/figS08_orthogonal.png")
+ggsave("../figures/figS09_orthogonal.png")
 
 plot_grid(heatmap_comp_fun(
   efa_list = list(efa_vt_adults, efa_vt_children), padding = F),
   dev_cong_plot_fun(cong_df_children, which_country = "Vanuatu", padding = T),
   ncol = 1, rel_heights = c(2, 1.5), labels = "AUTO")
-ggsave("../figures/figS09_orthogonal.png")
+ggsave("../figures/figS10_orthogonal.png")
 ```
 
 ```{r loadings all samples, fig.width = 6.5, fig.asp = 0.6}

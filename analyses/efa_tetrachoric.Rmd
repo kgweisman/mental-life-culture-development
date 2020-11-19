@@ -369,9 +369,9 @@ cong_adults %>%
 ## Bootstrapped congruence
 
 ```{r bootstrap congruence adults}
-if (file.exists("../results/cong_df_adults_oblique_tet.RDS")) {
+if (file.exists("../results/cong_df_adults_tet.RDS")) {
   
-  cong_df_adults <- readRDS("../results/cong_df_adults_oblique_tet.RDS")
+  cong_df_adults <- readRDS("../results/cong_df_adults_tet.RDS")
   
 } else {
   
@@ -409,7 +409,7 @@ if (file.exists("../results/cong_df_adults_oblique_tet.RDS")) {
   
   rm(i, j, cname, temp, factors)
   
-  saveRDS(cong_df_adults, file = "../results/cong_df_adults_oblique_tet.RDS")
+  saveRDS(cong_df_adults, file = "../results/cong_df_adults_tet.RDS")
 }
 ```
 
@@ -425,11 +425,11 @@ cong_plot_fun(cong_df = cong_df_adults, which_country = "US") +
   ylim(min_cong_adults$min_cong, 1) +
   # ylim(NA, 1) +
   labs(x = NULL)
-ggsave("../figures/fig03_oblique.png")
+ggsave("../figures/fig03_tet.png")
 ```
 
 ```{r cong cis gh base adults, fig.width = 4, fig.asp = 0.9}
-# FIGURE S1
+# FIGURE S2
 cong_plot_fun(cong_df = cong_df_adults %>%
                 mutate_at(#vars(contains("labdescript")),
                   vars(factor_labdescript_A),
@@ -439,27 +439,27 @@ cong_plot_fun(cong_df = cong_df_adults %>%
                   funs(gsub("\\/", "\\/\n", .))), 
               which_country = "Ghana") +
   ylim(min_cong_adults$min_cong, 1)
-ggsave("../figures/figS01_oblique.png")
+ggsave("../figures/figS02_tet.png")
 ```
 
 ```{r cong cis th base adults, fig.width = 4, fig.asp = 0.9}
-# FIGURE S2
+# FIGURE S3
 cong_plot_fun(cong_df = cong_df_adults, 
               which_country = "Thailand") +
   ylim(min_cong_adults$min_cong, 1)
-ggsave("../figures/figS02_oblique.png")
+ggsave("../figures/figS03_tet.png")
 ```
 
 ```{r cong cis ch base adults, fig.width = 4, fig.asp = 0.9}
-# FIGURE S3
+# FIGURE S4
 cong_plot_fun(cong_df = cong_df_adults, 
               which_country = "China") +
   ylim(min_cong_adults$min_cong, 1)
-ggsave("../figures/figS03_oblique.png")
+ggsave("../figures/figS04_tet.png")
 ```
 
 ```{r cong cis vt base adults, fig.width = 4, fig.asp = 0.9}
-# FIGURE S4
+# FIGURE S5
 cong_plot_fun(cong_df = cong_df_adults %>%
                 mutate_at(#vars(contains("labdescript")),
                   vars(factor_labdescript_A),
@@ -469,7 +469,7 @@ cong_plot_fun(cong_df = cong_df_adults %>%
                   funs(gsub("\\/", "\\/\n", .))), 
               which_country = "Vanuatu") +
   ylim(min_cong_adults$min_cong, 1)
-ggsave("../figures/figS04_oblique.png")
+ggsave("../figures/figS05_tet.png")
 ```
 
 ```{r body mind cong adults}
@@ -715,9 +715,9 @@ See [All samples], below.
 ## Bootstrapped congruence
 
 ```{r bootstrap congruence children}
-if (file.exists("../results/cong_df_children_oblique_tet.RDS")) {
+if (file.exists("../results/cong_df_children_tet.RDS")) {
   
-  cong_df_children <- readRDS("../results/cong_df_children_oblique_tet.RDS")
+  cong_df_children <- readRDS("../results/cong_df_children_tet.RDS")
   
 } else {
   
@@ -778,7 +778,7 @@ if (file.exists("../results/cong_df_children_oblique_tet.RDS")) {
       grepl("heart", tolower(factor_descript_B)) ~ "Local adults:\nHeart-like factor",
       TRUE ~ "Local adults:\nOther factor"))
   
-  saveRDS(cong_df_children, file = "../results/cong_df_children_oblique_tet.RDS")
+  saveRDS(cong_df_children, file = "../results/cong_df_children_tet.RDS")
 }
 ```
 
@@ -838,7 +838,7 @@ cong_df_children %>%
         panel.border = element_rect(fill = scales::alpha("white", 0), color = "black"),
         strip.text = element_text(size = 10, face = "bold"), 
         plot.margin = unit(c(5.5, 5.5, 5.5, 15.5), "point"))
-ggsave("../figures/fig04_oblique.png")
+ggsave("../figures/fig04_tet.png")
 ```
 
 ```{r body mind cong children}
@@ -993,7 +993,7 @@ cong_all_ordered %>%
       color = rev(color_fun(cong_all_ordered$lab_A, color_list = cong_plot_colors))),
     axis.ticks.length = unit(0.25, "cm")) +
   labs(x = NULL, y = NULL, fill = expression(italic(r[c])))
-ggsave("../figures/fig02_oblique.png")
+ggsave("../figures/fig02_tet.png")
 ```
 
 ## Jaccard Similarity
@@ -1070,7 +1070,7 @@ jaccard_all_ordered <- melt(as.matrix(jaccard_all_w)) %>%
 ```
 
 ```{r jaccard all pairs plot, fig.width = 9.5, fig.asp = 0.9}
-# FIGURE 2 equivalent
+# FIGURE S1
 jaccard_lower_lim <- ifelse(min(jaccard_all_ordered$jaccard) > 0, 0, 
                          min(jaccard_all_ordered$jaccard))
 # jaccard_plot_colors <- c("red4", "blue4", "darkorchid4", "black")
@@ -1141,42 +1141,42 @@ jaccard_all_ordered %>%
       color = rev(color_fun(jaccard_all_ordered$lab_A, color_list = jaccard_plot_colors))),
     axis.ticks.length = unit(0.25, "cm")) +
   labs(x = NULL, y = NULL, fill = "Jaccard\nsimilarity")
-ggsave("../figures/fig02_oblique_jaccard.png")
+ggsave("../figures/figS01_tet.png")
 ```
 
 ## Developmental comparisons
 
 ```{r dev comp all sites, fig.width = 4, fig.asp = 1.2}
-# FIGURE S5, FIGURE S6, FIGURE S7, FIGURE S8, FIGURE S9
+# FIGURE S6, FIGURE S7, FIGURE S8, FIGURE S9, FIGURE S10
 plot_grid(heatmap_comp_fun(
   efa_list = list(efa_us_adults, efa_us_children), padding = F),
   dev_cong_plot_fun(cong_df_children, which_country = "US", padding = T),
   ncol = 1, rel_heights = c(2, 1.5), labels = "AUTO")
-ggsave("../figures/figS05_oblique.png")
+ggsave("../figures/figS06_tet.png")
 
 plot_grid(heatmap_comp_fun(
   efa_list = list(efa_gh_adults, efa_gh_children), padding = F),
   dev_cong_plot_fun(cong_df_children, which_country = "Ghana", padding = T),
   ncol = 1, rel_heights = c(2, 1.5), labels = "AUTO")
-ggsave("../figures/figS06_oblique.png")
+ggsave("../figures/figS07_tet.png")
 
 plot_grid(heatmap_comp_fun(
   efa_list = list(efa_th_adults, efa_th_children), padding = F),
   dev_cong_plot_fun(cong_df_children, which_country = "Thailand", padding = T),
   ncol = 1, rel_heights = c(2, 1.5), labels = "AUTO")
-ggsave("../figures/figS07_oblique.png")
+ggsave("../figures/figS08_tet.png")
 
 plot_grid(heatmap_comp_fun(
   efa_list = list(efa_ch_adults, efa_ch_children), padding = F),
   dev_cong_plot_fun(cong_df_children, which_country = "China", padding = T),
   ncol = 1, rel_heights = c(2, 1.5), labels = "AUTO")
-ggsave("../figures/figS08_oblique.png")
+ggsave("../figures/figS09_tet.png")
 
 plot_grid(heatmap_comp_fun(
   efa_list = list(efa_vt_adults, efa_vt_children), padding = F),
   dev_cong_plot_fun(cong_df_children, which_country = "Vanuatu", padding = T),
   ncol = 1, rel_heights = c(2, 1.5), labels = "AUTO")
-ggsave("../figures/figS09_oblique.png")
+ggsave("../figures/figS10_tet.png")
 ```
 
 ```{r loadings all samples, fig.width = 6.5, fig.asp = 0.6}
@@ -1191,7 +1191,7 @@ heatmap_comp_fun(list(efa_us_adults, efa_gh_adults, efa_th_adults,
         legend.position = "bottom") +
   guides(fill = guide_colorbar(barwidth = 30, barheight = 0.5, 
                                title = "Factor loading", title.vjust = 1))
-ggsave("../figures/fig01v1_oblique.png")
+ggsave("../figures/fig01v1_tet.png")
 ```
 
 ```{r dominant factor, fig.width = 6.5, fig.asp = 0.6, include = F}
@@ -1242,7 +1242,7 @@ ggplot(rect_df %>%
   theme(panel.spacing.x = unit(c(rep(0.2, 4), 1, rep(0.2, 4)), "line"),
         axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1),
         legend.position = "bottom")
-# ggsave("../figures/fig01v2_oblique.png")
+# ggsave("../figures/fig01v2_tet.png")
 ```
 
 ```{r loadings all samples v2, fig.width = 6.5, fig.asp = 0.6}
@@ -1281,7 +1281,7 @@ loadings_adults %>%
   # select(country, capacity, loading) %>%
   # mutate(loading = round(loading, 2)) %>%
   # spread(country, loading)
-ggsave("../figures/fig01v2_oblique.png")
+ggsave("../figures/fig01v2_tet.png")
 ```
 
 ## Variance accounted for
