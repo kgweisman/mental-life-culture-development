@@ -1307,7 +1307,7 @@ loadings_adults %>%
              y = reorder(capacity_ord_us, desc(capacity_ord_us)),
              fill = loading)) +
   facet_grid(cols = vars(factor_bhm, age_group), 
-             scales = "fixed", space = "free") +
+             scales = "free", space = "free") +
   geom_tile(color = "black", size = 0.2) +
   geom_text(aes(label = format(round(loading, 2), nsmall = 2), 
                 fontface = font_face), size = 3) +
