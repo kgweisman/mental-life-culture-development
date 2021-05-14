@@ -812,7 +812,7 @@ min_cong_children <- cong_df_children %>%
 
 ### Figure 4
 
-```{r cong cis children, fig.width = 4, fig.asp = 1.4}
+```{r cong cis children b, fig.width = 4, fig.asp = 1.4}
 # FIGURE 4
 # fig.asp chosen to keep absolute height of y-axis relatively similar across adults and children
 cong_df_children %>%
@@ -863,6 +863,66 @@ cong_df_children %>%
         strip.text = element_text(size = 10, face = "bold"), 
         plot.margin = unit(c(5.5, 5.5, 5.5, 15.5), "point"))
 ggsave("../figures/fig04_oblique.png")
+```
+
+```{r cong cis children a, fig.width = 4, fig.asp = 0.5}
+# FIGURE 4
+# fig.asp chosen to keep absolute height of y-axis relatively similar across adults and children
+cong_df_children %>%
+  mutate(region_A = case_when(
+    country_A == "US" ~ "SF Bay Area",
+    country_A == "Ghana" ~ "Cape Coast",
+    country_A == "Thailand" ~ "Chiang Mai",
+    country_A == "China" ~ "Shanghai",
+    country_A == "Vanuatu" ~ "PV & Malekula")) %>%
+  mutate(sample_A = paste(country_A, age_group_A, sep = "\n")) %>%
+  mutate(lab_A = paste(paste0(region_A, ","), 
+                       paste0(toupper(country_A), ":"), 
+                       # age_group_A, 
+                       sep = "\n")) %>%
+  mutate(bhm_A = case_when(
+    grepl("body", tolower(factor_labdescript_A)) ~ "body",
+    grepl("mind", tolower(factor_labdescript_A)) ~ "mind",
+    grepl("heart", tolower(factor_labdescript_A)) ~ "heart", 
+    TRUE ~ "other")) %>%
+  mutate(bhm_A = factor(bhm_A, 
+                        levels = c("body", "heart", "mind", "other"),
+                        labels = c("body-like", "heart-like", "mind-like", "other"))) %>%
+  group_by(region_A, bhm_A) %>%
+  top_n(1, mean) %>%
+  ungroup() %>%
+  ggplot(aes(x = bhm_A,
+             # x = reorder(factor_labdescript_A, as.numeric(bhm_A)), 
+             y = mean,
+             color = bhm_A)) +
+  facet_grid(. ~ reorder(lab_A, as.numeric(country_A))) +
+             # scales = "free_x", space = "free_x") +
+  geom_pointrange(aes(ymin = ci_lower, ymax = ci_upper),
+                  fatten = 3,
+                  show.legend = T) +
+  # geom_text(aes(label = format(round(mean, 2), nsmall = 2),
+  #               y = ifelse(ci_lower < 0.2, ci_upper + 0.05, ci_lower - 0.05),
+  #               vjust = ifelse(ci_lower < 0.2, 0, 1)), show.legend = F) +
+  scale_y_continuous(breaks = seq(-1, 1, 0.2),
+                     limits = c(0, 1),
+                     expand = expansion(add = 0.05)) +
+  # scale_color_brewer(palette = "Dark2", aesthetics = c("color")) +#, "fill")) +
+  # scale_color_manual(values = c("black", "firebrick1", "black", "firebrick4")) +
+  scale_color_manual(values = c("#0072B2", "#D55E00", "#56B4E9", "#E69F00")) +
+  scale_shape_manual(values = 21:25) +
+  labs(x = NULL,
+       y = "Cosine similarity (relative to local adults)",
+       color = "Type of factor",
+       caption = "Error bars are bootstrapped 95% CIs") +
+       # y = expression("Cosine similarity relative to local adults "(italic(r[c])))) + 
+  # guides(color = "none", fill = "none") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1),
+        legend.position = "bottom",
+        panel.border = element_rect(fill = scales::alpha("white", 0), color = "black"),
+        strip.text = element_text(size = 10, face = "bold"), 
+        plot.margin = unit(c(5.5, 5.5, 5.5, 15.5), "point"))
+# ggsave("../figures/fig04_oblique.png")
 ```
 
 ```{r body mind cong children}
@@ -951,7 +1011,7 @@ cong_all_ordered <- melt(as.matrix(cong_all_w)) %>%
 
 ### Figure 2 
 
-```{r cong all pairs plot, fig.width = 9.5, fig.asp = 0.9}
+```{r cong all pairs plot a, fig.width = 9.5, fig.asp = 0.9}
 # FIGURE 2
 cong_lower_lim <- ifelse(min(cong_all_ordered$cong) > -0.05, -0.05, 
                          min(cong_all_ordered$cong))
@@ -1021,6 +1081,49 @@ cong_all_ordered %>%
   labs(x = NULL, y = NULL, fill = expression(italic(r[c])))
 ggsave("../figures/fig02_oblique.png")
 ```
+
+```{r cong all pairs plot b, fig.width = 6, fig.asp = 0.8}
+# FIGURE 2
+cong_lower_lim <- ifelse(min(cong_all_ordered$cong) > -0.05, -0.05, 
+                         min(cong_all_ordered$cong))
+# cong_plot_colors <- c("red4", "blue4", "darkorchid4", "black")
+# cong_plot_colors <- c("black", "black", "black", "black")
+cong_plot_colors <- c("red4", "red4", "red4", "black")
+
+cong_all_ordered %>%
+  ggplot(aes(x = reorder(gsub("\\:.*$", "", lab_A), as.numeric(factor_A_ordered)),
+             y = reorder(gsub("\\:.*$", "", lab_B), as.numeric(desc(factor_B_ordered))),
+             fill = cong)) + 
+  geom_tile(color = "black", size = 0.2) +
+  # # body-like factors
+  # annotate("rect", xmin = 5.5, xmax = 15.5, ymin = 16.5, ymax = 26.5,
+  #          color = cong_plot_colors[1], size = 1.5, alpha = 0) +
+  # # mind-like factors
+  # annotate("rect", xmin = 15.5, xmax = 25.5, ymin = 6.5, ymax = 16.5,
+  #          color = cong_plot_colors[2], size = 1.5, alpha = 0) +
+  # # heart-like factors
+  # annotate("rect", xmin = 25.5, xmax = 31.5, ymin = 0.5, ymax = 6.5,
+  #          color = cong_plot_colors[3], size = 1.5, alpha = 0) +
+  scale_fill_gradientn(#trans = scales::exp_trans(base = exp(1)),
+    limits = c(cong_lower_lim, 1), 
+    breaks = seq(cong_lower_lim, 1, 0.05),
+    labels = c(format(round(seq(cong_lower_lim, 0.8, 0.05), 2), nsmall = 2),
+               "0.85 = moderate", "0.90", 
+               "0.95 = high", "1.00"),
+    colors = viridisLite::viridis(6),
+    values = c(0, 0.65, 0.75, 0.85, 0.95, 1),
+    guide = guide_colorbar(barheight = 30)) +
+  scale_color_manual(values = c("black", "black", "black", "gray60")) +
+  theme_minimal() +
+  theme(
+    axis.text = element_text(size = 12),
+    axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1)) +
+  labs(x = NULL, y = NULL, 
+       fill = "Cosine\nsimilarity")
+       # fill = expression(italic(r[c])))
+# ggsave("../figures/fig02_oblique.png")
+```
+
 
 ## Jaccard Similarity
 
@@ -1278,7 +1381,7 @@ ggplot(rect_df %>%
 
 ### Figure 1, version 2 (included in main text)
 
-```{r loadings all samples v2, fig.width = 6.5, fig.asp = 0.6}
+```{r loadings all samples v2a, fig.width = 6.5, fig.asp = 0.6}
 # FIGURE 1, version 2 (included in main text)
 loadings_adults %>%
   bind_rows(loadings_children) %>%
@@ -1315,6 +1418,54 @@ loadings_adults %>%
   # mutate(loading = round(loading, 2)) %>%
   # spread(country, loading)
 ggsave("../figures/fig01v2_oblique.png")
+```
+```{r loadings all samples v2b, fig.width = 4.5, fig.asp = 0.6}
+# FIGURE 1, version 2 (included in main text)
+loadings_adults %>%
+  # bind_rows(loadings_children) %>%
+  # select(-contains("_ord")) %>%
+  mutate(factor_bhm = case_when(
+    grepl("body", tolower(factor_descript)) ~ "BODY-like factors",
+    grepl("mind", tolower(factor_descript)) ~ "MIND-like factors",
+    grepl("heart", tolower(factor_descript)) ~ "HEART-like factors",
+    TRUE ~ "Other")) %>%
+  left_join(strong_noncross_load_all %>% 
+              select(factor, capacity, strong_load, cross_load)) %>%
+  mutate(font_face = case_when(
+    strong_load == 1 & is.na(cross_load) ~ "bold",
+    TRUE ~ "plain")) %>%
+  mutate(region = case_when(
+    country == "US" ~ "SF Bay Area",
+    country == "Ghana" ~ "Cape Coast",
+    country == "Thailand" ~ "Chiang Mai",
+    country == "China" ~ "Shanghai",
+    country == "Vanuatu" ~ "PV & Malekula")) %>%
+  ggplot(aes(x = reorder(paste0(region, ", ", toupper(country)),
+                         as.numeric(country)),
+             # x = country,
+             # x = reorder(paste(gsub("Factor ", "F", factor_name), 
+             #                   factor_descript, sep = ": "), 
+             #             as.numeric(country)), 
+             y = reorder(capacity_ord_us, desc(capacity_ord_us)),
+             fill = loading)) +
+  facet_grid(cols = vars(factor_bhm), #, age_group), 
+             scales = "free", space = "free") +
+  geom_tile(color = "black", size = 0.2) +
+  geom_text(aes(label = format(round(loading, 2), nsmall = 2), 
+                fontface = font_face), size = 3) +
+  scale_fill_distiller(palette = "RdYlBu", limits = c(-1, 1)) +
+  theme_minimal() +
+  labs(x = NULL, y = NULL) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1),
+        strip.text = element_text(size = 12),
+        # panel.spacing.x = unit(c(0.2, 1, 0.2, 1, 0.2, 1, 0.2), "line"),
+        legend.position = "none") +
+  # guides(fill = guide_colorbar(barwidth = 0.5, barheight = 20, 
+  #                              title = "Factor loading", title.vjust = 1))
+  # select(country, capacity, loading) %>%
+  # mutate(loading = round(loading, 2)) %>%
+  # spread(country, loading)
+ggsave("../figures/fig01v2_oblique_adults.png")
 ```
 
 ## Variance accounted for
