@@ -68,8 +68,10 @@ d_vt_children <- read_csv("../data/d_vt_children.csv") %>%
 demo_us_adults <- read_csv("../demographics/plog_us_adults.csv") %>%
   # limit to sample used in analyses
   filter(subj_id %in% d_us_adults$subj_id) %>%
+  left_join(d_us_adults %>% distinct(subj_id, target)) %>%
   rename("afford_cat" = "afford") %>%
-  select(subj_id, age, gender, ethnicity_cat, language,
+  select(subj_id, target,
+         age, gender, ethnicity_cat, language,
          urban_rural_cat, education_cat, 
          afford_cat, class_cat, class_cat2,
          spirit_relig_num, religion)
@@ -79,7 +81,9 @@ demo_us_adults <- read_csv("../demographics/plog_us_adults.csv") %>%
 demo_gh_adults <- read_csv("../demographics/plog_gh_adults.csv") %>%
   # limit to sample used in analyses
   filter(subj_id %in% d_gh_adults$subj_id) %>%
-  select(subj_id, age, gender, ethnicity_cat, language,
+  left_join(d_gh_adults %>% distinct(subj_id, target)) %>%
+  select(subj_id, target,
+         age, gender, ethnicity_cat, language,
          urban_rural_cat, education_cat, 
          afford_cat, class_cat, class_cat2,
          spirit_relig_num, religion) 
@@ -90,7 +94,9 @@ demo_th_adults <- read_csv("../demographics/plog_th_adults.csv") %>%
   rename("afford_cat" = "afford") %>%
   # limit to sample used in analyses
   filter(subj_id %in% d_th_adults$subj_id) %>%
-  select(subj_id, age, gender, ethnicity_cat, language,
+  left_join(d_th_adults %>% distinct(subj_id, target)) %>%
+  select(subj_id, target,
+         age, gender, ethnicity_cat, language,
          urban_rural_cat, education_cat, 
          afford_cat, class_cat, class_cat2,
          spirit_relig_num, religion) 
@@ -101,7 +107,9 @@ demo_ch_adults <- read_csv("../demographics/plog_ch_adults.csv") %>%
   rename("afford_cat" = "afford") %>%
   # limit to sample used in analyses
   filter(subj_id %in% d_ch_adults$subj_id) %>%
-  select(subj_id, age, gender, ethnicity_cat, language,
+  left_join(d_ch_adults %>% distinct(subj_id, target)) %>%
+  select(subj_id, target,
+         age, gender, ethnicity_cat, language,
          urban_rural_cat, education_cat, 
          afford_cat, class_cat, class_cat2,
          spirit_relig_num, religion)
@@ -111,7 +119,8 @@ demo_ch_adults <- read_csv("../demographics/plog_ch_adults.csv") %>%
 demo_vt_adults <- read_csv("../demographics/plog_vt_adults.csv") %>%
   # limit to sample used in analyses
   filter(subj_id %in% d_vt_adults$subj_id) %>%
-  select(subj_id, age, gender, language, religion) %>%
+  left_join(d_vt_adults %>% distinct(subj_id, target)) %>%
+  select(subj_id, target, age, gender, language, religion) %>%
   mutate(gender = factor(tolower(gender),
                          levels = c("f", "m", "o"),
                          labels = c("female", "male", "other")))
@@ -130,7 +139,8 @@ demo_adults <- demo_us_adults %>%
                                  "th" = "Thailand",
                                  "ch" = "China",
                                  "vt" = "Vanuatu")) %>%
-  mutate(gender = recode(tolower(gender),
+  mutate(target = factor(target, levels_target_univ),
+         gender = recode(tolower(gender),
                          "f" = "f",
                          "female" = "f",
                          "m" = "m",
@@ -218,6 +228,13 @@ demo_adults <- demo_us_adults %>%
 ```{r sample adults}
 demo_adults %>% 
   count(country)
+```
+
+```{r target adults}
+demo_adults %>% 
+  count(country, target) %>%
+  complete(country, nesting(target), fill = list(n = 0)) %>%
+  spread(target, n)
 ```
 
 ```{r age adults}
@@ -372,7 +389,8 @@ demo_adults %>%
 demo_us_children <- read_csv("../demographics/plog_us_children.csv") %>%
   # limit to sample used in analyses
   filter(subj_id %in% d_us_children$subj_id) %>%
-  select(subj_id, age, gender, 
+  left_join(d_us_children %>% distinct(subj_id, target)) %>%
+  select(subj_id, target, age, gender, 
          ethnicity, ethnicity_cat, live_here, from_where, 
          language, language_home, language_school, 
          church, religion, religion_cat)
@@ -382,17 +400,19 @@ demo_us_children <- read_csv("../demographics/plog_us_children.csv") %>%
 demo_gh_children <- read_csv("../demographics/plog_gh_children.csv") %>%
   # limit to sample used in analyses
   filter(subj_id %in% d_gh_children$subj_id) %>%
-    select(subj_id, age, gender, 
-           live_here, from_where, 
-           language, language_home, language_school, 
-           church, church_cat, religion, religion_cat)
+  left_join(d_gh_children %>% distinct(subj_id, target)) %>%
+  select(subj_id, target, age, gender, 
+         live_here, from_where, 
+         language, language_home, language_school, 
+         church, church_cat, religion, religion_cat)
 ```
 
 ```{r demo th children}
 demo_th_children <- read_csv("../demographics/plog_th_children.csv") %>%
   # limit to sample used in analyses
   filter(subj_id %in% d_th_children$subj_id) %>%
-  select(subj_id, age, gender, 
+  left_join(d_th_children %>% distinct(subj_id, target)) %>%
+  select(subj_id, target, age, gender, 
          live_here, from_here, from_where, 
          language, language_home, language_school, 
          church, religion, religion_cat)
@@ -402,7 +422,8 @@ demo_th_children <- read_csv("../demographics/plog_th_children.csv") %>%
 demo_ch_children <- read_csv("../demographics/plog_ch_children.csv") %>%
   # limit to sample used in analyses
   filter(subj_id %in% d_ch_children$subj_id) %>%
-  select(subj_id, age, gender, 
+  left_join(d_ch_children %>% distinct(subj_id, target)) %>%
+  select(subj_id, target, age, gender, 
          live_here, from_here, from_where, 
          language, language_home, language_school, 
          church, religion, religion_cat)
@@ -412,7 +433,8 @@ demo_ch_children <- read_csv("../demographics/plog_ch_children.csv") %>%
 demo_vt_children <- read_csv("../demographics/plog_vt_children.csv") %>%
   # limit to sample used in analyses
   filter(subj_id %in% d_vt_children$subj_id) %>%
-  select(subj_id, age, gender, 
+  left_join(d_vt_children %>% distinct(subj_id, target)) %>%
+  select(subj_id, target, age, gender, 
          live_here, from_here, from_where, 
          language, language_home, language_school, 
          church, religion, religion_cat)
@@ -431,7 +453,8 @@ demo_children <- demo_us_children %>%
                                  "th" = "Thailand",
                                  "ch" = "China",
                                  "vt" = "Vanuatu")) %>%
-  mutate(gender = recode(tolower(gender),
+  mutate(target = factor(target, levels = levels_target_univ),
+         gender = recode(tolower(gender),
                          "f" = "f",
                          "female" = "f",
                          "m" = "m",
@@ -447,6 +470,13 @@ demo_children <- demo_us_children %>%
 ```{r sample children}
 demo_children %>% 
   count(country)
+```
+
+```{r target children}
+demo_children %>% 
+  count(country, target) %>%
+  complete(country, nesting(target), fill = list(n = 0)) %>%
+  spread(target, n)
 ```
 
 ```{r age children}
