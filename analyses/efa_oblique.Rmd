@@ -416,10 +416,9 @@ min_cong_adults <- cong_df_adults %>%
 ```{r cong cis us base adults, fig.width = 4, fig.asp = 0.9}
 # FIGURE 3
 cong_plot_fun(cong_df = cong_df_adults, which_country = "US") +
-  ylim(min_cong_adults$min_cong, 1) +
-  # ylim(NA, 1) +
   labs(x = NULL)
 ggsave("../figures/fig03_oblique.png")
+ggsave("../figures/fig03_oblique.pdf")
 ```
 
 ### Figure S2
@@ -836,11 +835,11 @@ cong_df_children %>%
   facet_grid(factor_bhm_B ~ reorder(lab_A, as.numeric(country_A)), 
              scales = "free_x", space = "free_x") +
   annotate("rect", xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = 0.85,
-           fill = "gray20", alpha = 0.2) +
+           fill = "white", alpha = 0.2) +
   annotate("rect", xmin = -Inf, xmax = Inf, ymin = 0.85, ymax = 0.95,
-           fill = viridisLite::viridis(2, begin = 0.75/2, end = 0.75)[1], alpha = 0.2) +
+           fill = "#fee090", alpha = 0.2) +
   annotate("rect", xmin = -Inf, xmax = Inf, ymin = 0.95, ymax = Inf,
-           fill = viridisLite::viridis(2, begin = 0.75/2, end = 0.75)[2], alpha = 0.2) +
+           fill = "#f46d43", alpha = 0.2) +
   geom_hline(yintercept = 0.85, lty = 2, color = "gray10") +
   geom_hline(yintercept = 0.95, lty = 2, color = "gray10") +
   geom_pointrange(aes(ymin = ci_lower, ymax = ci_upper),
@@ -863,9 +862,10 @@ cong_df_children %>%
         strip.text = element_text(size = 10, face = "bold"), 
         plot.margin = unit(c(5.5, 5.5, 5.5, 15.5), "point"))
 ggsave("../figures/fig04_oblique.png")
+ggsave("../figures/fig04_oblique.pdf")
 ```
 
-```{r cong cis children a, fig.width = 4, fig.asp = 0.5}
+```{r alt fig 4, fig.width = 4, fig.asp = 0.5}
 # FIGURE 4
 # fig.asp chosen to keep absolute height of y-axis relatively similar across adults and children
 cong_df_children %>%
@@ -897,14 +897,17 @@ cong_df_children %>%
              color = bhm_A)) +
   facet_grid(. ~ reorder(lab_A, as.numeric(country_A))) +
              # scales = "free_x", space = "free_x") +
+  geom_hline(yintercept = 0.85, lty = 2, size = 0.2) +
+  geom_hline(yintercept = 0.95, lty = 2, size = 0.2) + 
   geom_pointrange(aes(ymin = ci_lower, ymax = ci_upper),
-                  fatten = 3,
+                  fatten = 2,
                   show.legend = T) +
   # geom_text(aes(label = format(round(mean, 2), nsmall = 2),
   #               y = ifelse(ci_lower < 0.2, ci_upper + 0.05, ci_lower - 0.05),
   #               vjust = ifelse(ci_lower < 0.2, 0, 1)), show.legend = F) +
   scale_y_continuous(breaks = seq(-1, 1, 0.2),
-                     limits = c(0, 1),
+                     # limits = c(0, 1),
+                     limits = c(NA, 1),
                      expand = expansion(add = 0.05)) +
   # scale_color_brewer(palette = "Dark2", aesthetics = c("color")) +#, "fill")) +
   # scale_color_manual(values = c("black", "firebrick1", "black", "firebrick4")) +
@@ -922,7 +925,68 @@ cong_df_children %>%
         panel.border = element_rect(fill = scales::alpha("white", 0), color = "black"),
         strip.text = element_text(size = 10, face = "bold"), 
         plot.margin = unit(c(5.5, 5.5, 5.5, 15.5), "point"))
-# ggsave("../figures/fig04_oblique.png")
+```
+
+```{r alt fig 3, fig.width = 4, fig.asp = 0.5}
+# fig.asp chosen to keep absolute height of y-axis relatively similar across adults and children
+cong_df_adults %>%
+  mutate(region_A = case_when(
+    country_A == "US" ~ "SF Bay Area",
+    country_A == "Ghana" ~ "Cape Coast",
+    country_A == "Thailand" ~ "Chiang Mai",
+    country_A == "China" ~ "Shanghai",
+    country_A == "Vanuatu" ~ "PV & Malekula")) %>%
+  mutate(sample_A = paste(country_A, age_group_A, sep = "\n")) %>%
+  mutate(lab_A = paste(paste0(region_A, ","), 
+                       paste0(toupper(country_A), ":"), 
+                       # age_group_A, 
+                       sep = "\n")) %>%
+  mutate(bhm_A = case_when(
+    grepl("body", tolower(factor_labdescript_A)) ~ "body",
+    grepl("mind", tolower(factor_labdescript_A)) ~ "mind",
+    grepl("heart", tolower(factor_labdescript_A)) ~ "heart", 
+    TRUE ~ "other")) %>%
+  mutate(bhm_A = factor(bhm_A, 
+                        levels = c("body", "heart", "mind", "other"),
+                        labels = c("body-like", "heart-like", "mind-like", "other"))) %>%
+  group_by(region_A, bhm_A) %>%
+  filter(country_B == "US") %>%
+  top_n(1, mean) %>%
+  ungroup() %>%
+  ggplot(aes(x = bhm_A,
+             # x = reorder(factor_labdescript_A, as.numeric(bhm_A)), 
+             y = mean,
+             color = bhm_A)) +
+  facet_grid(. ~ reorder(lab_A, as.numeric(country_A))) +
+             # scales = "free_x", space = "free_x") +
+  geom_hline(yintercept = 0.85, lty = 2, size = 0.2) +
+  geom_hline(yintercept = 0.95, lty = 2, size = 0.2) + 
+  geom_pointrange(aes(ymin = ci_lower, ymax = ci_upper),
+                  fatten = 2,
+                  show.legend = T) +
+  # geom_text(aes(label = format(round(mean, 2), nsmall = 2),
+  #               y = ifelse(ci_lower < 0.2, ci_upper + 0.05, ci_lower - 0.05),
+  #               vjust = ifelse(ci_lower < 0.2, 0, 1)), show.legend = F) +
+  scale_y_continuous(breaks = seq(-1, 1, 0.2),
+                     # limits = c(0, 1),
+                     limits = c(NA, 1),
+                     expand = expansion(add = 0.05)) +
+  # scale_color_brewer(palette = "Dark2", aesthetics = c("color")) +#, "fill")) +
+  # scale_color_manual(values = c("black", "firebrick1", "black", "firebrick4")) +
+  scale_color_manual(values = c("#0072B2", "#D55E00", "#56B4E9", "#E69F00")) +
+  scale_shape_manual(values = 21:25) +
+  labs(x = NULL,
+       y = "Cosine similarity (relative to US adults)",
+       color = "Type of factor",
+       caption = "Error bars are bootstrapped 95% CIs") +
+       # y = expression("Cosine similarity relative to local adults "(italic(r[c])))) + 
+  # guides(color = "none", fill = "none") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1),
+        legend.position = "bottom",
+        panel.border = element_rect(fill = scales::alpha("white", 0), color = "black"),
+        strip.text = element_text(size = 10, face = "bold"), 
+        plot.margin = unit(c(5.5, 5.5, 5.5, 15.5), "point"))
 ```
 
 ```{r body mind cong children}
@@ -1017,7 +1081,8 @@ cong_lower_lim <- ifelse(min(cong_all_ordered$cong) > -0.05, -0.05,
                          min(cong_all_ordered$cong))
 # cong_plot_colors <- c("red4", "blue4", "darkorchid4", "black")
 # cong_plot_colors <- c("black", "black", "black", "black")
-cong_plot_colors <- c("red4", "red4", "red4", "black")
+# cong_plot_colors <- c("red4", "red4", "red4", "black")
+cong_plot_colors <- c("#313695", "#313695", "#313695", "black")
 
 cong_all_ordered %>%
   ggplot(aes(x = reorder(lab_A, as.numeric(factor_A_ordered)),
@@ -1039,21 +1104,23 @@ cong_all_ordered %>%
   # heart-like factors
   annotate("rect", xmin = 25.5, xmax = 31.5, ymin = 0.5, ymax = 6.5,
            color = cong_plot_colors[3], size = 1.5, alpha = 0) +
-  # scale_fill_viridis_c(trans = scales::exp_trans(base = exp(1)),
-  #                      limits = c(cong_lower_lim, 1), 
+  # scale_fill_viridis_c(#trans = scales::exp_trans(base = exp(1)),
+  #                      limits = c(cong_lower_lim, 1),
   #                      breaks = seq(cong_lower_lim, 1, 0.05),
   #                      labels = c(format(seq(cong_lower_lim, 0.8, 0.05), nsmall = 2),
-  #                                 "0.85 = moderate", "0.90", 
+  #                                 "0.85 = moderate", "0.90",
   #                                 "0.95 = high", "1.00"),
-  #                      option = "viridis",
+  #                      option = "magma",
   #                      guide = guide_colorbar(barheight = 40)) +
   scale_fill_gradientn(#trans = scales::exp_trans(base = exp(1)),
-    limits = c(cong_lower_lim, 1), 
+    limits = c(cong_lower_lim, 1),
     breaks = seq(cong_lower_lim, 1, 0.05),
-    labels = c(format(seq(cong_lower_lim, 0.8, 0.05), nsmall = 2),
-               "0.85 = moderate", "0.90", 
+    labels = c(format(round(seq(cong_lower_lim, 0.8, 0.05), 2), nsmall = 2),
+               "0.85 = moderate", "0.90",
                "0.95 = high", "1.00"),
-    colors = viridisLite::viridis(6),
+    # colors = viridisLite::viridis(6),
+    # colors = viridisLite::inferno(6),
+    colors = viridisLite::magma(6),
     values = c(0, 0.65, 0.75, 0.85, 0.95, 1),
     guide = guide_colorbar(barheight = 40)) +
   scale_color_manual(values = c("black", "black", "black", "gray60")) +
@@ -1080,6 +1147,7 @@ cong_all_ordered %>%
     axis.ticks.length = unit(0.25, "cm")) +
   labs(x = NULL, y = NULL, fill = expression(italic(r[c])))
 ggsave("../figures/fig02_oblique.png")
+ggsave("../figures/fig02_oblique.pdf")
 ```
 
 ```{r cong all pairs plot b, fig.width = 6, fig.asp = 0.8}
@@ -1381,7 +1449,7 @@ ggplot(rect_df %>%
 
 ### Figure 1, version 2 (included in main text)
 
-```{r loadings all samples v2a, fig.width = 6.5, fig.asp = 0.6}
+```{r loadings all samples v2a, fig.width = 7, fig.asp = 0.6}
 # FIGURE 1, version 2 (included in main text)
 loadings_adults %>%
   bind_rows(loadings_children) %>%
@@ -1418,9 +1486,10 @@ loadings_adults %>%
   # mutate(loading = round(loading, 2)) %>%
   # spread(country, loading)
 ggsave("../figures/fig01v2_oblique.png")
+ggsave("../figures/fig01v2_oblique.pdf")
 ```
 ```{r loadings all samples v2b, fig.width = 4.5, fig.asp = 0.6}
-# FIGURE 1, version 2 (included in main text)
+# FIGURE 1, version 2 (adults only)
 loadings_adults %>%
   # bind_rows(loadings_children) %>%
   # select(-contains("_ord")) %>%

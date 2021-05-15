@@ -856,7 +856,7 @@ cong_plot_fun <- function(cong_df, which_country,
                           sort_BHM = T, facet_long = T, bg_colors = NA) {
   
   if (is.na(bg_colors)) {
-    bg_colors <- c("gray20", viridisLite::viridis(2, begin = 0.75/2, end = 0.75))
+    bg_colors <- c("white", "#fee090", "#f46d43")
   }
   
   plot <- cong_df %>%
@@ -919,15 +919,15 @@ cong_plot_fun <- function(cong_df, which_country,
              fill = bg_colors[2], alpha = 0.2) +
     annotate("rect", xmin = -Inf, xmax = Inf, ymin = 0.95, ymax = Inf,
              fill = bg_colors[3], alpha = 0.2) +
-    geom_hline(yintercept = 0.85, lty = 2, color = "gray20") +
-    geom_hline(yintercept = 0.95, lty = 2, color = "gray20") +
+    geom_hline(yintercept = 0.85, lty = 2, color = "gray50") +
+    geom_hline(yintercept = 0.95, lty = 2, color = "gray50") +
     geom_pointrange(aes(ymin = ci_lower, ymax = ci_upper),
                     fatten = 3,
                     show.legend = F) +
     geom_text(aes(label = format(round(mean, 2), nsmall = 2),
-                  y = ifelse(ci_lower < 0.3, ci_upper + 0.02, ci_lower - 0.02),
+                  y = ifelse(ci_lower < 0.3, ci_upper + 0.05, ci_lower - 0.05),
                   vjust = ifelse(ci_lower < 0.2, 0, 1))) +
-    scale_y_continuous(breaks = seq(-1, 1, 0.2)) +
+    scale_y_continuous(breaks = seq(-1, 1, 0.25)) +
     scale_color_brewer(palette = "Dark2", aesthetics = c("color", "fill")) +
     scale_shape_manual(values = 21:25) +
     labs(x = "Factor", 
@@ -952,7 +952,7 @@ dev_cong_plot_fun <- function(df, which_country, padding = F,
   max_lab_length <- df$factor_labdescript_A %>% nchar() %>% max()
   
   if (is.na(bg_colors)) {
-    bg_colors <- c("gray20", viridisLite::viridis(2, begin = 0.75/2, end = 0.75))
+    bg_colors <- c("white", "#fee090", "#f46d43")
   }
   
   df <- df %>%
